@@ -1,0 +1,9 @@
+#RewriteEngine On
+#RewriteCond %{ENV:HTTPS} !on
+#RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<Files ~ "^(db_saver|auth|sess|function|menu|display)\.php$">
+Deny from all
+</Files>
+
+AddDefaultCharset utf-8

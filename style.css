@@ -1,0 +1,626 @@
+/*=============== Default ====================================================*/
+I, P, A, CENTER, EM, TD,
+OPTION, SELECT, DIV,
+INPUT, TEXTAREA, UL, OL, LI{
+	 font-family: Comic Sans MS;
+	font-style: normal;
+	text-decoration: none; color: #000;
+}
+form, img, table, tr, td{
+	border: 0px; margin: 0px; padding: 0px;
+}
+a, ul, li, ol, p {
+	margin: 0px; padding: 0px; text-decoration: none; list-style: none;
+}
+
+invisible {
+	display: none;
+}
+/*=============== Текст ======================================================*/
+a:hover {
+	color: #666;
+}
+.small {
+	font-size: 10pt; font-style: normal;
+}
+.big {
+	font-size: 15pt; font-weight: bold;
+}
+.very-big {
+	font-size: 24pt; font-weight: bold;
+}
+.text_insignificant {
+	font-size: 8pt; font-style: normal; color: #aaa;
+}
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none;
+}
+
+
+
+table, td.grand {
+	width: 100%;
+}
+#instruct img {
+	margin: 10px;
+}
+input, textarea, select, .border_inset  {
+	border: 2px solid #888;
+	border-radius: 4px;
+	background-color: #fff;
+}
+
+form {
+	position: relative;
+}
+.selectable_list_item {
+	border-radius: 6px;
+	cursor: pointer;
+}
+.selectable_list_item:hover {
+	background-color: #eee;
+	box-shadow: 0px 0px 3px #333;
+}
+
+/*=============== Тело  ======================================================*/
+body {
+	background-color: #eee;
+}
+body > #body {
+	margin: 0px auto;
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+/*=============== Окна сайта =================================================*/
+.windowSite {
+	-webkit-transition: all .5s;
+	transition: all .5s;
+	text-align: center;
+	margin: 5px;
+	position: relative;
+	border: 3px solid #fff;
+	border-radius: 6px;
+	background-color: #f7f7f7;
+	padding: 5px;
+	box-shadow: 0px 0px 5px #888;
+}
+	.windowSite:hover {
+			box-shadow: 0px 0px 10px #000;
+		}
+
+.windowTitle {
+	position: absolute;
+	display: flex;
+	font-size: 12pt;
+	top: -3px;
+	left: 10px;
+	border: 3px solid #fff;
+	border-top: 0px;
+	background-color: #eee;
+	padding: 4px;
+	border-radius: 0px 0px 7px 7px;
+	z-index: 200;
+}
+	.windowTitle li {
+		border: 2px solid #555;
+		background-color: #bbb;
+		margin-top: -10px;
+		padding: 2px 10px;
+		border-radius: 4px;
+	}
+	.windowTitle .k_up {
+		margin-left: 10px;
+ 	}
+
+/*=============== Списки в меню и над игрой ==================================*/
+	#menu {
+		margin-bottom: 20px;
+		height: 60px;
+	}
+		#menu > a > img {
+			float: left;
+			height: 100%;
+		}
+		ul.styleList {
+			position: absolute;
+			display: flex;
+			bottom: -10px;
+			left: 250px;
+		}
+			ul.styleList li {
+				border: 3px solid #fff;
+				background-color: #eee;
+				height: 36px;
+				margin: 5px 5px 7px 5px;
+				padding: 4px 4px 0px 4px;
+				border-bottom: 0px;
+				border-radius: 7px 7px 0px 0px;
+			}
+				ul.styleList li a {
+					position: relative;
+					min-width: 30px;
+					height: 30px;
+					padding: 4px;
+					display: block;
+					border: 2px solid #555;
+					background-color: #bbb;
+					border-radius: 4px;
+					box-shadow: 0px 0px 3px #fff;
+					margin-bottom: -6px;
+					cursor: pointer;
+				}
+				ul.styleList li a:hover {
+					background-color: #ddd !important;
+				}
+		#bette {
+			position: absolute;
+			width: 13px; height: 10px;
+			top: -5px; right: -5px;
+			background-image: url('img/bette.png');
+		}
+
+/* ============== Блок атентификации ======================================== */
+	#blockAuth {
+		float: right;
+		display: grid;
+		grid-template-columns: 300px 1fr;
+		text-align: right;
+	}
+		#blockAuth i {
+			vertical-align: middle;
+			padding: 0px 10px;
+		}
+		#blockAuth #myNballov {
+			grid-column: 1 / 2;
+			font-size: 20pt;
+			vertical-align: middle;
+			padding: 0px 10px;
+		}
+		#blockAuth .avatar {
+			grid-column: 2 / 3;
+			grid-row: 1 / 3;
+			align-content: center;
+			margin: 3px 10px;
+		}
+		#blockAuth form {
+			grid-column: 2 / 3;
+			grid-row: 1 / 3;
+			display: grid;
+			grid-template-columns: 3fr 5fr 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+			grid-column-gap: 5px;
+			grid-row-gap: 2px;
+		}
+		#registration {grid-column: 4 / 5; grid-row: 1 / 3;}
+
+/*=============== Левый экран с пользователями и играми ======================*/
+#box_center {
+	  display: flex;
+		justify-content: center;
+		align-items: flex-start;
+}
+	#user_top {
+		width: 30%;
+		min-width: 210px;
+	}
+		#user_top_middle {
+			-webkit-transition: all 2s;
+			transition: all 2s;
+			display: block;
+			overflow: auto;
+			height: 500px;
+			padding: 20px 10px 0px 6px;
+		}
+			#user_top_middle div, #user_top_middle h1 {
+				border: 2px solid #f7f7f7;
+				vertical-align: middle;
+				text-align: center;
+			}
+			#user_top_middle div:hover {
+				border: 2px solid #666;
+				border-radius: 4px;
+				background-color: #ccc;
+				cursor: pointer;
+			}
+				#user_top_middle div ul {
+					position: relative;
+				}
+				#user_top_middle div ul li {
+					width: 30%;
+					margin: 0 auto;
+					vertical-align: middle;
+					text-align: center;
+					display: inline-block;
+				}
+					#user_top_middle div ul li img{
+						margin: 3px auto;
+					}
+					#user_top_middle div ul li i{
+						overflow: visible;
+						position: absolute;
+						top: 15%;
+						right: 90%;
+						padding: 0px 5px;
+						border: 2px solid #bbb;
+						border-radius: 4px;
+						background: #fff;
+						text-align: center;
+					}
+
+/*=============== Список игр =================================================*/
+  #box_game {
+		width: 70%;
+		min-width: 700px;
+		display: flex;
+		flex-direction: column;
+	}
+			.winPreshowGameItem {
+					width: 65%;
+					margin-bottom: -20px;
+			}
+			.winPreshowGameItem:last-child {
+					margin-bottom: 5px;
+			}
+			.winPreshowGameItem:hover {
+					z-index: 1111;
+			}
+			.winPreshowGameItem a > img {
+				width: 240px;
+				height: 160px;
+				margin: 5px;
+				border: 2px solid #ccc;
+				border-radius: 4px;
+			}
+			.winPreshowGameItem.chet   {text-align: left; padding-right: 15px; align-self: flex-start;}
+			.winPreshowGameItem.nechet {text-align: right; padding-left: 15px; align-self: flex-end;}
+			.winPreshowGameItem a      {display: inline-block;}
+			.winPreshowGameItem.chet img.border_inset   {float: left;}
+			.winPreshowGameItem.nechet img.border_inset {float: right;}
+			.winPreshowGameItem.chet .list   {position: absolute; right: -170px;}
+			.winPreshowGameItem.nechet .list {position: absolute; left: -170px;}
+			.list {
+				top: 10px;
+				width: 170px;
+				text-align: left;
+			}
+			div.winPreshowGameItem div.list ul:hover {
+				color: #fff;
+				text-shadow: #000 0px 0px 8px;
+				cursor: pointer;
+			}
+			div.winPreshowGameItem ul.line_game_nechet {
+				margin-left: 20px;
+			}
+			div.winPreshowGameItem ul li {
+				margin-top: -4px;
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+
+			.record {
+				position: absolute;
+				max-width: 210px;
+				text-align: left;
+				font-size: 10pt;
+				top: -3px;
+				border: 3px solid #fff; border-top: 0px;
+				background-color: #eee;
+				padding: 4px;
+				border-radius: 0px 0px 7px 7px;
+				cursor: default;
+			}
+			.record.chet {
+				left: 20px;
+			}
+			.record.nechet {
+				right: 20px;
+			}
+				.record div {
+					-webkit-transition: all 1s ease;
+					transition: all 1s ease;
+					border: 2px solid #555;
+					background-color: #bbb;
+					margin: -10px 0px 0px 0px;
+					padding: 6px;
+					overflow: hidden;
+					height: 10px;
+					cursor: default;
+					border-radius: 4px;
+				}
+				.record div:hover {
+					height: 180px;
+				}
+				.record:first-of-type ul:first-of-type img{
+					position: absolute;
+					top: -15px;
+					left: 10px;
+				}
+				.record:first-of-type ul:first-of-type {
+					font-weight: bold;
+					margin-left: 10px;
+					margin-bottom: 13px;
+				}
+				.record ul:nth-child(even) {
+					margin-left: 20px;
+				}
+				.record ul {
+					margin-top: -5px;
+					margin-bottom: -5px;
+				}
+
+/*=============== Некоторые настройки окон в играх ===========================*/
+		#game_block {
+			height: 100%;
+			/* text-align: center;
+			margin: 10px auto 10px; */
+		}
+			#game {
+				margin: 20px auto;
+				font-size: 0em;
+			}
+				#tag_Mine {
+					top: 50px;
+					left: 15%;
+				}
+					#tag_Mine img {
+						height: 100%;
+						width: 30px;
+					}
+					#tag_Mine p {
+						position: absolute;
+						display: block;
+					}
+
+/*=============== Обсуждалки =================================================*/
+#messageWindow {
+	min-height: 200px;
+	padding-top: 20px;
+	overflow: auto;
+	max-height: 400px;
+}
+	#messageWindow > ul.messageLists {
+		margin-top: 5px;
+	}
+		#messageWindow > ul.messageLists li {
+			display: grid;
+			align-items: center;
+			grid-template-columns: 1fr 4fr;
+			padding: 5px;
+			margin: 5px;
+		}
+			ul.messageLists .message_autor {
+				grid-column: 1 / 2;
+				border-right: 2px solid #eee;
+				padding: 5px;
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				align-items: center;
+			}
+				ul.messageLists .message_autor .avatar {grid-column: 1 / 2;}
+				ul.messageLists .message_autor span    {grid-column: 2 / 3;}
+				ul.messageLists .message_autor .data   {grid-column: 1 / 3;}
+
+			ul.messageLists .text {
+				grid-column: 2 / 3;
+				padding-left: 5%;
+				text-align: left;
+			}
+				ul.messageLists .forum_list_item_buttons {
+					float: right;
+
+				}
+
+		#formSendTheme {
+			display: grid;
+			grid-template-columns: repeat(8, 1fr);
+			grid-template-rows: repeat(2, 1fr);
+			grid-gap: 4px 4px;
+		}
+
+		#formSendTheme .c_enterText {grid-column: 2 / 8; grid-row: 2 / 3;}
+		#formSendTheme .k_enter     {grid-column: 8 / 9; grid-row: 2 / 3;}
+
+		#formSendMessage {
+			display: grid;
+			grid-template-columns: repeat(8, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			grid-gap: 4px 4px;
+		}
+			#formSendMessage select   {grid-column: 6 / 8; grid-row: 1 / 2;}
+			#formSendMessage textarea {grid-column: 2 / 8; grid-row: 2 / 5;}
+			#formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 2 / 3;}
+			#formSendMessage .k_enter {grid-column: 8 / 9; grid-row: 4 / 5;}
+
+	.message_non_existed {
+		padding: 20px;
+	}
+
+/*=============== Настройки пользователя =====================================*/
+	#windowSettingsProfile {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		grid-gap: 10px 10px;
+	}
+		#windowSettingsProfile form {
+			display: grid;
+			grid-template-columns: 8fr 1fr;
+			grid-template-rows: repeat(3, 1fr);
+			grid-gap: 4px 4px;
+			grid-template-areas: "first ."
+			                     "second vk"
+								 "third enter";
+		}
+		#windowSettingsProfile form .k_vk           {grid-area: vk;}
+		#windowSettingsProfile form .k_enter        {grid-area: enter;}
+		#windowSettingsProfile form :nth-of-type(1) {grid-area: first;}
+		#windowSettingsProfile form :nth-of-type(2) {grid-area: second;}
+		#windowSettingsProfile form :nth-of-type(3) {grid-area: third;}
+
+/*=============== Окно регистрации пользователя ==============================*/
+	#windowRegistration {
+		padding: 40px 0px;
+		display: grid;
+		grid-template-columns: 1fr 2fr 2fr;
+		grid-gap: 40px 10px;
+	}
+		#windowRegistration .k_enter {
+			grid-column: 3 / 4;
+			grid-row: 6 / 7;
+		}
+		#windowRegistrationText {
+			grid-column: 1 / 4;
+			grid-row: 1 / 2;
+		}
+
+/*=============== Низ сайта ==================================================*/
+	#bottom {
+		text-align: left;
+		margin-top: 20px;
+		min-height: 40px;
+	}
+		#bottom > div {
+			display: inline-block;
+		}
+		#sateVersion {
+			margin: 5px;
+			padding-left: 10px;
+			width: 65%;
+			border-left: 2px solid #eee;
+		}
+
+/*=============== Всплывающие блоки ==================================================*/
+#black_glass {
+	opacity: 0;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+	width: 100%;
+	z-index: 1001;
+	background-color: #000;
+}
+#text_help {
+	display: none;
+	position: absolute;
+}
+#window_info {
+	max-width: 60%;
+	min-width: 800px;
+	display: none;
+	padding: 10px;
+	position: fixed !important;
+	top: 120px;
+	margin: 0px 20%;
+	z-index: 1002;
+}
+#statistic {
+	display: table;
+	width: 90%;
+}
+	#statistic p {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		font-weight: bold;
+		font-size: 50px !important;
+		width: 30%;
+	}
+	#stat_med .cup {
+		text-align: center;
+		background-color: #bbb;
+		margin: 2px;
+		padding: 2px;
+		border: 2px solid #aaa;
+		background-color: #fff;
+		border-radius: 4px;
+	}
+	.med {
+		display: inline;
+		margin-right: -10px;
+	}
+#k_vk {
+	margin-bottom: -10px !important;
+	width: 79px;
+}
+#smile {
+	top: 500px;
+}
+	#smile img{
+		cursor: pointer;
+	}
+#text_key {
+	display: none;
+	position: absolute;
+	z-index: 300;
+	padding: 0px 3px;
+}
+
+/*=============== Кнопки дополнительные ==================================================*/
+.k_smile, .k_enter, .k_clouse, .k_vk, .k_reg, #k_up {
+	width: 20px; height: 20px;
+	padding: 2px;
+	display: block;
+	border: 2px solid #555;
+	background-color: #bbb;
+	border-radius: 4px;
+	box-shadow: 0px 0px 3px #fff;
+}
+.k_reg {
+	height: 52px;
+}
+.key
+{
+	height: 20px;
+	margin: 2px; padding: 2px 30px;
+	border: 2px solid #555;
+	background-color: #bbb;
+	border-radius: 4px;
+}
+.k_vk{
+	float: right;
+	background: #bbb url('img/k_vk.png') 2px 2px no-repeat;
+}
+.k_smile {
+	float: left;
+	background: #bbb url('img/k_smile.png') 2px 2px no-repeat;
+}
+.k_enter {
+	float: right;
+	background: #bbb url('img/k_enter.png') 2px 2px no-repeat;
+}
+.k_clouse {
+	float: right; margin: 3px 3px 8px 8px;
+	background: #bbb url('img/k_clouse.png') 2px 2px no-repeat;
+}
+
+.k_enter:hover, .k_clouse:hover, .k_smile:hover, .k_vk:hover, .key, #k_up:hover {
+	background-color: #ddd;
+	cursor: pointer;
+}
+.submit {
+	filter: alpha(Opacity=0);
+	cursor: pointer;
+	opacity: 0;
+	width: 25px;
+}
+#k_up {
+	background: #bbb url('img/k_up.png') 2px 2px no-repeat;
+	display: none;
+	position: absolute;
+	top: 7px; right: 7px;
+}
+
+/* form .k_enter, form .k_smile, form .k_vk {
+	position: absolute;
+	bottom: 5px; right: 5px;
+} */

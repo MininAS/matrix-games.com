@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /profile.php
+Host: matrix-games.ru
+sitemap: http://matrix-games.ru/sitemap.xml
