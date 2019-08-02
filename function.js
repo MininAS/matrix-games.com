@@ -180,6 +180,8 @@ function window_info(s_name, text)
 			elem.innerHTML = '';
 			flag_PopUp = false;
 			break;
+		case 'show':
+			break;
 		case 'text_info':
 			elem.innerHTML = '<p align = \"justify\">'+text+'</p>';
 			break;

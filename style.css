@@ -437,7 +437,8 @@ body > #body {
 		}
 			#formSendMessage select   {grid-column: 6 / 8; grid-row: 1 / 2;}
 			#formSendMessage textarea {grid-column: 2 / 8; grid-row: 2 / 5;}
-			#formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 2 / 3;}
+			#formSendMessage .k_close {grid-column: 8 / 9; grid-row: 2 / 3;}
+			#formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 3 / 4;}
 			#formSendMessage .k_enter {grid-column: 8 / 9; grid-row: 4 / 5;}
 
 	.message_non_existed {
@@ -566,7 +567,7 @@ body > #body {
 }
 
 /*=============== Кнопки дополнительные ==================================================*/
-.k_smile, .k_enter, .k_clouse, .k_vk, .k_reg, #k_up {
+.k_smile, .k_enter, .k_close, .k_vk, .k_reg, #k_up {
 	width: 20px; height: 20px;
 	padding: 2px;
 	display: block;
@@ -591,19 +592,16 @@ body > #body {
 	background: #bbb url('img/k_vk.png') 2px 2px no-repeat;
 }
 .k_smile {
-	float: left;
 	background: #bbb url('img/k_smile.png') 2px 2px no-repeat;
 }
 .k_enter {
-	float: right;
 	background: #bbb url('img/k_enter.png') 2px 2px no-repeat;
 }
-.k_clouse {
-	float: right; margin: 3px 3px 8px 8px;
-	background: #bbb url('img/k_clouse.png') 2px 2px no-repeat;
+.k_close {
+	background: #bbb url('img/k_close.png') 2px 2px no-repeat;
 }
 
-.k_enter:hover, .k_clouse:hover, .k_smile:hover, .k_vk:hover, .key, #k_up:hover {
+.k_enter:hover, .k_close:hover, .k_smile:hover, .k_vk:hover, .key, #k_up:hover {
 	background-color: #ddd;
 	cursor: pointer;
 }

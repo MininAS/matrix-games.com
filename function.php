@@ -61,77 +61,27 @@ date_default_timezone_set('Europe/Moscow');
 		for ($i=0; $i < $num; $i++) if ($str_eng[$i] == $t){$t = $str_rus[$i]; break;}
 		return $t;
 	}
-	
-// Замена тегов, невидимых символов и смайлов
-	function f_messSave($table, $belong, $mess)
+
+// Замена тегов, невидимых символов и смайлов и сохранение сообщения или редактриование старого --------------
+	function f_saveUserMessage($theme, $text)
 	{
-		$mess=trim($mess);
-		if (empty($mess)) 
-			return '
-				{
-					"res": "001",
-					"message": "Сообщение не должно быть пустым."
-				}
-			';
-		if (empty($belong)) 
-			return '
-				{
-					"res": "001",
-					"message": "Не определен адресат."
-				}
-			';
-		if (strlen($mess) < 5){
-			return '
-				{
-					"res": "102",
-					"message": "Слишком короткой текст."
-				}
-			';
-		}
-		if (strlen($mess) > 500){
-			return '
-				{
-					"res": "103",
-					"message": "Слишком длинный текст."
-				}
-			';
-		}
-		$mess=str_replace ("<", "&#60", $mess);
-		$mess=str_replace (">", "&#62", $mess);
-		$mess=str_replace ("\\r\\n", "<br>", $mess);
-		$mess=str_replace ("\\n", "<br>", $mess);
-// Проверка на смайлы
-		if (strstr ($mess, "{[:"))
-		{
-			$arr = preg_split ("/\{\[:|:\]\}/i", $mess);
-			$mess="";
-			while (list($key, $value) = each ($arr))
-			{
-				if (ereg("[a-z]", $value))
-				{
-					$file=$value.".gif";
-					if (@file_exists ("smile/$file")) $mess = $mess."<IMG SRC=\"smile/".$value.".gif\">";
-					else $mess = $mess.$value;
-				}
-				else $mess=$mess.$value;
-			}
-		}
-		if (sql ("INSERT ".$table." (id_tema, id_user, text, time, data)
+		$text=trim($text);
+        $status = f_checkLengthMessage($text);
+		if (!$status) return $status;
+        $text = f_convertSmilesAndTagForma($text);
+		if (sql ("INSERT user_mess (id_tema, id_user, text, time, data)
 					VALUE (
-						".$belong.",
+						".$theme.",
 						".$_SESSION["id"].",
-						'".$mess."',
+						'".$text."',
 						'".date("H:i")."',
 						'".date("y.m.d")."'
 					);
 				")
 			){
 			sql ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
-			if ($table == 'users_mess') 
-				sql ("UPDATE users SET F_bette=1 WHERE id=".$belong.";");
-			if ($table == 'forum')
-				f_mail (1, "На форуме было добавлено новое сообщение: ".$mess." в теме = ".$belong);
-			$log = "Отправил сообщение в ".$table." для ".$belong; log_file ($log);
+			sql ("UPDATE users SET F_bette=1 WHERE id=".$theme.";");
+			$log = "Отправил сообщение в ".$table." для ".$theme; log_file ($log);
 			return '
 				{
 					"res": "200",
@@ -148,7 +98,57 @@ date_default_timezone_set('Europe/Moscow');
 				}
 			';
 	}
-	
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Проверка длинны сообщения
+function f_checkLengthMessage($text){
+			if (empty($text))
+				return '
+					{
+						"res": "001",
+						"message": "Сообщение не должно быть пустым."
+					}
+				';
+			else if (strlen($text) < 5)
+				return '
+					{
+						"res": "102",
+						"message": "Слишком короткой текст."
+					}
+				';
+			else if (strlen($text) > 500)
+				return '
+					{
+						"res": "103",
+						"message": "Слишком длинный текст."
+					}
+				';
+			else return "Alright";
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Форматирование смайлов
+function f_convertSmilesAndTagFormat($text){
+	$text=str_replace ("<", "&#60", $text);
+	$text=str_replace (">", "&#62", $text);
+	$text=str_replace ("\\r\\n", "<br>", $text);
+	$text=str_replace ("\\n", "<br>", $text);
+// Проверка на смайлы
+	if (strstr ($text, "{[:")){
+		$arr = preg_split ("/\{\[:|:\]\}/i", $text);
+		$text="";
+		while (list($key, $value) = each ($arr)){
+			if (ereg("[a-z]", $value)){
+				$file=$value.".gif";
+				if (@file_exists ("smile/$file")) $text = $text."<img src=\"smile/".$value.".gif\">";
+				else $text = $text.$value;
+			}
+			else $text=$text.$value;
+		}
+	}
+	return $text;
+}
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Удаление темы
 function f_themeDelet ($theme)
@@ -163,41 +163,6 @@ function f_themeDelet ($theme)
 		{
 			$text_info ="Тема удалена.";
 			$log = "Удаление темы №".$theme; log_file ($log);
-		}
-		else $text_info = "Операция не выполнена.";
-	}
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------------
-// Редактирование сообщения
-function f_messRedact ($mess, $string)
-{
-	global $text_info, $reg;
-	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
-	{
-		$new_str=trim ($string);
-		if (@$reg!=="20") {$new_str=str_replace ("<", "&#60", $new_str); $new_str=str_replace (">", "&#62", $new_str);}
-		$new_str=str_replace ("\\r\\n", "<BR>", $new_str);
-// Проверка на смайлы
-		if (strstr ($new_str, "{[:"))
-		{
-			$arr = preg_split ("/\{\[:|:\]\}/", $new_str);
-			$new_str="";
-			while (list($key, $value) = each ($arr))
-			{
-				if (ereg("[a-z]", $value))
-				{
-					$file=$value.".gif";
-					if (@file_exists ("smile/$file")) $new_str=$new_str."<IMG SRC=\"smile/".$value.".gif\">";
-					else $new_str=$new_str.$value;
-				}
-				else $new_str=$new_str.$value;
-			}
-		}
-		if (sql ("UPDATE forum_mess SET text='".$new_str."' WHERE id=".$mess.";"))
-		{
-			$text_info ="Сообщение отредактированно.";
-			$log = "Редактирование сообщения №".$mess; log_file ($log);
 		}
 		else $text_info = "Операция не выполнена.";
 	}

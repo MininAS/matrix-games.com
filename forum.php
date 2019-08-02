@@ -27,7 +27,8 @@ $body = "
 	</div>
 	<div id = 'formSendMessage' class = 'windowSite'>
 		<ul class = 'windowTitle'><li>Новое сообщение</li></ul>
-		<textarea name='string' cols='50'  rows='3'></textarea>
+		<textarea name = 'string' cols='50'  rows='3'></textarea>
+		<div class = 'k_close'></div>
 		<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
 		<div class = 'k_enter'></div>
 	</div>";

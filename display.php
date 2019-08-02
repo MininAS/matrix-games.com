@@ -61,7 +61,6 @@
 <div id="black_glass" onClick = 'window_info();'></div>
 
 <div id = 'window_info' class = 'windowSite'>
-	<div class = 'k_clouse' onClick = 'window_info();'></div>
 	<div id = 'info_div'></div>
 </div>
 

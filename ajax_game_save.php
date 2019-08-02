@@ -60,7 +60,7 @@ else
 					Новый рекорд в игре ".f_returnThemeNameByRus($theme)." за № ".$canvasState." составляет  ".$data_[2]." баллов.<BR>
 					<A href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasState=".$canvasState."'><br>&lt;&lt;&lt; Переиграть >>><a>");
 					$regEdit = "20";
-					f_messSave("users_mess", $data[0], "Я обыграл(а) вашу игру ".f_returnThemeNameByRus($theme)." за № ".$canvasState." со счетом ".$data_[2].".
+					f_saveUserMessage($data[0], "Я обыграл(а) вашу игру ".f_returnThemeNameByRus($theme)." за № ".$canvasState." со счетом ".$data_[2].".
 						<A href =\"http://matrix-games.ru/games.php?theme=".$theme."&canvasState=".$canvasState."\"><br><<< Переиграть >>></a>");
 					$text .="&nbsp&nbsp&nbspВы показали лучший результат. Если ее никто не обыграет, то по ее удалении вам будет добавлен балл.";
 				}

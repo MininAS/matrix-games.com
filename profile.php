@@ -16,7 +16,7 @@
 	sql ("UPDATE users SET F_bette=0 WHERE id=".$_SESSION["id"].";");
 
 // Сохранение личного сообщения
-	if ($regEdit == "5") f_messSave ('users_mess', $user, $string);
+	if ($regEdit == "5") f_saveUserMessage ($user, $string);
 
 // Удаление сообщения
 	if ($regEdit == "2") if (sql ("DELETE FROM users_mess WHERE id=".$mess.";")) $text_info = "Сообщение удалено.";

@@ -32,9 +32,9 @@
 		if ($user == "0")
 		{
 			$result=sql ("SELECT id FROM users;");
-			while  ($data = mysql_fetch_row ($result)) f_messSave ('users_mess', $data[0], $string);
+			while  ($data = mysql_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
 		}
-		else f_messSave ('users_mess', $user, $string);
+		else f_saveUserMessage ($user, $string);
 	}
 // Сохранение личного письма
 	if ($regEdit == "2" && $string != null)

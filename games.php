@@ -47,7 +47,7 @@
 				$q = ", плюс вы заработали награду за ".$medal."-е призовое место.";
 			}
 			f_mail ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasState." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
-			f_messSave ("users_mess", $data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasState." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
+			f_saveUserMessage ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasState." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
 			if (sql ("DELETE FROM games_".$theme." WHERE id_game=".$canvasState.";"))
 				if (sql ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasState.";"))
 				{
