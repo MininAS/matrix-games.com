@@ -31,6 +31,10 @@ $body = "
 		<div class = 'k_close'></div>
 		<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
 		<div class = 'k_enter'></div>
+	</div>
+	<div id = 'messDeleteConfirmPopup' class = 'invisible windowSite popupMenu'>
+		<span>&nbsp&nbspВы подтверждаете удаление.&nbsp&nbsp</span>
+		<div class = 'k_enter'></div>
 	</div>";
 	}
 

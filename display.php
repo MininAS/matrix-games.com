@@ -69,7 +69,7 @@
 							else require ("help_".$_SESSION["page"].".txt");?></p>
 </div>
 
-<div id = 'text_key' class = 'border_inset'></div>
+<div id = 'text_key' class = 'border_inset toolTip'></div>
 
 <?
 	if (isset($text_info)) echo("

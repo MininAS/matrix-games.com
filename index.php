@@ -29,7 +29,7 @@
 		$body .= "</i>
 		</a>";
 		// Данные для рекорда
-		$result = sql ("
+		$result = f_mysqlQuery ("
 			SELECT  `login`, MAX(  `score` ) AS  `ms`
 			FROM  `games_".$theme."_med` ,  `users`
 			WHERE  `users`.`id` =  `games_".$theme."_med`.`id_user`
@@ -66,7 +66,7 @@
 		$nic = Array (); // Ники полбзователей
 		$id_game = Array (); // и номера игр что бы исключить повтарения
 		for ($i=1; $i <= 5; $i++) {$nic[$i] = ""; $id_game[$i] = "";}
-		$result = sql ("
+		$result = f_mysqlQuery ("
 				SELECT tg.`id_game`, tg.`id_user`, tg.`score`, tg.`id`
 				FROM `games_".$theme."_com` tg
 				JOIN (SELECT  `id_game`, MAX(`score`) AS `ms`
@@ -76,7 +76,7 @@
 				ORDER BY `score` DESC, `id`");
     	while ($data = mysql_fetch_row ($result))
 		{
-			$d = mysql_fetch_row (sql ("SELECT `login` FROM `users` WHERE id = ".$data[1]));
+			$d = mysql_fetch_row (f_mysqlQuery ("SELECT `login` FROM `users` WHERE id = ".$data[1]));
 			$flag = true;
 			for ($i=1; $i <= 5; $i++) if ($nic[$i] == $d[0] || $id_game[$i] == $data[0]) $flag = false;
 			if ($flag == true)

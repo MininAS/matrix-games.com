@@ -7,7 +7,7 @@
 	<ul class = 'windowTitle'><li>Рейтинг по сайту</li></ul>";
 // Сортируем
 
-	$result = sql ("SELECT id, login, N_ballov FROM users ORDER BY N_ballov DESC, data DESC;");
+	$result = f_mysqlQuery ("SELECT id, login, N_ballov FROM users ORDER BY N_ballov DESC, data DESC;");
 	$i_Users = 0;
 	while ($data=mysql_fetch_row ($result))
 	{

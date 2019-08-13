@@ -3,23 +3,18 @@
 	require ("sess.php");		$_SESSION["page"] = "profile";
 	$log = "..."; log_file ($log);
 
-// Блок аунтификации
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin")
-	{
-		echo ("
-		Простите но ваша сессия завершилась.
-		<script type = 'text/javascript' language = 'JavaScript'>
-			setTimeout (\"window.location.href='index.php';\", 3000);
-		</script>");
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+		require ("display_non_authorization.php");
 		exit;
 	}
-	sql ("UPDATE users SET F_bette=0 WHERE id=".$_SESSION["id"].";");
+	
+	f_mysqlQuery ("UPDATE users SET F_bette=0 WHERE id=".$_SESSION["id"].";");
 
 // Сохранение личного сообщения
 	if ($regEdit == "5") f_saveUserMessage ($user, $string);
 
 // Удаление сообщения
-	if ($regEdit == "2") if (sql ("DELETE FROM users_mess WHERE id=".$mess.";")) $text_info = "Сообщение удалено.";
+	if ($regEdit == "2") if (f_mysqlQuery ("DELETE FROM users_mess WHERE id=".$mess.";")) $text_info = "Сообщение удалено.";
 
 // Запись новового изображения
 	if ($regEdit == "3")
@@ -43,21 +38,21 @@
 // Изменение личных данных
 	if ($regEdit == "102")
 	{
-		$data = mysql_fetch_row (sql ("SELECT pass FROM users WHERE id=".$_SESSION["id"].";"));
+		$data = mysql_fetch_row (f_mysqlQuery ("SELECT pass FROM users WHERE id=".$_SESSION["id"].";"));
 		if ($_POST["value3"]==$data[0])
 		if ($_POST["value1"]==$_POST["value1"])
-		if (sql("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Пароль изменен.";
+		if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Пароль изменен.";
 	}
-	if ($regEdit == "111") if (sql("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Адрес изменен.";
+	if ($regEdit == "111") if (f_mysqlQuery("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Адрес изменен.";
 	if ($regEdit == "109")
 	{
 		if ($_POST["value1"]!=1) $_POST["value1"] = 0;
 		if ($_POST["value2"]!=1) $_POST["value2"] = 0;
-		if (sql("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";")) $text_info = "Флаги отсылок изменены.";
+		if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";")) $text_info = "Флаги отсылок изменены.";
 	}
 
 $body = "";
-	$result = sql ("SELECT s1.id, s1.id_user, text, s1.time, s1.data, s2.login FROM users_mess AS s1, users AS s2
+	$result = f_mysqlQuery ("SELECT s1.id, s1.id_user, text, s1.time, s1.data, s2.login FROM users_mess AS s1, users AS s2
 							WHERE s1.id_tema=".$_SESSION["id"]." AND s1.id_user=s2.id ORDER BY s1.data DESC, s1.time DESC;");
 	$body .= "
 	<div id = 'messageWindow' class = 'windowSite'>
@@ -89,7 +84,7 @@ $body = "";
 	</div>";
 
 // Форма отправки сообщений
-	$result = sql ("SELECT id, login FROM users ORDER BY login;");
+	$result = f_mysqlQuery ("SELECT id, login FROM users ORDER BY login;");
 	$body .= "
 	<div id = 'formSendMessage' class = 'windowSite'>
 		<ul class = 'windowTitle'><li>Ответить</li></ul>
@@ -112,7 +107,7 @@ $body = "";
 	</div>";
 
 // Редактирование личных данных -----------------------------------------------------------------------------------------------------------------------
-	$data = mysql_fetch_row (sql ("SELECT login, mail, F_mailG, F_mail FROM users WHERE id=".$_SESSION["id"].";"));
+	$data = mysql_fetch_row (f_mysqlQuery ("SELECT login, mail, F_mailG, F_mail FROM users WHERE id=".$_SESSION["id"].";"));
 	$body .= "
 	<div id = 'windowSettingsProfile' class = 'windowSite'>
 		<ul class = 'windowTitle'><li>Настройки</li></ul>

@@ -13,13 +13,13 @@
 				<td  width = '7%'></td>
 				<td class = 'big' colspan = '3' align = 'center' width = '45%'>ћедали</td>
 			</tr>";
-	$result=sql ("
+	$result = f_mysqlQuery ("
 		SELECT  `login`, `id_user`, MAX(`score`) AS  `ms`
 		FROM  `games_".$theme."_med`, `users`
 		WHERE `users`.`id` = `games_".$theme."_med`.`id_user`
 		GROUP BY  `id_user`
 		ORDER BY  `ms` DESC");
-	$result_=sql ("
+	$result_ = f_mysqlQuery ("
 		SELECT  `login`, `id_user`, COUNT(`medal`), SUM(6-`medal`) AS  `mc`
 		FROM  `games_".$theme."_med`, `users`
 		WHERE `users`.`id` = `games_".$theme."_med`.`id_user`
@@ -41,7 +41,7 @@
 				<td><p>".$data[2]."</p></td>
 				<td class = 'windowSite'><p class = 'big'>".$Ne."</p></td>
 				<td>";
-			$result__=sql ("
+			$result__=f_mysqlQuery ("
 				SELECT  `medal`, COUNT(`medal`)
 				FROM  `games_".$theme."_med`
 				WHERE `id_user` = ".$data_[1]."

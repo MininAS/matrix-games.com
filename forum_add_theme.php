@@ -2,10 +2,13 @@
 	require ("function.php");
 	require ("sess.php");
 
-if ($_SESSION["dopusk"] == 'yes' || $_SESSION["dopusk"] == 'admin')
-{
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+		require ("display_non_authorization.php");
+		exit;
+	}
+	
 	if ($theme != 0){
-		$data = mysql_fetch_row(sql('SELECT id_tema FROM forum WHERE id='.$theme.';'));
+		$data = mysql_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
 		if ($data[0] != 0){
 			echo('
 				{
@@ -16,8 +19,9 @@ if ($_SESSION["dopusk"] == 'yes' || $_SESSION["dopusk"] == 'admin')
 			return;
 		}
 	}
-	
+
 	$new_str = trim ($newThemeName);
+	$new_str = f_convertSmilesAndTagFormat($new_str)
 	if (empty($new_str)){
 		echo('
 			{
@@ -45,7 +49,7 @@ if ($_SESSION["dopusk"] == 'yes' || $_SESSION["dopusk"] == 'admin')
 		');
 		return;
 	}
-	$data = mysql_fetch_row(sql('SELECT * FROM forum WHERE id_tema='.$theme.' AND text="'.$new_str.'";'));
+	$data = mysql_fetch_row(f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND text="'.$new_str.'";'));
 	if ($data){
 		echo('
 			{
@@ -55,11 +59,11 @@ if ($_SESSION["dopusk"] == 'yes' || $_SESSION["dopusk"] == 'admin')
 		');
 		return;
 	}
-	
+
 	$new_str = str_replace ("<", "&#60", $new_str);
 	$new_str = str_replace (">", "&#62", $new_str);
 	$new_str = str_replace ("\r\n", "<BR>", $new_str);
-	if (sql ("INSERT forum (id_tema, status, id_user, text, time, data)
+	if (f_mysqlQuery ("INSERT forum (id_tema, status, id_user, text, time, data)
 				VALUE (
 					".$theme.",
 					1,
@@ -88,4 +92,3 @@ if ($_SESSION["dopusk"] == 'yes' || $_SESSION["dopusk"] == 'admin')
 				В случае неудачи обратитесь пожалуйста к администратору сайта."
 			}
 		');
-}

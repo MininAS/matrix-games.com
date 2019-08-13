@@ -3,7 +3,7 @@
 	require ("sess.php");
 	$text = "";
 
-	$data=mysql_fetch_row (sql ("SELECT login, N_ballov FROM users WHERE id=".$user.";"));
+	$data=mysql_fetch_row (f_mysqlQuery ("SELECT login, N_ballov FROM users WHERE id=".$user.";"));
 // Рисуем результат =============================================================
 	$text .= "
 		<div id = 'statistic'  align = 'center'>
@@ -34,7 +34,7 @@
 		fclose ($file);
 		while (list ($key,$theme) = each ($str_theme))
 		{
-			$data=mysql_fetch_row(sql ("SELECT COUNT(*) FROM games_".$theme."_med WHERE id_user=".$user.";"));
+			$data=mysql_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM games_".$theme."_med WHERE id_user=".$user.";"));
 			if ($data[0] > 0)
 			{
 				$flag_OK = true;
@@ -42,7 +42,7 @@
 			<tr>
 
 				<td>";
-				$result=sql ("
+				$result = f_mysqlQuery ("
 					SELECT  `id_user`, MAX(  `score` ) AS  `ms`
 					FROM  `games_".$theme."_med`
 					GROUP BY  `id_user`
@@ -62,7 +62,7 @@
 				{
 					$text .="
 				<td>";
-					$data=mysql_fetch_row(sql ("SELECT COUNT(*), MAX(score) FROM games_".$theme."_med WHERE id_user=".$user." AND medal=".$i.";"));
+					$data=mysql_fetch_row(f_mysqlQuery ("SELECT COUNT(*), MAX(score) FROM games_".$theme."_med WHERE id_user=".$user." AND medal=".$i.";"));
 					if ($data[0] != 0) $text .= "
 				<IMG SRC = 'img/medal_".$i.".gif' alt = 'Медаль'/> х ".$data[0];
 					$text .= "</td>

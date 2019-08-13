@@ -9,7 +9,7 @@
 
 // Просмотр съигранных игр ====================================================================================================================
 
-	$result = sql ("SELECT id_game, MAX(score) AS sum FROM games_".$theme."_com GROUP BY id_game ORDER BY sum DESC;");
+	$result = f_mysqlQuery ("SELECT id_game, MAX(score) AS sum FROM games_".$theme."_com GROUP BY id_game ORDER BY sum DESC;");
 	$text .="
 	<ul class = 'windowTitle'><li>Комбинации полей</li></ul>";
     while ($data=mysql_fetch_row($result))
@@ -18,7 +18,7 @@
 		<div id = 'G".$data[0]."'>";
 
 // Читаем кто лучше сыграл ----------------------------- Если есть ктото лучше вставляем его данные
-		$data_=mysql_fetch_row(sql ("SELECT id_user, users.login, score FROM games_".$theme."_com AS tb, users
+		$data_=mysql_fetch_row(f_mysqlQuery ("SELECT id_user, users.login, score FROM games_".$theme."_com AS tb, users
 											WHERE id_game=".$data[0]." AND id_user=users.id
 											ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;"));
 		$text .= "
@@ -30,7 +30,7 @@
 				<li>".$data_[1]."</li>
 				<li class='big'>".$data_[2]."</li>
 			</ul>";
-		$result_ = sql ("SELECT id_user, users.login, score FROM games_".$theme."_com AS s1, users
+		$result_ = f_mysqlQuery ("SELECT id_user, users.login, score FROM games_".$theme."_com AS s1, users
 								WHERE id_game=".$data[0]." AND id_user=users.id
 								ORDER BY s1.data, s1.time;");
 		$data_=mysql_fetch_row($result_);

@@ -8,11 +8,11 @@ window.onload = function ()
 	animeWindows = document.getElementsByClassName('winPreshowGameItem');
 	for(var i=0; i<animeWindows.length; i++)
 	{
-		animeWindows[i].onmouseover = function()
+		animeWindows[i].onmouseenter = function()
 		{
 			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif';
 		}
-		animeWindows[i].onmouseout = function ()
+		animeWindows[i].onmouseleave = function ()
 		{
 			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif';
 		}
@@ -63,14 +63,14 @@ window.onload = function ()
 	if (typeof f_greateGame == 'function')
 	{
 		f_greateGame ();
-		f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme='+document.getElementById('theme').value);
+		f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php?theme='+document.getElementById('theme').value);
 		document.getElementById('user_top_middle').onclick = f_oldGamePr;
 		if (document.getElementById('canvasState').value == 0) f_newGame ();
 		else f_oldGamePr (null, document.getElementById('canvasState').value);
 	}
 	else
 	{
-		if (!window.location.href.match('profile.php')) f_fetchUpdateContent('user_top_middle', 'ajax_user_top.php', null);
+		if (!window.location.href.match('profile.php')) f_fetchUpdateContent('user_top_middle', 'ajax_user_top.php');
 	}
 	// Запуск счетчика
 	f_counter ();
@@ -140,9 +140,9 @@ function f_oldGamePr (event, i)
 							if (req.responseText == 'true')
 							{
 								if (window.location.href.match('index.php'))
-									window.location.href=location.pathname;
+									window.location.href = location.pathname;
 								else
-									window.location.href='';
+									window.location.href = '';
 							}
 							if (req.responseText == 'false')
 							{
@@ -168,6 +168,19 @@ function f_oldGamePr (event, i)
 		}
 	}
 
+	function getXmlHttp()
+	{
+		var xmlhttp;
+		try {xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");}
+		catch (e)
+		{
+			try	{xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
+			catch (E){xmlhttp = false;}
+		}
+		if (!xmlhttp && typeof XMLHttpRequest!='undefined') xmlhttp = new XMLHttpRequest();
+		return xmlhttp;
+	}
+
 // Определение содержимого информационного окна -----------------------------------------------------
 function window_info(s_name, text)
 {
@@ -191,10 +204,10 @@ function window_info(s_name, text)
 			else flag_PAUSE = false;
 			break;
 		case 'user_top':
- 			f_fetchUpdateContent('info_div', 'ajax_user_top_statistic.php', 'user='+text);
+ 			f_fetchUpdateContent('info_div', 'ajax_user_top_statistic.php?user='+text);
 			break;
 		case 'user_game':
- 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php', 'theme='+text);
+ 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+text);
 			f_counter (); // Увеличиваем счетчик т.к. окно появляется только при каком-нибудь действии пользователя.
 			break;
 		case 'text_help':
@@ -202,10 +215,10 @@ function window_info(s_name, text)
 			flag_PAUSE = true;
 			break;
 		case 'smile':
-			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
+			f_fetchUpdateContent('info_div', 'ajax_smile.php');
 			break;
 		case 'reg':
-			f_fetchUpdateContent('info_div', 'ajax_reg.php', null);
+			f_fetchUpdateContent('info_div', 'ajax_reg.php');
 			break;
 		case 'forum_theme_redact':
 			elem.innerHTML = '<p align = \"justify\">'+document.getElementById('forum_theme_redact').innerHTML+'</p>';

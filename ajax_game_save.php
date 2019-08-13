@@ -19,7 +19,7 @@ else
 		$NplayGame = 0;
 		if ($_SESSION["id"] != "")
 		{
-			$NplayGame=mysql_num_rows(sql ("SELECT id FROM games_".$theme."_com
+			$NplayGame=mysql_num_rows(f_mysqlQuery ("SELECT id FROM games_".$theme."_com
 					WHERE id IN (SELECT MIN(id) FROM games_".$theme."_com GROUP BY id_game) AND id_user=".$_SESSION["id"].";"));
 		}
 		$string = explode ("\t", $mess);
@@ -29,28 +29,28 @@ else
 			if ($NplayGame >= 5) $text .="&nbsp&nbsp&nbspИгра завершена. Вами уже сохранено пять новых игр, более игр сохранить нельзя, пока они не будут удалены за наличием лучшего результата. Выберите игру из списка в правой колонке и попробуйте обыграть другого посетителя сайта.";
 			else
 			{
-				sql ("INSERT games_".$theme." (gameboard) VALUES ('".$string[0]."');");
+				f_mysqlQuery ("INSERT games_".$theme." (gameboard) VALUES ('".$string[0]."');");
 				$data = mysql_insert_id ();
-				if (sql ("INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
+				if (f_mysqlQuery ("INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
 					VALUES (".$data.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');"))
 				{$text .="&nbsp&nbsp&nbspИгра сохранена."; log_file ("Сохранение новой игры в ".f_returnThemeNameByRus($theme)." №".$data.".");}
-				sql ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
+				f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 			}
 		}
 		else
 		{
 		// Проверка, что игру не стерли
-			if (mysql_num_rows(sql ("SELECT id_game FROM games_".$theme." WHERE id_game=".$canvasState.";")) == 1)
+			if (mysql_num_rows(f_mysqlQuery ("SELECT id_game FROM games_".$theme." WHERE id_game=".$canvasState.";")) == 1)
 			{
-				$data=mysql_fetch_row(sql ("SELECT id_user, users.login, users.F_mailG, users.mail FROM games_".$theme."_com AS tb, users
+				$data=mysql_fetch_row(f_mysqlQuery ("SELECT id_user, users.login, users.F_mailG, users.mail FROM games_".$theme."_com AS tb, users
 											WHERE id_game=".$canvasState." AND id_user=users.id
 											ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;"));
 
-				if (sql ("INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
+				if (f_mysqlQuery ("INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
 					VALUES (".$canvasState.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');"))
 				{$text .="&nbsp&nbsp&nbspИгра сохранена."; log_file ("Сохранение игры в ".f_returnThemeNameByRus($theme)." №".$canvasState.".");}
-				sql ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
-				$data_=mysql_fetch_row(sql ("SELECT id_user, users.login, score FROM games_".$theme."_com AS tb, users
+				f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
+				$data_=mysql_fetch_row(f_mysqlQuery ("SELECT id_user, users.login, score FROM games_".$theme."_com AS tb, users
 											WHERE id_game=".$canvasState." AND id_user=users.id
 											ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;"));
 				if ($data_[0] != $data[0])

@@ -1,7 +1,9 @@
-var e_newThemeInputField = document.querySelector('#formSendTheme [name="newThemeName"]');
-var e_newMessageInputField = document.querySelector('#formSendMessage [name="string"]');
+var e_forumNewThemeInputField = document.querySelector('#formSendTheme [name="newThemeName"]');
+var e_forumNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
 var e_forumSaveMessageTitle = document.querySelector('#formSendMessage .windowTitle > li');
 var e_forumMessageBlock = document.getElementById('messageWindow');
+var e_forumDeleteConfirmPopup = document.getElementById('messDeleteConfirmPopup');
+var e_forumDeleteConfirmButton = document.querySelector('#messDeleteConfirmPopup .k_enter');
 var e_forumNewThemeSendButton = document.querySelector('#formSendTheme .k_enter');
 var e_forumNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
 var e_forumCloseEditModeButton = document.querySelector('#formSendMessage .k_close');
@@ -16,9 +18,18 @@ e_forumMessageBlock.onclick = function (event) {
 	event = event || window.event;
 	var elm = event.target;
 	while (elm != e_forumMessageBlock) {
-		if (elm.classList.contains('forum_theme')) {
+		if (elm.classList.contains('forum_delete_item_link')){
+			e_forumDeleteConfirmButton.deletingTheme = elm.parentNode.parentNode.parentNode.getAttribute('item');
+        	e_forumDeleteConfirmPopup.style.display = 'block';
+			x = event.pageX || event.clientX;
+			y = event.pageY || event.clientY;
+			e_forumDeleteConfirmPopup.style.left = x-350+'px';
+			e_forumDeleteConfirmPopup.style.top = y-25+'px';
+			break;
+		}
+		else if (elm.classList.contains('forum_theme')) {
 			parentTheme = currentTheme;
-			currentTheme = elm.getAttribute('theme');
+			currentTheme = elm.getAttribute('item');
 			if (currentTheme != 0) e_forumKeyUp.style.display = 'block';
 			else e_forumKeyUp.style.display = 'none';
 			f_forumUpdateContent(currentTheme);
@@ -28,16 +39,11 @@ e_forumMessageBlock.onclick = function (event) {
 		else if (elm.classList.contains('forum_redaction_message_link')){
 			someText = elm.parentNode.parentNode.getElementsByTagName('p')[0].innerHTML;
 			someText = f_convertSmilesAndTagFormat(someText);
-			e_newMessageInputField.value = someText;
-			e_newMessageInputField.focus();
-            currentMess = elm.parentNode.parentNode.parentNode.getAttribute('message');
+			e_forumNewMessageInputField.value = someText;
+			e_forumNewMessageInputField.focus();
+            currentMess = elm.parentNode.parentNode.parentNode.getAttribute('item');
 			e_forumCloseEditModeButton.style.display = 'block';
 			e_forumSaveMessageTitle.innerHTML = 'Редактирование сообщения';
-			break;
-		}
-		else if (elm.classList.contains('forum_delete_message_link')){
-			currentMess = elm.parentNode.parentNode.parentNode.getAttribute('message');
-			f_fetchSaving ('forum_delete_message.php?mess=' + currentMess, f_forumUpdateContent);
 			break;
 		}
 		else elm = elm.parentNode;
@@ -53,7 +59,7 @@ e_forumKeyUp.onclick = function () {
 }
 
 e_forumNewThemeSendButton.onclick = function () {
-    var newThemeName = e_newThemeInputField.value;
+    var newThemeName = e_forumNewThemeInputField.value;
 		parameters =
 			'newThemeName=' + newThemeName +
 			'&theme=' + currentTheme;
@@ -61,7 +67,7 @@ e_forumNewThemeSendButton.onclick = function () {
 }
 
 e_forumNewMessageSendButton.onclick = function () {
-	var string = e_newMessageInputField.value;
+	var string = e_forumNewMessageInputField.value;
 	if (currentMess == 0)
 		f_fetchSaving ('forum_add_message.php?' +
 			'string=' + string +
@@ -74,19 +80,30 @@ e_forumNewMessageSendButton.onclick = function () {
 
 e_forumCloseEditModeButton.onclick = () => f_forumUpdateContent();
 
+e_forumDeleteConfirmButton.onclick = function () {
+	e_forumDeleteConfirmPopup.style.display = 'none';
+	f_fetchSaving ('forum_delete_item.php?' +
+	'theme=' + this.deletingTheme, f_forumUpdateContent);
+}
+
+e_forumDeleteConfirmPopup.onmouseleave = function () {
+	e_forumDeleteConfirmPopup.style.display = 'none';
+}
+
 function f_forumUpdateContent(theme){
 	theme = theme ? theme : currentTheme;
 	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme);
-	e_newThemeInputField.value = "";
-	e_newMessageInputField.value = "";
+	e_forumNewThemeInputField.value = "";
+	e_forumNewMessageInputField.value = "";
 	e_forumCloseEditModeButton.style.display = 'none';
+	e_forumDeleteConfirmPopup.style.display = 'none';
 	e_forumSaveMessageTitle.innerHTML = 'Новое сообщение';
 	currentMess = 0;
 	f_isWindowsHeightAlignment ();
-	if (parentTheme != 0) f_changeInputFieldDisablement(e_newThemeInputField, true);
-	else f_changeInputFieldDisablement(e_newThemeInputField, false);
-	if (currentTheme == 0) f_changeInputFieldDisablement(e_newMessageInputField, true);
-	else f_changeInputFieldDisablement(e_newMessageInputField, false);
+	if (parentTheme != 0) f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
+	else f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
+	if (currentTheme == 0) f_changeInputFieldDisablement(e_forumNewMessageInputField, true);
+	else f_changeInputFieldDisablement(e_forumNewMessageInputField, false);
 }
 
 function f_convertSmilesAndTagFormat(someText){

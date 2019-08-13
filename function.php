@@ -69,7 +69,7 @@ date_default_timezone_set('Europe/Moscow');
         $status = f_checkLengthMessage($text);
 		if (!$status) return $status;
         $text = f_convertSmilesAndTagForma($text);
-		if (sql ("INSERT user_mess (id_tema, id_user, text, time, data)
+		if (f_mysqlQuery ("INSERT user_mess (id_tema, id_user, text, time, data)
 					VALUE (
 						".$theme.",
 						".$_SESSION["id"].",
@@ -79,8 +79,8 @@ date_default_timezone_set('Europe/Moscow');
 					);
 				")
 			){
-			sql ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
-			sql ("UPDATE users SET F_bette=1 WHERE id=".$theme.";");
+			f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
+			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$theme.";");
 			$log = "Отправил сообщение в ".$table." для ".$theme; log_file ($log);
 			return '
 				{
@@ -149,30 +149,11 @@ function f_convertSmilesAndTagFormat($text){
 	return $text;
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-// Удаление темы
-function f_themeDelet ($theme)
-{
-	global $text_info;
-	if ($_SESSION["dopusk"] == "admin")
-	{
-		if (sql ("DELETE FROM forum_mess WHERE id_tema IN (SELECT id FROM forum_tema WHERE id_tema=".$theme.");") &&
-			sql ("DELETE FROM forum_mess WHERE id_tema=".$theme.";") &&
-			sql ("DELETE FROM forum_tema WHERE id_tema=".$theme.";") &&
-			sql ("DELETE FROM forum_tema WHERE id=".$theme.";"))
-		{
-			$text_info ="Тема удалена.";
-			$log = "Удаление темы №".$theme; log_file ($log);
-		}
-		else $text_info = "Операция не выполнена.";
-	}
-}
-
 //------------------------------------------------------------------------------------------------------------------------------------------------
 // Отправка почты
 function f_mail ($user, $mail_mess)
 {
-	$result=sql ("SELECT F_mail, mail FROM users WHERE id=".$user.";");
+	$result=f_mysqlQuery ("SELECT F_mail, mail FROM users WHERE id=".$user.";");
 	$data = mysql_fetch_row ($result);
 	if ($data[0] == 1)
 	{
@@ -233,11 +214,11 @@ function IP_quest ()
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 // Обработка запроса к БД
-function sql($query)
+function f_mysqlQuery($query)
 {
 	$result = mysql_query($query);
 	if (!$result) {
-		$result = "Запрос: <b>".$query."</b><br> - выдал ошибку: <b>". mysql_error()."</b>";
+		$result = "Запрос: ".$query." - выдал ошибку: ". mysql_error()."/n";
 		log_file ($result);
 	}
 	else return $result;
@@ -246,7 +227,7 @@ function sql($query)
 // Обработка ошибок в PHP
 function f_error($error, $text, $file, $line)
 {
-	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."</b>";
+	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);
 	return false;
 }
@@ -254,7 +235,7 @@ function f_error($error, $text, $file, $line)
 // Ежедневное резевное сохранение базы данных
 function db_saver()
 {
-	$result = sql("SHOW TABLES");
+	$result = f_mysqlQuery("SHOW TABLES");
 	$tables = array();
 	for($i = 0; $i < mysql_num_rows($result); $i++)
 	{
@@ -282,7 +263,7 @@ function db_saver()
 		fwrite($fp,$text);
 		$text = "";
 		$sql = "SHOW CREATE TABLE ".$item;
-		$result = sql($sql);
+		$result = f_mysqlQuery($sql);
 		$row = mysql_fetch_row($result);
 		$text .= "\n".$row[1].";";
 		fwrite($fp,$text);
@@ -296,7 +277,7 @@ function db_saver()
 		$text .= "\nINSERT INTO `".$item."` VALUES";
 		fwrite($fp,$text);
 		$sql2 = "SELECT * FROM `".$item."`";
-		$result2 = sql($sql2);
+		$result2 = f_mysqlQuery($sql2);
 		$text = "";
 		for($i = 0; $i < mysql_num_rows($result2); $i++)
 		{

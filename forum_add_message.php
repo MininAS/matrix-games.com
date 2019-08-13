@@ -2,7 +2,10 @@
 	require ("function.php");
 	require ("sess.php");
 
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin") {exit;}
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+		require ("display_non_authorization.php");
+		exit;
+	}
 
 	$text=trim($string);
 	$status = f_checkLengthMessage($text);
@@ -18,7 +21,7 @@
 		');
 
 	$text = f_convertSmilesAndTagFormat($text);
-	if (sql ("INSERT forum (id_tema, id_user, text, time, data)
+	if (f_mysqlQuery ("INSERT forum (id_tema, id_user, text, time, data)
 				VALUE (
 					".$theme.",
 					".$_SESSION["id"].",
@@ -28,7 +31,7 @@
 				);
 			")
 		){
-		sql ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
+		f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
 		f_mail (1, "На форуме было добавлено новое сообщение: ".$text." в теме = ".$theme);
 		$log = "Отправил сообщение в форум в тему №".$theme; log_file ($log);
 		echo ('

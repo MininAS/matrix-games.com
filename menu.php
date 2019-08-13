@@ -22,7 +22,7 @@
 		{
 			echo ("
 			<li id = 'k_profile' alt='Ваш профиль'><a href = 'profile.php'>");
-			$data = mysql_fetch_row (sql ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";"));
+			$data = mysql_fetch_row (f_mysqlQuery ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";"));
 			if ($data[0] == 1) echo ("<div id = 'bette'></div>");
 			echo ("<img src = 'img/k_profile.png' alt='Ваш профиль'/></a></li>");
 		}

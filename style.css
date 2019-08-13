@@ -13,7 +13,7 @@ a, ul, li, ol, p {
 	margin: 0px; padding: 0px; text-decoration: none; list-style: none;
 }
 
-invisible {
+.invisible {
 	display: none;
 }
 /*=============== Текст ======================================================*/
@@ -56,9 +56,6 @@ input, textarea, select, .border_inset  {
 	background-color: #fff;
 }
 
-form {
-	position: relative;
-}
 .selectable_list_item {
 	border-radius: 6px;
 	cursor: pointer;
@@ -553,17 +550,20 @@ body > #body {
 	margin-bottom: -10px !important;
 	width: 79px;
 }
+
 #smile {
 	top: 500px;
 }
 	#smile img{
 		cursor: pointer;
 	}
-#text_key {
+
+.toolTip, .popupMenu {
 	display: none;
 	position: absolute;
 	z-index: 300;
-	padding: 0px 3px;
+	padding: 5px;
+	max-width: 300px;
 }
 
 /*=============== Кнопки дополнительные ==================================================*/
@@ -574,7 +574,7 @@ body > #body {
 	border: 2px solid #555;
 	background-color: #bbb;
 	border-radius: 4px;
-	box-shadow: 0px 0px 3px #fff;
+	float: right;
 }
 .k_reg {
 	height: 52px;
@@ -615,10 +615,5 @@ body > #body {
 	background: #bbb url('img/k_up.png') 2px 2px no-repeat;
 	display: none;
 	position: absolute;
-	top: 7px; right: 7px;
+	top: 10px; right: 10px;
 }
-
-/* form .k_enter, form .k_smile, form .k_vk {
-	position: absolute;
-	bottom: 5px; right: 5px;
-} */

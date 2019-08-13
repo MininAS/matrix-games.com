@@ -66,7 +66,7 @@
 
 // Ставим время последнего посещения
 	$_SESSION["last_time"] = date ("U");
-	if ($_SESSION["id"] != "") sql ("UPDATE users SET data='".date ("y.m.d")."', time='".date ("H:i")."' WHERE id=".$_SESSION["id"].";");
+	if ($_SESSION["id"] != "") f_mysqlQuery ("UPDATE users SET data='".date ("y.m.d")."', time='".date ("H:i")."' WHERE id=".$_SESSION["id"].";");
 
 // Проверка пользователя на выход из сайта
 if (isset ($_GET['exit']))

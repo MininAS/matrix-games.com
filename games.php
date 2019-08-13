@@ -21,14 +21,14 @@
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin")
 	{
 // Лучший по баллам, так же проверяем, что игра присутствует.
-		if ($data=mysql_fetch_row(sql ("SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail
+		if ($data=mysql_fetch_row(f_mysqlQuery ("SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail
 				FROM games_".$theme."_com AS s1, users
 				WHERE id_game=".$canvasState." AND id_user=users.id
 				ORDER BY score DESC LIMIT 1;")))
 		{
 	// Пятерка лидеров с медалями
-			$Ni=1; $medal = 0;
-			$result=sql ("SELECT id, id_user
+			$Ni = 1; $medal = 0;
+			$result = f_mysqlQuery ("SELECT id, id_user
 									FROM games_".$theme."_com
 									WHERE score IN (SELECT MAX(score) FROM games_".$theme."_com GROUP BY id_game)
 									ORDER BY score DESC
@@ -38,18 +38,18 @@
 				if ($data[0] == $data_[0]) $medal = $Ni;
 				$Ni++;
 			}
-			sql ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$data[1].";");
+			f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$data[1].";");
 			$q = ".";
 			if ($medal != 0)
 			{
-				sql ("INSERT games_".$theme."_med (id_user, medal, score)
+				f_mysqlQuery ("INSERT games_".$theme."_med (id_user, medal, score)
 								VALUE (".$data[1].", ".$medal.", ".$data[2].");");
 				$q = ", плюс вы заработали награду за ".$medal."-е призовое место.";
 			}
 			f_mail ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasState." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
 			f_saveUserMessage ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasState." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
-			if (sql ("DELETE FROM games_".$theme." WHERE id_game=".$canvasState.";"))
-				if (sql ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasState.";"))
+			if (f_mysqlQuery ("DELETE FROM games_".$theme." WHERE id_game=".$canvasState.";"))
+				if (f_mysqlQuery ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasState.";"))
 				{
 					$text_info = "<p>Игра удалена.</p>";
 					log_file ("Удаление игры. Получает балл ".$data[1]." с результатом ".$data[2]." очков.");

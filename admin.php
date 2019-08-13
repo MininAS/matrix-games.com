@@ -24,14 +24,14 @@
 		</script>");
 		exit;
 	}
-	else if ($regEdit == "78") sql ("UPDATE users SET N_ballov=N_ballov-1 WHERE N_ballov>0;");
+	else if ($regEdit == "78") f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov-1 WHERE N_ballov>0;");
 
 // Сохранение личного сообщения
 	if ($regEdit == "1")
 	{
 		if ($user == "0")
 		{
-			$result=sql ("SELECT id FROM users;");
+			$result = f_mysqlQuery ("SELECT id FROM users;");
 			while  ($data = mysql_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
 		}
 		else f_saveUserMessage ($user, $string);
@@ -41,13 +41,13 @@
 	{
 		if ($user == "0")
 		{
-		 	$result=sql ("SELECT id FROM users;");
+		 	$result = f_mysqlQuery ("SELECT id FROM users;");
 			while ($data = mysql_fetch_row ($result)) f_mail ($data[0], "Новости с сайта LMG ==>>",$string);
 		}
 		else f_mail ($user, $string);
 	}
 // Изменение личных данных
-	if ($regEdit == "103" && $_SESSION["dopusk"] == "admin") sql ("UPDATE users SET dopusk='".$_GET["value1"]."' WHERE id=".$user.";");
+	if ($regEdit == "103" && $_SESSION["dopusk"] == "admin") f_mysqlQuery ("UPDATE users SET dopusk='".$_GET["value1"]."' WHERE id=".$user.";");
 
 	$body = "";
 
@@ -71,7 +71,7 @@
 	<div class = 'messageLists'>
 	<table width = '100%' border = '2' cellpadding = '2' cellspacing = '2'>";
 // Сортируем
-	$result = sql("SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R FROM users ORDER BY ".$_GET["sort"].";");
+	$result = f_mysqlQuery("SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R FROM users ORDER BY ".$_GET["sort"].";");
 	$i_Users = 0;
 	while  ($data = mysql_fetch_row ($result))
 	{
@@ -108,7 +108,7 @@
 				<select  name = 'user'>
 				<option value = ''>Кому:</option>
 				<option value = '0'>Всем</option>\n";
-		$result = sql("SELECT id, login FROM users ORDER BY login;");
+		$result = f_mysqlQuery("SELECT id, login FROM users ORDER BY login;");
 		while ($data = mysql_fetch_row ($result))
 		{
 			$body .= "
