@@ -61,7 +61,7 @@ e_forumKeyUp.onclick = function () {
 e_forumNewThemeSendButton.onclick = function () {
     var newThemeName = e_forumNewThemeInputField.value;
 		parameters =
-			'newThemeName=' + newThemeName +
+			'string=' + newThemeName +
 			'&theme=' + currentTheme;
 	f_fetchSaving ('forum_add_theme.php?' + parameters, f_forumUpdateContent);
 }

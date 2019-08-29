@@ -1,20 +1,15 @@
 <?php
 	require ("function.php");
-	require ("sess.php");		$_SESSION["page"] = "profile";
+	require ("sess.php");
+	$_SESSION["page"] = "profile";
 	$log = "..."; log_file ($log);
 
 	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
 		require ("display_non_authorization.php");
 		exit;
 	}
-	
+
 	f_mysqlQuery ("UPDATE users SET F_bette=0 WHERE id=".$_SESSION["id"].";");
-
-// Сохранение личного сообщения
-	if ($regEdit == "5") f_saveUserMessage ($user, $string);
-
-// Удаление сообщения
-	if ($regEdit == "2") if (f_mysqlQuery ("DELETE FROM users_mess WHERE id=".$mess.";")) $text_info = "Сообщение удалено.";
 
 // Запись новового изображения
 	if ($regEdit == "3")
@@ -51,59 +46,26 @@
 		if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";")) $text_info = "Флаги отсылок изменены.";
 	}
 
-$body = "";
-	$result = f_mysqlQuery ("SELECT s1.id, s1.id_user, text, s1.time, s1.data, s2.login FROM users_mess AS s1, users AS s2
-							WHERE s1.id_tema=".$_SESSION["id"]." AND s1.id_user=s2.id ORDER BY s1.data DESC, s1.time DESC;");
-	$body .= "
-	<div id = 'messageWindow' class = 'windowSite'>
-		<ul class = 'windowTitle'><li>Сообщения</li></ul>
-		<div class = 'messageLists'>";
-	$flagOK = false;
-    while ($data = mysql_fetch_row ($result))
-	{
-		$flagOK = true;
-		$body .= "
-			<div>
-				<p class = 'data'>".$data[3]." / ".$data[4]."
-				<a class = 'small' href='profile.php?regEdit=2&mess=".$data[0]."'>Удалить</a></p>
-				<p class = 'avatar'>
-				".f_img (3, $data[1]);
-		$body .= $data[5]."</p>
-				<p class = 'text'>";
-		$body .=  $data[2]."</p>
-
-			</div>";
-	}
-	if ($flagOK == false)
-	{
-		$body .= "
-			<br/><P>....... Пусто .......</P><br/>";
-	}
-	$body .= "
+	$body = "
+	<div class = 'windowSite'>
+		<ul class = 'windowTitle'>
+			<li><p>Записная книжка</p></li>
+		</ul>
+		<div id = 'messageWindow'>
 		</div>
 	</div>";
 
 // Форма отправки сообщений
-	$result = f_mysqlQuery ("SELECT id, login FROM users ORDER BY login;");
+
 	$body .= "
 	<div id = 'formSendMessage' class = 'windowSite'>
 		<ul class = 'windowTitle'><li>Ответить</li></ul>
-		<form action='profile.php' name = 'send_mess'>
-				<select id = 'user' name = 'user'>
-				<option value = '0'>Кому:</option>";
-
-	while ($data = mysql_fetch_row ($result))
-	{
-		$body .= "
-				<option value = '".$data[0]."'>".$data[1]."</option>\n";
-	}
-	$body .= "
-				</select>
-			<textarea id = 'string' name = 'string' cols = '64'  rows = '2'></textarea>
-			<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
-			<input type = 'hidden' name = 'regEdit' value = '5'>
-			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
-		</form>
+		<select id = 'dropDownUserList' name = 'user'>
+			<option value = '0'>Кому:</option>
+		</select>
+		<textarea id = 'string' name = 'string' cols = '64'  rows = '2'></textarea>
+		<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
+		<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 	</div>";
 
 // Редактирование личных данных -----------------------------------------------------------------------------------------------------------------------
@@ -176,5 +138,8 @@ $body = "";
 				<input type = 'hidden' name = 'regEdit' value = '9'>
 			</form>
 		</div>";
+
+	$body .= "
+	<script type = 'text/javascript' language = 'JavaScript' src = 'profile.js?v=7.0.4'></script>";
 require ("display.php");
 ?>

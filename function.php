@@ -28,7 +28,7 @@ date_default_timezone_set('Europe/Moscow');
 			$ip = getenv ("REMOTE_ADDR");
 			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
 			if ($_SESSION["login"] ==  "") $login = "Quest"; else $login = $_SESSION["login"];
-			$string = date ("H:i")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\n";
+			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\n";
 			fwrite ($file, $string);
 			fclose ($file);
 		}
@@ -63,15 +63,15 @@ date_default_timezone_set('Europe/Moscow');
 	}
 
 // Замена тегов, невидимых символов и смайлов и сохранение сообщения или редактриование старого --------------
-	function f_saveUserMessage($theme, $text)
+	function f_saveUserMessage($user, $text)
 	{
 		$text=trim($text);
         $status = f_checkLengthMessage($text);
 		if (!$status) return $status;
-        $text = f_convertSmilesAndTagForma($text);
-		if (f_mysqlQuery ("INSERT user_mess (id_tema, id_user, text, time, data)
+        $text = f_convertSmilesAndTagFormat($text);
+		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data)
 					VALUE (
-						".$theme.",
+						".$user.",
 						".$_SESSION["id"].",
 						'".$text."',
 						'".date("H:i")."',
@@ -80,12 +80,12 @@ date_default_timezone_set('Europe/Moscow');
 				")
 			){
 			f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
-			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$theme.";");
-			$log = "Отправил сообщение в ".$table." для ".$theme; log_file ($log);
+			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$user.";");
+			$log = "Отправил сообщение для ".$user; log_file ($log);
 			return '
 				{
 					"res": "200",
-					"message": "Сообщение сохранено."
+					"message": "Сообщение отправлено."
 				}
 			';
 		}
@@ -93,8 +93,7 @@ date_default_timezone_set('Europe/Moscow');
 			return '
 				{
 					"res": "100",
-					"message": "Не удалось сохранить сообщение. Попробуйте еще раз.
-					В случае неудачи обратитесь пожалуйста к администратору сайта."
+					"message": "Не удалось сохранить сообщение. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
 				}
 			';
 	}

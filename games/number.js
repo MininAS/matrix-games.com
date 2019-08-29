@@ -414,5 +414,5 @@ function f_endGame()
 	document.getElementById('mess').value = s_gameDB + "\t" + i_Nxodov + "\t" + i_Nscore;
 	window_info ('text_info');
 	f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=number&canvasState='+document.getElementById('canvasState').value);
-	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=number')", 3000);
+	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php?theme=number')", 3000);
 }

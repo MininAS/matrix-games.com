@@ -35,14 +35,13 @@
 		}
 	}
 	// Переменные цифровые
-	$arr = array ('canvasState', 'user', 'reg', 'regEdit', 'mess');
+	$arr = array ('canvasState', 'user', 'regEdit', 'mess');
 	while (list($key, $value) = each ($arr))
 	{
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
 		$$v = (int)$$v;
 	}
-	if ($reg == null) $reg=0;
 
 	// Переменные текстовые
 	$arr = array ('newThemeName', 'string');

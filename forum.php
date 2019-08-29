@@ -4,9 +4,9 @@
 	$_SESSION["page"] = "forum";
 	$log = "..."; log_file ($log);
 
-	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php"); //Аутентификация
+	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php");
 
-$body = "
+	$body = "
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
 			<li><p>Записная книжка</p></li>

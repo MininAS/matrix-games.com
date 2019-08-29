@@ -42,7 +42,7 @@ window.onload = function ()
 			menuButtons[i].onmouseout = function () {menuButtonTooltip.style.display = 'none';}
 		}
 	}
-	f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
+	f_fetchUpdateContent('onlineUser', 'ajax_bottom.php');
 // Инициализация полей регистрации
 	if (typeof initInputsRegistration == 'function') initInputsRegistration ();
 

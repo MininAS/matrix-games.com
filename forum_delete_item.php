@@ -19,7 +19,7 @@
 	}
 
 	$data = mysql_fetch_row ($result);
-	if ($_SESSION["id"] != $data[3]){
+	if ($_SESSION["id"] != $data[2]){
 		echo ('
 			{
 				"res": "100",
@@ -29,7 +29,7 @@
 		exit;
 	}
 
-	if ($data[1] == 1){
+	if ($data[6] == 1){
 		$result = f_mysqlQuery ("SELECT id FROM forum WHERE id_tema=".$theme." AND basket=0;");
 		if (mysql_num_rows ($result) != 0){
 			echo ('
