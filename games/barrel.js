@@ -3,11 +3,6 @@ var XxX = 10;
 var YyY = 10;
 var QqQ = 48;
 var WwW = 6;
-var i_canvasState = 0;
-var i_Nxodov = 0;
-var i_Nballov = 0;
-var i_Nscore = 0;
-var s_elm = String('');
 var flag_ANI = 0; // Кол-во запущеных анимашек
 var flag_PLAY = true; // Используем при переходе к другой игре при незаконченной анимации и от onClickа
 
@@ -58,12 +53,12 @@ function f_game (e)
 {
 	if (flag_PLAY == true)
 	{
-		i_Nxodov ++;
-		i_Nscore -= 5;
+		i_motion ++;
+		i_score -= 5;
 		this.mass --;
 		this.turbo = false;
 		this.style.background = '';
-		document.getElementById('myNballov').innerHTML = i_Nscore;
+		document.getElementById('myNballov').innerHTML = i_score;
 		f_game_ (this, 0);
 	}
 
@@ -82,8 +77,8 @@ function f_game_ (e,t)
 		e.parentNode.onmouseout = null;
 		e.onclick = null;
 		f_scrollScore (e, e.mass)
-		i_Nscore += e.mass; // пребовлІем баллы за лопнувшую бочку согласно ее весу
-		document.getElementById('myNballov').innerHTML = i_Nscore;
+		i_score += e.mass; // пребовлІем баллы за лопнувшую бочку согласно ее весу
+		document.getElementById('myNballov').innerHTML = i_score;
 
 		if (e.xx > 1) f_greatObject (e, 'left');
 		if (e.xx < XxX) f_greatObject (e, 'right');
@@ -158,8 +153,8 @@ function f_end (e)
 	flag_ANI --;
 	if (e.turbo == true)
 	{
-		i_Nscore += 10;
-		document.getElementById('myNballov').innerHTML = i_Nscore;
+		i_score += 10;
+		document.getElementById('myNballov').innerHTML = i_score;
 	}
 	if (flag_ANI == 0)
 	{
@@ -195,114 +190,64 @@ function f_scrollScore (e, i)
 }
 function f_newGame ()
 {
-	s_elm = "";
 	flag_PLAY = false;
-	for (ii=1; ii<=YyY; ii++)
-	{
-		for (i=1; i<=XxX; i++)
-		{
+	for (ii=1; ii<=YyY; ii++){
+		for (i=1; i<=XxX; i++){
 			iii = Math.ceil (Math.random ()*WwW);
 			a_block[i][ii].volum = iii;
 			a_block[i][ii].mass = (WwW-iii+1);
 			a_block[i][ii].src = 'img/barrel_'+iii+'.png';
-			if (a_block[i][ii].volum == 1)
-			{
+			if (a_block[i][ii].volum == 1){
 				a_block[i][ii].turbo = true;
 				a_block[i][ii].style.background = 'url(img/barrel_0.png)';
 			}
-			else
-			{
+			else{
 				a_block[i][ii].turbo = false;
 				a_block[i][ii].style.background = '';
 			}
-			s_elm += iii;
+			i_canvasKeymap += iii;
 			a_block[i][ii].parentNode.onmouseover = function () {this.style.backgroundColor = '#8aa';}
 			a_block[i][ii].parentNode.onmouseout = function () {this.style.backgroundColor = '#448';}
 			a_block[i][ii].style.opacity = 1;
 			a_block[i][ii].onclick = f_game;
 		}
 	}
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
+
 	setTimeout (function () {
 		flag_PLAY = true;
 		flag_ANI = 0;
-		i_Nxodov = 0;
-		i_Nscore = 0;
 	}, 2000); // Дать время для окончания анимации
 }
 
 function f_oldGame(i_game)
 {
 	flag_PLAY = false;
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
-		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					i_canvasState = i_game;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str < 9)
-					{
-						s_elm = "";
-						for (ii=1; ii<=YyY; ii++)
-						{
-							for (i=1; i<=XxX; i++)
-							{
-								iii = i_tmp.substr (((ii-1)*XxX+i-1), 1);
-								a_block[i][ii].volum = iii;
-								if (a_block[i][ii].volum == 1)
-								{
-									a_block[i][ii].turbo = true;
-									a_block[i][ii].style.background = 'url(img/barrel_0.png)';
-								}
-								else
-								{
-									a_block[i][ii].turbo = false;
-									a_block[i][ii].style.background = '';
-								}
-								a_block[i][ii].mass = (WwW-iii+1);
-								a_block[i][ii].src = 'img/barrel_'+iii+'.png';
-								s_elm += iii;
-								a_block[i][ii].parentNode.onmouseover = function () {this.style.backgroundColor = '#8aa';}
-								a_block[i][ii].parentNode.onmouseout = function () {this.style.backgroundColor = '#448';}
-								a_block[i][ii].style.opacity = 1;
-								a_block[i][ii].onclick = f_game;
-							}
-						}
-
-						setTimeout (function () {
-							flag_PLAY = true;
-							flag_ANI = 0;
-							i_Nxodov = 0;
-							i_Nscore = 0;
-						}, 1000); // Дать время для окончания анимации
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-					}
-					else
-					{
-						window_info ('text_info', i_tmp);
-						flag_PLAY = false;
-					}
-				}
+	str = i_canvasKeymap.substr (0, 1);
+	for (ii=1; ii<=YyY; ii++){
+		for (i=1; i<=XxX; i++){
+			iii = i_canvasKeymap.substr (((ii-1)*XxX+i-1), 1);
+			a_block[i][ii].volum = iii;
+			if (a_block[i][ii].volum == 1){
+				a_block[i][ii].turbo = true;
+				a_block[i][ii].style.background = 'url(img/barrel_0.png)';
 			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=barrel&canvasState=' + i_game, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	document.getElementById('mess').value = s_elm + "\t" + i_Nxodov + "\t" + i_Nscore;
-	window_info ('text_info');
-	if (i_Nscore > 10) {
-		f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=barrel&canvasState='+document.getElementById('canvasState').value);
-		setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=barrel')", 3000);
-	} else {
-		document.getElementById('info_div').innerHTML = 'Слишком маленький результат, попробуйте сыграть eще раз.';
+			else{
+				a_block[i][ii].turbo = false;
+				a_block[i][ii].style.background = '';
+			}
+			a_block[i][ii].mass = (WwW-iii+1);
+			a_block[i][ii].src = 'img/barrel_'+iii+'.png';
+			i_canvasKeymap += iii;
+			a_block[i][ii].parentNode.onmouseover = function () {this.style.backgroundColor = '#8aa';}
+			a_block[i][ii].parentNode.onmouseout = function () {this.style.backgroundColor = '#448';}
+			a_block[i][ii].style.opacity = 1;
+			a_block[i][ii].onclick = f_game;
+		}
 	}
+	setTimeout (function () {
+		flag_PLAY = true;
+		flag_ANI = 0;
+		i_motion = 0;
+		i_score = 0;
+	}, 1000); // Дать время для окончания анимации
 }

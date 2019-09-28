@@ -1,7 +1,3 @@
-
-var flag_PAUSE = false;
-var flag_IV = true;
-
 window.onload = function ()
 {
 	// Включение анимации изображений полей игр
@@ -42,9 +38,7 @@ window.onload = function ()
 			menuButtons[i].onmouseout = function () {menuButtonTooltip.style.display = 'none';}
 		}
 	}
-	f_fetchUpdateContent('onlineUser', 'ajax_bottom.php');
-// Инициализация полей регистрации
-	if (typeof initInputsRegistration == 'function') initInputsRegistration ();
+	f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
 
 // Включаем виджет "Мне ндравится ВКонтакте"
 	if (typeof VK == 'object') {
@@ -59,19 +53,8 @@ window.onload = function ()
 				height: 30});
 	}
 
-	// Запуск игры
-	if (typeof f_greateGame == 'function')
-	{
-		f_greateGame ();
-		f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php?theme='+document.getElementById('theme').value);
-		document.getElementById('user_top_middle').onclick = f_oldGamePr;
-		if (document.getElementById('canvasState').value == 0) f_newGame ();
-		else f_oldGamePr (null, document.getElementById('canvasState').value);
-	}
-	else
-	{
-		if (!window.location.href.match('profile.php')) f_fetchUpdateContent('user_top_middle', 'ajax_user_top.php');
-	}
+    if (!window.location.href.match('profile.php') && !window.location.href.match('games.php'))
+		f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
 	// Запуск счетчика
 	f_counter ();
     f_isWindowsHeightAlignment ();
@@ -90,41 +73,6 @@ function f_isWindowsHeightAlignment () {
 			windowHeightFirst = windowHeight;
 		}
 	}, 1000);
-}
-
-
-// Запуск старой игры и скрол ДИВа игры и выделение в топ по играм которая была выбрана для игры  -----
-function f_oldGamePr (event, i)
-{
-	event = event || window.event;
-	if (document.getElementById('myNballov')) document.getElementById('myNballov').innerHTML = 0;
-	flag_IV = true;
-	if (!i)
-	{
-		var elm = event.target;
-		while (elm != document.getElementById('user_top_middle'))
-		{
-			if (elm.tagName == 'DIV') break;
-			else elm = elm.parentNode;
-		}
-		i = elm.id.match(/[0-9]+/g);
-	}
-	f_oldGame (i);
-	f_counter ();
-	setTimeout (
-		function ()
-		{
-			if (document.getElementById('G'+i))
-			{
-					e = document.getElementById('G'+i);
-					e.scrollIntoView();
-					e.style.border = '2px solid #999';
-					e.style.borderRadius = '4px';
-					e.style.backgroundColor = '#eee';
-					document.getElementById('myNballov').innerHTML = 0;
-				//	window.scrollTo(0,100);
-			}
-		}, 2000);
 }
 
 // Блок аутентификации через Вконтакте
@@ -185,8 +133,8 @@ function f_oldGamePr (event, i)
 function window_info(s_name, text)
 {
 	elem =document.getElementById('info_div');
-	elem.innerHTML = '<p align = \"justify\">Ожидается ответ сервера...</p>';
-	if (!text)  text = 'Ожидается ответ сервера...';
+	elem.innerHTML = "Ожидается ответ сервера...";
+	if (!text)  text = "Ожидается ответ сервера...";
 	flag_PopUp = true;
 	switch(s_name) {
 		case undefined:
@@ -196,35 +144,32 @@ function window_info(s_name, text)
 		case 'show':
 			break;
 		case 'text_info':
-			elem.innerHTML = '<p align = \"justify\">'+text+'</p>';
+			elem.innerHTML = text;
 			break;
 		case 'pause':
-			elem.innerHTML = "<p class = 'very-big' align='center'>Пауза</p><p align='center'>Для снятия с паузы закройте это окно или нажмите кнопку Пробел.</p>";
-			if (flag_PAUSE == false) flag_PAUSE = true;
-			else flag_PAUSE = false;
+			elem.innerHTML = "<p class = 'very-big'>Пауза</p>Для снятия с паузы кликните по этому окну.";
 			break;
 		case 'user_top':
- 			f_fetchUpdateContent('info_div', 'ajax_user_top_statistic.php?user='+text);
+ 			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+text, null);
 			break;
 		case 'user_game':
- 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+text);
+ 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+text, null);
 			f_counter (); // Увеличиваем счетчик т.к. окно появляется только при каком-нибудь действии пользователя.
 			break;
 		case 'text_help':
 			elem.innerHTML = document.getElementById('text_help').innerHTML;
-			flag_PAUSE = true;
 			break;
 		case 'smile':
-			f_fetchUpdateContent('info_div', 'ajax_smile.php');
+			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
 			break;
 		case 'reg':
-			f_fetchUpdateContent('info_div', 'ajax_reg.php');
+			f_fetchUpdateContent('info_div', 'ajax_reg.php', null);
 			break;
 		case 'forum_theme_redact':
-			elem.innerHTML = '<p align = \"justify\">'+document.getElementById('forum_theme_redact').innerHTML+'</p>';
+			elem.innerHTML = document.getElementById('forum_theme_redact').innerHTML;
 			break;
 		case 'accaunt-delet':
-			elem.innerHTML = '<p align = \"justify\">'+document.getElementById('accaunt-delet').innerHTML+'</p>';
+			elem.innerHTML = document.getElementById('accaunt-delet').innerHTML;
 			break;
 	}
 	windowInfo = document.getElementById('window_info');
@@ -234,12 +179,14 @@ function window_info(s_name, text)
 		blackGlass.style.height = getDocumentHeight()+'px';
 		blackGlass.style.display = 'block';
 		blackGlass.style.opacity = 0.7;
+		flag_PAUSE = true;
 		flag_PopUp = false;
 	}
 	else {
 		windowInfo.style.display = 'none';
 		blackGlass.style.display = 'none';
 		blackGlass.style.opacity = 0;
+		flag_PAUSE = false;
 	}
 }
 
@@ -249,16 +196,21 @@ function f_parseSmilesAtMessage (smile)
 	elm = document.querySelector('#formSendMessage textarea')
 	elm.value = elm.value + "{[:" + smile + ":]}";
 }
+
 // Fetch -------------------------------------------------------------------------
 
-function f_fetchUpdateContent (s_targetBlock, s_loaderFile) {
+function f_fetchUpdateContent (s_targetBlock, s_loaderFile, callback) {
 	var myElement = document.getElementById(s_targetBlock);
 	fetch(s_loaderFile)
 		.then (response => {
 			if (response.status == 200) return response.text()
 			else myElement.innerHTML =  response.status + " " + response.statusText
 		})
-			.then (data => myElement.innerHTML = data)
+			.then (data => {
+				myElement.innerHTML = data;
+				if (typeof callback == 'function')
+					callback ();
+			})
 }
 
 function f_fetchSaving (s_saverFile, callback) {
@@ -270,7 +222,10 @@ function f_fetchSaving (s_saverFile, callback) {
 			.then (data => {
 				window_info ('text_info', data.message);
 				if (data.res.match(/^2/))
-				    callback();
+				    if (typeof callback == 'function'){
+						if (data.id) i_canvasLayout = data.id
+						callback();
+					}
 			})
 }
 

@@ -5,16 +5,10 @@ var XxX = 17;
 var YyY = 24;
 var QqQ = 22;
 var i_N_mine = 500;
-var i_canvasState = 0;
-var i_Nxodov = 0;
-var i_Nscore = 0;
-var s_gameDB = String('');
 var a_gameDB = [];
 var i_nextMine = 0;
-var flag_PLAY = true;
 var flag_DOWN = false;
 var flag_CLICK = false;
-var flag_GAMEOVER = false;
 var flag_SCORE = false;
 var flag_P = false; // Нажатие правой при нажатой левой клавиши мыши
 
@@ -243,7 +237,7 @@ function f_verify ()
 			if (a_block[i][ii].view == 11 && a_block[i][ii].doom != 11) f_OK = false;
 		}
 	}
-	if (i_Nxodov != i_N_mine){
+	if (i_motion != i_N_mine){
 			// Роняем экран внис на клетку при верном обнаружении мин через интервал
 		if (f_OK == true) setTimeout (" flag_DOWN = true; f_Shift (); f_verify ();", 100);
 			// Закончили скрол, теперь возобновляем игру (пауза для исключения неверного нажатия при сколе)
@@ -254,17 +248,17 @@ function f_verify ()
 
 function f_time ()
 {
-	if (flag_PAUSE == false && flag_GAMEOVER == false) i_Nscore --;
-	if (typeof document.getElementById ('myNballov') == 'object') document.getElementById ('myNballov').innerHTML = i_Nscore;
+	if (flag_PAUSE == false && flag_GAMEOVER == false) i_score --;
+	if (typeof document.getElementById ('myNballov') == 'object') document.getElementById ('myNballov').innerHTML = i_score;
 }
 
 function f_Shift ()
 {
 	if (flag_DOWN == true)
 	{
-		for (i=0; i<=XxX; i++) {i_Nscore += a_block[i][0].doom; if (a_block[i][0].doom == 11) i_Nxodov++;}
+		for (i=0; i<=XxX; i++) {i_score += a_block[i][0].doom; if (a_block[i][0].doom == 11) i_motion++;}
 
-		document.getElementById ('myNballov').innerHTML = i_Nscore;
+		document.getElementById ('myNballov').innerHTML = i_score;
 		for (ii=0; ii < YyY; ii++)
 		{
 			for (i=0; i<=XxX; i++)
@@ -288,9 +282,9 @@ function f_Shift ()
 				a_gameDB[i_nextMine]--;
 			}
 		}
-	tag_Mine.style.height =  100-Math.ceil (100*i_Nxodov/i_N_mine) + '%';
-	myN_Mine.innerHTML = 500-i_Nxodov;
-	myN_Mine.style.bottom = i_Nxodov - 22 +'px';
+	tag_Mine.style.height =  100-Math.ceil (100*i_motion/i_N_mine) + '%';
+	myN_Mine.innerHTML = 500-i_motion;
+	myN_Mine.style.bottom = i_motion - 22 +'px';
 	}
 }
 
@@ -314,34 +308,28 @@ function f_paintDoom()
 			}
 		}
 	}
-	tag_Mine.style.height =  100-Math.ceil (100*i_Nxodov/i_N_mine) + '%';
+	tag_Mine.style.height =  100-Math.ceil (100*i_motion/i_N_mine) + '%';
 }
 
 function f_newGame ()
 {
 	a_gameDB = [];
-	s_gameDB = '';
-	for (ii=0; ii<=YyY; ii++)
-	{
-		for (i=0; i<=XxX; i++)
-		{
+	for (ii=0; ii<=YyY; ii++){
+		for (i=0; i<=XxX; i++){
 			a_block[i][ii].doom = 0;
 			a_block[i][ii].view = 0;
 			a_block[i][ii].src = 'img/sapper_9.png';
 		}
 	}
-	for (i=i_N_mine; i>0; i--)
-	{
+	for (i=i_N_mine; i>0; i--){
 		tmp = Math.ceil (Math.random ()*(i/30)+Math.random ()*7);
 		a_gameDB.push(tmp);
-		s_gameDB += tmp+'/';
+		i_canvasKeymap += tmp+'/';
 	}
 
 	i_nextMine = 0;
-	for (ii=0; ii<=YyY; ii++)
-	{
-		for (i=0; i<=XxX; i++)
-		{
+	for (ii=0; ii<=YyY; ii++){
+		for (i=0; i<=XxX; i++){
 			if (a_gameDB[i_nextMine] == 0) {
 				a_block[i][ii].doom = 11;
 				i_nextMine++;
@@ -350,84 +338,28 @@ function f_newGame ()
 		}
 	}
 	f_paintDoom ();
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
-	i_Nxodov = 0;
-	i_Nscore = 100;
-	flag_PLAY = true;
-	flag_GAMEOVER = false;
 }
 
-function f_oldGame(i_game)
+function f_oldGame()
 {
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
-		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					i_canvasState = i_game;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str <= 9)
-					{
-						a_gameDB = [];
-						s_gameDB = i_tmp;
-						a_gameDB = i_tmp.split("/");
-
-						for (ii=0; ii<=YyY; ii++)
-						{
-							for (i=0; i<=XxX; i++)
-							{
-								a_block[i][ii].doom = 0;
-								a_block[i][ii].view = 0;
-								a_block[i][ii].src = 'img/sapper_9.png';
-							}
-						}
-
-						i_nextMine = 0;
-						for (ii=0; ii<=YyY; ii++)
-						{
-							for (i=0; i<=XxX; i++)
-							{
-								if (a_gameDB[i_nextMine] == 0) {
-									a_block[i][ii].doom = 11;
-									i_nextMine++;
-								}
-								a_gameDB[i_nextMine]--;
-							}
-						}
-						f_paintDoom ();
-						i_Nxodov = 0;
-						i_Nscore = 100;
-						flag_PLAY = true;
-						flag_GAMEOVER = false;
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-					}
-					else
-					{
-						window_info ('text_info', i_tmp);
-						flag_PLAY = false;
-					}
-				}
-			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=sapper&canvasState=' + i_game, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	flag_PLAY = false;
-	flag_GAMEOVER = true;
-	document.getElementById('mess').value = s_gameDB + "\t" + i_Nxodov + "\t" + i_Nscore;
-	window_info ('text_info');
-	if (i_Nscore > 100) {
-		f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=sapper&canvasState='+document.getElementById('canvasState').value);
-		setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=sapper')", 3000);
-	} else {
-		document.getElementById('info_div').innerHTML = 'Слишком маленький результат, попробуйте сыграть ще раз.';
+	a_gameDB = [];
+	a_gameDB = i_canvasKeymap.split("/");
+	for (ii=0; ii<=YyY; ii++){
+		for (i=0; i<=XxX; i++){
+			a_block[i][ii].doom = 0;
+			a_block[i][ii].view = 0;
+			a_block[i][ii].src = 'img/sapper_9.png';
+		}
 	}
+	i_nextMine = 0;
+	for (ii=0; ii<=YyY; ii++){
+		for (i=0; i<=XxX; i++){
+			if (a_gameDB[i_nextMine] == 0) {
+				a_block[i][ii].doom = 11;
+				i_nextMine++;
+			}
+			a_gameDB[i_nextMine]--;
+		}
+	}
+	f_paintDoom ();
 }

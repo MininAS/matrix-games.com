@@ -33,7 +33,7 @@
 		<li id = 'k_sound'><a href = '#' onClick = 'f_sound_off();'><img src = 'img/k_sound_".$_COOKIE["sound"].".png' alt='Звук'/></a></li>
 		<li><a href = '#' onClick = \"window_info ('user_game', '".$theme."');\"><img src = 'img/k_stat.png' alt='Статистика игры'/></a></li>
 		<li id = 'k_pauseGame'><a href = '#' onClick = \"window_info ('pause');\"><img src = 'img/k_pause.png' alt='Пауза'/></a></li>
-		<li><a href = '#' onClick = 'f_newGame ();'><img src = 'img/k_newgame.png' alt='Новая игра'/></a></li>
+		<li id = 'k_newGame'><a href = '#'><img src = 'img/k_newgame.png' alt='Новая игра'/></a></li>
 		<li id = 'k_endGame'><a href = '#' onClick = 'f_endGame ();'><img src = 'img/k_save.png' alt='Сохранение игры'/></a></li>");
 	}
 	if ($_SESSION['dopusk'] == 'admin' && $_SESSION["page"] != "admin" && $_SESSION["page"] != "game")
@@ -56,7 +56,7 @@
 	";
 
 
-		if ($_SESSION['theme'] == 'game' || $_SESSION["dopusk"]=="yes" || $_SESSION["dopusk"]=="admin")
+		if ($_SESSION['page'] == 'game' || $_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
 		{
 			$text .= "
 		<i>".$_SESSION["login"]."</i>

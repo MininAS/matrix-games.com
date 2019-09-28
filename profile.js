@@ -4,7 +4,9 @@ var e_profileNewMessageSendButton = document.querySelector('#formSendMessage .k_
 var e_profileNewMessageDestination = document.getElementById('dropDownUserList');
 
 f_profileUpdateContent();
-f_fetchUpdateContent ('dropDownUserList', 'drop_down_user_list.php');
+f_fetchUpdateContent('dropDownUserList', 'drop_down_user_list.php', null);
+f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
+
 
 e_profileMessageBlock.onclick = function (event) {
 	event = event || window.event;
@@ -28,7 +30,7 @@ e_profileNewMessageSendButton.onclick = function () {
 }
 
 function f_profileUpdateContent(){
-	f_fetchUpdateContent('messageWindow', 'profile_content.php');
+	f_fetchUpdateContent('messageWindow', 'profile_content.php', null);
 	e_profileNewMessageInputField.value = "";
 	e_profileNewMessageDestination.value = 0;
 	f_isWindowsHeightAlignment ();

@@ -3,6 +3,8 @@ var e_regPass1InputField = document.getElementById('pass1');
 var e_regPass2InputField = document.getElementById('pass2');
 var e_regEmailInputField = document.getElementById('e_mail');
 
+initInputsRegistration ();
+
 function initInputsRegistration ()
 {
 	e_regLoginInputField.onkeyup = text_login;
@@ -118,13 +120,13 @@ function text_e_mail ()
 
 function reg_save ()
 {
-		get = 'login='+e_regLoginInputField.value
-		+'&pass='+e_regPass1InputField.value;
-		if (e_regEmailInputField) get+='&e_mail='+e_regEmailInputField.value;
-		if (document.getElementById('photo')) get += '&photo='+document.getElementById('photo').value;
-		if (document.getElementById('last_name')) get += '&last_name='+document.getElementById('last_name').value;
-		if (document.getElementById('first_name')) get += '&first_name='+document.getElementById('first_name').value;
-		f_fetchUpdateContent('info_div', 'ajax_reg_save.php', get);
+		string = 'login='+e_regLoginInputField.value
+		       + '&pass='+e_regPass1InputField.value;
+		if (e_regEmailInputField) string += '&e_mail='+e_regEmailInputField.value;
+		if (document.getElementById('photo')) string += '&photo='+document.getElementById('photo').value;
+		if (document.getElementById('last_name')) string += '&last_name='+document.getElementById('last_name').value;
+		if (document.getElementById('first_name')) string += '&first_name='+document.getElementById('first_name').value;
+		f_fetchUpdateContent('info_div', 'ajax_reg_save.php?' + string, null);
 		window_info ('text_info');
 		setTimeout ("window.location.href='index.php';", 5000);
 }

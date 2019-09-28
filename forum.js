@@ -92,7 +92,7 @@ e_forumDeleteConfirmPopup.onmouseleave = function () {
 
 function f_forumUpdateContent(theme){
 	theme = theme ? theme : currentTheme;
-	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme);
+	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme, null);
 	e_forumNewThemeInputField.value = "";
 	e_forumNewMessageInputField.value = "";
 	e_forumCloseEditModeButton.style.display = 'none';

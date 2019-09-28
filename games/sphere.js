@@ -2,17 +2,12 @@ var a_block = new Array ();
 var XxX = 15;
 var YyY = 12;
 var QqQ = 48;
-var i_canvasState = 0;
-var i_Nxodov = 0;
 var i_Nballov = 0;
-var i_Nscore = 0;
 var s_myElement = String('');
 var flag_ANI = 0;
-var flag_PLAY = true;
 var flag_DOWN = false;
 var flag_CLICK = false;
 var flag_SHIFT = false;
-var flag_GAMEOVER = false;
 var flag_SCORE = false;
 var o_elm1;					// Ёлемент выбранный первым
 var o_elm2;						// вторым
@@ -95,7 +90,7 @@ function f_down ()
 			{
 				o_elm2 = this;
 				i_Nverify = 0;
-				i_Nxodov++;
+				i_motion++;
 				o_elm1.style.outline = '0px';
 				if (o_elm1.color >= 8) {flag_CLICK = false; flag_PLAY = false; f_superBall ();}
 				else
@@ -370,8 +365,8 @@ function f_delet ()
 	o_ScrollScore.style.left = xy.left+'px';
 
 	flag_SCORE = true;
-	i_Nscore += i_Nballov;
-	document.getElementById ('myNballov').innerHTML = i_Nscore;
+	i_score += i_Nballov;
+	document.getElementById ('myNballov').innerHTML = i_score;
 }
 
 function ani_hide(elm, o)
@@ -430,26 +425,21 @@ function f_Shift ()
 
 function f_newGame ()
 {
-	s_myElement = "";
-	for (i=0; i<a_block.length; i++)
-	{
+	for (i=0; i<a_block.length; i++){
 		a_block[i].color = Math.ceil (Math.random ()*7);
 		a_block[i].src = 'img/ball_'+a_block[i].color+'.png';
 	}
-	for (i=1; i<=(XxX-2); i++)
-	{
+	for (i=1; i<=(XxX-2); i++){
 		while (a_block[i].color == a_block[i+1].color
 			&& a_block[i].color == a_block[i-1].color) a_block[i].color = Math.ceil (Math.random ()*7);
 		a_block[i].src = 'img/ball_'+a_block[i].color+'.png';
 	}
-	for (i=(XxX*(YyY-1)+1); i<=(XxX*YyY-2); i++)
-	{
+	for (i=(XxX*(YyY-1)+1); i<=(XxX*YyY-2); i++){
 		while (a_block[i].color == a_block[i+1].color
 			&& a_block[i].color == a_block[i-1].color) a_block[i].color = Math.ceil (Math.random ()*7);
 		a_block[i].src = 'img/ball_'+a_block[i].color+'.png';
 	}
-	for (i=(XxX); i<(XxX*(YyY-1)); i++)
-	{
+	for (i=(XxX); i<(XxX*(YyY-1)); i++){
 		while ((a_block[i].color == a_block[i+1].color
 			&& a_block[i].color == a_block[i-1].color)
 			|| (a_block[i].color == a_block[i+XxX].color
@@ -458,65 +448,18 @@ function f_newGame ()
 	}
 	for (i=0; i<a_block.length; i++)
 	{
-		s_myElement += a_block[i].color;
+		i_canvasKeymap += a_block[i].color;
 		a_block[i].colTmp = 0;
 	}
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
-	i_Nxodov = 0;
-	i_Nscore = 0;
-	flag_PLAY = true;
 	flag_SHIFT = false;
-	flag_GAMEOVER = false;
 }
 
-function f_oldGame(i_game)
+function f_oldGame()
 {
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
-		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					i_canvasState = i_game;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str < 9)
-					{
-						s_myElement = "";
-						for (i=0; i<=(XxX*YyY)-1; i++)
-						{
-							a_block[i].color = Number(i_tmp.substr (i, 1));
-							a_block[i].src = 'img/ball_'+a_block[i].color+'.png';
-							s_myElement += a_block[i].color;
-						}
-						i_Nxodov = 0;
-						i_Nscore = 0;
-						flag_PLAY = true;
-						flag_SHIFT = false;
-						flag_GAMEOVER = false;
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-					}
-					else
-					{
-						window_info ('text_info', i_tmp);
-						flag_PLAY = false;
-					}
-				}
-			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=sphere&canvasState=' + i_game, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	flag_PLAY = false;
-	flag_GAMEOVER = true;
-	document.getElementById('mess').value = s_myElement + "\t" + i_Nxodov + "\t" + i_Nscore;
-	window_info ('text_info');
-	f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=sphere&canvasState='+document.getElementById('canvasState').value);
-	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=sphere')", 3000);
+	for (i=0; i<=(XxX*YyY)-1; i++){
+		a_block[i].color = Number(i_canvasKeymap.substr (i, 1));
+		a_block[i].src = 'img/ball_'+a_block[i].color+'.png';
+		s_myElement += a_block[i].color;
+	}
+	flag_SHIFT = false;
 }

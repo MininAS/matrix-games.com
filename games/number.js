@@ -2,15 +2,10 @@ var a_block = new Array ();
 var XxX = 8;
 var YyY = 8;
 var QqQ = 48;
-var i_canvasState = 0;
-var i_Nxodov = 0;
 var i_Nballov = 0;
-var i_Nscore = 0;
 var i_live = 5;
 var s_elm = String('');
-var flag_PLAY = true;
 var flag_DOWN = false;
-var flag_GAMEOVER = false;
 var flag_SCORE = false;
 var flag_MOVE = false;
 var flag_BIG_GAME = false;
@@ -147,9 +142,9 @@ function f_marger (j)
 function f_move (s_move)
 {
 	flag_PLAY = false;
-	i_Nxodov ++;
-	i_Nscore -= 10;
-	document.getElementById('myNballov').innerHTML = i_Nscore;
+	i_motion ++;
+	i_score -= 10;
+	document.getElementById('myNballov').innerHTML = i_score;
 	if (flag_SOUND == 'on') document.getElementById('sound').innerHTML = '<audio src="sound/number_1.wav" autoplay>';
 	if (s_move == 'left')
 		for (i = 0; i <= (YyY-1); i++)
@@ -192,7 +187,7 @@ function f_move (s_move)
 		{
 			a.mul = a.mul + b.mul;
 			a.live = i_live;
-			i_Nscore = i_Nscore + b.number * a.mul;
+			i_score = i_score + b.number * a.mul;
 			a.number = a.number * 2;
 			b.number = 0;
 			f_marger (a);
@@ -237,7 +232,7 @@ function f_anim ()
 		{
 			flag_MOVE = false;
 			flag_PLAY = true;
-			document.getElementById('myNballov').innerHTML = i_Nscore;
+			document.getElementById('myNballov').innerHTML = i_score;
 			f_verify ();
 		}
 		f_paint ();
@@ -335,9 +330,7 @@ function f_verify ()
 
 function f_newGame ()
 {
-	s_gameDB = '';
-	for (i=0; i<=(XxX * YyY)-1; i++)
-	{
+	for (i=0; i<=(XxX * YyY)-1; i++){
 		i_int = Math.ceil (Math.random ()*20);
 		switch(true) {
 			case i_int >= 0 && i_int <= 3:
@@ -354,65 +347,20 @@ function f_newGame ()
 				break;
 		}
 		a_block[i].mul = 1;
-		s_gameDB += a_block[i].number+'/';
+		i_canvasKeymap += a_block[i].number+'/';
 	}
 	f_paint ();
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
-	i_Nxodov = 0;
-	i_Nscore = 0;
-	flag_PLAY = true;
-	flag_GAMEOVER = false;
 }
 
-function f_oldGame(i_canvasState)
+function f_oldGame()
 {
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
-		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str < 9)
-					{
-						a_gameDB = [];
-						s_gameDB = i_tmp;
-						a_gameDB = i_tmp.split("/");
-						for (i=0; i<=(XxX*YyY)-1; i++)
-						{
-							a_block[i].number = a_gameDB[i];
-							a_block[i].number=a_block[i].number*1;
-							a_block[i].mul = 1;
-						}
-						f_paint ();
-						i_Nxodov = 0;
-						i_Nscore = 0;
-						flag_PLAY = true;
-						flag_GAMEOVER = false;
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-					}
-					else
-					{
-						window_info ('text_info', i_tmp);
-						flag_PLAY = false;
-					}
-				}
-			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=number&canvasState=' + i_canvasState, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	flag_PLAY = false;
-	flag_GAMEOVER = true;
-	document.getElementById('mess').value = s_gameDB + "\t" + i_Nxodov + "\t" + i_Nscore;
-	window_info ('text_info');
-	f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=number&canvasState='+document.getElementById('canvasState').value);
-	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php?theme=number')", 3000);
+	a_gameDB = [];
+	a_gameDB = i_canvasKeymap.split("/");
+	for (i=0; i<=(XxX*YyY)-1; i++)
+	{
+		a_block[i].number = a_gameDB[i];
+		a_block[i].number=a_block[i].number*1;
+		a_block[i].mul = 1;
+	}
+	f_paint ();
 }

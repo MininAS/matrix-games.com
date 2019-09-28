@@ -3,15 +3,10 @@ var SquareColorLayer2 = new Array ();
 var SquareColorLayer3 = new Array ();
 var XxX = 30;
 var YyY = 20;
-var Nxodov = 0;
-var Nkletki_compa = 0;
-var Nkletki_vashi = 0;
+var i_squares_of_comp = 0;
 var Xcolor = 6;
 var Nsquare = 0;
 var NNsquare = new Array ();
-var s_mess = "";
-var i_canvasState = 0;
-var flag_PLAY = true;
 
 document.getElementById('game').style.width = XxX * 24+"px";
 
@@ -77,7 +72,7 @@ if (flag_PLAY == true)
 	{
 	if (newNamberColor != SquareColorLayer2[1][1])
 	{
-		Nxodov ++;
+		i_motion ++;
 		SquareColorLayer2[XxX][YyY] = 0;
 		var zeroOK = true;
 		while (zeroOK == true)
@@ -103,11 +98,11 @@ if (flag_PLAY == true)
 	}
 	paintPC ();
 	CopyLayers ();
-	Nkletki_vashi = addSquare (XxX, YyY, 1);
+	i_score = addSquare (XxX, YyY, 1);
 	CopyLayers ();
-	Nkletki_compa = addSquare (1, 1, 1);
+	i_squares_of_comp = addSquare (1, 1, 1);
 
-	document.getElementById ('myNballov').innerHTML = Nkletki_vashi;
+	document.getElementById ('myNballov').innerHTML = i_score;
 	iii = addSquarePC (1);
 	if (iii == 10) f_endGame ();
 }
@@ -237,70 +232,23 @@ function CopyLayers ()
 	<!--Заполняем случайным образом цвета кубов-->
 function f_newGame ()
 {
-	flag_PLAY = true;
-	s_mess = "";
-	for (i=1; i<=XxX; i++)
-	{
-		for (ii=1; ii<=YyY; ii++)
-		{
+	for (i=1; i<=XxX; i++){
+		for (ii=1; ii<=YyY; ii++){
 			SquareColorLayer2[i][ii] = Math.ceil (Math.random ()*6);
 			document.images[SquareColorLayer1[i][ii]].src = "img/stone_"+SquareColorLayer2[i][ii]+".gif";
-			s_mess +=  SquareColorLayer2[i][ii];
+			i_canvasKeymap +=  SquareColorLayer2[i][ii];
 		}
 	}
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
-	Nkletki_vashi = 0;
-	Nkletki_compa = 0;
-	Nxodov = 0;
+	i_squares_of_comp = 0;
 }
-function f_oldGame(i_game)
+function f_oldGame()
 {
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
-		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					i_canvasState = i_game;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str < 9)
-					{
-						s_mess = "";
-						for (i=1; i<=XxX; i++)
-						{
-							for (ii=1; ii<=YyY; ii++)
-							{
-								qq = (i-1); qq *= 20; qq += (ii-1);
-								str = i_tmp.substr (qq, 1);
-								SquareColorLayer2[i][ii] = str;
-								document.images[SquareColorLayer1[i][ii]].src = 'img/stone_'+SquareColorLayer2[i][ii]+'.gif';
-								s_mess += str;
-							}
-						}
-						flag_PLAY = true;
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-					}
-					else
-					{
-						window_info ('text_info', i_tmp);
-						flag_PLAY = false;
-					}
-				}
-			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=filler&canvasState=' + i_game, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	flag_PLAY = false;
-	document.getElementById('mess').value = s_mess + "\t" + Nxodov + "\t" + Nkletki_vashi;
-	window_info ('text_info');
-	f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=filler&canvasState='+document.getElementById('canvasState').value);
-	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=filler')", 3000);
+	for (i=1; i<=XxX; i++){
+		for (ii=1; ii<=YyY; ii++){
+			qq = (i-1); qq *= 20; qq += (ii-1);
+			str = i_canvasKeymap.substr (qq, 1);
+			SquareColorLayer2[i][ii] = str;
+			document.images[SquareColorLayer1[i][ii]].src = 'img/stone_'+SquareColorLayer2[i][ii]+'.gif';
+		}
+	}
 }

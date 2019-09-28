@@ -10,8 +10,8 @@ SquareOfFigure[2] = new Array ();		<!--4-ре по Y-->
 
 var XxX = 12;				<!--Ширина игрового поля-->
 var YyY = 20;				<!--Высота игрового поля-->
-var Nxodov = 0;				<!--Количество ходов-->
-var Nballov = 0;			<!--Количество баллов-->
+var i_motion = 0;				<!--Количество ходов-->
+var i_score = 0;			<!--Количество баллов-->
 var CursorY = 1;			<!--Смещение курсора в массиве №4-->
 var CursorX = 1;			<!--Смещение курсора в массиве №4-->
 var flag_DOWN = false;		<!--Флаг для падения фигуры-->
@@ -21,7 +21,6 @@ var flag_ROTATE = true;		<!--Флаг для запрета поворота-->
 var flag_GAMEOVER = false;	<!--Флаг для запрета завершения игры-->
 var flag_NEWGAME = false;	<!--Флаг для новой игры-->
 var flag_OLDGAME = false;	<!--Флаг для старой игры-->
-var flag_PLAY = true;
 var flag_NEWFIGURE = true;
 var i_Speed = 1000;			<!--Скорость спуска фигуры-->
 var i_SpeedTmp = 1000;
@@ -159,7 +158,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 - 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX/2 - 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX/2; SquareOfFigure[2][4] = 2;
-				Nballov += 4;
+				i_score += 4;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 2)
 			{
@@ -167,7 +166,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX/2 + 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX/2; SquareOfFigure[2][4] = 2;
-				Nballov +=  4;
+				i_score +=  4;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 3)
 			{
@@ -175,7 +174,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 - 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX/2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX/2 + 1); SquareOfFigure[2][4] = 2;
-				Nballov +=  5;
+				i_score +=  5;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 4)
 			{
@@ -183,7 +182,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX/2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX/2 - 1); SquareOfFigure[2][4] = 2;
-				Nballov +=  5;
+				i_score +=  5;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 5)
 			{
@@ -191,7 +190,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX/2 - 1); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX/2; SquareOfFigure[2][4] = 2;
-				Nballov +=  3;
+				i_score +=  3;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 6)
 			{
@@ -199,7 +198,7 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX/2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX/2 + 1); SquareOfFigure[2][4] = 2;
-				Nballov +=  2;
+				i_score +=  2;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 7)
 			{
@@ -207,10 +206,10 @@ function f_Tetris ()
 				SquareOfFigure[1][2] = (XxX/2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX/2 + 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = (XxX/2 - 1); SquareOfFigure[2][4] = 1;
-				Nballov ++;
+				i_score ++;
 			}
 						<!--Проверяем на удаления линий и конец хода-->
-			Nxodov++;
+			i_motion++;
 			i_NLine = 0;
 			for (i = 1; i <= YyY; i++)
 			{
@@ -222,7 +221,7 @@ function f_Tetris ()
 				if (flag_LINE == true)
 				{
 					i_NLine++;
-					Nballov += (YyY - i);
+					i_score += (YyY - i);
 					for (iii = i; iii > 1; iii--)
 					{
 						for (ii = 1; ii <= XxX; ii++)
@@ -233,14 +232,14 @@ function f_Tetris ()
 					}
 				}
 			}
-			if  (i_NLine == 1) Nballov += 10;
-			if  (i_NLine == 2) Nballov += 30;
-			if  (i_NLine == 3) Nballov += 45;
-			if  (i_NLine == 4) Nballov += 70;
+			if  (i_NLine == 1) i_score += 10;
+			if  (i_NLine == 2) i_score += 30;
+			if  (i_NLine == 3) i_score += 45;
+			if  (i_NLine == 4) i_score += 70;
 
 			if (window.document.getElementById('myNballov'))
   			{
-   				 document.getElementById('myNballov').innerHTML = Nballov;
+   				 document.getElementById('myNballov').innerHTML = i_score;
  			}
 
 					<!--Проверка на конец хода-->
@@ -441,97 +440,46 @@ function f_newGame () {flag_NEWGAME = true;}
 		<!--Случайным образом генерируются фигуры, записываются в массив №4 и строку №5, обнуляется цифровое и именное массивы №1, 2 -->
 function f_newFigure ()
 {
-	s_mess = "";
-	for (i=1; i<=XxX; i++)
-	{
-		for (ii=1; ii<=YyY; ii++)
-		{
+	for (i=1; i<=XxX; i++){
+		for (ii=1; ii<=YyY; ii++){
 			SquareColorLayer4[i][ii] = Math.ceil (Math.random ()*7);
-			s_mess +=  SquareColorLayer4[i][ii];
+			i_canvasKeymap +=  SquareColorLayer4[i][ii];
 			SquareColorLayer2[i][ii] = 0;
 			document.images[SquareColorLayer1[i][ii]].src = "img/stone_0.gif";
 		}
 	}
-
-	document.getElementById('canvasState').value = '0';
-	document.getElementById('game_sport').style.display = 'none';
-	Nballov = 0;
-	Nxodov = 0;
 	CursorY = 1;
 	CursorX = 1;
 	i_Speed = 1000;
-	flag_GAMEOVER = false;
 	flag_NEWGAME = false;
 	flag_OLDGAME = false;
 	flag_PAUSE = false;
 	flag_NEWFIGURE = true;
-	flag_PLAY = true;
 	f_Tetris ();
 }
 		<!--------------------------------------------------------------------------------------->
-function f_oldGame (i_game) { i_canvasState = i_game; flag_OLDGAME = true;}
-function f_oldFigure (i_game)
+function f_oldGame () {flag_OLDGAME = true;}
+function f_oldFigure ()
 {
-	var req = getXmlHttp();
-	req.onreadystatechange = function()
+	for (i=1; i<=XxX; i++)
+	{
+		for (ii=1; ii<=YyY; ii++)
 		{
-		 	if (req.readyState == 4)
-			{
-				if (req.status == 200)
-				{
-					i_tmp = req.responseText;
-					i_canvasState = i_game;
-					str = i_tmp.substr (0, 1);
-					if (str > 0 && str < 9)
-					{
-						s_mess = "";
-						for (i=1; i<=XxX; i++)
-						{
-							for (ii=1; ii<=YyY; ii++)
-							{
-								qq = (i-1); qq *= YyY; qq += (ii-1);
-								str = i_tmp.substr (qq, 1);
-								SquareColorLayer4[i][ii] = str;
-								SquareColorLayer2[i][ii] = Number(0);
-								document.images[SquareColorLayer1[i][ii]].src = "img/stone_0.gif";
-								s_mess += str;
-							}
-						}
-						document.getElementById('canvasState').value = i_canvasState;
-						document.getElementById('game_sport').style.display = 'inline';
-						document.getElementById('game_sport').innerHTML = '№ ' + document.getElementById('canvasState').value;
-						Nballov = 0;
-						Nxodov = 0;
-						CursorY = 1;
-						CursorX = 1;
-						i_Speed = 1000;
-						flag_PLAY = true;
-						flag_GAMEOVER = false;
-						flag_NEWFIGURE = true;
-						f_Tetris ();
-					}
-					else
-					{
-						flag_GAMEOVER = true;
-						flag_PLAY = false;
-						window_info ('text_info', i_tmp);
-						f_Tetris ();
-					}
-					flag_PAUSE = false;
-					flag_OLDGAME = false;
-					flag_NEWGAME = false;
-				}
-			}
-   		}
-	req.open('GET', 'ajax_game_load.php?theme=tetris&canvasState=' + i_game, true);
-	req.send(null);
-}
-function f_endGame()
-{
-	flag_PLAY = false;
-	flag_GAMEOVER = true;
-	document.getElementById('mess').value = s_mess + "\t" + Nxodov + "\t" + Nballov;
-	window_info ('text_info');
-	f_fetchUpdateContent('info_div', 'ajax_game_save.php', 'mess='+document.getElementById('mess').value+'&theme=tetris&canvasState='+document.getElementById('canvasState').value);
-	setTimeout ("f_fetchUpdateContent('user_top_middle', 'ajax_user_top_game.php', 'theme=tetris')", 3000);
+			qq = (i-1); qq *= YyY; qq += (ii-1);
+			str = i_canvasKeymap.substr (qq, 1);
+			SquareColorLayer4[i][ii] = str;
+			SquareColorLayer2[i][ii] = Number(0);
+			document.images[SquareColorLayer1[i][ii]].src = "img/stone_0.gif";
+		}
+	}
+	CursorY = 1;
+	CursorX = 1;
+	i_Speed = 1000;
+	flag_PLAY = true;
+	flag_GAMEOVER = false;
+	flag_NEWFIGURE = true;
+	f_Tetris ();
+	flag_PAUSE = false;
+	flag_OLDGAME = false;
+	flag_NEWGAME = false;
 }

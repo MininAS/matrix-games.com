@@ -8,7 +8,11 @@ while ($data = mysql_fetch_row($qwery))
 		$_SESSION["dopusk"] = $data[3]; $_SESSION["id"] = $data[1];
 		$_SESSION["login"] = $data[2];
 		$log = "Авторизациzs."; log_file ($log);
-		f_mysqlQuery ("UPDATE users SET N_visit=N_visit+1, data='".date ("y.m.d")."', time='".date ("H:i")."', ip='".getenv ("REMOTE_ADDR")."' WHERE id=".$_SESSION["id"].";");
+		f_mysqlQuery ("UPDATE users SET N_visit=N_visit+1,
+			 							data='".date ("y.m.d")."',
+										time='".date ("H:i")."',
+										ip='".getenv ("REMOTE_ADDR")."'
+					   WHERE id=".$_SESSION["id"].";");
 		unset ($text_info);
 		break;
 	}

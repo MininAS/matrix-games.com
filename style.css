@@ -30,7 +30,7 @@ a:hover {
 	font-size: 24pt; font-weight: bold;
 }
 .text_insignificant {
-	font-size: 8pt; font-style: normal; color: #aaa;
+	font-size: 8pt; color: #aaa;
 }
 .noselect {
   -webkit-touch-callout: none;
@@ -57,6 +57,7 @@ input, textarea, select, .border_inset  {
 }
 
 .selectable_list_item {
+	position: relative;
 	border-radius: 6px;
 	cursor: pointer;
 }
@@ -198,12 +199,15 @@ body > #body {
 		}
 		#registration {grid-column: 4 / 5; grid-row: 1 / 3;}
 
-/*=============== Левый экран с пользователями и играми ======================*/
+
 #box_center {
 	  display: flex;
 		justify-content: center;
 		align-items: flex-start;
 }
+
+/*=============== Левый экран с пользователями и играми ======================*/
+
 	#user_top {
 		width: 30%;
 		min-width: 210px;
@@ -213,44 +217,16 @@ body > #body {
 			transition: all 2s;
 			display: block;
 			overflow: auto;
+			scroll-behavior: smooth;
 			height: 500px;
 			padding: 20px 10px 0px 6px;
 		}
-			#user_top_middle div, #user_top_middle h1 {
-				border: 2px solid #f7f7f7;
-				vertical-align: middle;
-				text-align: center;
-			}
-			#user_top_middle div:hover {
-				border: 2px solid #666;
-				border-radius: 4px;
-				background-color: #ccc;
-				cursor: pointer;
-			}
-				#user_top_middle div ul {
-					position: relative;
-				}
-				#user_top_middle div ul li {
-					width: 30%;
-					margin: 0 auto;
-					vertical-align: middle;
-					text-align: center;
-					display: inline-block;
-				}
-					#user_top_middle div ul li img{
-						margin: 3px auto;
-					}
-					#user_top_middle div ul li i{
-						overflow: visible;
-						position: absolute;
-						top: 15%;
-						right: 90%;
-						padding: 0px 5px;
-						border: 2px solid #bbb;
-						border-radius: 4px;
-						background: #fff;
-						text-align: center;
-					}
+
+		.selected_subgame_item {
+			border-radius: 6px;
+			background-color: #ccc;
+			box-shadow: 0px 0px 3px #000;
+		}
 
 /*=============== Список игр =================================================*/
   #box_game {
@@ -384,10 +360,10 @@ body > #body {
 	overflow: auto;
 	max-height: 400px;
 }
-	#messageWindow > ul.messageLists {
+	ul.messageLists {
 		margin-top: 5px;
 	}
-		#messageWindow > ul.messageLists li {
+		ul.messageLists > li {
 			display: grid;
 			align-items: center;
 			grid-template-columns: 1fr 4fr;
@@ -395,7 +371,9 @@ body > #body {
 			margin: 5px;
 		}
 			ul.messageLists .message_autor {
+				min-width: 120px;
 				grid-column: 1 / 2;
+				align-self: start;
 				border-right: 2px solid #eee;
 				padding: 5px;
 				display: grid;
@@ -413,7 +391,18 @@ body > #body {
 			}
 				ul.messageLists .forum_list_item_buttons {
 					float: right;
-
+				}
+				ul.messageLists .top_list_item_number {
+					transition: all 1s ease;
+					position: absolute;
+					right: 10px;
+					top: 0px;
+					opacity: 0.3;
+					font-size: 18pt; color: #ccc;
+				}
+				.selectable_list_item:hover .top_list_item_number {
+					opacity: 0.7;
+					font-size: 28pt;
 				}
 
 		#formSendTheme {
@@ -512,15 +501,20 @@ body > #body {
 	position: absolute;
 }
 #window_info {
-	max-width: 60%;
-	min-width: 800px;
+	width: 100%;
 	display: none;
-	padding: 10px;
 	position: fixed !important;
 	top: 120px;
-	margin: 0px 20%;
 	z-index: 1002;
 }
+
+#info_div {
+	align: center;
+	min-width: 500px;
+	padding: 10px;
+	margin: 0px 20%;
+}
+
 #statistic {
 	display: table;
 	width: 90%;

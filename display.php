@@ -13,9 +13,9 @@
 		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка">
 
 	<meta name="yandex-verification" content="52be1ad7373487f5" />
-	<link rel="stylesheet" type="text/css" href="style.css?v=7.0.4">
+	<link rel="stylesheet" type="text/css" href="style.css?v=8">
 	<link rel="SHORTCUT ICON" href="img/icon.png">
-	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?v=7.0.4'></script>
+	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?v=8'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>
@@ -52,7 +52,7 @@
 				<div id = 'sateVersion'>
 					<p id = 'onlineUser' class = 'small'>Сейчас на сайте:</p>
 					<p class = 'small'>Обнаруженные технические ошибки просьба коментировать на mininas@sampo.ru.<br/>
-					С Уважением Минин Александр. (v7 - 05.05.2019)</p>
+					С Уважением Минин Александр. (v8 - 28.09.2019)</p>
 				</div>
 			</div>
 		</div>
@@ -60,8 +60,8 @@
 
 <div id="black_glass" onClick = 'window_info();'></div>
 
-<div id = 'window_info' class = 'windowSite'>
-	<div id = 'info_div'></div>
+<div id = 'window_info' onClick = 'window_info();'>
+	<div id = 'info_div' class = 'windowSite'></div>
 </div>
 
 <div id = 'text_help'>

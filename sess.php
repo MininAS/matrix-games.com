@@ -35,7 +35,7 @@
 		}
 	}
 	// Переменные цифровые
-	$arr = array ('canvasState', 'user', 'regEdit', 'mess');
+	$arr = array ('canvasLayout', 'user', 'regEdit', 'mess');
 	while (list($key, $value) = each ($arr))
 	{
 		$v = $value;
