@@ -68,9 +68,10 @@ function f_game_ (e,t)
 	if (e.volum == WwW)
 	{
 		e.style.opacity = 0;
-		if (flag_SOUND == 'on')
-			if (e.turbo == true) e.innerHTML = '<audio src="sound/barrel_mas.wav" autoplay>';
-			else e.innerHTML = '<audio src="sound/barrel_mass.wav" autoplay>';
+		if (flag_SOUND == 'on'){
+			name = (e.turbo == true) ? 'barrel_mas.wav' : 'barrel_mass.wav';
+		    f_playSound(name);
+		}
 		e.volum = 9;
 		e.parentNode.style.backgroundColor = '#448';
 		e.parentNode.onmouseover = null;
@@ -171,23 +172,7 @@ function f_end (e)
 	e.style.display = 'none';
 	e.remove();
 }
-function f_scrollScore (e, i)
-{
-	var o = document.createElement ('p');
-	document.getElementById('box_center').appendChild(o);
-	o.innerHTML = i;
-	o.className = 'border_inset';
-	o.style.position = 'absolute';
-	xy = getOffset (e);
-	o.style.top = xy.top+'px';
-	o.style.left = xy.left+'px';
-	o.style.transition = 'all 3s linear';
-	o.style.WebkitTransition = 'all 3s linear';
-	setTimeout (function () {o.style.top = xy.top-200+'px';
-	o.style.opacity = 0;}, 10);
-	o.addEventListener('transitionend', function () {this.remove();});
-	o.addEventListener('webkitTransitionEnd', function () {this.remove();});
-}
+
 function f_newGame ()
 {
 	flag_PLAY = false;

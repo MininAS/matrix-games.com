@@ -560,6 +560,12 @@ body > #body {
 	max-width: 300px;
 }
 
+.scroll_score {
+	transition: all 3s linear;
+	-webkit-transition: all 3s linear;
+	position: absolute;
+	z-index: 999;
+}
 /*=============== Кнопки дополнительные ==================================================*/
 .k_smile, .k_enter, .k_close, .k_vk, .k_reg, #k_up {
 	width: 20px; height: 20px;

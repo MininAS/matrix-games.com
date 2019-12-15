@@ -14,7 +14,7 @@ e_profileMessageBlock.onclick = function (event) {
 	while (elm != e_profileMessageBlock) {
 		if (elm.classList.contains('profile_delete_item_link')){
 			deletingMess = elm.parentNode.parentNode.parentNode.getAttribute('item');
-			f_fetchSaving ('profile_delete_message.php?mess=' + deletingMess, f_profileUpdateContent);
+			f_fetchSaving ('profile_delete_message.php', 'mess=' + deletingMess, f_profileUpdateContent);
 			break;
 		}
 		else elm = elm.parentNode;
@@ -24,7 +24,7 @@ e_profileMessageBlock.onclick = function (event) {
 e_profileNewMessageSendButton.onclick = function () {
 	var string = e_profileNewMessageInputField.value;
 	var user = e_profileNewMessageDestination.value;
-	f_fetchSaving ('profile_send_message.php?' +
+	f_fetchSaving ('profile_send_message.php?',
 		'string=' + string +
 		'&user=' + user, f_profileUpdateContent);
 }

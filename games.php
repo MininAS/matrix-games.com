@@ -48,7 +48,7 @@
 				$q = ", плюс вы заработали награду за ".$medal."-е призовое место.";
 			}
 			f_mail ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
-			f_saveUserMessage ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
+			f_saveTecnicMessage (0, $data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
 			if (f_mysqlQuery ("DELETE FROM games_".$theme." WHERE id_game=".$canvasLayout.";"))
 				if (f_mysqlQuery ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasLayout.";"))
 				{
@@ -71,7 +71,7 @@
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
 	<script type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?v=8'></script>
-	<script type = 'text/javascript' language = 'JavaScript' src = 'game.js?v=8'></script>";
+	<script type = 'text/javascript' language = 'JavaScript' src = 'game.js?v=9'></script>";
 
 	require ("display.php");
 ?>

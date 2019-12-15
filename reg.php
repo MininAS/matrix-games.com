@@ -2,9 +2,7 @@
 	require ("function.php");
 	require ("sess.php");		$_SESSION["page"] = "reg";
 	if ($_SESSION['dopusk'] != 'no') exit;
-	$record = array ();
-	$record_ = array ();
-
+    $reg_text = "";
 	$body = "";
 	$text = "";
 	$login = "";
@@ -47,7 +45,7 @@ if (isset ($_COOKIE["vk_app_2729439"]))
 		<li id = 'key_Registration_Saving'  class = 'k_enter'></li>
 		".$additional_fieldrs."
 	</div>
-	<script type = 'text/javascript' language = 'JavaScript' src = 'reg.js?v=8'></script>";
+	<script type = 'text/javascript' language = 'JavaScript' src = 'reg.js?v=9'></script>";
 	require ("display.php");
 
 ?>

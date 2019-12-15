@@ -12,9 +12,6 @@ var flag_PLAY = false;
 var flag_GAMEOVER = false;
 var flag_PAUSE = false;
 
-f_greateGame ();
-f_gameStart ();
-
 function f_gameStart (){
 	flag_GAMEOVER = false;
 	i_score = 0;
@@ -72,15 +69,13 @@ function f_scrollAndSelectSubgameItem (){
 function f_endGame() {
 	flag_PLAY = false;
 	flag_GAMEOVER = true;
-	f_fetchSaving ('game_save.php?string='
-		+ i_canvasKeymap + ':' + i_motion + ':' + i_score
-		+ '&theme=' + s_theme
-		+ '&canvasLayout=' + i_canvasLayout,
+	f_fetchSaving ('game_save.php',
+		'string=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
+		'&theme=' + s_theme +
+		'&canvasLayout=' + i_canvasLayout,
 		f_updateUserTopList);
-
 }
 
-// Запуск старой игры и скрол ДИВа игры и выделение в топ по играм которая была выбрана для игры  -----
 e_topWindow.onclick = function (event){
 	event = event || window.event;
 	elm = event.target;
@@ -95,4 +90,28 @@ e_topWindow.onclick = function (event){
 e_newGameButton.onclick = function(){
 	i_canvasLayout = 0;
 	f_gameStart ();
+}
+f_greateGame ();
+f_gameStart ();
+
+function f_scrollScore (e, i) {
+	var o = document.createElement ('p');
+	document.getElementById('game_block').appendChild(o);
+	o.innerHTML = i;
+	o.className = 'border_inset scroll_score';
+	o.style.top = e.offsetTop + 'px';
+	o.style.left = e.offsetLeft + 'px';
+	randomOffset = Math.random() * (400 - 100) + 100;
+	setTimeout (() => {
+		o.style.top = e.offsetTop - Math.round(randomOffset) + 'px';
+		o.style.opacity = 0;}, 10);
+	o.addEventListener('transitionend', () => {o.remove();});
+	o.addEventListener('webkitTransitionEnd', () => {o.remove();});
+}
+
+function f_playSound (name) {
+    var o = document.createElement('audio');
+	o.src = 'sound/' + name;
+	o.autoplay = 'autoplay';
+	setTimeout (() => {o.remove()}, 100)
 }

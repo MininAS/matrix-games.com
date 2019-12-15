@@ -286,7 +286,8 @@ function f_Tetris ()
 				}
 			}
 
-			if (flag_STOP == true)				<!--Если упала на дно спускаем следующюю фигуру-->
+			<!--Если упала на дно спускаем следующюю фигуру-->
+			if (flag_STOP == true)
 			{
 				for (i = 1; i <= 4; i++)
 				{
@@ -298,7 +299,9 @@ function f_Tetris ()
 				if (i_Speed > 30) i_Speed -= 2;
 				flag_NEWFIGURE = true;
 			}
-			if (flag_STOP == false)					<!--Стираем старую и опускаем на клетку вниз-->
+
+			<!--Стираем старую и опускаем на клетку вниз-->
+			if (flag_STOP == false)
 			{
 				for (i = 1;i <= 4; i++)
 				{
@@ -478,8 +481,8 @@ function f_oldFigure ()
 	flag_PLAY = true;
 	flag_GAMEOVER = false;
 	flag_NEWFIGURE = true;
-	f_Tetris ();
 	flag_PAUSE = false;
 	flag_OLDGAME = false;
 	flag_NEWGAME = false;
+	f_Tetris ();
 }

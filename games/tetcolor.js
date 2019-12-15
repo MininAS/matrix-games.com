@@ -501,8 +501,8 @@ function f_oldFigure ()
 	CursorX = 1;
 	i_Speed = 1000;
 	flag_NEWFIGURE = true;
-	f_Tetris ();
 	flag_NEWGAME = false;
 	flag_OLDGAME = false;
 	flag_PAUSE = false;
+	f_Tetris ();
 }

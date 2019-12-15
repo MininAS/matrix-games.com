@@ -213,8 +213,12 @@ function f_fetchUpdateContent (s_targetBlock, s_loaderFile, callback) {
 			})
 }
 
-function f_fetchSaving (s_saverFile, callback) {
-	fetch(s_saverFile)
+function f_fetchSaving (s_saverFile, s_attributes, callback) {
+	fetch(s_saverFile, {
+		method: 'POST',
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		body: s_attributes
+	})
 		.then (response => {
 			if (response.status == 200) return response.json()
 			else window_info ('text_info', response.status + " " + response.statusText)

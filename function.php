@@ -98,6 +98,22 @@ date_default_timezone_set('Europe/Moscow');
 			';
 	}
 
+	function f_saveTecnicMessage($from, $user, $text){
+		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data)
+					VALUE (
+						".$user.",
+						".$from.",
+						'".$text."',
+						'".date("H:i")."',
+						'".date("y.m.d")."'
+					);
+				")
+			){
+			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$user.";");
+			$log = "Отправилено сообщение для ".$user; log_file ($log);
+		}
+	}
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Проверка длинны сообщения
 function f_checkLengthMessage($text){
@@ -137,7 +153,7 @@ function f_convertSmilesAndTagFormat($text){
 		$arr = preg_split ("/\{\[:|:\]\}/i", $text);
 		$text="";
 		while (list($key, $value) = each ($arr)){
-			if (ereg("[a-z]", $value)){
+			if (preg_match("[a-z]", $value)){
 				$file=$value.".gif";
 				if (@file_exists ("smile/$file")) $text = $text."<img src=\"smile/".$value.".gif\">";
 				else $text = $text.$value;
@@ -188,7 +204,7 @@ function f_mail ($user, $mail_mess)
 		<tr><td><img src = 'http://matrix-games.ru/img/logotip.png' alt = 'logotip'><h2>".$mail_mess."</h2></td></tr>
 		</table>
 		<h5>Если вас не устраивает рассылка данной информации, вы можете отказаться от нее на сайте на своей странице или ответить на это письмо.<BR>
-			<a href='http://matrix-games.ru'>http://matrix-games.ru</a>                           Администрация.</h5>
+			<a href='http://matrix-games.ru'>http://matrix-games.ru</a>                           LogoBot.</h5>
 		</body></html>",
 		"Content-type: text/html; charset=utf-8 \r\n"."From: LMG <mininas@sampo.ru>\r\n");
 	}

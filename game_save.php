@@ -52,10 +52,9 @@
 
 		f_mysqlQuery ("INSERT games_".$theme." (gameboard) VALUES ('".$string[0]."');");
 		$new_row_id = mysql_insert_id ();
-		$data = mysql_insert_id ();
 		if (f_mysqlQuery ("
 			INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-			VALUES (".$data.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');")){
+			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');")){
 			echo('
 				{
 					"res": "200",
@@ -63,7 +62,7 @@
 					"id": '.$new_row_id.'
 				}
 			');
-			log_file ("Сохранение новой игры в ".f_returnThemeNameByRus($theme)." №".$data.".");
+			log_file ("Сохранение новой игры в ".f_returnThemeNameByRus($theme)." №".$new_row_id.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";");
 		}
 	}
@@ -109,8 +108,8 @@
 				Новый рекорд в игре ".f_returnThemeNameByRus($theme)." за № ".$canvasLayout." составляет  ".$data_[2]." баллов.<BR>
 				<A href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout."'><br>&lt;&lt;&lt; Переиграть >>><a>");
 				$regEdit = "20";
-				f_saveUserMessage($data[0], "Я обыграл(а) вашу игру ".f_returnThemeNameByRus($theme)." за № ".$canvasLayout." со счетом ".$data_[2].".
-					<A href =\"http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< Переиграть >>></a>");
+				f_saveTecnicMessage($_SESSION["id"], $data[0], "Я обыграл(а) вашу игру ".f_returnThemeNameByRus($theme)." за № ".$canvasLayout." со счетом ".$data_[2].".
+					<A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< Переиграть >>></a>");
 				echo('
 					{
 						"res": "200",

@@ -8,7 +8,6 @@ var flag_ANI = 0;
 var flag_DOWN = false;
 var flag_CLICK = false;
 var flag_SHIFT = false;
-var flag_SCORE = false;
 var o_elm1;					// Ёлемент выбранный первым
 var o_elm2;						// вторым
 var i_Nverify = 0;    			// количество проверок за один ход
@@ -20,13 +19,6 @@ var i_Nball_4;
 
 document.getElementById('game').style.width = XxX * QqQ+"px";
 
-	var o_ScrollScore = document.createElement ('p');
-	document.getElementById('box_center').appendChild(o_ScrollScore);
-	o_ScrollScore.id = 'myN_ballov';
-	o_ScrollScore.style.zIndex = 100;
-	o_ScrollScore.className = 'border_inset';
-	o_ScrollScore.style.position = 'absolute';
-
 	<!--—оздаем массив игрового пол¤-->
 function f_greateGame ()
 {
@@ -36,8 +28,7 @@ function f_greateGame ()
 		document.getElementById('game').appendChild(myElement_);
 		var myElement = document.createElement ('img');
 		myElement_.appendChild(myElement);
-		myElement_.style.position = 'relative';
-		myElement.style.position  = 'absolute';
+		myElement.style.position  = 'relative';
 		myElement_.style.display = 'inline-grid';
 		myElement.style.left = 0+'px';
 		myElement.style.top = 0+'px';
@@ -356,15 +347,9 @@ function f_delet ()
 		}
 	}
 
-	xy=getOffset(a_block[ii].parentNode);
 	i_Nballov = i_Nball * i_Nverify;
 	i_Scroll = 0;
-	o_ScrollScore.innerHTML = i_Nballov;
-	o_ScrollScore.style.display = 'block';
-	i_ScrollY = xy.top;
-	o_ScrollScore.style.left = xy.left+'px';
-
-	flag_SCORE = true;
+	f_scrollScore (a_block[ii], i_Nballov);
 	i_score += i_Nballov;
 	document.getElementById ('myNballov').innerHTML = i_score;
 }
@@ -372,7 +357,6 @@ function f_delet ()
 function ani_hide(elm, o)
 {
 	elm.style.opacity =  (o / 100);
-	elm.style.filter = 'Alpha(opacity=' + o + ')';
 	if (o > 0) {o -= 10; setTimeout (function () {ani_hide(elm, o);}, 50)}
 	else setTimeout (function ()
 		{
@@ -411,14 +395,6 @@ function f_Shift ()
 			flag_DOWN = false;
 			f_verify ();
 		}
-	}
-	if (flag_SCORE == true)
-	{
-		o_ScrollScore.style.opacity =  1 - (i_Scroll / 100);
-		o_ScrollScore.style.filter = 'Alpha(opacity=' + (100 - i_Scroll) + ')';
-		o_ScrollScore.style.top = i_ScrollY - i_Scroll +'px';
-		if (i_Scroll <= 100) {i_Scroll++; i_Scroll++;}
-		else {i_Scroll = 0; o_ScrollScore.style.display = 'none'; flag_SCORE = false;}
 	}
 	setTimeout ("f_Shift ()", 100);
 }

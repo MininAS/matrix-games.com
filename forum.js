@@ -58,52 +58,61 @@ e_forumKeyUp.onclick = function () {
 	f_isWindowsHeightAlignment ();
 }
 
-e_forumNewThemeSendButton.onclick = function () {
-    var newThemeName = e_forumNewThemeInputField.value;
-		parameters =
-			'string=' + newThemeName +
-			'&theme=' + currentTheme;
-	f_fetchSaving ('forum_add_theme.php?' + parameters, f_forumUpdateContent);
+if (e_forumNewThemeSendButton)
+	e_forumNewThemeSendButton.onclick = function () {
+	    var newThemeName = e_forumNewThemeInputField.value;
+			parameters =
+				'string=' + newThemeName +
+				'&theme=' + currentTheme;
+		f_fetchSaving ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
 
-e_forumNewMessageSendButton.onclick = function () {
-	var string = e_forumNewMessageInputField.value;
-	if (currentMess == 0)
-		f_fetchSaving ('forum_add_message.php?' +
-			'string=' + string +
-			'&theme=' + currentTheme, f_forumUpdateContent);
-	if (currentMess != 0)
-		f_fetchSaving ('forum_edit_message.php?' +
-			'string=' + string +
-			'&mess=' + currentMess, f_forumUpdateContent);
-}
+if (e_forumNewMessageSendButton)
+	e_forumNewMessageSendButton.onclick = function () {
+		var string = e_forumNewMessageInputField.value;
+		if (currentMess == 0)
+			f_fetchSaving ('forum_add_message.php?',
+				'string=' + string +
+				'&theme=' + currentTheme, f_forumUpdateContent);
+		if (currentMess != 0)
+			f_fetchSaving ('forum_edit_message.php?',
+				'string=' + string +
+				'&mess=' + currentMess, f_forumUpdateContent);
+	}
 
-e_forumCloseEditModeButton.onclick = () => f_forumUpdateContent();
+if (e_forumCloseEditModeButton)
+	e_forumCloseEditModeButton.onclick = () => f_forumUpdateContent();
 
-e_forumDeleteConfirmButton.onclick = function () {
-	e_forumDeleteConfirmPopup.style.display = 'none';
-	f_fetchSaving ('forum_delete_item.php?' +
-	'theme=' + this.deletingTheme, f_forumUpdateContent);
-}
 
-e_forumDeleteConfirmPopup.onmouseleave = function () {
-	e_forumDeleteConfirmPopup.style.display = 'none';
-}
+if (e_forumDeleteConfirmButton)
+	e_forumDeleteConfirmButton.onclick = function () {
+		e_forumDeleteConfirmPopup.style.display = 'none';
+		f_fetchSaving ('forum_delete_item.php?',
+		'theme=' + this.deletingTheme, f_forumUpdateContent);
+	}
+
+
+if (e_forumDeleteConfirmPopup)
+	e_forumDeleteConfirmPopup.onmouseleave = function () {
+		e_forumDeleteConfirmPopup.style.display = 'none';
+	}
 
 function f_forumUpdateContent(theme){
 	theme = theme ? theme : currentTheme;
 	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme, null);
-	e_forumNewThemeInputField.value = "";
-	e_forumNewMessageInputField.value = "";
-	e_forumCloseEditModeButton.style.display = 'none';
-	e_forumDeleteConfirmPopup.style.display = 'none';
-	e_forumSaveMessageTitle.innerHTML = 'Новое сообщение';
+	if(e_forumNewThemeInputField){
+		e_forumNewThemeInputField.value = "";
+		e_forumNewMessageInputField.value = "";
+		e_forumCloseEditModeButton.style.display = 'none';
+		e_forumDeleteConfirmPopup.style.display = 'none';
+		e_forumSaveMessageTitle.innerHTML = 'Новое сообщение';
+		if (parentTheme != 0) f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
+		else f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
+		if (currentTheme == 0) f_changeInputFieldDisablement(e_forumNewMessageInputField, true);
+		else f_changeInputFieldDisablement(e_forumNewMessageInputField, false);
+	}
 	currentMess = 0;
 	f_isWindowsHeightAlignment ();
-	if (parentTheme != 0) f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
-	else f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
-	if (currentTheme == 0) f_changeInputFieldDisablement(e_forumNewMessageInputField, true);
-	else f_changeInputFieldDisablement(e_forumNewMessageInputField, false);
 }
 
 function f_convertSmilesAndTagFormat(someText){

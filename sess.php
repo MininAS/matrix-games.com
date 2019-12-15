@@ -12,7 +12,7 @@
 	$_SESSION["frequency"]=isset ($_SESSION["frequency"]) ? $_SESSION["frequency"] : null;
 	$_SESSION["page"]=isset ($_SESSION["page"]) ? $_SESSION["page"] : null;
 
-	mysql_connect("localhost", "root", "159357");
+	mysql_connect("localhost", "root", "");
 	mysql_query ("SET NAMES 'utf8'");
 	mysql_select_db ("mininas_db");
 
