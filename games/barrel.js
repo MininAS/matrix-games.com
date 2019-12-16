@@ -63,6 +63,7 @@ function f_game (e)
 	}
 
 }
+
 function f_game_ (e,t)
 {
 	if (e.volum == WwW)
@@ -78,7 +79,7 @@ function f_game_ (e,t)
 		e.parentNode.onmouseout = null;
 		e.onclick = null;
 		f_scrollScore (e, e.mass)
-		i_score += e.mass; // пребовлІем баллы за лопнувшую бочку согласно ее весу
+		i_score += e.mass; // пребовляем баллы за лопнувшую бочку согласно ее весу
 		document.getElementById('myNballov').innerHTML = i_score;
 
 		if (e.xx > 1) f_greatObject (e, 'left');
@@ -125,6 +126,7 @@ function f_greatObject (elm, go)
 	e.style.top = xy.top+20+'px';
 	e.style.left = xy.left+20+'px';
 }
+
 function f_aniEnd ()
 {
 	if (a_block[this.xx][this.yy].volum <= WwW && this.turbo != true)
@@ -149,6 +151,7 @@ function f_aniEnd ()
 		else f_end(this);
 	}
 }
+
 function f_end (e)
 {
 	flag_ANI --;
@@ -235,4 +238,11 @@ function f_oldGame(i_game)
 		i_motion = 0;
 		i_score = 0;
 	}, 1000); // Дать время для окончания анимации
+}
+
+function getOffset(elem)
+{
+	var top = elem.offsetTop + elem.offsetParent.offsetTop;
+	var left = elem.offsetLeft + elem.offsetParent.offsetLeft;
+    return { top: Math.round(top), left: Math.round(left) }
 }

@@ -12,16 +12,6 @@ var CursorX = 1;
 var CursorZ = 1;
 var flag_SCORE = false;
 
-var i_Scroll = 0;
-var i_StartScrollX = 0;
-var i_StartScrollY = 0;
-
-	var o_ScrollScore = document.createElement ('p');
-	document.getElementById('box_center').appendChild(o_ScrollScore);
-	o_ScrollScore.id = 'myN_ballov';
-	o_ScrollScore.className = 'border_inset';
-	o_ScrollScore.style.position = 'absolute';
-
 	<!--Создаем массив игрового поля-->
 function f_greateGame ()
 {
@@ -69,7 +59,6 @@ function f_greateGame ()
 		myElement.src = "img/stone_"+i+"2.gif";
 	}
 	StartLayers ();
-	f_ScrollScore ();
 }
 	<!--Массив цвета файлов 600 изображений и третий фоновый массив для подсчета количества занятых кубов-->
 function StartLayers()
@@ -133,7 +122,7 @@ function bouncer (evnt)
 		document.images[SquareColorLayer1[i][ii+1]].src = "img/stone_0.gif";
 		if (SquareColorLayer2[i][ii-1] != 0)
 		{
-
+			e_definingCoordinate = document.images[SquareColorLayer1[i][ii]];
 			Nsquare = 0;
 			SquareColorLayer2[i][ii] = SquareColorLayer4[CursorX][CursorY];
 			Nsquare = addSquare (i, ii);
@@ -155,10 +144,10 @@ function bouncer (evnt)
 						{
 							if (SquareColorLayer3[x][y] == 8)
 							{
-								if (x+1 <= XxX) 	{if (SquareColorLayer3[x+1][y] != 0) {SquareColorLayer3[x+1][y] = 8;}}
+								if (x+1 <= XxX) {if (SquareColorLayer3[x+1][y] != 0) {SquareColorLayer3[x+1][y] = 8;}}
 								if (y+1 <= YyY)	{if (SquareColorLayer3[x][y+1] != 0) {SquareColorLayer3[x][y+1] = 8;}}
-								if (x-1 > 0)		{if (SquareColorLayer3[x-1][y] != 0)  {SquareColorLayer3[x-1][y] = 8;}}
-								if (y-1 > 0)		{if (SquareColorLayer3[x][y-1] != 0)  {SquareColorLayer3[x][y-1] = 8;}}
+								if (x-1 > 0)	{if (SquareColorLayer3[x-1][y] != 0) {SquareColorLayer3[x-1][y] = 8;}}
+								if (y-1 > 0)	{if (SquareColorLayer3[x][y-1] != 0) {SquareColorLayer3[x][y-1] = 8;}}
 								SquareColorLayer3[x][y] = 0;
 								zeroOK = true;
 							}
@@ -180,20 +169,14 @@ function bouncer (evnt)
 				}
 				for (i=1; i<=Nsquare; i++) i_points += i;
 			}
-			 else {scroll ();}
-		break;
+			else scroll ();
+			break;
 		}
 	}
 
 		if (i_points != 0)
-		{
-			i_Scroll = 0;
-			i_StartScrollX = (evnt.pageX || evnt.clientX);
-			i_StartScrollY = (evnt.pageY || evnt.clientY);
-			flag_SCORE = true;
-			i_score += i_points;
-		}
-
+			f_scrollScore (e_definingCoordinate, i_points);
+		i_score += i_points;
 		if (CursorX == 30) {CursorX = 1; CursorY++;} else {CursorX++;}
 		if (CursorY == 21) CursorY = 1;
 		document.getElementById ('myNballov').innerHTML = i_score;
@@ -207,7 +190,7 @@ function bouncer (evnt)
 
 		for (i=1; i<=XxX; i++)
 		{
-			if (SquareColorLayer2[i][YyY-1] != "0") {f_endGame (); break;}
+			if (SquareColorLayer2[i][YyY-1] != "0") {f_gameOver(); f_endGame(); break;}
 		}
 	}
 }
@@ -269,30 +252,20 @@ function addSquare (x_X,y_Y, f_F)
 	}
 	return (Nsquare);
 }
-	<!--Сколл очков в верх-->
-function f_ScrollScore ()
+	<!--Рандомное закрашивание камней-->
+function f_gameOver ()
 {
-	if (flag_SCORE == true)
-	{
-		o_ScrollScore.style.display = 'block';
-		o_ScrollScore.style.top = i_StartScrollY - i_Scroll+"px";
-		o_ScrollScore.style.left = i_StartScrollX+"px";
-		o_ScrollScore.style.opacity =  1 - (i_Scroll / 100);
-		o_ScrollScore.style.filter = 'Alpha(opacity=' + (100 - i_Scroll) + ')';
-		o_ScrollScore.innerHTML = i_points;
-		if (i_Scroll <= 100) { i_Scroll++;}
-		else {i_Scroll = 0; o_ScrollScore.style.display = 'none'; flag_SCORE = false;}
-	}
 	if (flag_PLAY == false)
 	{
 		for (i = 1; i <= 5; i++)
 		{
-			i_SquareX = Math.ceil (Math.random ()*XxX);
-			i_SquareY = Math.ceil (Math.random ()*YyY);
-			document.images[SquareColorLayer1[i_SquareX][i_SquareY]].src = 'img/stone_7.gif';
+			i_SquareX = Math.ceil (Math.random () * XxX);
+			i_SquareY = Math.ceil (Math.random () * YyY);
+			i_color =   Math.ceil (Math.random () * 6);
+			document.images[SquareColorLayer1[i_SquareX][i_SquareY]].src = 'img/stone_' + i_color + '.gif';
 		}
+		setTimeout ("f_gameOver ()", 200);
 	}
-	setTimeout ("f_ScrollScore ()", 30);
 }
 	<!--Копируем слой 2 в слой 3-->
 function CopyLayers ()

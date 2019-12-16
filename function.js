@@ -247,15 +247,6 @@ function getViewportHeight() {
 	: (document.parentWindow || document.defaultView).innerHeight;
 }
 
-// Определение координат элемента. Создаем метод.
-
-function getOffset(elem)
-{
-	var top = elem.offsetTop + elem.offsetParent.offsetTop;
-	var left = elem.offsetLeft + elem.offsetParent.offsetLeft;
-    return { top: Math.round(top), left: Math.round(left) }
-}
-
 // Возврат значения кука
 function getCookie(name) {
   var matches = document.cookie.match(new RegExp(
