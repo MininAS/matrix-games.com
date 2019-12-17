@@ -190,7 +190,7 @@ function bouncer (evnt)
 
 		for (i=1; i<=XxX; i++)
 		{
-			if (SquareColorLayer2[i][YyY-1] != "0") {f_gameOver(); f_endGame(); break;}
+			if (SquareColorLayer2[i][YyY-1] != "0") {f_endGame(); f_gameOver(); break;}
 		}
 	}
 }
@@ -264,7 +264,7 @@ function f_gameOver ()
 			i_color =   Math.ceil (Math.random () * 6);
 			document.images[SquareColorLayer1[i_SquareX][i_SquareY]].src = 'img/stone_' + i_color + '.gif';
 		}
-		setTimeout ("f_gameOver ()", 200);
+		setTimeout ("f_gameOver ()", 20);
 	}
 }
 	<!--Копируем слой 2 в слой 3-->
