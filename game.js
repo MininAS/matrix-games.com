@@ -11,8 +11,10 @@ var i_canvasKeymap = "";
 var flag_PLAY = false;
 var flag_GAMEOVER = false;
 var flag_PAUSE = false;
+var flag_NEWSTART = false;
 
 function f_gameStart (){
+	flag_NEWSTART = true;
 	flag_GAMEOVER = false;
 	i_score = 0;
 	i_motion = 0;
@@ -20,16 +22,15 @@ function f_gameStart (){
 	if (e_scoreViewer) e_scoreViewer.innerHTML = 0;
 	if (i_canvasLayout == 0){
 		e_layoutNumber.style.display = 'none';
-		flag_PLAY = true;
-		flag_PAUSE = false;
 		f_newGame ();
 	}
 	else {
-		flag_PLAY = false;
 		e_layoutNumber.style.display = 'inline';
 		e_layoutNumber.innerHTML = '№ ' + i_canvasLayout;
 		f_fetchGameLoading (f_oldGame);
 	}
+	flag_PLAY = true;
+	flag_PAUSE = false;
 	f_updateUserTopList ();
 }
 

@@ -9,9 +9,9 @@
 		<div>
 		<table border=1>
 			<tr>
-				<td class = 'big' colspan = '3' align = 'center' width = '45%'>–екорд</td>
+				<td class = 'big' colspan = '3' align = 'center' width = '45%'>Рекорд</td>
 				<td  width = '7%'></td>
-				<td class = 'big' colspan = '3' align = 'center' width = '45%'>ћедали</td>
+				<td class = 'big' colspan = '3' align = 'center' width = '45%'>Медали</td>
 			</tr>";
 	$result = f_mysqlQuery ("
 		SELECT  `login`, `id_user`, MAX(`score`) AS  `ms`
