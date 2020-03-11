@@ -13,10 +13,6 @@ window.onload = function ()
 			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif';
 		}
 	}
-	// Прячем кнопки
-	el = document.getElementById('k_pauseGame'); if (el) el.style.display = 'none';
-	el = document.getElementById('k_endGame'); if (el) el.style.display = 'none';
-	el = document.getElementById('k_sound'); if (el) el.style.display = 'none';
 
 // Подсказки на кнопках_______________________________________________________
 	menuButtonTooltip = document.getElementById('text_key');
@@ -271,6 +267,16 @@ function f_sound_off ()
 		flag_SOUND = 'on';
 	}
 	document.querySelector('#k_sound a img').src = 'img/k_sound_'+flag_SOUND+'.png';
+}
+
+function f_showSoundButton () {
+	e_soundButton = document.getElementById('k_sound');
+	var idTime = setInterval( function () {
+		if (typeof e_soundButton == 'object') {
+			e_soundButton.style.display = 'inline-block';
+  		    clearInterval(idTime);
+		}
+	}, 500);
 }
 
 // Загрузка аватара с Вконтакте--------------------------------

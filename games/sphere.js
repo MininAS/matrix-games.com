@@ -12,6 +12,7 @@ var i_Nverify = 0;    			// количество проверок за один 
 var i_Nball;					// кол-во на удаление
 
 document.getElementById('game').style.width = XxX * QqQ+"px";
+f_showSoundButton ();
 
 	<!--Создаем массив игрового поля-->
 function f_greateGame (){
@@ -43,7 +44,6 @@ function f_greateGame (){
 	myElement = document.getElementById('game')
 	a_block = myElement.getElementsByTagName('img');
 	a_block = Array.from(a_block);
-	document.getElementById('k_sound').style.display = 'inline-block';
 }
 
 function f_spheresCastling (elm1, elm2){
@@ -65,7 +65,7 @@ function f_spheresCastling (elm1, elm2){
 		elm1.style.left = 48 + 'px';
 		elm2.style.left = -48 + 'px';
 	}
-	f_playSound('sphere_shift.wav');
+	f_playSound('sphere_shift');
 }
 
 function f_spheresCastlingFinish(){
@@ -144,7 +144,7 @@ function f_useSuperSphere (){
 			}
 		}
 		i_Nverify += 2;
-		f_playSound('sphere_super.wav');
+		f_playSound('sphere_super');
 		f_delet ();
 	}
 	
@@ -152,7 +152,7 @@ function f_useSuperSphere (){
 		for (i=0; i<a_block.length; i++) if (a_block[i].color == o_elm2.color) {a_block[i].colTmp = 1;}
 		o_elm1.colTmp = 1;
 		i_Nverify += 4;
-		f_playSound('sphere_super.wav');
+		f_playSound('sphere_super');
 		f_delet ();
 	}
 	
@@ -166,7 +166,7 @@ function f_useSuperSphere (){
 		o_elm1.src = 'img/ball_'+o_elm1.color+'.png';
 		i_Nverify += 10;
 		if (f_verifySequences ()){
-			f_playSound('sphere_super.wav');
+			f_playSound('sphere_super');
 		    f_delet ();
 		}
 	}
@@ -385,7 +385,7 @@ function f_spheresShiftFinish(){
 	if (this.style.top == QqQ + 'px'){
 	    a_block[this.index + XxX].setSphereColor(this.color);
 	    if ((this.index + XxX + XxX) < (XxX * YyY) && a_block[this.index + XxX + XxX].color != 0)
-		    f_playSound('sphere_impact.wav');
+		    f_playSound('sphere_impact');
 	}
 	if (this.style.left == (-QqQ + 'px')) a_block[this.index - 1].setSphereColor(this.color);
 	if (this.style.left == QqQ + 'px')    a_block[this.index + 1].setSphereColor(this.color);

@@ -127,13 +127,13 @@ body > #body {
 			float: left;
 			height: 100%;
 		}
-		ul.styleList {
+		#menu ul {
 			position: absolute;
 			display: flex;
 			bottom: -10px;
 			left: 250px;
 		}
-			ul.styleList li {
+			#menu ul li {
 				border: 3px solid #fff;
 				background-color: #eee;
 				height: 36px;
@@ -142,7 +142,7 @@ body > #body {
 				border-bottom: 0px;
 				border-radius: 7px 7px 0px 0px;
 			}
-				ul.styleList li a {
+				#menu ul li a {
 					position: relative;
 					min-width: 30px;
 					height: 30px;
@@ -155,7 +155,7 @@ body > #body {
 					margin-bottom: -6px;
 					cursor: pointer;
 				}
-				ul.styleList li a:hover {
+				#menu ul li a:hover {
 					background-color: #ddd !important;
 				}
 		#bette {
@@ -556,7 +556,7 @@ body > #body {
 	display: none;
 	position: absolute;
 	z-index: 300;
-	padding: 5px;
+	padding: 0px 5px;
 	max-width: 300px;
 }
 
@@ -604,6 +604,10 @@ body > #body {
 .k_enter:hover, .k_close:hover, .k_smile:hover, .k_vk:hover, .key, #k_up:hover {
 	background-color: #ddd;
 	cursor: pointer;
+}
+
+#k_pauseGame, #k_endGame, #k_sound{
+	display: none;
 }
 .submit {
 	filter: alpha(Opacity=0);

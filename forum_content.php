@@ -37,7 +37,7 @@ $text = "";
 			}
 			$text .= "</span>
 					<div class = 'forum_list_item_buttons'>";
-					if (($_SESSION["id"]==$data[1] || $_SESSION["dopusk"]=="admin") && $_SESSION["dopusk"]!="no") {
+					if (($_SESSION["id"]==$data[1] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin"){
 						$text .= "
 						<a class = 'forum_delete_item_link text_insignificant' href = '#' message = '".$data[0]."'>Удалить</a>";
 					}
@@ -80,7 +80,7 @@ $text = "";
 			    <div  class = 'text'>
 					<p>".$data[2]."</p>
 					<div class = 'forum_list_item_buttons'>";
-			if (($_SESSION["id"]==$data[1] || $_SESSION["dopusk"]=="admin") && $_SESSION["dopusk"]!="no")
+			if (($_SESSION["id"]==$data[1] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin")
 			{
 				$text .= "
 				<a href = '#' class = 'text_insignificant forum_redaction_message_link'>Редактировать</a>

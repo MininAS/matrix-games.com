@@ -39,6 +39,8 @@ e.addEventListener('touchmove', function(event) {
 }, false);
 e.addEventListener('touchmove', f_mousemove);
 
+f_showSoundButton ();
+
 	<!--Создаем массив игрового поля-->
 function f_greateGame ()
 {
@@ -77,7 +79,6 @@ function f_greateGame ()
 	elm = document.getElementById('game');
 	a_block = elm.getElementsByTagName('p');
 	f_anim ();
-	document.getElementById('k_sound').style.display = 'inline-block';
 }
 
 document.onkeydown = f_KeyPress;
@@ -140,7 +141,7 @@ function f_move (s_move)
 	i_motion ++;
 	i_score -= 10;
 	document.getElementById('myNballov').innerHTML = i_score;
-	if (flag_SOUND == 'on') f_playSound('number_1.wav');
+	f_playSound('number_1');
 	if (s_move == 'left')
 		for (i = 0; i <= (YyY-1); i++)
 			for (ii = 0; ii <= (XxX-2); ii++)

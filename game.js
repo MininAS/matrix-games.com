@@ -111,8 +111,10 @@ function f_scrollScore (e, i) {
 }
 
 function f_playSound (name) {
-    var o = document.createElement('audio');
-	o.src = 'sound/' + name;
-	o.autoplay = 'autoplay';
-	setTimeout (() => {o.remove()}, 100)
+	if (flag_SOUND == 'on'){
+		var o = document.createElement('audio');
+		o.src = 'sound/' + name + '.wav';
+		o.autoplay = 'autoplay';
+		setTimeout (() => {o.remove()}, 100)
+	}
 }

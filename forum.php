@@ -39,6 +39,6 @@
 	}
 
 	$body .= "
-	<script type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9'></script>";
+	<script type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.1'></script>";
 require ("display.php");
 ?>

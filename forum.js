@@ -116,10 +116,10 @@ function f_forumUpdateContent(theme){
 }
 
 function f_convertSmilesAndTagFormat(someText){
-	someText = someText.replace('&lt;', '<');
-	someText = someText.replace('&gt;', '>');
-	someText = someText.replace('<br>', '\\r\\n');
-	someText = someText.replace("<img src=\"smile/", '{[:');
-	someText = someText.replace(".gif\">", ':]}');
+	someText = someText.replace(/&lt;/g, '<');
+	someText = someText.replace(/&gt;/g, '>');
+	someText = someText.replace(/<br>/g, '\n');
+	someText = someText.replace(/<img src=\"smile\//g, '{[:');
+	someText = someText.replace(/.gif\">/g, ':]}');
 	return someText
 }

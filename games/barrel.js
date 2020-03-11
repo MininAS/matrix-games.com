@@ -16,6 +16,8 @@ e.addEventListener('touchmove', function(event) {
 }, false);
 e.classList.toggle('noselect');
 
+f_showSoundButton ();
+
 	<!--Доздаем массив игрового поля-->
 function f_greateGame ()
 {
@@ -46,7 +48,6 @@ function f_greateGame ()
 			a_block[i][ii] = elm;
 		}
 	}
-	document.getElementById('k_sound').style.display = 'inline-block';
 }
 
 function f_game (e)
@@ -69,10 +70,8 @@ function f_game_ (e,t)
 	if (e.volum == WwW)
 	{
 		e.style.opacity = 0;
-		if (flag_SOUND == 'on'){
-			name = (e.turbo == true) ? 'barrel_mas.wav' : 'barrel_mass.wav';
-		    f_playSound(name);
-		}
+		name = (e.turbo == true) ? 'barrel_mas' : 'barrel_mass';
+		f_playSound(name);
 		e.volum = 9;
 		e.parentNode.style.backgroundColor = '#448';
 		e.parentNode.onmouseover = null;

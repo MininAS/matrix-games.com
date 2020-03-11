@@ -1,7 +1,7 @@
 <?php
 // Если пользователь не зарегестрирован то рисуем регистрацию
 	echo ("
-	<ul class = 'styleList'>");
+	<ul>");
 	if ($_SESSION["page"] != "index")
 	{
 		echo ("
