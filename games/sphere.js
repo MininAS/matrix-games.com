@@ -40,6 +40,11 @@ function f_greateGame (){
 			ext = (color <= 7) ? 'png' : 'gif';
 		    this.src = 'img/ball_' + color + '.' + ext;
 		}
+		myElement.degree = 0;
+		myElement.setSphereDegree = function (degree){
+			this.degree = degree;
+			this.style.transform = 'rotate(' + this.degree + 'deg)';
+		}
 	}
 	myElement = document.getElementById('game')
 	a_block = myElement.getElementsByTagName('img');
@@ -77,8 +82,12 @@ function f_spheresCastlingFinish(){
 	o_elm1.style.top = '0px';
 	o_elm2.style.left = '0px';
 	o_elm2.style.top = '0px';
-	[o_elm1.src, o_elm2.src] = [o_elm2.src, o_elm1.src];
+	[o_elm1.degree, o_elm2.degree] = [o_elm2.degree, o_elm1.degree];
 	[o_elm1.color, o_elm2.color] = [o_elm2.color, o_elm1.color];
+    o_elm1.setSphereColor(o_elm1.color);
+	o_elm1.setSphereDegree(o_elm1.degree);
+	o_elm2.setSphereColor(o_elm2.color);
+	o_elm2.setSphereDegree(o_elm2.degree);
 
 	b_sequencesIsExist = f_verifySequences ();
 	f_detectSuperBall ();
@@ -147,7 +156,7 @@ function f_useSuperSphere (){
 		f_playSound('sphere_super');
 		f_delet ();
 	}
-	
+
 	if (o_elm1.color == 9){
 		for (i=0; i<a_block.length; i++) if (a_block[i].color == o_elm2.color) {a_block[i].colTmp = 1;}
 		o_elm1.colTmp = 1;
@@ -155,7 +164,7 @@ function f_useSuperSphere (){
 		f_playSound('sphere_super');
 		f_delet ();
 	}
-	
+
 	if (o_elm1.color >= 11){
 		color = o_elm2.color;
 		for (i=0; i<a_block.length; i++) if (a_block[i].color == color){
@@ -278,7 +287,7 @@ function f_detectSuperBall (){
     });
 
 	if (a_balls[0] == 5 || a_balls[1] == 5){
-		color = o_elm2.color += 10;
+		color = o_elm1.color += 10;
 		o_elm1.setSphereColor(color);
 	}
 
@@ -341,6 +350,7 @@ function f_hideSphereFinish(){
 	this.removeEventListener('webkitTransitionEnd', f_hideSphereFinish);
 	this.style.transition = 'none';
     this.setSphereColor(0);
+	this.setSphereDegree(0);
 	this.style.opacity = 1;
 	flag_ANI --;
 	if (flag_ANI == 0) f_shperesFail ();
@@ -370,27 +380,38 @@ function f_shpereShift (elm, direct){
 	if (elm.style.top != '0px' || elm.style.left != '0px') return;
 	flag_ANI ++;
 	elm.style.zIndex = 100;
-	elm.style.transition = 'top 0.1s linear, left 0.2s ease-in';
 	elm.addEventListener('transitionend', f_spheresShiftFinish);
 	elm.addEventListener('webkitTransitionEnd', f_spheresShiftFinish);
-	if (direct == 'down')  elm.style.top = QqQ + 'px';
-	if (direct == 'left')  elm.style.left = -QqQ + 'px';
-	if (direct == 'right') elm.style.left = QqQ + 'px';
+	elm.style.transition = 'top 0.2s linear';
+
+	elm.style.top = QqQ + 'px';
+
+	if (direct == 'down') return;
+	elm.style.transition = 'top 0.3s ease-in, left 0.3s ease-out, transform 0.3s linear';
+	if (direct == 'left'){
+		elm.style.left = -QqQ + 'px';
+		elm.setSphereDegree(elm.degree - 90);
+	}
+	if (direct == 'right'){
+		elm.style.left = QqQ + 'px';
+		elm.setSphereDegree(elm.degree + 90);
+    }
 }
 
 function f_spheresShiftFinish(){
 	this.removeEventListener('transitionend', f_spheresShiftFinish);
 	this.removeEventListener('webkitTransitionEnd', f_spheresShiftFinish);
 	this.style.transition = 'none';
-	if (this.style.top == QqQ + 'px'){
-	    a_block[this.index + XxX].setSphereColor(this.color);
-	    if ((this.index + XxX + XxX) < (XxX * YyY) && a_block[this.index + XxX + XxX].color != 0)
-		    f_playSound('sphere_impact');
-	}
-	if (this.style.left == (-QqQ + 'px')) a_block[this.index - 1].setSphereColor(this.color);
-	if (this.style.left == QqQ + 'px')    a_block[this.index + 1].setSphereColor(this.color);
+	let i = 0;
+	if (this.style.left == (QqQ + 'px')) i = 1;
+	if (this.style.left == (-QqQ + 'px')) i = -1;
+	a_block[this.index + i + XxX].setSphereColor(this.color);
+	a_block[this.index + i + XxX].setSphereDegree(this.degree);
+	if ((this.index + XxX + XxX + i) < (XxX * YyY) && a_block[this.index + XxX + XxX + i].color != 0)
+	    f_playSound('sphere_impact');
 	this.style.top = 0 + 'px';
 	this.style.left = 0 + 'px';
+	this.setSphereDegree(0);
     this.setSphereColor(0);
 	flag_ANI --;
 	if (flag_ANI == 0) f_shperesFail ();
@@ -456,18 +477,19 @@ function f_newGame ()
 		setTimeout(f_newGame, 200);
 		return;
 	}
-	
+
 	a_block.forEach((elm) => elm.setSphereColor(Math.ceil (Math.random ()*7)));
-	
+
 	while (f_verifySequences ()){
 		a_block.filter((elm) => {
 			return  elm.colTmp == 1;
 		}).forEach((elm) => {
 			elm.setSphereColor(Math.ceil (Math.random ()*7));
+			elm.setSphereDegree(0);
 		})
 	}
 	a_block.forEach((elm) => i_canvasKeymap += elm.color);
-	
+
 	flag_NEWSTART = false;
 }
 
@@ -477,8 +499,11 @@ function f_oldGame()
 		setTimeout(f_oldGame, 200);
 		return;
 	}
-	
-	a_block.forEach((elm) => elm.setSphereColor(Number(i_canvasKeymap.substr (elm.index, 1))));
+
+	a_block.forEach((elm) => {
+		elm.setSphereColor(Number(i_canvasKeymap.substr (elm.index, 1)));
+		elm.setSphereDegree(0);
+	});
 
 	flag_NEWSTART = false;
 }

@@ -14,7 +14,7 @@ a_Element [3][1]= Array (1, 1, 1, 0);	a_Element [3][2]= Array (0, 1, 1, 1);	a_El
 a_Element [4][1]= Array (1, 1, 1, 1);
 a_Element [5][1]= Array (0, 1, 0, 1);
 
-var XxX = 19;
+var XxX = 17;
 var YyY = 12;
 var i_ballov_1 = 0;
 var i_ballov_2 = 0;

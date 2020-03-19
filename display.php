@@ -13,7 +13,7 @@
 		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка">
 
 	<meta name="yandex-verification" content="52be1ad7373487f5" />
-	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=9">
+	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=10">
 	<link rel="SHORTCUT ICON" href="img/icon.png">
 	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.1'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
@@ -24,36 +24,32 @@
 			<a href='index.php'><img src = 'img/logotip.png' alt = 'На главную'></a>
 				<?require ("menu.php");?>
 		</div>
-		<div>
-			<div id = 'box_center'>
-				<div id = 'user_top' class = 'windowSite'>
-					<div id = 'user_top_middle'></div>
-				</div>
-				<div id = 'box_game'>
-					<? echo ($body);?>
-				</div>
+		<div id = 'user_top' class = 'windowSite'>
+			<div id = 'user_top_middle'></div>
+		</div>
+		<div id = 'box_game'>
+			<? echo ($body);?>
+		</div>
+		<div id = 'bottom' class = 'windowSite'>
+			<div id = 'index'>
+					<!--LiveInternet counter-->
+				<div id = 'LiveInternet'></div>
+					<!--/LiveInternet-->
+					<!-- Yandex.Metrika informer -->
+					<div href="https://metrika.yandex.ru/stat/?id=12200890&amp;from=informer"
+						target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/12200890/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+						style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+						onclick="try{Ya.Metrika.informer({i:this,id:12200890,lang:'ru'});return false}catch(e){}" />
+					</div>
+					<!-- /Yandex.Metrika informer -->
+					<!-- Yandex.Metrika counter -->
+					<noscript><div><img src="https://mc.yandex.ru/watch/12200890" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+					<!-- /Yandex.Metrika counter -->
 			</div>
-			<div id = 'bottom' class = 'windowSite'>
-				<div id = 'index'>
-						<!--LiveInternet counter-->
-						<div id = 'LiveInternet'></div>
-						<!--/LiveInternet-->
-						<!-- Yandex.Metrika informer -->
-						<div href="https://metrika.yandex.ru/stat/?id=12200890&amp;from=informer"
-							target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/12200890/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-							style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
-							onclick="try{Ya.Metrika.informer({i:this,id:12200890,lang:'ru'});return false}catch(e){}" />
-						</div>
-						<!-- /Yandex.Metrika informer -->
-						<!-- Yandex.Metrika counter -->
-						<noscript><div><img src="https://mc.yandex.ru/watch/12200890" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-						<!-- /Yandex.Metrika counter -->
-				</div>
-				<div id = 'sateVersion'>
-					<p id = 'onlineUser' class = 'small'>Сейчас на сайте:</p>
-					<p class = 'small'>Обнаруженные технические ошибки просьба коментировать на mininas@sampo.ru.<br/>
-					С Уважением Минин Александр. (v9 - 03.03.2020)</p>
-				</div>
+			<div id = 'sateVersion'>
+				<p id = 'onlineUser' class = 'small'>Сейчас на сайте:</p>
+				<p class = 'small'>Обнаруженные технические ошибки просьба коментировать на mininas@sampo.ru.<br/>
+				С Уважением Минин Александр. (v9 - 03.03.2020)</p>
 			</div>
 		</div>
 	</div>
