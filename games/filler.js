@@ -1,254 +1,260 @@
-var SquareColorLayer1 = new Array ();
-var SquareColorLayer2 = new Array ();
-var SquareColorLayer3 = new Array ();
+var matrix = [];
+var yourSquare = {};
+var compSquaer = {};
 var XxX = 30;
 var YyY = 20;
 var i_squares_of_comp = 0;
-var Xcolor = 6;
-var Nsquare = 0;
-var NNsquare = new Array ();
+
+const arrColor = ["White", "Blue", "Red", "Magenta", "Lime", "Orange", "Yellow"]
 
 document.getElementById('game').style.width = XxX * 24+"px";
 
-	<!--Создаем массив игрового поля-->
-function f_greateGame ()
-{
-	for (i=1; i<=YyY; i++)
-	{
-		for (ii=1; ii<=XxX; ii++)
-		{
-			var myElement = document.createElement ('img');
-			document.getElementById('game').appendChild(myElement);
-			myElement.id = 'mySquareX' + ii + 'Y' + i;
-			myElement.onclick = paint;
-			myElement.i_x = ii;
-			myElement.i_y = i;
-			myElement.src = "img/stone_0.gif";
-		}
-	}
-	for (i=0; i<=7; i++) // Предзагрузка
-	{
-		var myElement = document.createElement ('img');
-		document.getElementById('game').appendChild(myElement);
-		myElement.style.display = 'none';
-		myElement.src = "img/stone_"+i+"1.gif";
-		if (i==0) myElement.src = "img/stone_"+i+".gif";
-	}
-	StartLayers ();
-}
+function f_greateGame(){
+	for (i = 0; i <= (YyY - 1); i ++){
+		let row = [];
+		for (ii = 0; ii <= (XxX - 1); ii ++){
 
-	<!--Обнуляем цвета-->
-function ColorOnZero ()
-{
+			var p = document.createElement ('div');
+			document.getElementById('game').appendChild(p);
+			p.style.display = 'inline-block';
+			p.style.width = '24px';
+			p.style.height = '24px';
 
-	for (i=1; i<=7; i++)
-	{
-		NNsquare[i] = 0;
-	}
-}
-	<!--Массив цвета файлов 600 изображений и третий фоновый массив для подсчета количества занятых кубов-->
-function StartLayers()
-{
-	for (i=1; i<=XxX; i++)
-	{
-		SquareColorLayer1[i] = new Array ();
-		SquareColorLayer2[i] = new Array ();
-		SquareColorLayer3[i] = new Array ();
-		for (ii=1; ii<=YyY; ii++)
-		{
-			SquareColorLayer1[i][ii] = "mySquareX"+i+"Y"+ii;
-		}
-	}
-}
+			var e = document.createElement ('div');
+			p.appendChild(e);
+			e.onclick = f_clickHandler;
+			e.i_x = ii;
+			e.i_y = i;
+			e.color = 0;
+			e.tmpCol = 0;
 
-	<!--Закрашиваем кубики игрока (ход пользователя)-->
-function paint ()
-{
-if (flag_PLAY == true)
-{
-	newNamberColor = SquareColorLayer2[this.i_x][this.i_y];
-	namberColor = SquareColorLayer2[XxX][YyY];
-	if (newNamberColor != namberColor)
-	{
-	if (newNamberColor != SquareColorLayer2[1][1])
-	{
-		i_motion ++;
-		SquareColorLayer2[XxX][YyY] = 0;
-		var zeroOK = true;
-		while (zeroOK == true)
-		{
-			zeroOK= false;
-			for (i=1; i<=XxX; i++)
-			{
-				for (ii=1; ii<=YyY; ii++)
-				{
-					if (SquareColorLayer2[i][ii] == 0)
-					{
-						if (i+1 <= XxX) 	{if (SquareColorLayer2[i+1][ii] == namberColor) {SquareColorLayer2[i+1][ii] = 0;}}
-						if (ii+1 <= YyY)	{if (SquareColorLayer2[i][ii+1] == namberColor) {SquareColorLayer2[i][ii+1] = 0;}}
-						if (i-1 > 0)		{if (SquareColorLayer2[i-1][ii] == namberColor)  {SquareColorLayer2[i-1][ii] = 0;}}
-						if (ii-1 > 0)		{if (SquareColorLayer2[i][ii-1] == namberColor)  {SquareColorLayer2[i][ii-1] = 0;}}
-						SquareColorLayer2[i][ii] = newNamberColor;
-						zeroOK = true;
-					}
-				}
+			e.style.position = 'relative';
+			e.style.borderRadius = '5px';
+			e.style.transform = 'rotate(45deg)';
+			e.style.transition = 'top 1s, left 1s, width 1s, height 1s';
+
+			e.setDefaultStyle = function(){
+				this.style.top = '-2px';
+				this.style.left = '-2px';
+				this.style.width = '26px';
+				this.style.height = '26px';
+				this.style.border = 'solid 1px';
+	            this.style.boxShadow = 'inset 0 0 4px';
 			}
+			e.setElmColor = function(color){
+				this.color = color;
+				this.style.background = arrColor[color];
+			}
+            row.push(e);
 		}
+		matrix.push(row);
 	}
-	}
-	paintPC ();
-	CopyLayers ();
-	i_score = addSquare (XxX, YyY, 1);
-	CopyLayers ();
-	i_squares_of_comp = addSquare (1, 1, 1);
+    compSquare = matrix[0][0];
+	yourSquare = matrix[YyY - 1][XxX - 1];
 
+	var e = document.createElement ('div');
+	p.appendChild(e);
+	e.style.position = 'relative';
+	e.style.top = '-38px';
+	e.style.left = '-10px';
+    e.style.border = 'solid 2px';
+	e.style.width = '40px';
+	e.style.height = '40px';
+	e.style.borderRadius = '5px';
+	e.style.boxShadow = 'inset 0 0 4px';
+	e.style.transition = '60s linear';
+	setTimeout(() => {e.style.transform = 'rotate(3600deg)';}, 1000);
+	setTimeout(() => {e.remove();}, 60000);
+}
+
+function f_clickHandler(){
+	if (flag_PLAY != true) return;
+	i_motion ++;
+    newColor = this.color;
+
+    if ((yourSquare.color != newColor) && (compSquare.color != newColor)){
+		flag_PLAY = false;
+		yourSquare.tmpCol = 1;
+	    f_paint(newColor, f_clickHandler_);
+	}
+	else f_clickHandler_();
+}
+
+function f_clickHandler_(){
+	yourSquare.tmpCol = 1;
+   	i_score = f_getSquaresAmount();
+	f_clearTmpCol();
 	document.getElementById ('myNballov').innerHTML = i_score;
-	iii = addSquarePC (1);
-	if (iii == 10) f_endGame ();
-}
+	compSquare.tmpCol = 1;
+	newColor = f_calculateMaxAmountColorAround ();
+	compSquare.tmpCol = 1;
+	f_paint(newColor, f_clickHandler__)
 }
 
-	<!--Закрашиваем кубики игрока (ход компа)-->
-function paintPC ()
-{
-	newNamberColor = addSquarePC ();
-	namberColor = SquareColorLayer2[1][1];
-	if (newNamberColor != namberColor)
-	{
-	SquareColorLayer2[1][1] = 0;
-	var zeroOK = true;
-	while (zeroOK == true)
-	{
-		zeroOK= false;
-		for (i=1; i<=XxX; i++)
-		{
-			for (ii=1; ii<=YyY; ii++)
-			{
-				if (SquareColorLayer2[i][ii] == 0)
-				{
-					if (i+1 <= XxX) 	{if (SquareColorLayer2[i+1][ii] == namberColor) {SquareColorLayer2[i+1][ii] = 0;}}
-					if (ii+1 <= YyY)	{if (SquareColorLayer2[i][ii+1] == namberColor) {SquareColorLayer2[i][ii+1] = 0;}}
-					if (i-1 > 0)		{if (SquareColorLayer2[i-1][ii] == namberColor)  {SquareColorLayer2[i-1][ii] = 0;}}
-					if (ii-1 > 0)		{if (SquareColorLayer2[i][ii-1] == namberColor)  {SquareColorLayer2[i][ii-1] = 0;}}
-					SquareColorLayer2[i][ii] = newNamberColor;
-					zeroOK = true;
-				}
+function f_clickHandler__(){
+    f_clearTmpCol();
+	compSquare.tmpCol = 1;
+   	compSquareAmount = f_getSquaresAmount();
+	f_clearTmpCol();
+    if (compSquareAmount + i_score == XxX * YyY) f_endGame();
+    flag_PLAY = true;
+}
+
+function f_paint(newColor, callback){
+	let flag_END = true;
+	matrix.forEach(e => {
+		e.forEach(e => {
+            if (e.tmpCol == 1){
+				arr = [];
+				if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
+				if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
+				if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
+			    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
+			 	arr.forEach(e_ => {
+				 	if (e_.tmpCol == 0 && e_.color == e.color){
+						e_.tmpCol = 2;
+						flag_END = false;
+					}
+			 	});
+				e.tmpCol = 3;
+				e.setElmColor(newColor);
 			}
-		}
-	}
-	}
-}
-	<!--Подсчитываем количество кубиков-->
-function addSquare (x_X,y_Y, f_F)
-{
-	Nsquare=0;
-	Color2 = SquareColorLayer3[x_X][y_Y]; SquareColorLayer3[x_X][y_Y] = 0;
-	var zeroOK = true;
-	while (zeroOK == true)
-	{
-		zeroOK= false;
-		for (x=1; x<=XxX; x++)
-		{
-			for (y=1; y<=YyY; y++)
-			{
-				if (SquareColorLayer3[x][y] == 0)
-				{
-					if (x+1 <= XxX) 	{if (SquareColorLayer3[x+1][y] == Color2) {SquareColorLayer3[x+1][y] = 0;}}
-					if (y+1 <= YyY)	{if (SquareColorLayer3[x][y+1] == Color2) {SquareColorLayer3[x][y+1] = 0;}}
-					if (x-1 > 0)		{if (SquareColorLayer3[x-1][y] == Color2)  {SquareColorLayer3[x-1][y] = 0;}}
-					if (y-1 > 0)		{if (SquareColorLayer3[x][y-1] == Color2)  {SquareColorLayer3[x][y-1] = 0;}}
-					SquareColorLayer3[x][y] = 9;
-					if (f_F == 1) {document.images[SquareColorLayer1[x][y]].src = "img/stone_"+Color2+"1.gif";}
-					zeroOK = true;
-					Nsquare++;
-				}
+		});
+	});
+
+	matrix.forEach(e => {
+		e.forEach(e => {
+            if (e.tmpCol == 2){
+                e.tmpCol = 1;
 			}
-		}
+		});
+	});
+
+	if (flag_END) {
+		matrix.forEach(e => {
+			e.forEach(e => {
+				if (e.tmpCol == 3 &&
+				   ((e.i_x + 1) < XxX) &&
+				   (matrix[e.i_y][e.i_x + 1].color == newColor) &&
+				   ((e.i_x - 1) >= 0) &&
+				   (matrix[e.i_y][e.i_x - 1].color == newColor) &&
+				   ((e.i_y + 1) < YyY) &&
+				   (matrix[e.i_y + 1][e.i_x].color == newColor) &&
+				   ((e.i_y - 1) >= 0) &&
+				   (matrix[e.i_y - 1][e.i_x].color == newColor)
+			    ){
+					e.style.top = '-8px';
+					e.style.left = '-8px';
+					e.style.width = '40px';
+					e.style.height = '40px';
+					e.style.border = 'solid 0px';
+					e.style.boxShadow = 'inset 0 0 0px';
+			    }
+			    e.tmpCol = 0
+			});
+		});
+		callback ();
 	}
-	return (Nsquare);
+	else setTimeout(f_paint, 20, newColor, callback);
 }
-	<!--Подсчитываем количество кубиков наибольшего цвета вокрук поля компьютера-->
-function addSquarePC (f)
-{
-	ColorOnZero ();
-	CopyLayers ();
-	if (f) {Color2PC = SquareColorLayer3[XxX][YyY]; SquareColorLayer3[XxX][YyY] = 8;}
-	else {Color2PC = SquareColorLayer3[1][1]; SquareColorLayer3[1][1] = 8;}
-	var zeroOK = true;
-	while (zeroOK == true)
-	{
-		zeroOK= false;
-		for (i=1; i<=XxX; i++)
-		{
-			for (ii=1; ii<=YyY; ii++)
-			{
-				if (SquareColorLayer3[i][ii] == 8)
-				{
-					if (i+1 <= XxX)
-					{
-						if (SquareColorLayer3[i+1][ii] == Color2PC) {SquareColorLayer3[i+1][ii] = 8;}
-						else {if (SquareColorLayer3[i+1][ii] != SquareColorLayer2[XxX][YyY]) {if (SquareColorLayer3[i+1][ii] != 9) {if (SquareColorLayer3[i+1][ii] != 8){ NNsquare[SquareColorLayer3[i+1][ii]] += addSquare (i+1, ii);}}}}
-					}
-					if (ii+1 <= YyY)
-					{
-						if (SquareColorLayer3[i][ii+1] == Color2PC) {SquareColorLayer3[i][ii+1] = 8;}
-						else {if (SquareColorLayer3[i][ii+1] != SquareColorLayer2[XxX][YyY]) {if (SquareColorLayer3[i][ii+1] != 9){if (SquareColorLayer3[i][ii+1] != 8){ NNsquare[SquareColorLayer3[i][ii+1]] += addSquare (i, ii+1);}}}}
-					}
-					if (i-1 > 0)
-					{
-						if (SquareColorLayer3[i-1][ii] == Color2PC)  {SquareColorLayer3[i-1][ii] = 8;}
-						else {if (SquareColorLayer3[i-1][ii] != SquareColorLayer2[XxX][YyY]) {if (SquareColorLayer3[i-1][ii] != 9){if (SquareColorLayer3[i-1][ii] != 8){NNsquare[SquareColorLayer3[i-1][ii]] += addSquare (i-1, ii);}}}}
-					}
-					if (ii-1 > 0)
-					{
-						if (SquareColorLayer3[i][ii-1] == Color2PC)  {SquareColorLayer3[i][ii-1] = 8;}
-						else {if (SquareColorLayer3[i][ii-1] != SquareColorLayer2[XxX][YyY]) {if (SquareColorLayer3[i][ii-1] != 9){if (SquareColorLayer3[i][ii-1] != 8){NNsquare[SquareColorLayer3[i][ii-1]] += addSquare (i, ii-1);}}}}
-					}
-					SquareColorLayer3[i][ii] = 9;
-					zeroOK = true;
+
+function f_clearTmpCol(){
+	matrix.forEach(e => {
+		e.forEach(e => {
+			e.tmpCol = 0
+		});
+	});
+}
+
+function f_getSquaresAmount(){
+	let amount = 0;
+    let flag_END = false;
+	while (flag_END == false){
+		flag_END = true;
+		matrix.forEach(e => {
+			e.forEach(e => {
+	            if (e.tmpCol == 1){
+					arr = [];
+					if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
+					if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
+					if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
+				    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
+				 	arr.forEach(e_ => {
+					 	if (e_.tmpCol == 0 && e_.color == e.color){
+							e_.tmpCol = 1;
+							flag_END = false;
+						}
+				 	});
+					e.tmpCol = 2; amount ++;
 				}
-			}
-		}
+			});
+		});
 	}
-	Ncolor = NNsquare[1]; _max = 1;
-	for (i=2; i<=6; i++)
-	{
-		if (NNsquare[i] > Ncolor) {_max = i; Ncolor = NNsquare[i];}
-	}
-	if (NNsquare[_max] == 0) {_max=10;}
-	return (_max);
+	return amount;
 }
-	<!--Копируем слой 2 в слой 3-->
-function CopyLayers ()
-{
-	for (i=1; i<=XxX; i++)
-	{
-		for (ii=1; ii<=YyY; ii++)
-		{
-			SquareColorLayer3[i][ii] = SquareColorLayer2[i][ii];
-		}
+
+function f_calculateMaxAmountColorAround (){
+	let colorsAmount = [0, 0, 0, 0, 0, 0, 0];
+	f_getSquaresAmount();
+	matrix.forEach(e => {
+		e.forEach(e => {
+			if (e.tmpCol == 2) e.tmpCol = 4;
+		});
+	});
+	for (i = 1; i <= 6; i ++){
+		if (compSquaer.color == i ||
+			yourSquare.color == i)
+		    continue;
+		matrix.forEach(e => {
+			e.forEach(e => {
+		           if (e.tmpCol == 4){
+					let arr = [];
+					if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
+					if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
+					if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
+				    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
+				 	arr.forEach(e => {
+					 	if (e.tmpCol == 0 && e.color == i){
+							e.tmpCol = 1;
+						}
+				 	});
+				}
+			});
+		});
+		colorsAmount[i] = f_getSquaresAmount();
+		matrix.forEach(e => {
+			e.forEach(e => {
+				if (e.tmpCol != 4) e.tmpCol = 0;
+			});
+		});
 	}
+	f_clearTmpCol();
+	return colorsAmount.indexOf(
+		Math.max.apply(null, colorsAmount)
+	);
 }
-	<!--Заполняем случайным образом цвета кубов-->
-function f_newGame ()
-{
-	for (i=1; i<=XxX; i++){
-		for (ii=1; ii<=YyY; ii++){
-			SquareColorLayer2[i][ii] = Math.ceil (Math.random ()*6);
-			document.images[SquareColorLayer1[i][ii]].src = "img/stone_"+SquareColorLayer2[i][ii]+".gif";
-			i_canvasKeymap +=  SquareColorLayer2[i][ii];
-		}
-	}
-	i_squares_of_comp = 0;
+
+function f_newGame (){
+	matrix.forEach(e => {
+		 e.forEach(e => {
+			color = Math.ceil (Math.random ()*6);
+			e.setElmColor(color);
+			i_canvasKeymap += color;
+			e.setDefaultStyle();
+		})
+	})
+	f_clearTmpCol();
 }
+
 function f_oldGame()
 {
-	for (i=1; i<=XxX; i++){
-		for (ii=1; ii<=YyY; ii++){
-			qq = (i-1); qq *= 20; qq += (ii-1);
+	for (i = 0; i <= (XxX - 1); i ++){
+		for (ii = 0; ii <= (YyY - 1); ii++){
+			e = matrix[ii][i];
+			qq = i * 20 + ii;
 			str = i_canvasKeymap.substr (qq, 1);
-			SquareColorLayer2[i][ii] = str;
-			document.images[SquareColorLayer1[i][ii]].src = 'img/stone_'+SquareColorLayer2[i][ii]+'.gif';
+			e.setElmColor(str);
+			e.setDefaultStyle();
 		}
 	}
 }
