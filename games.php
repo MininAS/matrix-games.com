@@ -70,7 +70,7 @@
 	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=12'></script>
+	<script type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=14'></script>
 	<script type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=9.8'></script>";
 
 	require ("display.php");

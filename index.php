@@ -22,7 +22,7 @@
 	<div class = 'windowSite winPreshowGameItem ".$div_chet."'>
 		<a href = 'games.php?theme=".$theme."'>";
 		$body .= "
-				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif' alt = 'Играбокс'>
+				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif?lastVersion=2' alt = 'Играбокс'>
 				<i class = 'big'>".$theme_rus."</i><br/>
 				<i>";
 		require ("games/mini ".$theme.".txt");

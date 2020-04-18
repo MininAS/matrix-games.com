@@ -6,11 +6,11 @@ window.onload = function ()
 	{
 		animeWindows[i].onmouseenter = function()
 		{
-			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif';
+			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=2';
 		}
 		animeWindows[i].onmouseleave = function ()
 		{
-			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif';
+			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=2';
 		}
 	}
 

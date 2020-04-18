@@ -13,9 +13,9 @@
 		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка">
 
 	<meta name="yandex-verification" content="52be1ad7373487f5" />
-	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=10">
+	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=12">
 	<link rel="SHORTCUT ICON" href="img/icon.png">
-	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.1'></script>
+	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.2'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>

@@ -1,6 +1,6 @@
 var matrix = [];
 var yourSquare = {};
-var compSquaer = {};
+var compSquare = {};
 var XxX = 30;
 var YyY = 20;
 var i_squares_of_comp = 0;
@@ -30,6 +30,7 @@ function f_greateGame(){
 
 			e.style.position = 'relative';
 			e.style.borderRadius = '5px';
+			e.style.willChange = 'left, top, width, height';
 			e.style.transform = 'rotate(45deg)';
 			e.style.transition = 'top 1s, left 1s, width 1s, height 1s';
 
@@ -62,18 +63,14 @@ function f_greateGame(){
 	e.style.height = '40px';
 	e.style.borderRadius = '5px';
 	e.style.boxShadow = 'inset 0 0 4px';
-	e.style.transition = '60s linear';
-	setTimeout(() => {e.style.transform = 'rotate(3600deg)';}, 1000);
-	setTimeout(() => {e.remove();}, 60000);
 }
 
 function f_clickHandler(){
 	if (flag_PLAY != true) return;
 	i_motion ++;
     newColor = this.color;
-
+    flag_PLAY = false;
     if ((yourSquare.color != newColor) && (compSquare.color != newColor)){
-		flag_PLAY = false;
 		yourSquare.tmpCol = 1;
 	    f_paint(newColor, f_clickHandler_);
 	}
@@ -86,18 +83,17 @@ function f_clickHandler_(){
 	f_clearTmpCol();
 	document.getElementById ('myNballov').innerHTML = i_score;
 	compSquare.tmpCol = 1;
-	newColor = f_calculateMaxAmountColorAround ();
+	newColor = f_calculateMaxAmountColorAround();
 	compSquare.tmpCol = 1;
 	f_paint(newColor, f_clickHandler__)
 }
 
 function f_clickHandler__(){
     f_clearTmpCol();
-	compSquare.tmpCol = 1;
-   	compSquareAmount = f_getSquaresAmount();
-	f_clearTmpCol();
-    if (compSquareAmount + i_score == XxX * YyY) f_endGame();
-    flag_PLAY = true;
+	yourSquare.tmpCol = 1;
+	newColor = f_calculateMaxAmountColorAround();
+    if (newColor == 0 && i_score > 20) f_endGame();
+    else flag_PLAY = true;
 }
 
 function f_paint(newColor, callback){
@@ -148,14 +144,15 @@ function f_paint(newColor, callback){
 					e.style.width = '40px';
 					e.style.height = '40px';
 					e.style.border = 'solid 0px';
-					e.style.boxShadow = 'inset 0 0 0px';
+					e.style.boxShadow = 'none';
+					e.style.willChange = 'auto';
 			    }
 			    e.tmpCol = 0
 			});
 		});
 		callback ();
 	}
-	else setTimeout(f_paint, 20, newColor, callback);
+	else setTimeout(f_paint, 0, newColor, callback);
 }
 
 function f_clearTmpCol(){
@@ -202,7 +199,7 @@ function f_calculateMaxAmountColorAround (){
 		});
 	});
 	for (i = 1; i <= 6; i ++){
-		if (compSquaer.color == i ||
+		if (compSquare.color == i ||
 			yourSquare.color == i)
 		    continue;
 		matrix.forEach(e => {
