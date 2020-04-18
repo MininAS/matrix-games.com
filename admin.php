@@ -42,7 +42,7 @@
 		if ($user == "0")
 		{
 		 	$result = f_mysqlQuery ("SELECT id FROM users;");
-			while ($data = mysql_fetch_row ($result)) f_mail ($data[0], "Новости с сайта LMG ==>>",$string);
+			while ($data = mysql_fetch_row ($result)) f_mail ($data[0], $string);
 		}
 		else f_mail ($user, $string);
 	}
