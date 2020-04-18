@@ -20,12 +20,12 @@
 	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
 	{
 		$body .= "
-	<div id = 'formSendTheme' class = 'windowSite'>
+	<div id = 'formSendTheme' class = 'formSendTheme windowSite'>
 		<ul class = 'windowTitle'><li>Новая тема</li></ul>
 		<input class = 'c_enterText' type='text' name='newThemeName' SIZE='50' maxlenght='150'>
 		<div class = 'k_enter'></div>
 	</div>
-	<div id = 'formSendMessage' class = 'windowSite'>
+	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
 		<ul class = 'windowTitle'><li>Новое сообщение</li></ul>
 		<textarea name = 'string' cols='50'  rows='3'></textarea>
 		<div class = 'k_close'></div>

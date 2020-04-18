@@ -51,12 +51,11 @@
 
 	$body = "";
 
-
-
 	$body .= "
-	<div id = 'messageWindow' class = 'windowSite'>
+	<div class = 'windowSite'>
 		<ul class = 'windowTitle'><li>На сайте зарегистрированы: </li></ul>
 		<table width = '100%' border = '2' cellpadding = '2' cellspacing = '2'>
+		    <br>
 			<tr align=\"center\">
 				<td><A href = 'admin.php?sort='id>ID</A></td>
 				<td width = '20%'><A href = 'admin.php?sort=login'>Ник</A></td>
@@ -67,8 +66,8 @@
 				<td><A href = 'admin.php?sort=N_mess DESC'>Сообщения</A></td>
 				<td width = '20%'>Регистрация</td>
 			</tr>
-	</table>
-	<div class = 'messageLists'>
+	    </table>
+	<div id = 'messageWindow' class = 'messageLists'>
 	<table width = '100%' border = '2' cellpadding = '2' cellspacing = '2'>";
 // Сортируем
 	$result = f_mysqlQuery("SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R FROM users ORDER BY ".$_GET["sort"].";");
@@ -102,10 +101,10 @@
 	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
 	{
 		$body .= "
-		<div id = 'formSendMessage' class = 'windowSite'>
+		<form action='admin.php' name='send_mess'>
+		<div class = 'formSendMessage windowSite'>
 			<ul class = 'windowTitle'><li>Отправить сообщение</li></ul>
-			<form action='admin.php' name='send_mess'>
-				<select  name = 'user'>
+			<select name = 'user'>
 				<option value = ''>Кому:</option>
 				<option value = '0'>Всем</option>\n";
 		$result = f_mysqlQuery("SELECT id, login FROM users ORDER BY login;");
@@ -114,23 +113,25 @@
 			$body .= "
 			<option value = '".$data[0]."'>".$data[1]."</option>\n";
 		}
-		$body .= "</select>
-				<textarea name = 'string' COLS = '40'  ROWS = '4'></textarea>
-				<div class = 'k_smile'  onClick=\"window_info('smile');\"></div>
-				<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
-				<input TYPE = 'hidden' name = 'regEdit' value=\"1\">
-			</form>
-		</div>";
+		$body .= "
+		    </select>
+			<textarea name = 'string' COLS = '40'  ROWS = '4'></textarea>
+			<div class = 'k_smile'  onClick=\"window_info('smile');\"></div>
+			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
+			<input TYPE = 'hidden' name = 'regEdit' value=\"1\">
+
+		</div>
+		</form>";
 	}
 
 // Отпарвка писем ------------------------------------------------------------------------------------------------------------
 	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
 	{
 		$body .= "
-		<div id = 'formSendMessage' class = 'windowSite'>
+		<form action='admin.php' name='send_mess_' >
+		<div class = 'formSendMessage windowSite'>
 			<ul class = 'windowTitle'><li>Отправить писем</li></ul>
-			<form action='admin.php' name='send_mess_' >
-				<select  name='user'>
+			<select name='user'>
 				<option value=''>Кому:</option>
 				<option value='0'>Всем</option>\n";
 		mysql_data_seek ($result, 0);
@@ -140,22 +141,23 @@
 				<option value = '".$data[0]."'>".$data[1]."</option>\n";
 		}
 
-		$body .= "</select>
-				<textarea name = 'string' COLS='40'  ROWS='4'></textarea>
-				<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
-				<input type = 'hidden' name = 'regEdit' value = '2'>
-			</form>
-		</div>";
+		$body .= "
+		    </select>
+			<textarea name = 'string' COLS='40'  ROWS='4'></textarea>
+			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
+			<input type = 'hidden' name = 'regEdit' value = '2'>
+		</div>
+		</form>";
 	}
 // Меню администратора ---------------------------------------------------------------------------------------------------------------------------------------------
 	if (@$_SESSION["dopusk"]=="admin")
 	{
 		$body .= "
-	<div class = 'windowSite'>
-		<ul class = 'windowTitle'><li>Изменить статус аккаунта</li></ul>
 		<form action = 'admin.php' name = 'users' width = '65%'>
-			<select class = 'c_enterText' name = 'user'>
-				<option class = 'c_enterText' value = '0'>Кому:</option>\n";
+		<div class = 'formSendTheme windowSite'>
+			<ul class = 'windowTitle'><li>Изменить статус аккаунта</li></ul>
+			<select name = 'user'>
+				<option class = '' value = '0'>Кому:</option>\n";
 	mysql_data_seek ($result, 0);
 	while ($data = mysql_fetch_row ($result))
 	{
@@ -164,7 +166,7 @@
 	}
 	$body .= "
 			</select>
-			<select name='value1'>
+			<select class = 'c_enterText' name='value1'>
 				<option value = ''>Выберите статус</option>
 				<option value = 'admin'>Администратор</option>
 				<option value = 'yes'>Пользователь</option>
@@ -173,9 +175,9 @@
 			</select>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 			<input type = 'hidden' name = 'regEdit' value = '103'>
-		</form>
 	</div>
-	<div class = 'windowSite'>
+	</form>
+	<div class = 'formSendTheme windowSite'>
 		<p>Убавить по баллу у всех играков</p><a class = 'k_enter' href = 'admin.php?regEdit=78'></a>
 	</div>";
 	}

@@ -58,7 +58,7 @@
 // Форма отправки сообщений
 
 	$body .= "
-	<div id = 'formSendMessage' class = 'windowSite'>
+	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
 		<ul class = 'windowTitle'><li>Ответить</li></ul>
 		<select id = 'dropDownUserList' name = 'user'>
 			<option value = '0'>Кому:</option>

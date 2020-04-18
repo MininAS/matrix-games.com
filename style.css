@@ -400,27 +400,29 @@ body > #body {
 					font-size: 28pt;
 				}
 
-		#formSendTheme {
+		.formSendTheme {
 			display: grid;
 			grid-template-columns: repeat(8, 1fr);
 			grid-template-rows: repeat(2, 1fr);
 			grid-gap: 4px 4px;
 		}
 
-		#formSendTheme .c_enterText {grid-column: 2 / 8; grid-row: 2 / 3;}
-		#formSendTheme .k_enter     {grid-column: 8 / 9; grid-row: 2 / 3;}
+		.formSendTheme .c_enterText,
+        .formSendTheme p            {grid-column: 2 / 8; grid-row: 2 / 3;}
+        .formSendTheme select       {grid-column: 6 / 8; grid-row: 1 / 2;}
+		.formSendTheme .k_enter     {grid-column: 8 / 9; grid-row: 2 / 3;}
 
-		#formSendMessage {
+		.formSendMessage {
 			display: grid;
 			grid-template-columns: repeat(8, 1fr);
 			grid-template-rows: repeat(4, 1fr);
 			grid-gap: 4px 4px;
 		}
-			#formSendMessage select   {grid-column: 6 / 8; grid-row: 1 / 2;}
-			#formSendMessage textarea {grid-column: 2 / 8; grid-row: 2 / 5;}
-			#formSendMessage .k_close {grid-column: 8 / 9; grid-row: 2 / 3;}
-			#formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 3 / 4;}
-			#formSendMessage .k_enter {grid-column: 8 / 9; grid-row: 4 / 5;}
+			.formSendMessage select   {grid-column: 6 / 8; grid-row: 1 / 2;}
+			.formSendMessage textarea {grid-column: 2 / 8; grid-row: 2 / 5;}
+			.formSendMessage .k_close {grid-column: 8 / 9; grid-row: 2 / 3;}
+			.formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 3 / 4;}
+			.formSendMessage .k_enter {grid-column: 8 / 9; grid-row: 4 / 5;}
 
 	.message_non_existed {
 		padding: 20px;
