@@ -1,6 +1,7 @@
 /*=============== Default ====================================================*/
-@font-family: "Comic Sans MS";{
-    src: url("font.ttf") format("truetype");
+@font-face{
+    font-family: 'Comic';
+    src: url("../font.ttf") format("truetype");
 	font-style: normal;
     font-weight: normal;
 }
@@ -8,7 +9,7 @@
 I, P, A, CENTER, EM, TD,
 OPTION, SELECT, DIV,
 INPUT, TEXTAREA, UL, OL, LI{
-    font-family: Comic Sans MS;
+    font-family: Comic;
 	font-style: normal;
 	text-decoration: none; color: #000;
 }
