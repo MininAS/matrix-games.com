@@ -190,6 +190,7 @@ function window_info(s_name, text)
 function f_parseSmilesAtMessage (smile)
 {
 	elm = document.querySelector('#formSendMessage textarea')
+	if (elm.disabled == true) return;
 	elm.value = elm.value + "{[:" + smile + ":]}";
 }
 

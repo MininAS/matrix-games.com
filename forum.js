@@ -60,15 +60,17 @@ e_forumKeyUp.onclick = function () {
 
 if (e_forumNewThemeSendButton)
 	e_forumNewThemeSendButton.onclick = function () {
+		if (e_forumNewThemeInputField.disabled == true) return;
 	    var newThemeName = e_forumNewThemeInputField.value;
-			parameters =
-				'string=' + newThemeName +
-				'&theme=' + currentTheme;
+		parameters =
+			'string=' + newThemeName +
+			'&theme=' + currentTheme;
 		f_fetchSaving ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
 
 if (e_forumNewMessageSendButton)
 	e_forumNewMessageSendButton.onclick = function () {
+		if (e_forumNewMessageInputField.disabled == true) return;
 		var string = e_forumNewMessageInputField.value;
 		if (currentMess == 0)
 			f_fetchSaving ('forum_add_message.php?',
