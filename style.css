@@ -487,7 +487,7 @@ body > #body {
 
 /*=============== Всплывающие блоки ==================================================*/
 #black_glass {
-	opacity: 0;
+	opacity: 0.7;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -500,7 +500,7 @@ body > #body {
 	display: none;
 	position: absolute;
 }
-#window_info {
+#window_info_popup {
 	width: 100%;
 	display: none;
 	position: fixed !important;

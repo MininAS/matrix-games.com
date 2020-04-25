@@ -107,7 +107,7 @@ function f_KeyPress (event)
 		if (evt == 83 || evt == 40) {clearTimeout(timeout_id); flag_DOWN = true; f_Tetris (); event.stopPropagation();event.preventDefault();  return false;}
 		if (evt == 65 || evt == 37) {i_V = 1; f_MoveFigure (); return false;}
 		if (evt == 68 || evt == 39) {i_V = 2; f_MoveFigure (); return false;}
-		if (evt == 32) {window_info('pause'); return false;}
+		if (evt == 32) {f_windowInfoPopup('pause'); return false;}
 	}
 }
 document.onkeyup = function f_KeyUp (event)

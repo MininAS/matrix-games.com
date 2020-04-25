@@ -14,7 +14,7 @@
 	{
 		$i_Users ++;
 		$text .= "
-		<li  class = 'selectable_list_item' onClick = \"window_info ('user_top', ".$data[0].");\">
+		<li  class = 'selectable_list_item' onClick = \"f_windowInfoPopup ('user_top', ".$data[0].");\">
 			<span class = 'top_list_item_number'>
 				".$i_Users."
 			</span>

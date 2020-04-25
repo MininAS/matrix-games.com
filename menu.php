@@ -16,7 +16,7 @@
 		if ($_SESSION["page"] != "forum")	echo ("
 			<li><a href = 'forum.php'><img src = 'img/k_book.png' alt='Книга пожеланий'/></a></li>");
 		if ($_SESSION["page"] == "profile")	echo ("
-			<li><a href = '#' onClick = \"window_info ('user_top', ".$_SESSION["id"].");\"><img src = 'img/k_stat.png' alt='Ваша статистика'/></a></li>");
+			<li><a href = '#' onClick = \"f_windowInfoPopup ('user_top', ".$_SESSION["id"].");\"><img src = 'img/k_stat.png' alt='Ваша статистика'/></a></li>");
 // если пользователь авторизовался
 		if ($_SESSION["page"] != "profile" && ($_SESSION["dopusk"]=="yes" || $_SESSION["dopusk"]=="admin"))
 		{
@@ -31,8 +31,8 @@
 	{
 		echo ("
 		<li id = 'k_sound'><a href = '#' onClick = 'f_sound_off();'><img src = 'img/k_sound_".$_COOKIE["sound"].".png' alt='Звук'/></a></li>
-		<li><a href = '#' onClick = \"window_info ('user_game', '".$theme."');\"><img src = 'img/k_stat.png' alt='Статистика игры'/></a></li>
-		<li id = 'k_pauseGame'><a href = '#' onClick = \"window_info ('pause');\"><img src = 'img/k_pause.png' alt='Пауза'/></a></li>
+		<li><a href = '#' onClick = \"f_windowInfoPopup ('user_game', '".$theme."');\"><img src = 'img/k_stat.png' alt='Статистика игры'/></a></li>
+		<li id = 'k_pauseGame'><a href = '#' onClick = \"f_windowInfoPopup ('pause');\"><img src = 'img/k_pause.png' alt='Пауза'/></a></li>
 		<li id = 'k_newGame'><a href = '#'><img src = 'img/k_newgame.png' alt='Новая игра'/></a></li>
 		<li id = 'k_endGame'><a href = '#' onClick = 'f_endGame ();'><img src = 'img/k_save.png' alt='Сохранение игры'/></a></li>");
 	}
@@ -48,7 +48,7 @@
 		<li><a href = 'index.php?exit=true' onClick = 'VK.Auth.logout();'><img src = 'img/k_exit.png' alt='Выход'/></a></li>");
 	}
 	echo ("
-		<li id = 'k_help'><a href = '#' onClick = 'window_info(\"text_help\");'><img src = 'img/k_help.png' alt='Инструкция'/></a></li>
+		<li id = 'k_help'><a href = '#' onClick = 'f_windowInfoPopup(\"text_help\");'><img src = 'img/k_help.png' alt='Инструкция'/></a></li>
 		</ul>");
 
 	$text = "

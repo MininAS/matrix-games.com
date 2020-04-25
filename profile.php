@@ -64,7 +64,7 @@
 			<option value = '0'>Кому:</option>
 		</select>
 		<textarea id = 'string' name = 'string' cols = '64'  rows = '2'></textarea>
-		<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
+		<div class = 'k_smile' onClick=\"f_windowInfoPopup('smile');\"></div>
 		<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 	</div>";
 
@@ -130,7 +130,7 @@
 		</form>
 
 <!--Удаление аккаунта-->
-		<div'><a href='#' onClick = \"window_info ('accaunt-delet');\">Удалить аккаунт ?</a></div>
+		<div'><a href='#' onClick = \"f_windowInfoPopup ('accaunt-delet');\">Удалить аккаунт ?</a></div>
 		<div id = 'accaunt-delet' class = 'invisible_block' style = \"display: none;\">
 			<p class = 'big'><br>Вы действительно хотите<br>удалить аккаунт и покинуть этот сайт ?</p>
 			<form ACTION = 'exit.php' name = 'exit'>

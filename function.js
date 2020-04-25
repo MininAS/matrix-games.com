@@ -1,5 +1,8 @@
+
 window.onload = function ()
 {
+	window.e_windowInfoPopup = document.getElementById('window_info_popup');
+	window.e_windowInfoShadow = document.getElementById('black_glass');
 	// Включение анимации изображений полей игр
 	animeWindows = document.getElementsByClassName('winPreshowGameItem');
 	for(var i=0; i<animeWindows.length; i++)
@@ -126,31 +129,22 @@ function f_isWindowsHeightAlignment () {
 	}
 
 // Определение содержимого информационного окна -----------------------------------------------------
-function window_info(s_name, text)
+function f_windowInfoPopup(s_name, text)
 {
 	elem =document.getElementById('info_div');
-	elem.innerHTML = "Ожидается ответ сервера...";
 	if (!text)  text = "Ожидается ответ сервера...";
-	flag_PopUp = true;
+	elem.innerHTML = text;
+
 	switch(s_name) {
-		case undefined:
-			elem.innerHTML = '';
-			flag_PopUp = false;
-			break;
-		case 'show':
-			break;
-		case 'text_info':
-			elem.innerHTML = text;
-			break;
 		case 'pause':
 			elem.innerHTML = "<p class = 'very-big'>Пауза</p>Для снятия с паузы кликните по этому окну.";
 			break;
 		case 'user_top':
  			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+text, null);
-			break;
+            break;
 		case 'user_game':
  			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+text, null);
-			f_counter (); // Увеличиваем счетчик т.к. окно появляется только при каком-нибудь действии пользователя.
+			f_counter ();
 			break;
 		case 'text_help':
 			elem.innerHTML = document.getElementById('text_help').innerHTML;
@@ -158,32 +152,20 @@ function window_info(s_name, text)
 		case 'smile':
 			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
 			break;
-		case 'reg':
-			f_fetchUpdateContent('info_div', 'ajax_reg.php', null);
-			break;
-		case 'forum_theme_redact':
-			elem.innerHTML = document.getElementById('forum_theme_redact').innerHTML;
-			break;
 		case 'accaunt-delet':
 			elem.innerHTML = document.getElementById('accaunt-delet').innerHTML;
 			break;
+		case 'hide_popup':
+			elem.innerHTML = '';
+			e_windowInfoPopup.style.display = 'none';
+			e_windowInfoShadow.style.display = 'none';
+			flag_PAUSE = false;
+			return;
 	}
-	windowInfo = document.getElementById('window_info');
-	blackGlass = document.getElementById('black_glass');
-	if (flag_PopUp == true) {
-		windowInfo.style.display = 'block';
-		blackGlass.style.height = getDocumentHeight()+'px';
-		blackGlass.style.display = 'block';
-		blackGlass.style.opacity = 0.7;
-		flag_PAUSE = true;
-		flag_PopUp = false;
-	}
-	else {
-		windowInfo.style.display = 'none';
-		blackGlass.style.display = 'none';
-		blackGlass.style.opacity = 0;
-		flag_PAUSE = false;
-	}
+	e_windowInfoPopup.style.display = 'block';
+	e_windowInfoShadow.style.height = getDocumentHeight()+'px';
+	e_windowInfoShadow.style.display = 'block';
+	flag_PAUSE = true;
 }
 
 // Добавление смайла в текст -------------------------------------------------------------
@@ -211,17 +193,18 @@ function f_fetchUpdateContent (s_targetBlock, s_loaderFile, callback) {
 }
 
 function f_fetchSaving (s_saverFile, s_attributes, callback) {
+	f_windowInfoPopup ();
 	fetch(s_saverFile, {
 		method: 'POST',
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 		body: s_attributes
 	})
 		.then (response => {
-			if (response.status == 200) return response.json()
-			else window_info ('text_info', response.status + " " + response.statusText)
+			if (response.status == 200) return response.json();
+			else f_windowInfoPopup ('info', response.status + " " + response.statusText);
 		})
 			.then (data => {
-				window_info ('text_info', data.message);
+				f_windowInfoPopup ('info', data.message);
 				if (data.res.match(/^2/))
 				    if (typeof callback == 'function'){
 						if (data.id) i_canvasLayout = data.id

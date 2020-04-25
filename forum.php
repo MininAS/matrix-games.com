@@ -29,7 +29,7 @@
 		<ul class = 'windowTitle'><li>Новое сообщение</li></ul>
 		<textarea name = 'string' cols='50'  rows='3'></textarea>
 		<div class = 'k_close'></div>
-		<div class = 'k_smile' onClick=\"window_info('smile');\"></div>
+		<div class = 'k_smile' onClick=\"f_windowInfoPopup('smile');\"></div>
 		<div class = 'k_enter'></div>
 	</div>
 	<div id = 'messDeleteConfirmPopup' class = 'invisible windowSite popupMenu'>
@@ -39,6 +39,6 @@
 	}
 
 	$body .= "
-	<script type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.1'></script>";
+	<script type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.2'></script>";
 require ("display.php");
 ?>

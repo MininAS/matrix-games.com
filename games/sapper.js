@@ -109,7 +109,7 @@ function f_KeyPress (event)
 	{
 		event = (event) ? event : window.event;
 		evt = (event.keyCode) ? event.keyCode : event.which;
-		if (evt == 32) {window_info ('pause'); return false;}
+		if (evt == 32) {f_windowInfoPopup ('pause'); return false;}
 	}
 }
 

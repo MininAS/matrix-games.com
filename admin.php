@@ -116,7 +116,7 @@
 		$body .= "
 		    </select>
 			<textarea name = 'string' COLS = '40'  ROWS = '4'></textarea>
-			<div class = 'k_smile'  onClick=\"window_info('smile');\"></div>
+			<div class = 'k_smile'  onClick=\"f_windowInfoPopup('smile');\"></div>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 			<input TYPE = 'hidden' name = 'regEdit' value=\"1\">
 

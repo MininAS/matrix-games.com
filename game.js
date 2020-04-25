@@ -35,10 +35,11 @@ function f_gameStart (){
 }
 
 function f_fetchGameLoading (callback) {
+	f_windowInfoPopup ();
 	fetch ('game_load.php?theme=' + s_theme + '&canvasLayout=' + i_canvasLayout)
 		.then (response => {
 			if (response.status == 200) return response.json();
-			else window_info ('text_info', response.status + " " + response.statusText);
+			else f_windowInfoPopup ('info', response.status + " " + response.statusText);
 		})
 			.then (data => {
 				if (data.res.match(/^2/)){
@@ -46,9 +47,10 @@ function f_fetchGameLoading (callback) {
 					flag_PLAY = true;
 					flag_PAUSE = false;
 				    callback();
+					f_windowInfoPopup ('hide_popup');
 				}
 				else
-					window_info ('text_info', data.message);
+					f_windowInfoPopup ('info', data.message);
 			})
 }
 

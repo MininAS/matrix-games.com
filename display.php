@@ -13,9 +13,9 @@
 		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка">
 
 	<meta name="yandex-verification" content="52be1ad7373487f5" />
-	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=16">
+	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=17">
 	<link rel="SHORTCUT ICON" href="img/icon.png">
-	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.2'></script>
+	<script type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.4'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>
@@ -54,9 +54,9 @@
 		</div>
 	</div>
 
-<div id="black_glass" onClick = 'window_info();'></div>
+<div id="black_glass" onClick = "f_windowInfoPopup('hide_popup');"></div>
 
-<div id = 'window_info' onClick = 'window_info();'>
+<div id = 'window_info_popup' onClick = "f_windowInfoPopup('hide_popup');">
 	<div id = 'info_div' class = 'windowSite'></div>
 </div>
 
@@ -70,7 +70,7 @@
 <?
 	if (isset($text_info)) echo("
 	<script type = 'text/javascript' language = 'JavaScript'>
-		setTimeout ('window_info (\'text_info\', \"".$text_info."\");', 1000);
+		setTimeout ('f_windowInfoPopup (\'info\', \"".$text_info."\");', 1000);
 	</script>
 	");
 ?>
