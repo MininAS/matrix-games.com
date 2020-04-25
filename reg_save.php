@@ -49,7 +49,8 @@
 			{
 				f_mysqlQuery ("UPDATE users SET id_vk='".$member["id"]."', last_name='".$_POST['last_name']."', first_name='".$_POST['first_name']."' WHERE id=".$_SESSION["id"].";");
 				$log = "Слияние аккаунтов пользователя ".$_SESSION["login"]." с VK."; log_file ($log);
-				if (isset ($_POST["photo"]) && !file_exists('avatar/'.$_SESSION["id"])) save_avatar ($_SESSION["id"], $_POST["photo"]);
+				if (isset ($_POST["photo"]) && !file_exists('avatar/'.$_SESSION["id"]))
+				    save_avatar ($_SESSION["id"], $_POST["photo"]);
 				message ();
 			}
 		}

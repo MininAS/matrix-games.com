@@ -361,12 +361,19 @@ function f_img($i, $id)
 	return $t;
 }
 // Сохранение аватара с соответствующими габаритами -----------------------------
-function save_avatar($id_outfile,$infile)
+function save_avatar($id_outfile, $infile)
 {
     global $text_info;
 
-		$infile = str_replace("https://", "http://", $infile);
-    $im=imagecreatefromjpeg($infile);
+	$infile = str_replace("https://", "http://", $infile);
+    $size = getimagesize($infile);
+    if ($size['mime'] == 'image/jpeg') $im=imagecreatefromjpeg ($infile);
+	elseif ($size['mime'] == 'image/png') $im=imagecreatefrompng ($infile);
+	elseif ($size['mime'] == 'image/gif') $im=imagecreatefromgif ($infile);
+	else {
+		$log = "Пытался загрузить " . $size['mime'] . "тип файла."; log_file ($log);
+		$text_info = "Формат изображения неизвестен.";
+	}
 
   	$x=imagesx($im); $y=imagesy($im);
   	if ($x == $y) {$xi = 0; $yi = 0;}

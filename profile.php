@@ -21,8 +21,8 @@
 			$avatar=$_FILES ["avatar"]["tmp_name"];
 			$avatar_type=$_FILES ["avatar"]["type"];
 			$avatar_size=$_FILES ["avatar"]["size"];
-			if ($avatar_size<=20000000 && ($avatar_type=="image/bmp"
-				|| $avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
+			if ($avatar_size<=20000000 &&
+			      ($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
 				|| $avatar_type=="image/png" || $avatar_type=="image/gif"))
 					save_avatar($_SESSION["id"],$avatar);
 			else $text_info = "Простите изображение не удовлетворяет параметрам.";
@@ -75,10 +75,10 @@
 		<ul class = 'windowTitle'><li>Настройки</li></ul>
 		<form enctype = 'multipart/form-data' method = 'post' name = 'avatara' accept = 'image/*'>
 			<div align = 'right'>Поменять изображение: </div>
-			<div class = 'small'>Типы файлов: GIF, JPEG, PNG, BMP.</div>
+			<div class = 'small'>Типы файлов: GIF, JPEG, PNG.</div>
 			<div>
 				<input type = 'hidden' name = 'MAX_FILE_SIZE' value='20000000'/>
-			  <input class = 'border_inset' type='file' name='avatar' size='30' maxlenght='30' accept = 'image/gif, image/jpeg, image/jpg, image/png, image/bmp'/>
+			  <input class = 'border_inset' type='file' name='avatar' size='30' maxlenght='30' accept = 'image/gif, image/jpeg, image/jpg, image/png'/>
 				<input type = 'hidden' name = 'regEdit' value = '3'/>
 			</div>";
 	if (isset ($_COOKIE["vk_app_2729439"]) && $_SESSION["id"] != "" && ($_SESSION["dopusk"]='yes' || $_SESSION["dopusk"]='admin'))
