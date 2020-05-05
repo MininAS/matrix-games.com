@@ -509,10 +509,11 @@ body > #body {
 }
 
 #info_div {
-	align: center;
-	min-width: 500px;
+	text-align: justify;
+	min-width: 200px;
+    max-width: 1000px;
 	padding: 10px;
-	margin: 0px 20%;
+	margin: 0px auto;
 }
 
 #statistic {

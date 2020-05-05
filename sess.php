@@ -2,6 +2,7 @@
 // Открытие сессии
 	if (isset ($_COOKIE["LMG"])) session_id ($_COOKIE["LMG"]);
 	if (!isset ($_COOKIE["sound"])) {setcookie("sound", 'on', time()+31536000); $_COOKIE["sound"]="on";}
+	if (!isset ($_COOKIE["lang"])) {setcookie("lang", 'rus', time()+31536000); $_COOKIE["lang"]="rus";}
 	session_name ("LMG");
 	session_save_path ("sess");
 	session_set_cookie_params (31536000);
@@ -19,7 +20,7 @@
 // Восстановление переменных+++++++++++++++++++++++++
 	// Переменная переменного типа
 	$theme = isset ($_GET['theme']) ? $_GET['theme'] : (isset($_POST['theme']) ? $_POST['theme'] : null);
-	$file = fopen ("games/top.txt", "r");
+	$file = fopen ("info/top.txt", "r");
 	$a_theme = fgetcsv ($file, 1000, "\t");
 	fclose ($file);
 	if (!in_array ($theme, $a_theme)) $theme = (int)$theme;

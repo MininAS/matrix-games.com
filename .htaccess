@@ -2,6 +2,13 @@
 #RewriteCond %{ENV:HTTPS} !on
 #RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+        
+RewriteEngine On
+RewriteCond %{ENV:HTTPS} =on
+RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  
+
+
 <Files ~ "^(db_saver|auth|sess|function|menu|display)\.php$">
 Deny from all
 </Files>

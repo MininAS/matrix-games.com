@@ -3,13 +3,12 @@
 	require ("sess.php");		$_SESSION["page"] = "index";
 	$record = array ();
 	$record_ = array ();
-	$text_help = "";
 	$body = "";
 // Блок аунтификации
 	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php");
 
 // Рисуем блоки ДИВ для описания игр _____________________________________________________________________________________________________________________
-	$file=fopen ("games/top.txt", "r");
+	$file=fopen ("info/top.txt", "r");
 	$str_theme = fgetcsv($file, 1000, "\t");
 	$str_theme_rus = fgetcsv($file, 1000, "\t");
 	fclose ($file);
@@ -25,7 +24,7 @@
 				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif?lastVersion=2' alt = 'Играбокс'>
 				<i class = 'big'>".$theme_rus."</i><br/>
 				<i>";
-		require ("games/mini ".$theme.".txt");
+		require ("info/pre_".$theme.".txt");
 		$body .= "</i>
 		</a>";
 		// Данные для рекорда
@@ -107,5 +106,4 @@
 		if ($div_chet == "chet") $div_chet = "nechet"; else {$div_chet = "chet";}
 	}
 	require ("display.php");
-
 ?>

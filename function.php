@@ -5,8 +5,8 @@ date_default_timezone_set('Europe/Moscow');
 	function frequency_add ()
 	{
 
-		$file_freq=fopen ("info/frequency.txt", "r+");
-		if (@!$file_freq) {f_mail_admin("Не найден файл количества посещений в папке info.");}
+		$file_freq=fopen ("logbook/frequency.txt", "r+");
+		if (@!$file_freq) {f_mail_admin("Не найден файл количества посещений в папке logbook.");}
 		else{
 			flock ($file_freq, 2+4);
 			$string = fgets ($file_freq,100);
@@ -21,7 +21,7 @@ date_default_timezone_set('Europe/Moscow');
 // Запись в лог учета посещений
 	function log_file ($log)
 	{
-		$name = "info/".date ("Y.m.d").".txt";
+		$name = "logbook/".date ("Y.m.d").".txt";
 		if (file_exists($name))
 		{
 			$file=fopen ($name, "a");
@@ -43,7 +43,7 @@ date_default_timezone_set('Europe/Moscow');
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 // Эта функция возвращает число посещений сайта
 	function frequency_read ()
-	{	$file_freq = fopen ("info/frequency.txt", "r");
+	{	$file_freq = fopen ("logbook/frequency.txt", "r");
 		$strong = fgets ($file_freq,100);
 		if (@!$file_freq) {$freqread = "#"; exit;} else {$freqread=$strong; }
 		fclose ($file_freq);
@@ -53,7 +53,7 @@ date_default_timezone_set('Europe/Moscow');
 // Возвращение рускоязычного названия игры
 	function f_returnThemeNameByRus ($t)
 	{
-		$file = fopen ("games/top.txt", "r");
+		$file = fopen ("info/top.txt", "r");
 		$str_eng = fgetcsv ($file, 1000, "\t");
 		$str_rus = fgetcsv ($file, 1000, "\t");
 		$num = count ($str_eng);
@@ -214,7 +214,7 @@ function f_mail ($user, $mail_mess)
 function IP_quest ()
 {
 	$arr = array();
-	$file=fopen ("info/".date ("Y.m.d").".txt", "r");
+	$file=fopen ("logbook/".date ("Y.m.d").".txt", "r");
 	if (isset ($file))
 	{
 		while ($d = fgetcsv ($file, 1000, "\t"))

@@ -140,6 +140,6 @@
 		</div>";
 
 	$body .= "
-	<script type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=9'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=9'></script>";
 require ("display.php");
 ?>

@@ -1,8 +1,6 @@
 <?php
 	require ("function.php");
 	require ("sess.php");
-	$text_help = "";
-	$text_info = "";
 
 	if ($canvasLayout == "") $canvasLayout = 0;
 

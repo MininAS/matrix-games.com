@@ -1,63 +1,72 @@
+var	e_windowInfoPopup = document.getElementById('window_info_popup');
+var	e_windowInfoShadow = document.getElementById('black_glass');
+var	e_windowInfoText = document.getElementById('info_div');
 
-window.onload = function ()
+var flag_SOUND = getCookie('sound');
+var flag_LANG = getCookie('lang');
+
+e_windowInfoShadow.onclick = () => f_windowInfoPopup('hide_popup');
+e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
+
+
+
+
+// Включение анимации изображений полей игр
+animeWindows = document.getElementsByClassName('winPreshowGameItem');
+for(var i=0; i<animeWindows.length; i++)
 {
-	window.e_windowInfoPopup = document.getElementById('window_info_popup');
-	window.e_windowInfoShadow = document.getElementById('black_glass');
-	// Включение анимации изображений полей игр
-	animeWindows = document.getElementsByClassName('winPreshowGameItem');
-	for(var i=0; i<animeWindows.length; i++)
+	animeWindows[i].onmouseenter = function()
 	{
-		animeWindows[i].onmouseenter = function()
-		{
-			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=2';
-		}
-		animeWindows[i].onmouseleave = function ()
-		{
-			this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=2';
-		}
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=2';
 	}
+	animeWindows[i].onmouseleave = function ()
+	{
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=2';
+	}
+}
 
 // Подсказки на кнопках_______________________________________________________
-	menuButtonTooltip = document.getElementById('text_key');
-	menuButtons = document.getElementById('menu').getElementsByTagName('a');
-	for (var i=0; i < menuButtons.length; i++)
+menuButtonTooltip = document.getElementById('text_key');
+menuButtons = document.getElementById('menu').getElementsByTagName('a');
+for (var i=0; i < menuButtons.length; i++)
+{
+	if (menuButtons[i].getElementsByTagName('img')[0])
 	{
-		if (menuButtons[i].getElementsByTagName('img')[0])
+		menuButtons[i].onmousemove = function (e)
 		{
-			menuButtons[i].onmousemove = function (e)
-			{
-				menuButtonTooltip.innerHTML = this.getElementsByTagName('img')[0].alt;
-				menuButtonTooltip.style.display = 'block';
-				e = e || window.e;
-				x = e.pageX || e.clientX;
-				y = e.pageY || e.clientY;
-				menuButtonTooltip.style.left = x-100+'px';
-				menuButtonTooltip.style.top = y+25+'px';
-			}
-			menuButtons[i].onmouseout = function () {menuButtonTooltip.style.display = 'none';}
+			menuButtonTooltip.innerHTML = this.getElementsByTagName('img')[0].alt;
+			menuButtonTooltip.style.display = 'block';
+			e = e || window.e;
+			x = e.pageX || e.clientX;
+			y = e.pageY || e.clientY;
+			menuButtonTooltip.style.left = x-100+'px';
+			menuButtonTooltip.style.top = y+25+'px';
 		}
+		menuButtons[i].onmouseout = function () {menuButtonTooltip.style.display = 'none';}
 	}
-	f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
+}
+f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
 
 // Включаем виджет "Мне ндравится ВКонтакте"
-	if (typeof VK == 'object') {
-			VK.init({apiId: 2729439});
-			VK.Widgets.Like('vk_like', {
-				type: "mini",
-				pageTitle: "Мини-игры на логику",
-				pageDescription: "Игры на логическую тематику, главным смыслом которых, является, соревнования между игроками.",
-				pageUrl: "http://matrix-games.ru",
-				pageImage: "http://matrix-games.ru/img/icon.png",
-				text: "Заходи, посоревнуемся.",
-				height: 30});
-	}
-
-    if (!window.location.href.match('profile.php') && !window.location.href.match('games.php'))
-		f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
-	// Запуск счетчика
-	f_counter ();
-    f_isWindowsHeightAlignment ();
+if (typeof VK == 'object') {
+		VK.init({apiId: 2729439});
+		VK.Widgets.Like('vk_like', {
+			type: "mini",
+			pageTitle: "Мини-игры на логику",
+			pageDescription: "Игры на логическую тематику, главным смыслом которых, является, соревнования между игроками.",
+			pageUrl: "http://matrix-games.ru",
+			pageImage: "http://matrix-games.ru/img/icon.png",
+			text: "Заходи, посоревнуемся.",
+			height: 30});
 }
+
+if (!window.location.href.match('profile.php') && !window.location.href.match('games.php'))
+	f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
+// Запуск счетчика
+f_counter ();
+f_isWindowsHeightAlignment ();
+
+
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
 function f_isWindowsHeightAlignment () {
@@ -75,88 +84,90 @@ function f_isWindowsHeightAlignment () {
 }
 
 // Блок аутентификации через Вконтакте
-	function authInfo(response) {
-		if (response.session)
-		{
-			var req = getXmlHttp();
-			req.onreadystatechange = function()
-				{
-					if (req.readyState == 4)
-						if (req.status == 200)
-						{
-							if (req.responseText == 'true')
-							{
-								if (window.location.href.match('index.php'))
-									window.location.href = location.pathname;
-								else
-									window.location.href = '';
-							}
-							if (req.responseText == 'false')
-							{
-								VK.Api.call (
-									'users.get',
-									{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.8},
-										function(r) {
-											if(r.response)
-											{
-												var str = "?";
-												for(k in r.response[0]) {
-													str += k+"="+ r.response[0][k]+"&";
-												}
-												window.location.href='reg.php'+str;
-											}
-										});
-							}
-						}
-				}
-			req.open('POST', 'ajax_auth_vk.php', true);
-			req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			req.send(null);
-		}
-	}
-
-	function getXmlHttp()
+function authInfo(response) {
+	if (response.session)
 	{
-		var xmlhttp;
-		try {xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");}
-		catch (e)
-		{
-			try	{xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
-			catch (E){xmlhttp = false;}
-		}
-		if (!xmlhttp && typeof XMLHttpRequest!='undefined') xmlhttp = new XMLHttpRequest();
-		return xmlhttp;
+		var req = getXmlHttp();
+		req.onreadystatechange = function(){
+			if (req.readyState == 4)
+				if (req.status == 200)
+				{
+					if (req.responseText == 'true')
+					{
+						if (window.location.href.match('index.php'))
+							window.location.href = location.pathname;
+						else
+							window.location.href = '';
+					}
+					if (req.responseText == 'false')
+					{
+						VK.Api.call (
+							'users.get',
+							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.8},
+							function(r) {
+								if(r.response){
+									var str = "?";
+									for(k in r.response[0]) {
+										str += k+"="+ r.response[0][k]+"&";
+									}
+									window.location.href='reg.php'+str;
+								}
+							});
+					}
+				}
+			}
+		req.open('POST', 'ajax_auth_vk.php', true);
+		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		req.send(null);
 	}
+}
+
+function getXmlHttp()
+{
+	var xmlhttp;
+	try {xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");}
+	catch (e)
+	{
+		try	{xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
+		catch (E){xmlhttp = false;}
+	}
+	if (!xmlhttp && typeof XMLHttpRequest!='undefined') xmlhttp = new XMLHttpRequest();
+	return xmlhttp;
+}
 
 // Определение содержимого информационного окна -----------------------------------------------------
-function f_windowInfoPopup(s_name, text)
+function f_windowInfoPopup(s_name, s_text)
 {
-	elem =document.getElementById('info_div');
-	if (!text)  text = "Ожидается ответ сервера...";
-	elem.innerHTML = text;
+	if (!s_text) s_text = "Ожидается ответ сервера...";
+	if (!e_windowInfoText) return;
+	e_windowInfoText.innerHTML = s_text;
 
 	switch(s_name) {
 		case 'pause':
-			elem.innerHTML = "<p class = 'very-big'>Пауза</p>Для снятия с паузы кликните по этому окну.";
+			e_windowInfoText.innerHTML = "<p class = 'very-big'>Пауза</p>Для снятия с паузы кликните по этому окну.";
 			break;
 		case 'user_top':
- 			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+text, null);
+ 			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+s_text, null);
             break;
 		case 'user_game':
- 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+text, null);
+ 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+s_text, null);
 			f_counter ();
 			break;
 		case 'text_help':
-			elem.innerHTML = document.getElementById('text_help').innerHTML;
+		    let currentPage = window.location.pathname.match(/([a-z]+)/)[0];
+			let fileName = (currentPage == 'games')
+			    ? "info/game_" + s_theme + ".txt?lastVersion=1"
+				: "info/" + currentPage + ".txt?lastVersion=1";
+			f_fetchUpdateContent('info_div', fileName, null);
 			break;
 		case 'smile':
 			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
 			break;
 		case 'accaunt-delet':
-			elem.innerHTML = document.getElementById('accaunt-delet').innerHTML;
+			e_windowInfoText.innerHTML = document.getElementById('accaunt-delet').innerHTML;
 			break;
 		case 'hide_popup':
-			elem.innerHTML = '';
+			e_windowInfoText.innerHTML = '';
 			e_windowInfoPopup.style.display = 'none';
 			e_windowInfoShadow.style.display = 'none';
 			flag_PAUSE = false;
@@ -236,7 +247,6 @@ function getCookie(name) {
 }
 
 // Отключение и включение звука
-var flag_SOUND = getCookie('sound');
 function f_sound_off ()
 {
 	var date = new Date(2030, 00, 01);
@@ -251,6 +261,19 @@ function f_sound_off ()
 		flag_SOUND = 'on';
 	}
 	document.querySelector('#k_sound a img').src = 'img/k_sound_'+flag_SOUND+'.png';
+}
+
+// Смена языка
+function f_changeLanguage (lang)
+{
+	var date = new Date(2030, 00, 01);
+	if (getCookie('lang') == 'on')
+	{
+		document.cookie = "lang=" + lang + "; expires=" + date.toUTCString();
+		flag_LANG = lang;
+	}
+
+	document.querySelector('#k_lang a img').src = 'img/k_lang_'+flag_SOUND+'.png';
 }
 
 function f_showSoundButton () {
