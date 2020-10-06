@@ -7,7 +7,7 @@
 		exit;
 	}
 
-	$text=trim($string);
+	$text=trim($newNotebookItemText);
 	$status = f_checkLengthMessage($text);
 	if ($status != "Alright")
 	 	exit($status);
@@ -22,7 +22,7 @@
 			echo ('
 				{
 					"res": "200",
-					"message": "Сообщение исправлено."
+					"message": "'._l("Notebook/The message is edited.").'"
 				}
 			');
 		}
@@ -30,7 +30,7 @@
 			echo ('
 				{
 					"res": "100",
-					"message": "Не удалось перезаписать сообщение. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
+					"message": "'._l("Notebook/The message editing is impossible.").'"
 				}
 			');
 	}
@@ -38,7 +38,7 @@
 		echo ('
 			{
 				"res": "003",
-				"message": "Сообщение не пренадлежит вам."
+				"message": "'._l("Notebook/The message is not your.").'"
 			}
 		');
 ?>

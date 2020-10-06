@@ -63,7 +63,7 @@ if (e_forumNewThemeSendButton)
 		if (e_forumNewThemeInputField.disabled == true) return;
 	    var newThemeName = e_forumNewThemeInputField.value;
 		parameters =
-			'string=' + newThemeName +
+			'newNotebookItemText=' + newThemeName +
 			'&theme=' + currentTheme;
 		f_fetchSaving ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
@@ -74,11 +74,11 @@ if (e_forumNewMessageSendButton)
 		var string = e_forumNewMessageInputField.value;
 		if (currentMess == 0)
 			f_fetchSaving ('forum_add_message.php?',
-				'string=' + string +
+				'newNotebookItemText=' + string +
 				'&theme=' + currentTheme, f_forumUpdateContent);
 		if (currentMess != 0)
 			f_fetchSaving ('forum_edit_message.php?',
-				'string=' + string +
+				'newNotebookItemText=' + string +
 				'&mess=' + currentMess, f_forumUpdateContent);
 	}
 

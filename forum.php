@@ -9,7 +9,7 @@
 	$body = "
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
-			<li><p>Записная книжка</p></li>
+			<li><p>"._l("Notebook/Note book")."</p></li>
 		</ul>
 		<li id = 'k_up'></li>
 		<div id = 'messageWindow'>
@@ -21,19 +21,19 @@
 	{
 		$body .= "
 	<div id = 'formSendTheme' class = 'formSendTheme windowSite'>
-		<ul class = 'windowTitle'><li>Новая тема</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Notebook/New topic")."</li></ul>
 		<input class = 'c_enterText' type='text' name='newThemeName' SIZE='50' maxlenght='150'>
 		<div class = 'k_enter'></div>
 	</div>
 	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
-		<ul class = 'windowTitle'><li>Новое сообщение</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Notebook/New message")."</li></ul>
 		<textarea name = 'string' cols='50'  rows='3'></textarea>
 		<div class = 'k_close'></div>
 		<div class = 'k_smile' onClick=\"f_windowInfoPopup('smile');\"></div>
 		<div class = 'k_enter'></div>
 	</div>
 	<div id = 'messDeleteConfirmPopup' class = 'invisible windowSite popupMenu'>
-		<span>&nbsp&nbspВы подтверждаете удаление.&nbsp&nbsp</span>
+		<span>&nbsp&nbsp"._l("Notebook/Confirm removing.")."&nbsp&nbsp</span>
 		<div class = 'k_enter'></div>
 	</div>";
 	}

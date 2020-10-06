@@ -1,2 +1,0 @@
-filler	sphere	number	barrel	sapper	bridging	slicing	bouncer	tetris	tetcolor
-Наполнитель	Сфера	Числа	Бочка	Сапер	Замыкание	Квантование	Вышибала	Тетрис	Тетколор

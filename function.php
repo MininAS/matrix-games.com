@@ -1,6 +1,7 @@
 <?
 set_error_handler('f_error');
 date_default_timezone_set('Europe/Moscow');
+
 // Файл frequency хранит число посещений сайта, вызывая эту функцию мы увеличиваем его на еденицу
 	function frequency_add ()
 	{
@@ -50,17 +51,6 @@ date_default_timezone_set('Europe/Moscow');
 		return $freqread;
 	}
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-// Возвращение рускоязычного названия игры
-	function f_returnThemeNameByRus ($t)
-	{
-		$file = fopen ("info/top.txt", "r");
-		$str_eng = fgetcsv ($file, 1000, "\t");
-		$str_rus = fgetcsv ($file, 1000, "\t");
-		$num = count ($str_eng);
-		fclose ($file);
-		for ($i=0; $i < $num; $i++) if ($str_eng[$i] == $t){$t = $str_rus[$i]; break;}
-		return $t;
-	}
 
 // Замена тегов, невидимых символов и смайлов и сохранение сообщения или редактриование старого --------------
 	function f_saveUserMessage($user, $text)
@@ -81,11 +71,11 @@ date_default_timezone_set('Europe/Moscow');
 			){
 			f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
 			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$user.";");
-			$log = "Отправил сообщение для ".$user; log_file ($log);
+			$log = "Sent message for ".$user; log_file ($log);
 			return '
 				{
 					"res": "200",
-					"message": "Сообщение отправлено."
+					"message": "'._l('Notebook/Message was sent.').'"
 				}
 			';
 		}
@@ -93,7 +83,7 @@ date_default_timezone_set('Europe/Moscow');
 			return '
 				{
 					"res": "100",
-					"message": "Не удалось сохранить сообщение. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
+					"message": "'._l('Notebook/Message was not sent.').'"
 				}
 			';
 	}
@@ -121,21 +111,21 @@ function f_checkLengthMessage($text){
 				return '
 					{
 						"res": "001",
-						"message": "Сообщение не должно быть пустым."
+						"message": "'._l("The input field is empty.").'"
 					}
 				';
 			else if (strlen($text) < 5)
 				return '
 					{
 						"res": "102",
-						"message": "Слишком короткой текст."
+						"message": "'._l("The text is very shot.").'"
 					}
 				';
 			else if (strlen($text) > 500)
 				return '
 					{
 						"res": "103",
-						"message": "Слишком длинный текст."
+						"message": "'._l("The text is very long.").'"
 					}
 				';
 			else return "Alright";
@@ -395,5 +385,17 @@ function save_avatar($id_outfile, $infile)
 
 		$log = "Поменял аватару."; log_file ($log);
 		$text_info = "Аватар загружен.";
+}
+
+function _l($str){
+	$path = explode ('/', $str);
+	$arr = $GLOBALS['LANG_ARRAY'];
+	foreach ($path as $key){
+		if (array_key_exists($key, $arr))
+			$arr = $arr[$key];
+		else
+		    $arr = $str;
+	}
+    return $arr;
 }
 ?>

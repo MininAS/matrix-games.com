@@ -1,35 +1,21 @@
 <?php
-	if ($dir=opendir ("smile"))
-	{
-		$n=0;
+	if ($dir=opendir ("smile")){
 		echo ("
-	<TABLE>
-	<TR align = 'center'>");
+	<div id='smiles'>
+		");
 		readdir ($dir); readdir ($dir);
-		while ($file=readdir ($dir))
-		{
-			if (filetype ("smile/$file") == "file")
-			{
-				$smile_name=str_replace (".gif", "", $file);
+		while ($file=readdir ($dir)){
+			if (filetype ("smile/$file") == "file" && preg_match('/[a-z]{2}.gif/', $file)){
+				$smile_name = str_replace (".gif", "", $file);
 				echo ("
-		<TD>
-			<IMG SRC='smile/".$file."'
-				alt = '".$file."' 
-				onClick=\"f_parseSmilesAtMessage ('".$smile_name."');\">
-		</TD>");	
-				$n++;
-				if ($n==11) 
-				{
-					echo ("
-	</TR>
-	<TR ALIGN=\"center\">
-					");
-					$n=0;
-				}
+		<img src='smile/".$file."'
+			alt = '".$file."'
+			onClick='f_parseSmilesAtMessage (\"".$smile_name."\");'>
+				");
 			}
 		}
 		echo ("
-	</TR>
-	</TABLE>");
+	</div>
+		");
 	}
 ?>

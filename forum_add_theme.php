@@ -6,27 +6,27 @@
 		require ("display_non_authorization.php");
 		exit;
 	}
-	
+
 	if ($theme != 0){
 		$data = mysql_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
 		if ($data[0] != 0){
 			echo('
 				{
 					"res": "001",
-					"message": "Не стоит так далеко углублять вложенные папки."
+					"message": "'._l("Notebook/The maximum nesting depth is two topics.").'"
 				}
 			');
 			return;
 		}
 	}
 
-	$new_str = trim ($string);
+	$new_str = trim ($newNotebookItemText);
 	$new_str = f_convertSmilesAndTagFormat($new_str);
 	if (empty($new_str)){
 		echo('
 			{
 				"res": "101",
-				"message": "Нельзя создать тему с пустым именем."
+				"message": "'._l("Notebook/Cannot create a topic with an empty name.").'"
 			}
 		');
 		return;
@@ -35,7 +35,7 @@
 		echo('
 			{
 				"res": "102",
-				"message": "Слишком короткое имя."
+				"message": "'._l("Notebook/Use more long name.").'"
 			}
 		');
 		return;
@@ -44,7 +44,7 @@
 		echo('
 			{
 				"res": "103",
-				"message": "Слишком длинное имя."
+				"message": "'._l("Notebook/Use more short name.").'"
 			}
 		');
 		return;
@@ -54,7 +54,7 @@
 		echo('
 			{
 				"res": "104",
-				"message": "Тема с таким именем уже существует."
+				"message": "'._l("Notebook/The topic is existed already.").'"
 			}
 		');
 		return;
@@ -77,7 +77,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "Новая тема создана."
+				"message": "'._l("Notebook/The topic is saved.").'"
 			}
 		');
 		$data = mysql_insert_id ();
@@ -88,7 +88,6 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Не удалось создать новую тему. Попробуйте еще раз.
-				В случае неудачи обратитесь пожалуйста к администратору сайта."
+				"message": "'._l("Notebook/The topic is not saved.").'"
 			}
 		');

@@ -30,7 +30,6 @@
 		$flag_OK = false;
 		$file=fopen ("games/top.txt", "r");
 		$str_theme = fgetcsv($file, 1000, "\t");
-		$str_theme_rus = fgetcsv($file, 1000, "\t");
 		fclose ($file);
 		while (list ($key,$theme) = each ($str_theme))
 		{
@@ -52,11 +51,11 @@
 				while ($data = mysql_fetch_row ($result))
 				{
 					$Ni++;
-					if ($data[0] == $user) $text .= "<p class = 'cup'><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Кубок'></p>";
+					if ($data[0] == $user) $text .= "<p class = 'cup'><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Cup'></p>";
 				}
 				$text .= "
 				</td>
-				<td><p class = 'big'>".f_returnThemeNameByRus ($theme)."</p></td>";
+				<td><p class = 'big'>"._l("Game names/".$theme)."</p></td>";
 
 				for ($i = 1; $i <= 5; $i++)
 				{

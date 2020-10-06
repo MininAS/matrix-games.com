@@ -10,7 +10,8 @@
 		умные игры, соревнование разума, матрица,
 		соревнования на логику, логические матричные игры, логика,
 		миниигры, мини игры, MininAS, Logical Matrix Games, Logic,
-		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка">
+		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка,
+		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
 
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=17">
@@ -21,7 +22,7 @@
 <body>
 	<div id = 'body'>
 		<div id = 'menu' class = 'windowSite'>
-			<a href='index.php'><img src = 'img/logotip.png' alt = 'На главную'></a>
+			<a href='index.php'><img src = 'img/logotip.png' alt = '<? echo (_l('Tooltips/Home'))?>'></a>
 				<?require ("menu.php");?>
 		</div>
 		<div id = 'user_top' class = 'windowSite'>
@@ -55,9 +56,9 @@
 					<!-- /Yandex.Metrika counter -->
 			</div>
 			<div id = 'sateVersion'>
-				<p id = 'onlineUser' class = 'small'>Сейчас на сайте:</p>
-				<p class = 'small'>Обнаруженные технические ошибки просьба коментировать на mininas@sampo.ru или на сайте в записной книжке.<br/>
-				С Уважением Минин Александр. (v10 - 18.04.2020)</p>
+				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
+				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
+				<? echo (_l('Regards Minin Aleksandr!'))?> (v11 - 20.08.2020)</p>
 			</div>
 		</div>
 	</div>

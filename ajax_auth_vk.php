@@ -11,8 +11,13 @@
 			{
 				$_SESSION["dopusk"] = $data[2]; $_SESSION["id"] = $data[0];
 				$_SESSION["login"] = $data[1];
-				$log = "Авторизация через VK."; log_file ($log);
-				f_mysqlQuery ("UPDATE users SET N_visit=N_visit+1, data='".date ("y.m.d")."', time='".date ("H:i")."', ip='".getenv ("REMOTE_ADDR")."' WHERE id=".$_SESSION["id"].";");
+				$log = "VK authorization."; log_file ($log);
+				f_mysqlQuery ("UPDATE users SET
+					               N_visit=N_visit+1,
+					               data='".date ("y.m.d")."',
+								   time='".date ("H:i")."',
+								   ip='".getenv ("REMOTE_ADDR")."'
+							   WHERE id=".$_SESSION["id"].";");
 				echo ('true');
 			}
 			else
@@ -22,7 +27,7 @@
 		}
 		else
 		{
-			$text_info = "Не верные данные пользователя.";
+			$text_info = _l("Invalid user data.");
 		}
 	}
 ?>

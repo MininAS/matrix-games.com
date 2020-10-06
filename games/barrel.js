@@ -100,7 +100,7 @@ function f_greatObject (elm, go)
 	flag_ANI ++;
 	var xy = getOffset (elm);
 	var e = document.createElement ('div');
-	document.getElementById('box_center').appendChild(e);
+	document.getElementById('box_game').appendChild(e);
 	e.className = 'border_inset';
 	if (elm.turbo == true) e.style.border = '3px solid blue';
 	e.style.position = 'absolute';

@@ -332,7 +332,7 @@ function f_delet (){
 
 	i_Nballov = i_Nball * i_Nverify;
 	i_Scroll = 0;
-	f_scrollScore (o_lastBall, i_Nballov);
+	f_scrollScore (o_lastBall, i_Nball + 'x' + i_Nverify + '=' + i_Nballov);
 	i_score += i_Nballov;
 	document.getElementById ('myNballov').innerHTML = i_score;
 }

@@ -47,8 +47,8 @@
 								VALUE (".$data[1].", ".$medal.", ".$data[2].");");
 				$q = ", плюс вы заработали награду за ".$medal."-е призовое место.";
 			}
-			f_mail ($data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
-			f_saveTecnicMessage (0, $data[1], "Игра ".f_returnThemeNameByRus ($theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
+			f_mail ($data[1], "Игра "._l('Game names/'.$theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
+			f_saveTecnicMessage (0, $data[1], "Игра "._l('Game names/'.$theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
 			if (f_mysqlQuery ("DELETE FROM games_".$theme." WHERE id_game=".$canvasLayout.";"))
 				if (f_mysqlQuery ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasLayout.";"))
 				{
@@ -64,13 +64,13 @@
 	$log = $theme."/".$canvasLayout; log_file ($log);
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
-		<ul class = 'windowTitle'><li>".f_returnThemeNameByRus ($theme)." <i id = 'game_sport'> №".$canvasLayout."</i></li></ul>
+		<ul class = 'windowTitle'><li>"._l('Game names/'.$theme)." <i id = 'game_sport'> №".$canvasLayout."</i></li></ul>
 		<div id = 'game'></div>
 	</div>
 	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=14'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=15'></script>
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=9.9'></script>";
 
 	require ("display.php");

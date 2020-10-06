@@ -26,11 +26,11 @@ $text = "";
 			$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT COUNT(*) FROM forum WHERE id_tema=".$data[0]." AND status=1 AND basket=0;"));
 			$text .= "
 					<span class = 'small'>";
-			if ($data_[0]!=0) $text .= "Темы: #".$data_[0]." | ";
+			if ($data_[0]!=0) $text .= _l("Notebook/Topics").": #".$data_[0]." | ";
 			$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT COUNT(*) FROM forum WHERE id_tema=".$data[0]." AND status=0 AND basket=0;"));
 			if ($data_[0]!=0)
 			{
-				$text .= "Сообщений: #".$data_[0];
+				$text .= _l("Notebook/Messages").": #".$data_[0];
 				$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT s2.login, s1.time, s1.data FROM forum AS s1, users AS s2
 													WHERE s1.id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0].") AND s1.id_user=s2.id AND s1.basket=0;"));
 				$text .= " ".$data_[0]." ".$data_[1]." ".$data_[2];
@@ -39,7 +39,7 @@ $text = "";
 					<div class = 'forum_list_item_buttons'>";
 					if (($_SESSION["id"]==$data[1] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin"){
 						$text .= "
-						<a class = 'forum_delete_item_link text_insignificant' href = '#' message = '".$data[0]."'>Удалить</a>";
+						<a class = 'forum_delete_item_link text_insignificant' href = '#' message = '".$data[0]."'>"._l("Notebook/Remove")."</a>";
 					}
 					$text .= "
 					</div>
@@ -54,7 +54,7 @@ $text = "";
 		$data = mysql_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
 		if ($data[0] == 0)
 			$text .= "
-			<p class = 'message_non_existed'>....... Темы отсутствуют .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Notebook/Topics are not exist")." .......</p>";
 	}
 
 // Просмотр сообщений в теме =================================================================================
@@ -64,7 +64,7 @@ $text = "";
     $count = mysql_num_rows($result);
 	if ($count >= 1) {
 		$text .= "
-			<p>Коментарии к теме</p>
+			<p>"._l("Notebook/Topic messages")."</p>
 			<ul class = 'messageLists'>";
 		while ($data = mysql_fetch_row ($result)) {
 			$text .= "
@@ -83,8 +83,8 @@ $text = "";
 			if (($_SESSION["id"]==$data[1] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin")
 			{
 				$text .= "
-				<a href = '#' class = 'text_insignificant forum_redaction_message_link'>Редактировать</a>
-				<a href = '#' class = 'text_insignificant forum_delete_item_link'>Удалить</a>";
+				<a href = '#' class = 'text_insignificant forum_redaction_message_link'>"._l("Notebook/Edit")."</a>
+				<a href = '#' class = 'text_insignificant forum_delete_item_link'>"._l("Notebook/Remove")."</a>";
 			}
 			$text .="
 					</div>
@@ -96,7 +96,7 @@ $text = "";
 	}
 	elseif ($theme != 0) {
 		$text .= "
-			<p class = 'message_non_existed'>....... Сообщения отсутствуют .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Notebook/Messages are not exist")." .......</p>";
 	}
 
 

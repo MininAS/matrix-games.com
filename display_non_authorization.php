@@ -7,8 +7,7 @@
 </head>
 <body>
 	<div id = 'body'  class = 'windowSite'>
-         Извените, но здесь могут находиться только авторизованные пользователи.
-		 Мы вас отправим на центральную страницу сайта.
+		 <?_l('There is needed authorization. You will redirected to home page.');?>
 	</div>
 	<script type = 'text/javascript' language = 'JavaScript'>
 		setTimeout ('window.location.href = "index.php"', 5000);

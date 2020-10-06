@@ -73,7 +73,7 @@ function f_endGame() {
 	flag_PLAY = false;
 	flag_GAMEOVER = true;
 	f_fetchSaving ('game_save.php',
-		'string=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
+		'subGameData=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
 		'&theme=' + s_theme +
 		'&canvasLayout=' + i_canvasLayout,
 		f_updateUserTopList);

@@ -6,7 +6,7 @@
 	{
 		f_mysqlQuery ("UPDATE users SET id_vk=0, login='-----', last_name='', first_name='', mail='',
 				N_game=0, N_ballov=0, N_mess=0, N_visit=0, F_mailG=0, F_mail=0, pass='',
-				F_bette=0 WHERE id=".$_SESSION["id"].";");
+				F_bette=0, lang='eng' WHERE id=".$_SESSION["id"].";");
 		f_mysqlQuery ("DELETE FROM users_mess WHERE id_user=".$_SESSION["id"].";");
 		unlink ("avatar/".$_SESSION["id"]."_1.jpeg");
 		unlink ("avatar/".$_SESSION["id"]."_2.jpeg");

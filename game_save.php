@@ -13,8 +13,8 @@
 		');
 	}
 
-	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $string)){
-		f_error('Неверные входящие данные с игрового поля: ', $string, 'game_save.php', 0);
+	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $subGameData)){
+		f_error('Неверные входящие данные с игрового поля: ', $subGameData, 'game_save.php', 0);
 		exit('
 			{
 				"res": "110",
@@ -29,7 +29,7 @@
 		GROUP BY id_game) AND id_user=".$_SESSION["id"].";");
 	$count = mysql_num_rows($result);
 
-	$string = explode (":", $string);
+	$string = explode (":", $subGameData);
 
 	if ($string[2] <= 100){
 		exit('
@@ -62,7 +62,7 @@
 					"id": '.$new_row_id.'
 				}
 			');
-			log_file ("Сохранение новой игры в ".f_returnThemeNameByRus($theme)." №".$new_row_id.".");
+			log_file ("Сохранение новой игры в ".$theme." №".$new_row_id.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";");
 		}
 	}
@@ -91,7 +91,7 @@
 					".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');
 			")){
 
-			log_file ("Сохранение игры в ".f_returnThemeNameByRus($theme)." №".$canvasLayout.".");
+			log_file ("Сохранение игры в ".$theme." №".$canvasLayout.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 
 			$result = f_mysqlQuery ("
@@ -105,10 +105,10 @@
 			{
 				f_mail ($data[0],
 				"Против вас с успехом сыграл ".$data_[1].".<BR>
-				Новый рекорд в игре ".f_returnThemeNameByRus($theme)." за № ".$canvasLayout." составляет  ".$data_[2]." баллов.<BR>
+				Новый рекорд в игре "._l('Game names/'.$theme)." за № ".$canvasLayout." составляет  ".$data_[2]." баллов.<BR>
 				<A href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout."'><br>&lt;&lt;&lt; Переиграть >>><a>");
 				$regEdit = "20";
-				f_saveTecnicMessage($_SESSION["id"], $data[0], "Я обыграл(а) вашу игру ".f_returnThemeNameByRus($theme)." за № ".$canvasLayout." со счетом ".$data_[2].".
+				f_saveTecnicMessage($_SESSION["id"], $data[0], "Я обыграл(а) вашу игру "._l('Game names/'.$theme)." за № ".$canvasLayout." со счетом ".$data_[2].".
 					<A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< Переиграть >>></a>");
 				echo('
 					{

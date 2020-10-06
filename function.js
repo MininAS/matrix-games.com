@@ -138,9 +138,8 @@ function getXmlHttp()
 // Определение содержимого информационного окна -----------------------------------------------------
 function f_windowInfoPopup(s_name, s_text)
 {
-	if (!s_text) s_text = "Ожидается ответ сервера...";
-	if (!e_windowInfoText) return;
-	e_windowInfoText.innerHTML = s_text;
+	// if (!e_windowInfoText) return;
+	e_windowInfoText.innerHTML = "&nbsp&nbsp&nbsp&nbsp Ожидается ответ сервера...";
 
 	switch(s_name) {
 		case 'pause':
@@ -156,15 +155,18 @@ function f_windowInfoPopup(s_name, s_text)
 		case 'text_help':
 		    let currentPage = window.location.pathname.match(/([a-z]+)/)[0];
 			let fileName = (currentPage == 'games')
-			    ? "info/game_" + s_theme + ".txt?lastVersion=1"
-				: "info/" + currentPage + ".txt?lastVersion=1";
-			f_fetchUpdateContent('info_div', fileName, null);
+			    ? "game_" + s_theme
+				: currentPage;
+			f_fetchUpdateContent('info_div', 'info/' + fileName + '.php?lang=' + getCookie('lang'), null);
 			break;
 		case 'smile':
 			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
 			break;
 		case 'accaunt-delet':
 			e_windowInfoText.innerHTML = document.getElementById('accaunt-delet').innerHTML;
+			break;
+		case 'info':
+			e_windowInfoText.innerHTML = s_text;
 			break;
 		case 'hide_popup':
 			e_windowInfoText.innerHTML = '';
@@ -250,13 +252,11 @@ function getCookie(name) {
 function f_sound_off ()
 {
 	var date = new Date(2030, 00, 01);
-	if (getCookie('sound') == 'on')
-	{
+	if (getCookie('sound') == 'on'){
 		document.cookie = "sound=off; expires=" + date.toUTCString();
 		flag_SOUND = 'off';
 	}
-	else
-	{
+	else{
 		document.cookie = "sound=on; expires=" + date.toUTCString();
 		flag_SOUND = 'on';
 	}
@@ -264,16 +264,19 @@ function f_sound_off ()
 }
 
 // Смена языка
-function f_changeLanguage (lang)
+function f_changeLanguage ()
 {
 	var date = new Date(2030, 00, 01);
-	if (getCookie('lang') == 'on')
-	{
-		document.cookie = "lang=" + lang + "; expires=" + date.toUTCString();
-		flag_LANG = lang;
+	if (getCookie('lang') == 'rus'){
+		document.cookie = "lang=eng; expires=" + date.toUTCString();
+		flag_LANG = 'eng';
+	}
+	else{
+		document.cookie = "lang=rus; expires=" + date.toUTCString();
+		flag_LANG = 'rus';
 	}
 
-	document.querySelector('#k_lang a img').src = 'img/k_lang_'+flag_SOUND+'.png';
+	window.location.reload();
 }
 
 function f_showSoundButton () {

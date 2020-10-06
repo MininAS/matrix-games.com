@@ -250,8 +250,8 @@ body > #body {
 				border: 2px solid #ccc;
 				border-radius: 4px;
 			}
-			.winPreshowGameItem.chet   {text-align: left; padding-right: 15px; align-self: flex-start;}
-			.winPreshowGameItem.nechet {text-align: right; padding-left: 15px; align-self: flex-end;}
+			.winPreshowGameItem.chet   {text-align: left; padding-right: 25px; align-self: flex-start;}
+			.winPreshowGameItem.nechet {text-align: right; padding-left: 25px; align-self: flex-end;}
 			.winPreshowGameItem a      {display: inline-block;}
 			.winPreshowGameItem.chet img.border_inset   {float: left;}
 			.winPreshowGameItem.nechet img.border_inset {float: right;}
@@ -512,8 +512,10 @@ body > #body {
 	text-align: justify;
 	min-width: 200px;
     max-width: 1000px;
+	max-height: 400px;
 	padding: 10px;
 	margin: 0px auto;
+	overflow: auto;
 }
 
 #statistic {
@@ -546,10 +548,13 @@ body > #body {
 	width: 79px;
 }
 
-#smile {
-	top: 500px;
+#smiles {
+	display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    align-items: center;
+    justify-items: center;
 }
-	#smile img{
+	#smiles img{
 		cursor: pointer;
 	}
 

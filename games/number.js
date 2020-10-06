@@ -139,8 +139,6 @@ function f_move (s_move)
 {
 	flag_PLAY = false;
 	i_motion ++;
-	i_score -= 10;
-	document.getElementById('myNballov').innerHTML = i_score;
 	f_playSound('number_1');
 	if (s_move == 'left')
 		for (i = 0; i <= (YyY-1); i++)

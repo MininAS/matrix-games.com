@@ -4,29 +4,26 @@
 	$record = array ();
 	$record_ = array ();
 	$body = "";
-// Блок аунтификации
+
 	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php");
 
-// Рисуем блоки ДИВ для описания игр _____________________________________________________________________________________________________________________
-	$file=fopen ("info/top.txt", "r");
-	$str_theme = fgetcsv($file, 1000, "\t");
-	$str_theme_rus = fgetcsv($file, 1000, "\t");
+	$file=fopen ("games/top.txt", "r");
+	$gameNames = fgetcsv($file, 1000, "\t");
 	fclose ($file);
 	$div_chet = "chet";
-	while (list ($key,$list) = each ($str_theme))
+	while (list ($key,$list) = each ($gameNames))
 	{
-		$theme = $str_theme[$key];
-		$theme_rus = $str_theme_rus[$key];
+		$theme = $gameNames[$key];
 		$body .= "
 	<div class = 'windowSite winPreshowGameItem ".$div_chet."'>
-		<a href = 'games.php?theme=".$theme."'>";
+		<a href = 'games.php?theme=".$theme."'>
+		";
 		$body .= "
-				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif?lastVersion=2' alt = 'Играбокс'>
-				<i class = 'big'>".$theme_rus."</i><br/>
-				<i>";
-		require ("info/pre_".$theme.".txt");
-		$body .= "</i>
-		</a>";
+				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif?lastVersion=2' alt = 'Gamebox'>
+				<i class = 'big'>"._l('Game names/'.$theme)."</i><br/>
+				<i>"._l('Taglines/'.$theme)."</i>
+		</a>
+		";
 		// Данные для рекорда
 		$result = f_mysqlQuery ("
 			SELECT  `login`, MAX(  `score` ) AS  `ms`
@@ -37,29 +34,29 @@
 			LIMIT 5");
 		$Ni = 1;
 		$data = mysql_fetch_row ($result);
-		$body .= "<div class = 'record ".$div_chet."'>
-
+		$body .= "
+		<div class = 'record ".$div_chet."'>
 			<div>
 			<ul>
-				<li><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Кубок'></li>
-				<li><i class = 'small'>Рекорд: ".$data[0]."</i></li>
+				<li><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Cup'></li>
+				<li><i class = 'small'>"._l('Home page/High score').": ".$data[0]."</i></li>
 				<li><i class = 'small'>".$data[1]."</i></li>
 			</ul>
-			";
-		while ($data = mysql_fetch_row ($result))
-		{
+		";
+		while ($data = mysql_fetch_row ($result)){
 			$Ni++;
 			$body .= "
 			<ul>
-				<li><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Кубок'></li>
+				<li><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Cup'></li>
 				<li><i class = 'small'>".$data[0]."</i></li>
 				<li><i class = 'small'>".$data[1]."</i></li>
 			</ul>
 			";
 		}
-		$body .= "</div>
-			</div>
-		<div class = 'windowSite list'>";
+		$body .= "
+		</div>
+	</div>
+	<div class = 'windowSite list'>";
 // Читаем кто лучше сыграл ---------------------------------------------------------------------------
 		$chet = "chet"; $Ni=1;
 		$nic = Array (); // Ники полбзователей
@@ -83,7 +80,7 @@
 				$body .= "
 		<a href = 'games.php?theme=".$theme."&canvasLayout=".$data[0]."'>
 			<ul class = 'line_game_".$chet."'>
-				<li><IMG SRC=\"img/medal_".$Ni.".gif\" alt = 'Медаль'></li>
+				<li><IMG SRC=\"img/medal_".$Ni.".gif\" alt = 'Medal'></li>
 				<li><i class = 'small'>".$d[0]."</i></li>
 				<li><i class = 'small'>";
 				$body .= $data[2];

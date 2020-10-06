@@ -7,7 +7,7 @@
 		exit;
 	}
 
-	$text=trim($string);
+	$text=trim($newNotebookItemText);
 	$status = f_checkLengthMessage($text);
 	if ($status != "Alright")
 	 	exit($status);
@@ -16,7 +16,7 @@
 		exit ('
 			{
 				"res": "002",
-				"message": "Отсутствует тема, куда сохранять сообщение."
+				"message": "'._l("Notebook/The topic where you want to save the message is absent.").'"
 			}
 		');
 
@@ -37,7 +37,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "Сообщение сохранено."
+				"message": "'._l("Notebook/The message is saved.").'"
 			}
 		');
 	}
@@ -45,7 +45,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Не удалось сохранить сообщение. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
+				"message": "'._l("Notebook/The message is not saved.").'"
 			}
 		');
 ?>

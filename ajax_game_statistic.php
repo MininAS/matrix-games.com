@@ -9,9 +9,9 @@
 		<div>
 		<table border=1>
 			<tr>
-				<td class = 'big' colspan = '3' align = 'center' width = '45%'>Рекорд</td>
+				<td class = 'big' colspan = '3' align = 'center' width = '45%'>"._l('Record')."</td>
 				<td  width = '7%'></td>
-				<td class = 'big' colspan = '3' align = 'center' width = '45%'>Медали</td>
+				<td class = 'big' colspan = '3' align = 'center' width = '45%'>"._l('Medals')."</td>
 			</tr>";
 	$result = f_mysqlQuery ("
 		SELECT  `login`, `id_user`, MAX(`score`) AS  `ms`
@@ -33,7 +33,7 @@
 			<tr>
 				<td>";
 		$Ni++; $Ne++;
-		if ($Ni <= 5) $text .= "<p class = 'cup' align = 'center'><IMG SRC='img/cup_".$Ni."_.png' alt = '†убок'></p>";
+		if ($Ni <= 5) $text .= "<p class = 'cup' align = 'center'><IMG SRC='img/cup_".$Ni."_.png' alt = 'Cup'></p>";
 
 			$text .= "
 				</td>
@@ -50,7 +50,7 @@
 			while ($data__ = mysql_fetch_row ($result__))
 			{
 				for ($i=1;$i<=$data__[1]; $i++)
-				$text .= "<p class = 'med'><IMG SRC='img/medal_".$data__[0].".gif' alt = 'Юедаль'></p>";
+				$text .= "<p class = 'med'><IMG SRC='img/medal_".$data__[0].".gif' alt = 'Medal'></p>";
 			}
 			$text .= "</td>
 				<td><p>".$data_[0]."</p></td>

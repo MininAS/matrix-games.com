@@ -12,7 +12,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Такой темы или сообщения не существует."
+				"message": "'._l("Notebook/Such topic or message is not exist.").'"
 			}
 		');
 		exit;
@@ -23,7 +23,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Тема или сообщение вам не принадлежит."
+				"message": "'._l("Notebook/The topic or the message is not your.").'"
 			}
 		');
 		exit;
@@ -35,7 +35,7 @@
 			echo ('
 				{
 					"res": "100",
-					"message": "Для удаления тема должна быть пустой."
+					"message": "'._l("Notebook/The topic must be empty for removing.").'"
 				}
 			');
 			exit;
@@ -49,7 +49,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "Тема или сообщение удалено."
+				"message": "'._l("Notebook/The topic or the message was removed.").'"
 			}
 		');
 	}
@@ -57,7 +57,7 @@
 	echo ('
 		{
 			"res": "100",
-			"message": "Не удалось удалить. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
+			"message": "'._l("Notebook/The removing is impossible.").'"
 		}
 	');
 ?>
