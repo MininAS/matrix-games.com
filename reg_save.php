@@ -53,14 +53,14 @@
 					else echo ('
 							{
 								"res": "100",
-								"message": "Простите, но данное имя уже занято. Пожалуйста повторите попытку еще раз."
+								"message": "'._l("Profile/The name is already existed, please use another name.").'"
 							}
 						');
 				}
 				else echo ('
 						{
 							"res": "100",
-							"message": "Простите, какой то из параметров был введен не верно. Пожалуйста повторите попытку еще раз."
+							"message": "'._l("Some parameter is invalid.").'"
 						}
 					');
 			}
@@ -124,7 +124,7 @@
 			echo ('
 				{
 					"res": "100",
-					"message": "Простите, какой то из параметров был введен не верно. Пожалуйста повторите попытку еще раз."
+					"message": "'._l("Profile/The name is already existed, please use another name.").'"
 				}
 			');
 		}
@@ -133,7 +133,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Вы авторизованы, повторная регистрация только после выхода с сайта."
+				"message": "'.l("You are already authorized.").'"
 			}
 		');
 	}
@@ -142,15 +142,16 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "Регистрация пройдена успешно."
+				"message": "'._l("Registration was successful.").'"
 			}
 		');
-		if (isset ($_POST["e_mail"])) f_mail ($_SESSION["id"], "Регистрация на сайте Logic Matrix Games!",
-		"Здравствуйте!<BR>
-		Благодарим вас за посещение нашего сайта.<BR>
-		Если вы любите простые логические игры, то обязательно будем рады видеть вас снова и снова.<BR>
-		Играйте, сохраняйте новые игры и соревнуйтесь используя записанные игры другими игроками.<BR>
-		Для более детального понятия пользования сайтом - используйте помощь в правом верхнем углу и правила игр.<BR><BR>
-		Желаем удачи!");
+		if (isset ($_POST["e_mail"])) f_mail ($_SESSION["id"],
+		_l("Mails/Register on the Logic Matrix Games website!"),
+		_l("Mails/Hello!")."<br>".
+		_l("Mails/Thank you for visiting our website.")."<br>".
+		_l("Mails/If you like simple logic games, we will be glad to see you definitely again and again.")."<br>".
+		_l("Mails/Play, save new games and compete with other users by opening recorded games.")."<br>".
+		_l("Mails/For a more details use the help in the menu.")."<br><br>".
+		_l("Mails/Good luck!"));
 	}
 ?>

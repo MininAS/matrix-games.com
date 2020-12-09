@@ -11,7 +11,7 @@
 		exit ('
 			{
 				"res": "002",
-				"message": "Отсутствует имя, кому отправлять сообщение."
+				"message": "'._l("There is no name to whom to send the message.").'"
 			}
 		');
 

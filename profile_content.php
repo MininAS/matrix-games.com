@@ -38,7 +38,7 @@
 	}
 	else {
 		$text .= "
-			<p class = 'message_non_existed'>....... Сообщения отсутствуют .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Notebook/No posts")." .......</p>";
 	}
 
 $trans_tbl = get_html_translation_table (HTML_ENTITIES);

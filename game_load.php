@@ -7,7 +7,7 @@ require ("sess.php");
 		exit ('
 			{
 				"res": "100",
-				"message": "Для соревнований, необходимо выполнить регистрацию."
+				"message": "'._l("Gamebook/Please, login that you'll be able in competition.").'"
 			}
 		');
 	}
@@ -22,7 +22,7 @@ require ("sess.php");
 		exit('
 			{
 				"res": "100",
-				"message": "Если вы хотите соревноваться, внесите свой вклад в количество игр - сыграйте до конца хотя бы одну игру."
+				"message": "'._l("Gamebook/If you want to compitition, please make contribution to the games number - play one game at least by end.").'"
 			}
 		');
 
@@ -38,7 +38,7 @@ require ("sess.php");
  		exit('
 			{
 				"res": "100",
-				"message": "Игра удалена, вероятно только, что."
+				"message": '._l("Gamebook/The game was removed, perhaps right now.").'"
 			}
 		');
 
@@ -55,7 +55,7 @@ require ("sess.php");
 	 	exit('
 			{
 				"res": "100",
-				"message": "Эта игра была создана вами. Вам неразрешено её продолжать."
+				"message": "'._l("Gamebook/The game was created by you, you can not replay it.").'"
 			}
 		');
 
@@ -63,7 +63,7 @@ require ("sess.php");
 	 	exit('
 			{
 				"res": "100",
-				"message": "Ваш результат является последним наилучшим, поэтому переиграть вы сможете только после того как переиграют вас."
+				"message": "'._l("Gamebook/Your result is the best, you can not replay the game.").'"
 			}
 		');
 	$result = f_mysqlQuery ("

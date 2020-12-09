@@ -49,7 +49,7 @@
 	$body = "
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
-			<li><p>Записная книжка</p></li>
+			<li>"._l("Notebook/Messages")."</li>
 		</ul>
 		<div id = 'messageWindow'>
 		</div>
@@ -59,7 +59,7 @@
 
 	$body .= "
 	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
-		<ul class = 'windowTitle'><li>Ответить</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Notebook/To answer")."</li></ul>
 		<select id = 'dropDownUserList' name = 'user'>
 			<option value = '0'>Кому:</option>
 		</select>
@@ -72,13 +72,16 @@
 	$data = mysql_fetch_row (f_mysqlQuery ("SELECT login, mail, F_mailG, F_mail FROM users WHERE id=".$_SESSION["id"].";"));
 	$body .= "
 	<div id = 'windowSettingsProfile' class = 'windowSite'>
-		<ul class = 'windowTitle'><li>Настройки</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Profile/Setting")."</li></ul>
 		<form enctype = 'multipart/form-data' method = 'post' name = 'avatara' accept = 'image/*'>
-			<div align = 'right'>Поменять изображение: </div>
-			<div class = 'small'>Типы файлов: GIF, JPEG, PNG.</div>
+			<div align = 'right'>"._l("Profile/Change image:")." </div>
+			<div class = 'small'>"._l("Profile/Files type:")." GIF, JPEG, PNG.</div>
 			<div>
 				<input type = 'hidden' name = 'MAX_FILE_SIZE' value='20000000'/>
-			  <input class = 'border_inset' type='file' name='avatar' size='30' maxlenght='30' accept = 'image/gif, image/jpeg, image/jpg, image/png'/>
+			    <input class = 'border_inset' value = 'Привет' placeholder='Choose File'
+				    type='file' name='avatar'
+					size='30' maxlenght='30'
+					accept = 'image/gif, image/jpeg, image/jpg, image/png'/>
 				<input type = 'hidden' name = 'regEdit' value = '3'/>
 			</div>";
 	if (isset ($_COOKIE["vk_app_2729439"]) && $_SESSION["id"] != "" && ($_SESSION["dopusk"]='yes' || $_SESSION["dopusk"]='admin'))
@@ -91,8 +94,8 @@
 
 <!--Замена пароля-->
 		<form METHOD='POST' ACTION='#' NAME='password'>
-			<div>Старый пароль:<input TYPE='password' NAME='value3' SIZE='10' MAXLENGTH='15'/></div>
-			<div>Новый пароль с повтором:</div>
+			<div>"._l("Profile/Old password:")."<input TYPE='password' NAME='value3' SIZE='10' MAXLENGTH='15'/></div>
+			<div>"._l("Profile/New password twice:")."</div>
 			<div>
 				<input TYPE='password' NAME='value1' SIZE='10' MAXLENGTH='15'/>
 				<input TYPE='password' NAME='value2' SIZE='10' MAXLENGTH='15'/>
@@ -104,7 +107,7 @@
 <!--Замена e-mail-а-->
 		<form METHOD='POST' ACTION='#' NAME='e-mail'>
 			<div></div>
-			<div>Исправить почтовый адрес:</div>
+			<div>"._l("Profile/Change email:")."</div>
 			<div>
 				<input TYPE='text' VALUE='".$data[1]."' NAME='value1' SIZE='20' MAXLENGTH='50'/>
 				<input TYPE='hidden' NAME='regEdit' VALUE='111'/>
@@ -118,21 +121,21 @@
 			<div>
 				<input TYPE = 'checkbox' VALUE = '1' NAME = 'value1' ";
 		if ($data[2] == 1) $body .= "checked";
-		$body .= "/><i> - доставка игровых писем</i>
+		$body .= "/><i> - "._l("Profile/sending game emails")."</i>
 			</div>
 			<div>
 				<input type = 'hidden' NAME = 'regEdit' VALUE = '109'>
 				<input type = 'checkbox' VALUE = '1' NAME = 'value2' ";
 		if ($data[3] == 1) $body .= "checked";
-		$body .= "/><i> - доставка служебных писем</i>
+		$body .= "/><i> - "._l("Profile/sending service emails")."</i>
 			</div>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'key'/></div>
 		</form>
 
 <!--Удаление аккаунта-->
-		<div'><a href='#' onClick = \"f_windowInfoPopup ('accaunt-delet');\">Удалить аккаунт ?</a></div>
+		<div'><a href='#' onClick = \"f_windowInfoPopup ('accaunt-delet');\">"._l("Profile/Remove account")."</a></div>
 		<div id = 'accaunt-delet' class = 'invisible_block' style = \"display: none;\">
-			<p class = 'big'><br>Вы действительно хотите<br>удалить аккаунт и покинуть этот сайт ?</p>
+			<p class = 'big'>"._l("Profile/Are you sure you want to delete your account and leave this site?")."
 			<form ACTION = 'exit.php' name = 'exit'>
 				<div class = 'k_enter'><input class = 'submit' type = 'submit' NAME='reset'></div>
 				<input type = 'hidden' name = 'regEdit' value = '9'>

@@ -9,8 +9,7 @@
 	if ($theme == null)
 	{
 		echo ("
-		Простите но вход на эту страницу необходимо выполнить с выбором игры на центральной странице сайта.
-		Переадресация...
+		Forbidden ... redirect to home page.
 		<script type = 'text/javascript' language = 'JavaScript'>
 			setTimeout (\"window.location.href='index.php';\", 3000);
 		</script>");

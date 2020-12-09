@@ -96,7 +96,7 @@ $text = "";
 	}
 	elseif ($theme != 0) {
 		$text .= "
-			<p class = 'message_non_existed'>....... "._l("Notebook/Messages are not exist")." .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Notebook/No post")." .......</p>";
 	}
 
 

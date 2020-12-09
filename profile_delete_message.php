@@ -12,7 +12,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Сообщения не существует."
+				"message": "'._l("Notebook/The message are not exist.").'"
 			}
 		');
 		exit;
@@ -23,7 +23,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "Сообщение вам не принадлежит."
+				"message": "'._l("Notebook/The message is not your.").'"
 			}
 		');
 		exit;
@@ -36,7 +36,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "Сообщение удалено."
+				"message": "'._l("Notebook/The message has removed.").'"
 			}
 		');
 	}
@@ -44,7 +44,7 @@
 	echo ('
 		{
 			"res": "100",
-			"message": "Не удалось удалить. Попробуйте еще раз. В случае неудачи обратитесь пожалуйста к администратору сайта."
+			"message": "'._l("Notebook/The message has not removed.").'"
 		}
 	');
 ?>

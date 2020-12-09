@@ -4,7 +4,7 @@
 	$text = "";
 //Топ =====================================================================================================================
 	$text .= "
-	<ul class = 'windowTitle'><li>Рейтинг по сайту</li></ul>
+	<ul class = 'windowTitle'><li>"._l("Rating/Total rating")."</li></ul>
 	<ul class = 'messageLists'>";
 // Сортируем
 
@@ -31,7 +31,7 @@
  	}
 	$text .= "
 	</ul>
-<p>Всего участников - $i_Users</p>
+<p>"._l("Total participants")." - $i_Users</p>
 	";
 
 $trans_tbl = get_html_translation_table (HTML_ENTITIES);

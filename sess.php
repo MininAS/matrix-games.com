@@ -2,7 +2,7 @@
 // Открытие сессии
 	if (isset ($_COOKIE["LMG"])) session_id ($_COOKIE["LMG"]);
 	if (!isset ($_COOKIE["sound"])) {setcookie("sound", 'on', time()+31536000); $_COOKIE["sound"]="on";}
-	if (!isset ($_COOKIE["lang"]))  {setcookie("lang", 'rus', time()+31536000); $_COOKIE["lang"]="eng";}
+	if (!isset ($_COOKIE["lang"]))  {setcookie("lang", 'rus', time()+31536000); $_COOKIE["lang"]="rus";}
 
 	session_name ("LMG");
 	session_save_path ("sess");
@@ -86,7 +86,7 @@
 
 // Локализация тектовая
     if (@!$string = file_get_contents ("lang/".$_COOKIE["lang"]."/lang.json"))
-		f_mail_admin("The lang json file was not found for lang=".$_COOKIE["lang"].".");
+		f_error ("Ошибка локализации.", "Не найден файл локализации, lang=".$_COOKIE["lang"].".");
 	else
 		$LANG_ARRAY = json_decode($string, true);
 

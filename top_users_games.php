@@ -8,7 +8,7 @@
 
 	$result = f_mysqlQuery ("SELECT id_game, MAX(score) AS sum FROM games_".$theme."_com GROUP BY id_game ORDER BY sum DESC;");
 	echo ("
-	<ul class = 'windowTitle'><li>Комбинации полей</li></ul>
+	<ul class = 'windowTitle'><li>"._l("Rating/Layout сombinations")."</li></ul>
 	<ul class = 'messageLists'>");
     while ($data = mysql_fetch_row ($result))
 	{
@@ -47,7 +47,7 @@
 				<div class = 'forum_list_item_buttons'>
 					<a class = 'text_insignificant'
 						href='games.php?regEdit=4&theme=".$theme."&canvasLayout=".$data[0]."'
-						>Удалить</a>
+						>"._l("Notebook/Remove")."</a>
 				</div>");
 		}
 		echo ("

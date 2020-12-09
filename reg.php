@@ -8,19 +8,14 @@
 	$login = "";
 	$first_name = "";
 	$second_name = "";
-	$additional_fieldrs = "";
+	$additional_fields = "";
 
-
-if (isset ($_COOKIE["vk_app_2729439"]))
-{
-	$reg_text = "Вы первый раз заходите к нам с аккаунта социальной сети Вконтакте.</center>
-<center>Если вы ранее регистрировались на сайте вы можете объединить ваши аккаунты, просто заполните поля
-Ник и Пароль которыми вы пользовались прежде и нажмите ввод.<br>
-Иначе, если желаете, измените ваше имя и нажмите кнопку Регистрация.";
-  $login = $_GET["last_name"]."_".$_GET["first_name"];
+if (isset ($_COOKIE["vk_app_2729439"])){
+	$reg_text = _l("Profile/The first visit through Vkontakte.");
+    $login = $_GET["last_name"]."_".$_GET["first_name"];
 	$first_name = $_GET["first_name"];
 	$second_name = $_GET["last_name"];
-	$additional_fieldrs = "
+	$additional_fields = "
 		<INPUT id = 'first_name' TYPE = 'hidden' NAME='first_name' value = ".$first_name.">
 		<INPUT id = 'last_name' TYPE = 'hidden' NAME='last_name' value = ".$second_name.">
 		<INPUT id = 'photo' TYPE = 'hidden' NAME='photo' value = ".$_GET["photo_200"].">";
@@ -28,22 +23,22 @@ if (isset ($_COOKIE["vk_app_2729439"]))
 
 	$body .="
 	<div id = 'windowRegistration' class = 'windowSite'>
-		<ul class = 'windowTitle'><li>Регистрация</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Profile/Registration")."</li></ul>
 		<li id = 'windowRegistrationText'>".$reg_text."</li>
-		<li>Ник:</li>
+		<li>"._l('Login').":</li>
 		<INPUT id = 'login' class = 'border_inset' TYPE = 'text' NAME='login' value='".$login."' SIZE='20' MAXLENGTH='15'>
-		<li id = 'login_'>- введите сетевое имя.</li>
-		<li>Пароль:</li>
+		<li id = 'login_'>- "._l("Profile/enter login.")."</li>
+		<li>"._l('Password').":</li>
 		<INPUT id = 'pass1' class = 'border_inset' TYPE = 'password' NAME='pass1' SIZE='20' MAXLENGTH='50'>
-		<li id = 'pass1_'>- не меньше 4-х символов.</li>
-		<li>Пароль:</li>
+		<li id = 'pass1_'>- "._l("Profile/at least 4 characters.")."</li>
+		<li>"._l('Password').":</li>
 		<INPUT id = 'pass2' class = 'border_inset' TYPE='password' NAME='pass2' SIZE='20' MAXLENGTH='50'>
-		<li id = 'pass2_'>- повторите пароль.</li>
-		<li>E-mail:</li>
+		<li id = 'pass2_'>- "._l("Profile/repeat password.")."</li>
+		<li>"._l('Mail').":</li>
 		<INPUT id = 'e_mail' class = 'border_inset' TYPE = 'text' NAME='e_mail' SIZE='20' MAXLENGTH='50'>
-		<li id = 'e_mail_'>- почтовый адресс для связи с вами.</li>
+		<li id = 'e_mail_'>- "._l("Profile/mail to contact you.")."</li>
 		<li id = 'key_Registration_Saving'  class = 'k_enter'></li>
-		".$additional_fieldrs."
+		".$additional_fields."
 	</div>
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'reg.js?lastVersion=9'></script>";
 	require ("display.php");

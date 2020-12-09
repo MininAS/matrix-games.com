@@ -140,10 +140,10 @@
 	else{
 	echo "
 	<form method = 'post' action = '' name = 'Registration'>
-		<i>"._l('Tooltips/Login')."</i>
+		<i>"._l('Login')."</i>
 		<input class = 'border_inset' type='text' name='login' size='9' MAXLENGTH='15'/>
 		<div class = 'k_vk' onclick='VK.Auth.login(authInfo);'></div>
-		<i>"._l('Tooltips/Password')."</i>
+		<i>"._l('Password')."</i>
 		<input class = 'border_inset' type='password' name='pass' size='9' MAXLENGTH='15'/>
 		<div class = 'k_enter'><input class = 'submit' type = 'submit' value = '.'/></div>
 		<a id = 'registration' class = 'k_reg' href = 'reg.php' onClick = 'VK.Auth.logout();'>

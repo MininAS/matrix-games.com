@@ -6,15 +6,16 @@ date_default_timezone_set('Europe/Moscow');
 	function frequency_add ()
 	{
 
-		$file_freq=fopen ("logbook/frequency.txt", "r+");
-		if (@!$file_freq) {f_mail_admin("Не найден файл количества посещений в папке logbook.");}
+		$file_freq = fopen ("logbook/frequency.txt", "r+");
+		if (@!$file_freq)
+		    f_error("Файл не найден.", "Не найден файл количества посещений в папке logbook.");
 		else{
 			flock ($file_freq, 2+4);
 			$string = fgets ($file_freq,100);
 			$string ++;
 			rewind ($file_freq);
 			fwrite ($file_freq, $string);
-			flock ($file_freq, 3);
+			flock  ($file_freq, 3);
 			fclose ($file_freq);
 		}
 	}
@@ -111,21 +112,21 @@ function f_checkLengthMessage($text){
 				return '
 					{
 						"res": "001",
-						"message": "'._l("The input field is empty.").'"
+						"message": "'._l("Notebook/The input field is empty.").'"
 					}
 				';
 			else if (strlen($text) < 5)
 				return '
 					{
 						"res": "102",
-						"message": "'._l("The text is very shot.").'"
+						"message": "'._l("Notebook/The text is very shot.").'"
 					}
 				';
 			else if (strlen($text) > 500)
 				return '
 					{
 						"res": "103",
-						"message": "'._l("The text is very long.").'"
+						"message": "'._l("Notebook/The text is very long.").'"
 					}
 				';
 			else return "Alright";
@@ -234,6 +235,7 @@ function f_error($error, $text, $file, $line)
 {
 	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);
+	f_mail (1, $string);
 	return false;
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -345,9 +347,9 @@ function f_img($i, $id)
 	$d="avatar/".$id."_$i.jpeg";
 	if (file_exists ($d))
 		$t = "
-		<IMG class = 'border_inset' src = '$d' alt = 'Аватар'>";
+		<img class = 'border_inset' src = '$d' alt = 'Avatar'>";
 	else $t = "
-		<IMG src = 'avatar/0_$i.png' alt = 'Аватар'>";
+		<img src = 'avatar/0_$i.png' alt = 'Avatar'>";
 	return $t;
 }
 // Сохранение аватара с соответствующими габаритами -----------------------------

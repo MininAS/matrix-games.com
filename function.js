@@ -99,11 +99,10 @@ function authInfo(response) {
 						else
 							window.location.href = '';
 					}
-					if (req.responseText == 'false')
-					{
+					if (req.responseText == 'false'){
 						VK.Api.call (
 							'users.get',
-							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.8},
+							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.126},
 							function(r) {
 								if(r.response){
 									var str = "?";
@@ -112,7 +111,9 @@ function authInfo(response) {
 									}
 									window.location.href='reg.php'+str;
 								}
-							});
+								else console.log(r.error);
+							}
+						);
 					}
 				}
 			}

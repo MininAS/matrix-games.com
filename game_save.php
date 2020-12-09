@@ -4,11 +4,11 @@
 
 	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin")
 	{
-		log_file ("Попытка сохранить игру без регистрации.");
+		f_error ("Обход авторизации: ", "Попытка сохранить игру без регистрации.", 'game_save.php');
 		exit ('
 			{
 				"res": "100",
-				"message": "Игра завершена. Для сохранения игры и соревнований, необходимо выполнить регистрацию."
+				"message": "'._l("Gamebook/The game is over. Please, login for the result saving and a competition participation.").'"
 			}
 		');
 	}
@@ -18,7 +18,7 @@
 		exit('
 			{
 				"res": "110",
-				"message": "Пороизошла ошибка. Неверные данные в запросе. Информация отправлена администрации сайта."
+				"message": "'._l("Error. Some data are invalid.").'"
 			}
 		');
 	}
@@ -35,7 +35,7 @@
 		exit('
 			{
 				"res": "110",
-				"message": "Слишком маленький счет, что бы сохранить этот результат."
+				"message": "'._l("Gamebook/The score is too small to save the game.").'"
 			}
 		');
 	}
@@ -46,7 +46,7 @@
 			exit('
 				{
 					"res": "100",
-					"message": "Игра завершена. Вами уже сохранено пять новых игр, более игр сохранить нельзя, пока они не будут удалены за наличием лучшего результата. Выберите игру из списка в левой колонке и попробуйте обыграть другого посетителя сайта."
+					"message": "'._l("Gamebook/The game is over. You have already saved five new games.").'"
 				}
 			');
 
@@ -58,7 +58,7 @@
 			echo('
 				{
 					"res": "200",
-					"message": "Игра сохранена.",
+					"message": "'._l("Gamebook/The game has saved.").'",
 					"id": '.$new_row_id.'
 				}
 			');
@@ -74,7 +74,7 @@
 			exit('
 				{
 					"res": "100",
-					"message": "Простите, но игра уже удалена."
+					"message": "'._l("Gamebook/Sorry, it seems the game has already been removed.").'"
 				}
 			');
 
@@ -113,7 +113,7 @@
 				echo('
 					{
 						"res": "200",
-						"message": "Вы показали лучший результат. Если ее никто не обыграет, то по ее удалении вам будет добавлен балл."
+						"message": "'._l("Gamebook/Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.").'"
 					}
 				');
 			}
@@ -121,7 +121,7 @@
 				echo('
 					{
 						"res": "200",
-						"message": "Игра сохранена."
+						"message": "'._l("Gamebook/The game has saved.").'"
 					}
 				');
 			}
