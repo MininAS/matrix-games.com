@@ -75,7 +75,7 @@
 		</li>
 		<li id = 'k_newGame'>
 			<a href = '#'>
-				<img src = 'img/k_newgame.png' alt='"._l('Tooltips/New game')."'/>
+				<img src = 'img/k_new_game.png' alt='"._l('Tooltips/New game')."'/>
 			</a>
 		</li>
 		<li id = 'k_endGame'>

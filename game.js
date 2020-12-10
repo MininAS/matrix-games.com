@@ -49,8 +49,10 @@ function f_fetchGameLoading (callback) {
 				    callback();
 					f_windowInfoPopup ('hide_popup');
 				}
-				else
+				else {
 					f_windowInfoPopup ('info', data.message);
+					flag_PLAY = false;
+				}
 			})
 }
 

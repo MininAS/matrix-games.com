@@ -17,11 +17,11 @@ for(var i=0; i<animeWindows.length; i++)
 {
 	animeWindows[i].onmouseenter = function()
 	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=2';
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=3';
 	}
 	animeWindows[i].onmouseleave = function ()
 	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=2';
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=3';
 	}
 }
 

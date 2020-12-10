@@ -40,7 +40,7 @@ if (isset ($_COOKIE["vk_app_2729439"])){
 		<li id = 'key_Registration_Saving'  class = 'k_enter'></li>
 		".$additional_fields."
 	</div>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'reg.js?lastVersion=9'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'reg.js?lastVersion=11'></script>";
 	require ("display.php");
 
 ?>

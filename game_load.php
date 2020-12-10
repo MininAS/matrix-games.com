@@ -22,7 +22,7 @@ require ("sess.php");
 		exit('
 			{
 				"res": "100",
-				"message": "'._l("Gamebook/If you want to compitition, please make contribution to the games number - play one game at least by end.").'"
+				"message": "'._l("Gamebook/If you want to competition, please make contribution to the games number - play one game at least by end.").'"
 			}
 		');
 

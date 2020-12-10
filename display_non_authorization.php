@@ -2,7 +2,7 @@
 <html>
 <head><title>LogicalMatrixGames</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=7.3.4">
+	<link rel="stylesheet" type="text/css" href="style.css?lastVersion=18">
 	<link rel="SHORTCUT ICON" href="img/icon.png">
 </head>
 <body>

@@ -39,6 +39,6 @@
 	}
 
 	$body .= "
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.2'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.8'></script>";
 require ("display.php");
 ?>

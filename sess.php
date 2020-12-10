@@ -103,11 +103,12 @@
 		$string = fgets ($file);
 		fclose ($file);
 
-		$arr = preg_split ('/";/', $string);
+        $string = str_replace ('"', '', $string);
+		$arr = preg_split ('/;/', $string);
 		$arr = array_diff($arr, array(''));
 		$a_sessionData = array();
 		foreach ($arr as $key) {
-			$data = preg_split ('/\|s:[0-9]+:\"/', $key);
+			$data = preg_split ('/\|s:[0-9]+:/', $key);
 			$a_sessionData[$data[0]] = $data[1];
 		}
 		return $a_sessionData;

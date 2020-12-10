@@ -14,9 +14,9 @@
 		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
 
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
-	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=17">
+	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=18">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=9.5'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=11'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>
@@ -58,7 +58,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
-				<? echo (_l('Regards Minin Aleksandr!'))?> (v11 - 20.08.2020)</p>
+				<? echo (_l('Regards Minin Aleksandr!'))?> (v12 - 09.12.2020)</p>
 			</div>
 		</div>
 	</div>
