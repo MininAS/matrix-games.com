@@ -109,7 +109,7 @@
 		$a_sessionData = array();
 		foreach ($arr as $key) {
 			$data = preg_split ('/\|s:[0-9]+:/', $key);
-			$a_sessionData[$data[0]] = $data[1];
+			$a_sessionData[$data[0]] = $data[1] ? $data[1] : '';
 		}
 		return $a_sessionData;
 	}

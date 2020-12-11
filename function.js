@@ -8,8 +8,22 @@ var flag_LANG = getCookie('lang');
 e_windowInfoShadow.onclick = () => f_windowInfoPopup('hide_popup');
 e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
 
+// Подгружаем перевод
+fetch('lang/' + getCookie('lang') + '/lang.json')
+	.then (response => {
+		if (response.status == 200)
+		    return response.json();
+	})
+	    .then (data => window.translation_LIBRARY = data)
 
-
+function _l(str){
+	path = str.split ('/');
+	arr = window.translation_LIBRARY;
+	path.forEach(item => {
+		arr = arr[item] || item;
+	});
+    return arr;
+}
 
 // Включение анимации изображений полей игр
 animeWindows = document.getElementsByClassName('winPreshowGameItem');
@@ -65,8 +79,6 @@ if (!window.location.href.match('profile.php') && !window.location.href.match('g
 // Запуск счетчика
 f_counter ();
 f_isWindowsHeightAlignment ();
-
-
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
 function f_isWindowsHeightAlignment () {

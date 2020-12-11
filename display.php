@@ -16,7 +16,7 @@
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=18">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=11'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=12'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>
