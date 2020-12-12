@@ -509,7 +509,7 @@ body > #body {
 }
 
 #info_div {
-	text-align: justify;
+	text-align: center;
 	min-width: 200px;
     max-width: 1000px;
 	max-height: 400px;

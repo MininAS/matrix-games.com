@@ -1,7 +1,11 @@
 <?php
 	require ("function.php");
 	require ("sess.php");		$_SESSION["page"] = "reg";
-	if ($_SESSION['dopusk'] != 'no') exit;
+	if ($_SESSION['dopusk'] != 'no') exit ("
+        	<script type = 'text/javascript' language = 'JavaScript'>
+				setTimeout ('window.location.href = \"index.php\"', 2000);
+			</script>
+		");
     $reg_text = "";
 	$body = "";
 	$text = "";

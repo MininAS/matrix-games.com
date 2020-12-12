@@ -8,23 +8,6 @@ var flag_LANG = getCookie('lang');
 e_windowInfoShadow.onclick = () => f_windowInfoPopup('hide_popup');
 e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
 
-// Подгружаем перевод
-fetch('lang/' + getCookie('lang') + '/lang.json')
-	.then (response => {
-		if (response.status == 200)
-		    return response.json();
-	})
-	    .then (data => window.translation_LIBRARY = data)
-
-function _l(str){
-	path = str.split ('/');
-	arr = window.translation_LIBRARY;
-	path.forEach(item => {
-		arr = arr[item] || item;
-	});
-    return arr;
-}
-
 // Включение анимации изображений полей игр
 animeWindows = document.getElementsByClassName('winPreshowGameItem');
 for(var i=0; i<animeWindows.length; i++)
@@ -152,11 +135,11 @@ function getXmlHttp()
 function f_windowInfoPopup(s_name, s_text)
 {
 	// if (!e_windowInfoText) return;
-	e_windowInfoText.innerHTML = "&nbsp&nbsp&nbsp&nbsp Ожидается ответ сервера...";
+	e_windowInfoText.innerHTML = _l("Server response awaiting ...");
 
 	switch(s_name) {
 		case 'pause':
-			e_windowInfoText.innerHTML = "<p class = 'very-big'>Пауза</p>Для снятия с паузы кликните по этому окну.";
+			e_windowInfoText.innerHTML = "<p class = 'very-big'>" + _l("Pause") + "</p>" + _l("To unpause game, click on this window.");
 			break;
 		case 'user_top':
  			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+s_text, null);
@@ -251,14 +234,6 @@ function getViewportHeight() {
 	return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat')
 	? document.documentElement.clientHeight : document.body.clientHeight
 	: (document.parentWindow || document.defaultView).innerHeight;
-}
-
-// Возврат значения кука
-function getCookie(name) {
-  var matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 // Отключение и включение звука

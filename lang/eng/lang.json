@@ -54,10 +54,7 @@
 		"The game is over. You have already saved five new games.": "The game is over. You have already saved five new games, more games cannot be saved until they are deleted due a better result. Compete with other players - select a game from the left list and try to get more points.",
 		"The game has saved.": "The game has saved.",
 		"Sorry, it seems the game has already been removed.": "Sorry, it seems the game has already been removed.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.",
-		"": "",
-		"": "",
-		"": ""
+		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating."
     },
     "Profile": {
 		"Change image:": "Change image:",
@@ -80,11 +77,19 @@
         "at least 4 characters.": "at least 4 characters.",
         "repeat password.": "repeat password.",
         "mail to contact you.": "mail to contact you.",
-        "": "",
-        "": "",
-        "": "",
-        "": ""
+        "user with this name is existed.": "user with this name is existed.",
+        "password of this name, please.": "password of this name, please.",
+        "the name is not available.": "the name is not available.",
+        "it allows to enter bypassing VK.": "it allows to enter bypassing VK.",
+        "the name is available!": "the name is available!",
+        "valid characters": "valid characters",
+        "password is very shot.": "password is very shot.",
+        "second password is not match.": "second password is not match.",
+        "address is invalid.": "address is invalid."
     },
+	"Server response awaiting ...": "Server response awaiting ...",
+	"Pause": "Pause",
+	"To unpause game, click on this window.": "To unpause game, click on this window.",
 	"Now at site": "Now at site",
     "Amount of quests": "Amount of quests",
 	"If you find some bug, please comment it": "If you find some bug, please comment to mail:mininas@sampo.ru or in the website notebook.",
@@ -138,6 +143,8 @@
     "Medals": "Medals",
     "User": "User",
 	"Error. Some data are invalid.": "Error. Some data are invalid. The info was send to administrator.",
+	"T h e  n e x t  s t o n e": "T h e  n e x t  s t o n e",
+    "The next shape": "The next shape",
     "Mails": {
         "Register on the Logic Matrix Games website!": "Register on the Logic Matrix Games website!",
         "Hello!": "Hello!",
@@ -145,19 +152,7 @@
         "If you like simple logic games, we will be glad to see you definitely again and again.": "If you like simple logic games, we will be glad to see you definitely again and again.",
         "Play, save new games and compete with other users by opening recorded games.": "Play, save new games and compete with other users by opening recorded games.",
         "For a more details use the help in the menu.": "For a more details use the help in the menu.",
-        "Good luck!": "Good luck!",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": ""
+        "Good luck!": "Good luck!"
     },
 	"Rating": {
 		"Gold": "Gold",
@@ -169,7 +164,6 @@
 		"Total": "Total",
 		"Layout сombinations": "Layout сombinations",
 		"Total rating": "Total rating",
-		"Total participants": "Total participants",
-		"": ""
+		"Total participants": "Total participants"
 	}
 }

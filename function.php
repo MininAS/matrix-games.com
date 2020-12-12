@@ -231,7 +231,7 @@ function f_mysqlQuery($query)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 // Обработка ошибок в PHP
-function f_error($error, $text, $file, $line)
+function f_error($error, $text, $file, $line=0)
 {
 	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);

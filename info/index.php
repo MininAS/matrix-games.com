@@ -20,13 +20,13 @@ switch($_GET["lang"]){
 		- <img src = 'img/k_sound_on.png' alt='Sound'/> - turn on and off the sound.<br>
 		- <img src = 'img/k_lang_rus.png' alt='Lang'/> - language change - Russian / English.<br>
 		&nbsp&nbsp&nbsp&nbsp
-		A TOP list of players in the page left window there are awarded points for well-played matches. 
+		A TOP list of players in the page left window there are awarded points for well-played matches.
         The points are dynamic for both cases - grow in the process of visiting the site, and decreas - if the player visits less often.
         More detailed statistics can be viewed by clicking on a list user item.<br>
 		&nbsp&nbsp&nbsp&nbsp
         Right side - blocks of games with attached tournament tables of prize places according currently,
         you can be here if you play better.
-        Therefore, the table with medals is not permanent and will always change if someone played more better or game was removed. 
+        Therefore, the table with medals is not permanent and will always change if someone played more better or game was removed.
         Records are already immortalized game results. You can be here also but it will be more difficult.<br>
 		&nbsp&nbsp&nbsp&nbsp
 		To select a game, you need to click on a game block by a picture or a  text, you will go to a zero game - this is a new layout of a field.
@@ -47,10 +47,10 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
 		Меню сайта: <br>
 		- <img src = 'img/k_home.png' alt='На главную'/> - клавиша появляется только когда вы вне главной страницы для возврата к таковой. <br>
-		- после клавиши \"Главная страница\" следует клавиша виджета \"ВКонтакте\" и если вам понравился этот сайт, обязательно на нее нажмите 
+		- после клавиши \"Главная страница\" следует клавиша виджета \"ВКонтакте\" и если вам понравился этот сайт, обязательно на нее нажмите
 		и не забудьте рассказать друзьям! <br>
 		- <img src = 'img/k_book.png' alt='Книга пожеланий'/> - что - то вроде маленького форума для обсуждений, замечаний и просьб по сайту. <br>
-		- <img src = 'img/k_profile.png' alt='Ваш профиль'/> - ваша личная страница, здесь можно читать и отправлять сообщения другим пользователям, 
+		- <img src = 'img/k_profile.png' alt='Ваш профиль'/> - ваша личная страница, здесь можно читать и отправлять сообщения другим пользователям,
 		изменять свои данные и наблюдать за своими достижениями. На этой клавише вы можете иногда наблюдать конвертик <img src = 'img/letter.png' alt='Конверт'/>
 		- это означает, что у вас есть одно или несколько непрочитанных сообщений. <br>
 		- <img src = 'img/k_stat.png' alt='Статистика'/> - статистика в зависимости от того где вы находитесь,
@@ -62,23 +62,23 @@ switch($_GET["lang"]){
 		- <img src = 'img/k_sound_on.png' alt='Звук'/> - включение и выключение звука. <br>
 		- <img src = 'img/k_lang_rus.png' alt='Язык'/> - смена языка - русский/английский. <br>
 		&nbsp&nbsp&nbsp&nbsp
-		ТОП список играков в левом окне страницы - баллы там начисляются за хорошо сыгранные партии. 
+		ТОП список играков в левом окне страницы - баллы там начисляются за хорошо сыгранные партии.
 		Баллы данного счета динамичны как для роста в процессе посещения сайта, так и для уменьшения - если игрок заходит не так часто.
 		Более подробная статистика может быть просмотренна, если кликнуть по пользователю из этого списка.<br>
 		&nbsp&nbsp&nbsp&nbsp
 		Правая сторона - блоки игр с прикрепленными к ним турнирными таблицами призовых мест по текущему времени,
 		участников которых вы можете сдвинуть вниз, если у вас получится лучше.
-		Следовательно, таблица с медалями не носит постоянного характера и всегда, будет меняться. 
+		Следовательно, таблица с медалями не носит постоянного характера и всегда, будет меняться.
 		Рекорды – это уже увековеченные партии в которых вы сможете сдвинуть соперника по баллам сыграв в любой из партии этой игры.
 		&nbsp&nbsp&nbsp&nbsp
 		Для выбора игры вам необходимо нажать по блоку игры по картинке или тексту, вы перейдете к нулевой игре - это новый расклад поля.
-		Сохранить можно только пять игр (вы должны быть зарегистрированы), 
-		а сохранив хотя бы одну, вы можете соревноваться с другими игроками. 
+		Сохранить можно только пять игр (вы должны быть зарегистрированы),
+		а сохранив хотя бы одну, вы можете соревноваться с другими игроками.
 		Для соревнования вам необходимо выбрать игру из турнирной таблицы или выбрать ее непосредственно в игре
 		в списке «Комбинации полей» в правой части экрана, где будет представлен весь список партий.<br>
 		&nbsp&nbsp&nbsp&nbsp
-		Что это за соревнования – вы выбираете чужую игру, и вам на поле предоставляется копия расклада игровой комбинации, 
-		которая была у игрока, который ее открыл. А смысл в том, что игра будет честной, и совершенно не зависеть от разного расклада фишек. 
+		Что это за соревнования – вы выбираете чужую игру, и вам на поле предоставляется копия расклада игровой комбинации,
+		которая была у игрока, который ее открыл. А смысл в том, что игра будет честной, и совершенно не зависеть от разного расклада фишек.
 		<?
 }
 ?>

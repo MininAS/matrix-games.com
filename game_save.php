@@ -4,7 +4,6 @@
 
 	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin")
 	{
-		f_error ("Обход авторизации: ", "Попытка сохранить игру без регистрации.", 'game_save.php');
 		exit ('
 			{
 				"res": "100",

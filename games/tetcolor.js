@@ -58,7 +58,7 @@ function f_greateGame ()
 	var myElement = document.createElement ('p');
 	document.getElementById('nextFigure').appendChild(myElement);
 	myElement.className = 'big';
-	myElement.innerHTML = 'Следующая фигура';
+	myElement.innerHTML = _l("The next shape");
 
 	var myElement_ = document.createElement ('div');
 	document.getElementById('nextFigure').appendChild(myElement_);

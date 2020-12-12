@@ -44,7 +44,7 @@ function f_greateGame ()
 	var myElement = document.createElement ('p');
 	document.getElementById('nextFigure').appendChild(myElement);
 	myElement.className = 'big';
-	myElement.innerHTML = 'С л е д у ю щ а я ф и г у р а';
+	myElement.innerHTML = _l("T h e  n e x t  s t o n e");
 
 	var myElement = document.createElement ('img');
 	document.getElementById('nextFigure').appendChild(myElement);

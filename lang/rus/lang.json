@@ -54,10 +54,7 @@
 		"The game is over. You have already saved five new games.": "Игра завершена. Вами уже сохранено пять новых игр, более игр сохранить нельзя, пока они не будут удалены за наличием лучшего результата. Соревнуйтесь с другими игроками - выберите игру из списка с лева и попробуйте обыграть её.",
 		"The game has saved.": "Игра сохранена.",
 		"Sorry, it seems the game has already been removed.": "Простите, но похоже, что игра уже удалена.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите одно очко к общему рейтингу.",
-		"": "",
-		"": "",
-		"": ""
+		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите одно очко к общему рейтингу."
     },
     "Profile": {
 		"Change image:": "Поменять изображение:",
@@ -80,10 +77,15 @@
         "at least 4 characters.": "не меньше 4-х символов.",
         "repeat password.": "повторите пароль.",
         "mail to contact you.": "почтовый адресс для связи с вами.",
-        "": "",
-        "": "",
-        "": "",
-        "": ""
+        "user with this name is existed.": "есть такое имя в базе.",
+        "password of this name, please.": "пароль от этого имени.",
+        "the name is not available.": "простите, но такое имя занято.",
+        "it allows to enter bypassing VK.": "позволит входить минуя VK.",
+        "the name is available!": "это имя свободно!",
+        "valid characters": "допустимые символы",
+        "password is very shot.": "пароль слишком короткий.",
+        "second password is not match.": "повторение пароля не совпадает.",
+        "address is invalid.": "адрес не допустим."
     },
 	"Now at site": "Сейчас на сайте",
     "Amount of quests": "Гостей",
@@ -105,7 +107,7 @@
 		"Exit": "Выход",
 		"Reg": "Регистрация"
 	},
-	"Game": "Game",
+	"Game": "Игра",
 	"Game names": {
 		"sphere": "Сфера",
 		"tetris": "Тетрис",
@@ -130,6 +132,9 @@
 		"bouncer": "Вышибите камни того же цвета, которых более одного находятся рядом. Сумма очков растет от количества удаляемых квадратов в арифметической прогрессии.",
 		"barrel": "Задайте необходимую массу бочкам на поле и запустите цепную реакцию."
 	},
+    "Server response awaiting ...": "Ожидается ответ сервера...",
+    "Pause": "Пауза",
+    "To unpause game, click on this window.": "Для снятия с паузы кликните по этому окну.",
 	"Invalid user data.": "Не верные данные пользователя.",
     "Login": "Логин",
     "Password": "Пароль",
@@ -138,6 +143,8 @@
     "Medals": "Медали",
     "User": "Пользователь",
     "Error. Some data are invalid.": "Пороизошла ошибка. Неверные данные в запросе. Информация отправлена администрации сайта.",
+    "T h e  n e x t  s t o n e": "С л е д у ю щ а я ф и г у р а",
+    "The next shape": "Следующая фигура",
     "Mails": {
         "Register on the Logic Matrix Games website!": "Регистрация на сайте Logic Matrix Games!",
         "Hello!": "Здравствуйте!",
@@ -145,19 +152,7 @@
         "If you like simple logic games, we will be glad to see you definitely again and again.": "Если вы любите простые логические игры, то обязательно будем рады видеть вас снова и снова.",
         "Play, save new games and compete with other users by opening recorded games.": "Играйте, сохраняйте новые игры и соревнуйтесь используя записанные игры другими игроками.",
         "For a more details use the help in the menu.": "Для более детального понятия пользования сайтом - используйте помощь в меню.",
-        "Good luck!": "Желаем удачи!",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": ""
+        "Good luck!": "Желаем удачи!"
     },
 	"Rating": {
 		"Gold": "Золото",
@@ -169,7 +164,6 @@
 		"Total": "Всего",
 		"Layout сombinations": "Комбинации полей",
 		"Total rating": "Рейтинг по сайту",
-		"Total participants": "Всего участников",
-		"": ""
+		"Total participants": "Всего участников"
 	}
 }
