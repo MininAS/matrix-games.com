@@ -27,7 +27,7 @@
 		}
 		else
 		{
-			$text_info = _l("Invalid user data.");
+			$instant_message = _l("Invalid user data.");
 		}
 	}
 ?>

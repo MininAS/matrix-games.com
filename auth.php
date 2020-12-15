@@ -1,6 +1,6 @@
 <?
 $qwery = f_mysqlQuery ("SELECT pass, id, login, dopusk, lang FROM users GROUP BY id;");
-$text_info = "Логин или пароль были введены не верно.";
+$instant_message = _l("Login or password were invalid.");
 while ($data = mysql_fetch_row($qwery))
 {
 	if (preg_match("/".$data[2]."/i", $_POST["login"])  && $data[0] == $_POST["pass"])
@@ -16,7 +16,7 @@ while ($data = mysql_fetch_row($qwery))
 										time='".date ("H:i")."',
 										ip='".getenv ("REMOTE_ADDR")."'
 					   WHERE id=".$_SESSION["id"].";");
-		unset ($text_info);
+		$instant_message = 'none';
 		break;
 	}
 }

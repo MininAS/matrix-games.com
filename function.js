@@ -62,6 +62,12 @@ if (!window.location.href.match('profile.php') && !window.location.href.match('g
 // Запуск счетчика
 f_counter ();
 f_isWindowsHeightAlignment ();
+// Проверяем наличие мгновенного сообщения
+setTimeout (() =>{
+	text = e_windowInfoText.innerHTML;
+	if (text != 'none')
+	    f_windowInfoPopup ('info', text);
+}, 1000);
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
 function f_isWindowsHeightAlignment () {

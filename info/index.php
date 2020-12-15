@@ -15,7 +15,7 @@ switch($_GET["lang"]){
         if you are on your profile page - then the information will be on your achievements,
         if in the game, then according to the results of records and medals collected for the whole time.<br>
 		- <img src = 'img/k_pause.png' alt='Pause'/> - necessary in some games if you decide to leave game for a short time.<br>
-		- <img src = 'img/k_newgame.png' alt='New game'/> - in play mode to start a new play combination.<br>
+		- <img src = 'img/k_new_game.png' alt='New game'/> - in play mode to start a new play combination.<br>
 		- <img src = 'img/k_save.png' alt='Save game'/> - in some games for manual saving (for example \"Shot circuit\").<br>
 		- <img src = 'img/k_sound_on.png' alt='Sound'/> - turn on and off the sound.<br>
 		- <img src = 'img/k_lang_rus.png' alt='Lang'/> - language change - Russian / English.<br>

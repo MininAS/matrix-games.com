@@ -165,11 +165,11 @@ body > #body {
 				#menu ul li a:hover {
 					background-color: #ddd !important;
 				}
-		#bette {
+		#letter {
 			position: absolute;
 			width: 13px; height: 10px;
 			top: -5px; right: -5px;
-			background-image: url('img/bette.png');
+			background-image: url('img/letter.png');
 		}
 
 /* ============== Блок атентификации ======================================== */

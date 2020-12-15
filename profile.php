@@ -25,9 +25,9 @@
 			      ($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
 				|| $avatar_type=="image/png" || $avatar_type=="image/gif"))
 					save_avatar($_SESSION["id"],$avatar);
-			else $text_info = "Простите изображение не удовлетворяет параметрам.";
+			else $instant_message = _l("A file format is not supported.");
 		}
-		else $text_info = "Не верный формат полученных данных.";
+		else $instant_message = _l("Invalid user data.");
 	}
 
 // Изменение личных данных
@@ -36,14 +36,17 @@
 		$data = mysql_fetch_row (f_mysqlQuery ("SELECT pass FROM users WHERE id=".$_SESSION["id"].";"));
 		if ($_POST["value3"]==$data[0])
 		if ($_POST["value1"]==$_POST["value1"])
-		if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Пароль изменен.";
+		if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
+		    $instant_message = _l("The password has changed.");
 	}
-	if ($regEdit == "111") if (f_mysqlQuery("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";")) $text_info = "Адрес изменен.";
+	if ($regEdit == "111") if (f_mysqlQuery("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
+	    $instant_message = _l("The mail has changed.");
 	if ($regEdit == "109")
 	{
 		if ($_POST["value1"]!=1) $_POST["value1"] = 0;
 		if ($_POST["value2"]!=1) $_POST["value2"] = 0;
-		if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";")) $text_info = "Флаги отсылок изменены.";
+		if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";"))
+		    $instant_message = _l("The checkboxes have chenged.");
 	}
 
 	$body = "

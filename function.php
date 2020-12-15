@@ -1,6 +1,7 @@
 <?
 set_error_handler('f_error');
 date_default_timezone_set('Europe/Moscow');
+$instant_message = 'none';
 
 // Файл frequency хранит число посещений сайта, вызывая эту функцию мы увеличиваем его на еденицу
 	function frequency_add ()
@@ -157,14 +158,14 @@ function f_convertSmilesAndTagFormat($text){
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 // Отправка почты
-function f_mail ($user, $mail_mess)
+function f_mail ($user, $mail_mess, $lang = 'default')
 {
-	$result=f_mysqlQuery ("SELECT F_mail, mail FROM users WHERE id=".$user.";");
+	$result=f_mysqlQuery ("SELECT F_mail, mail, lang FROM users WHERE id=".$user.";");
 	$data = mysql_fetch_row ($result);
 	if ($data[0] == 1)
 	{
 		$mail_mess=str_replace ("\\r\\n", "<br>", $mail_mess);
-		mail ($data[1], "Новости с сайта LMG ==>>",
+		mail ($data[1], _l("Mails/News from LMG ==>>", $lang),
 		"
 		<!DOCTYPE html>
 		<html><head>
@@ -190,12 +191,12 @@ function f_mail ($user, $mail_mess)
 			}
 		</style>
 		<body>
-		<h3>Здравствуйте! Благодарим за посещения и участие в соревнованиях.</h3>
+		<h3>"._l("Mails/Hello! Thank you for visiting and participating in the competition.", $lang)."</h3>
 		<table>
 		<tr><td><img src = 'http://matrix-games.ru/img/logotip.png' alt = 'logotip'><h2>".$mail_mess."</h2></td></tr>
 		</table>
-		<h5>Если вас не устраивает рассылка данной информации, вы можете отказаться от нее на сайте на своей странице или ответить на это письмо.<BR>
-			<a href='http://matrix-games.ru'>http://matrix-games.ru</a>                           LogoBot.</h5>
+		<h5>"._l("Mails/If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.", $lang)."<BR>
+			<a href='http://matrix-games.ru'>http://matrix-games.ru</a>                           Cubic.</h5>
 		</body></html>",
 		"Content-type: text/html; charset=utf-8 \r\n"."From: LMG <mininas@sampo.ru>\r\n");
 	}
@@ -353,9 +354,10 @@ function f_img($i, $id)
 	return $t;
 }
 // Сохранение аватара с соответствующими габаритами -----------------------------
+
 function save_avatar($id_outfile, $infile)
 {
-    global $text_info;
+    global $instant_message;
 
 	$infile = str_replace("https://", "http://", $infile);
     $size = getimagesize($infile);
@@ -364,7 +366,7 @@ function save_avatar($id_outfile, $infile)
 	elseif ($size['mime'] == 'image/gif') $im=imagecreatefromgif ($infile);
 	else {
 		$log = "Пытался загрузить " . $size['mime'] . "тип файла."; log_file ($log);
-		$text_info = "Формат изображения неизвестен.";
+		$instant_message = _l("A file format is not supported.");
 	}
 
   	$x=imagesx($im); $y=imagesy($im);
@@ -386,18 +388,33 @@ function save_avatar($id_outfile, $infile)
   	imagedestroy($im3);
 
 		$log = "Поменял аватару."; log_file ($log);
-		$text_info = "Аватар загружен.";
+		$instant_message = _l("The foto has downloaded.");
 }
 
-function _l($str){
+// Локализация тектовая
+$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
+
+function _l($str, $lang = 'default'){
 	$path = explode ('/', $str);
-	$arr = $GLOBALS['LANG_ARRAY'];
+	if ($lang == 'default')
+	    $arr = $GLOBALS['LANG_ARRAY'];
+	else {
+		$arr = f_getTranslatedText($lang);
+	}
 	foreach ($path as $key){
 		if (array_key_exists($key, $arr))
 			$arr = $arr[$key];
-		else
-		    $arr = $str;
+		else {
+		    $arr = end($path);
+			break;
+		}
 	}
     return $arr;
+}
+
+function f_getTranslatedText ($lang){
+	$string = file_get_contents ("lang/".$lang."/lang.json");
+	$arr = json_decode($string, true);
+	return  $arr;
 }
 ?>

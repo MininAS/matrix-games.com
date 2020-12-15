@@ -21,7 +21,8 @@
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin")
 	{
 // Лучший по баллам, так же проверяем, что игра присутствует.
-		if ($data=mysql_fetch_row(f_mysqlQuery ("SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail
+		if ($data=mysql_fetch_row(f_mysqlQuery
+		   ("   SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail, users.lang
 				FROM games_".$theme."_com AS s1, users
 				WHERE id_game=".$canvasLayout." AND id_user=users.id
 				ORDER BY score DESC LIMIT 1;")))
@@ -44,18 +45,22 @@
 			{
 				f_mysqlQuery ("INSERT games_".$theme."_med (id_user, medal, score)
 								VALUE (".$data[1].", ".$medal.", ".$data[2].");");
-				$q = ", плюс вы заработали награду за ".$medal."-е призовое место.";
+				$q = _l("Mails/, also you earned a medal", $data[6])." <IMG SRC = 'img/medal_".$medal.".gif' alt = 'Medal'/>.";
 			}
-			f_mail ($data[1], "Игра "._l('Game names/'.$theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
-			f_saveTecnicMessage (0, $data[1], "Игра "._l('Game names/'.$theme)." №".$canvasLayout." в которой вы вели счет была удалена и у вас поднялся рейтинг на один".$q);
+			$message = _l("Game", $data[6])." "
+			    ._l('Game names/'.$theme, $data[6])
+			    ." №".$canvasLayout
+				." "._l("Mails/where you were winer has been deleted and your rating has been raised by one", $data[6]).$q;
+			f_mail ($data[1], $message, $data[6]);
+			f_saveTecnicMessage (0, $data[1], $message);
 			if (f_mysqlQuery ("DELETE FROM games_".$theme." WHERE id_game=".$canvasLayout.";"))
 				if (f_mysqlQuery ("DELETE FROM games_".$theme."_com WHERE id_game=".$canvasLayout.";"))
 				{
-					$text_info = "<p>Игра удалена.</p>";
+					$instant_message = _l("The game has removed.");
 					log_file ("Удаление игры. Получает балл ".$data[1]." с результатом ".$data[2]." очков.");
 				}
 		}
-		else $text_info = "<p>Игра уже была удалена.</p>";
+		else $instant_message = _l("The game had have removde already.");
 		$canvasLayout = 0;
 	}
 

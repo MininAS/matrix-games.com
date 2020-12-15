@@ -78,7 +78,7 @@
 			');
 
 		$result = f_mysqlQuery ("
-			SELECT id_user, users.login, users.F_mailG, users.mail
+			SELECT id_user, users.login, users.F_mailG, users.mail, users.lang
 			FROM games_".$theme."_com AS tb, users
 			WHERE id_game=".$canvasLayout." AND id_user=users.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
@@ -103,12 +103,21 @@
 			if ($data_[0] != $data[0])
 			{
 				f_mail ($data[0],
-				"Против вас с успехом сыграл ".$data_[1].".<BR>
-				Новый рекорд в игре "._l('Game names/'.$theme)." за № ".$canvasLayout." составляет  ".$data_[2]." баллов.<BR>
-				<A href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout."'><br>&lt;&lt;&lt; Переиграть >>><a>");
+				    $data_[1]." "
+					._l("Mails/played against you successfully.", $data[4])
+					." "
+				    ._l("Mails/New score in game", $data[4])." "
+				    ._l('Game names/'.$theme, $data[4])
+				    ." № ".$canvasLayout." => ".$data_[2]
+				    .".<br><a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout
+				    ."'><br><&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]);
 				$regEdit = "20";
-				f_saveTecnicMessage($_SESSION["id"], $data[0], "Я обыграл(а) вашу игру "._l('Game names/'.$theme)." за № ".$canvasLayout." со счетом ".$data_[2].".
-					<A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< Переиграть >>></a>");
+				f_saveTecnicMessage($_SESSION["id"], $data[0],
+				    _l("Mails/I played you game successfully", $data[4])
+					." "
+					._l('Game names/'.$theme, $data[4])
+					." № ".$canvasLayout." => ".$data_[2].".
+					<A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< "._l("Mails/Replay", $data[4])." >>></a>");
 				echo('
 					{
 						"res": "200",

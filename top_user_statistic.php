@@ -62,7 +62,7 @@
 				<td>";
 					$data=mysql_fetch_row(f_mysqlQuery ("SELECT COUNT(*), MAX(score) FROM games_".$theme."_med WHERE id_user=".$user." AND medal=".$i.";"));
 					if ($data[0] != 0) $text .= "
-				<IMG SRC = 'img/medal_".$i.".gif' alt = 'Cup'/> х ".$data[0];
+				<IMG SRC = 'img/medal_".$i.".gif' alt = 'Medal'/> х ".$data[0];
 					$text .= "</td>
 				<td>
 				- ".$data[1]."

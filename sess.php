@@ -84,12 +84,6 @@
 			WHERE id=".$_SESSION["id"].";
 		");
 
-// Локализация тектовая
-    if (@!$string = file_get_contents ("lang/".$_COOKIE["lang"]."/lang.json"))
-		f_error ("Ошибка локализации.", "Не найден файл локализации, lang=".$_COOKIE["lang"].".");
-	else
-		$LANG_ARRAY = json_decode($string, true);
-
 // Проверка пользователя на выход из сайта
 	if (isset ($_GET['exit'])){
 		$log = "Выход."; log_file ($log);

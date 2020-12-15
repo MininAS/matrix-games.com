@@ -145,6 +145,14 @@
 	"Error. Some data are invalid.": "Error. Some data are invalid. The info was send to administrator.",
 	"T h e  n e x t  s t o n e": "T h e  n e x t  s t o n e",
     "The next shape": "The next shape",
+    "Login or password were invalid.": "Login or password were invalid.",
+    "The game has removed.": "The game has removed.",
+    "The game had have removde already.": "The game had have removde already.",
+    "A file format is not supported.": "A file format is not supported.",
+    "The foto has downloaded.": "The foto has downloaded.",
+    "The password has changed.": "The password has changed.",
+    "The mail has changed.": "The mail has changed.",
+    "The checkboxes have chenged.": "The checkboxes have chenged.",
     "Mails": {
         "Register on the Logic Matrix Games website!": "Register on the Logic Matrix Games website!",
         "Hello!": "Hello!",
@@ -152,7 +160,16 @@
         "If you like simple logic games, we will be glad to see you definitely again and again.": "If you like simple logic games, we will be glad to see you definitely again and again.",
         "Play, save new games and compete with other users by opening recorded games.": "Play, save new games and compete with other users by opening recorded games.",
         "For a more details use the help in the menu.": "For a more details use the help in the menu.",
-        "Good luck!": "Good luck!"
+        "Good luck!": "Good luck!",
+        "played against you successfully.": "played against you successfully.",
+        "New score in game": "New score in game",
+        "Replay": "Replay",
+        "I played you game successfully": "I played you game successfully",
+        "News from LMG ==>>": "News from LMG ==>>",
+        "Hello! Thank you for visiting and participating in the competition.": "Hello! Thank you for visiting and participating in the competition.",
+        "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.": "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.",
+        "where you were winer has been deleted and your rating has been raised by one": "where you were winer has been deleted and your rating has been raised by one",
+        ", also you earned a medal": ", also you earned a medal"
     },
 	"Rating": {
 		"Gold": "Gold",

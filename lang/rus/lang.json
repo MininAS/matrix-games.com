@@ -145,6 +145,14 @@
     "Error. Some data are invalid.": "Пороизошла ошибка. Неверные данные в запросе. Информация отправлена администрации сайта.",
     "T h e  n e x t  s t o n e": "С л е д у ю щ а я ф и г у р а",
     "The next shape": "Следующая фигура",
+    "Login or password were invalid.": "Логин или пароль были введены не верно.",
+    "The game has removed.": "Игра удалена.",
+    "The game had have removde already.": "Игра уже была удалена.",
+    "A file format is not supported.": "Формат изображения не поддерживается.",
+    "The foto has downloaded.": "Фото загружено.",
+    "The password has changed.": "Пароль изменен.",
+    "The mail has changed.": "Адрес изменен.",
+    "The checkboxes have chenged.": "Флаги поменяны.",
     "Mails": {
         "Register on the Logic Matrix Games website!": "Регистрация на сайте Logic Matrix Games!",
         "Hello!": "Здравствуйте!",
@@ -152,7 +160,16 @@
         "If you like simple logic games, we will be glad to see you definitely again and again.": "Если вы любите простые логические игры, то обязательно будем рады видеть вас снова и снова.",
         "Play, save new games and compete with other users by opening recorded games.": "Играйте, сохраняйте новые игры и соревнуйтесь используя записанные игры другими игроками.",
         "For a more details use the help in the menu.": "Для более детального понятия пользования сайтом - используйте помощь в меню.",
-        "Good luck!": "Желаем удачи!"
+        "Good luck!": "Желаем удачи!",
+        "played against you successfully.": "успешно выиграл вас.",
+        "New score in game": "Новый рекорд в игре",
+        "Replay": "Переиграть",
+        "I played you game successfully": "Я обыграл(а) вашу игру",
+        "News from LMG ==>>": "Новости с сайта LMG ==>>",
+        "Hello! Thank you for visiting and participating in the competition.": "Здравствуйте! Благодарим за посещения и участие в соревнованиях.",
+        "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.": "Если вас не устраивает рассылка данной информации, вы можете отказаться от нее на сайте на своей странице или ответить на это письмо.",
+        "where you were winer has been deleted and your rating has been raised by one": "в которой вы вели счет была удалена и у вас поднялся рейтинг на один",
+        ", also you earned a medal": ", плюс вы заработали медаль"
     },
 	"Rating": {
 		"Gold": "Золото",

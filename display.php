@@ -14,10 +14,10 @@
 		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
 
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
-	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=19">
+	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=19.1">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 	<script async type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=13'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=14'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
 </head>
 <body>
@@ -59,7 +59,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
-				<? echo (_l('Regards Minin Aleksandr!'))?> (v12 - 09.12.2020)</p>
+				<? echo (_l('Regards Minin Aleksandr!'))?> (v12.1 - 15.12.2020)</p>
 			</div>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 	<div id = "black_glass"></div>
 
 	<div id = 'window_info_popup'>
-		<div id = 'info_div' class = 'windowSite'></div>
+		<div id = 'info_div' class = 'windowSite'><? echo ($instant_message) ?></div>
 	</div>
 
 	<div id = 'text_key' class = 'border_inset toolTip'></div>
