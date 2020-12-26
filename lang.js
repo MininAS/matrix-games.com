@@ -1,10 +1,3 @@
-fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1')
-	.then (response => {
-		if (response.status == 200)
-		    return response.json();
-	})
-	    .then (data => window.translation_LIBRARY = data)
-
 function _l(str){
 	path = str.split ('/');
 	arr = window.translation_LIBRARY;
@@ -20,3 +13,11 @@ function getCookie(name) {
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+window.translation_LIBRARY = [];
+fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1')
+	.then (response => {
+		if (response.status == 200)
+		    return response.json();
+	})
+	    .then (data => window.translation_LIBRARY = data)

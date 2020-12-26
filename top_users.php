@@ -15,12 +15,12 @@
 		$i_Users ++;
 		$text .= "
 		<li  class = 'selectable_list_item' onClick = \"f_windowInfoPopup ('user_top', ".$data[0].");\">
-			<span class = 'top_list_item_number'>
-				".$i_Users."
-			</span>
 			<div class = 'message_autor'>
 				<div class = 'avatar'>
 				".f_img (3, $data[0])."
+					<span class = 'top_list_item_number text_insignificant'>
+						".$i_Users."
+					</span>
 				</div>
 				<span class = 'big'>".$data[2]."</span>
 			</div>

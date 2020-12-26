@@ -6,35 +6,47 @@
 
 // Просмотр съигранных игр ====================================================================================================================
 
-	$result = f_mysqlQuery ("SELECT id_game, MAX(score) AS sum FROM games_".$theme."_com GROUP BY id_game ORDER BY sum DESC;");
+	$result = f_mysqlQuery ("
+	    SELECT id_game, MAX(score) AS sum
+		FROM games_".$theme."_com
+	    GROUP BY id_game
+		ORDER BY sum DESC;
+	");
 	echo ("
 	<ul class = 'windowTitle'><li>"._l("Rating/Layout сombinations")."</li></ul>
 	<ul class = 'messageLists'>");
-    while ($data = mysql_fetch_row ($result))
-	{
-		echo  ("
-		<li id = 'G".$data[0]."' class = 'selectable_list_item'>");
+    while ($data = mysql_fetch_row ($result)){
 
 // Читаем кто лучше сыграл ----------------------------- Если есть ктото лучше вставляем его данные
-		$data_=mysql_fetch_row(f_mysqlQuery ("SELECT id_user, users.login, score FROM games_".$theme."_com AS tb, users
-											WHERE id_game=".$data[0]." AND id_user=users.id
-											ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;"));
+		$data_=mysql_fetch_row(
+			f_mysqlQuery ("
+			    SELECT id_user, users.login, score
+				FROM games_".$theme."_com AS tb, users
+				WHERE id_game=".$data[0]." AND id_user=users.id
+			    ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;
+			")
+		);
+		$selectable = $_SESSION["id"] == $data_[0] ? "" : "selectable_list_item";
 		echo  ("
-    		<span class = 'top_list_item_number'>
-				".$data[0]."
-			</span>
+		<li id = 'G".$data[0]."' class = '".$selectable."'>
 			<div class = 'message_autor'>
 				<div class = 'avatar'>
 				".f_img (3, $data_[0])."
+				    		<span class = 'top_list_item_number text_insignificant'>
+								".$data[0]."
+							</span>
 				</div>
 				<span>".$data_[1]."</span>
 				<p class = 'data big'>".$data_[2]."</p>
 			</div>
 
 			<div class = 'text'>");
-		$result_ = f_mysqlQuery ("SELECT id_user, users.login, score FROM games_".$theme."_com AS s1, users
-								WHERE id_game=".$data[0]." AND id_user=users.id
-								ORDER BY s1.data, s1.time;");
+		$result_ = f_mysqlQuery ("
+		    SELECT id_user, users.login, score
+			FROM games_".$theme."_com AS s1, users
+			WHERE id_game=".$data[0]." AND id_user=users.id
+			ORDER BY s1.data, s1.time;
+		");
 		while ($data_=mysql_fetch_row($result_))
 		{
 			echo  ("
@@ -51,7 +63,7 @@
 				</div>");
 		}
 		echo ("
-			</div>");
+			</li>");
 	}
 	echo ("
 	</ul>");

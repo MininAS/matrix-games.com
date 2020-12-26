@@ -43,7 +43,7 @@ e_forumMessageBlock.onclick = function (event) {
 			e_forumNewMessageInputField.focus();
             currentMess = elm.parentNode.parentNode.parentNode.getAttribute('item');
 			e_forumCloseEditModeButton.style.display = 'block';
-			e_forumSaveMessageTitle.innerHTML = 'Редактирование сообщения';
+			e_forumSaveMessageTitle.innerHTML = _l("Notebook/Message editing");
 			break;
 		}
 		else elm = elm.parentNode;
@@ -107,7 +107,7 @@ function f_forumUpdateContent(theme){
 		e_forumNewMessageInputField.value = "";
 		e_forumCloseEditModeButton.style.display = 'none';
 		e_forumDeleteConfirmPopup.style.display = 'none';
-		e_forumSaveMessageTitle.innerHTML = 'Новое сообщение';
+		e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
 		if (parentTheme != 0) f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
 		else f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
 		if (currentTheme == 0) f_changeInputFieldDisablement(e_forumNewMessageInputField, true);

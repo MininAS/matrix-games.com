@@ -68,14 +68,18 @@
 	$log = $theme."/".$canvasLayout; log_file ($log);
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
-		<ul class = 'windowTitle'><li>"._l('Game names/'.$theme)." <i id = 'game_sport'> №".$canvasLayout."</i></li></ul>
+		<ul class = 'windowTitle'>
+		    <li>"._l('Game names/'.$theme)."
+			    <i id = 'game_sport'> №".$canvasLayout."</i>
+			</li>
+		</ul>
 		<div id = 'game'></div>
 	</div>
 	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=17'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=12'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=12.1'></script>";
 
 	require ("display.php");
 ?>

@@ -1,8 +1,4 @@
 <?
-set_error_handler('f_error');
-date_default_timezone_set('Europe/Moscow');
-$instant_message = 'none';
-
 // Файл frequency хранит число посещений сайта, вызывая эту функцию мы увеличиваем его на еденицу
 	function frequency_add ()
 	{
@@ -392,8 +388,6 @@ function save_avatar($id_outfile, $infile)
 }
 
 // Локализация тектовая
-$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
-
 function _l($str, $lang = 'default'){
 	$path = explode ('/', $str);
 	if ($lang == 'default')

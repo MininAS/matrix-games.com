@@ -28,7 +28,7 @@
 			    <div  class = 'text'>
 					<p>".$data[2]."</p>
 					<div class = 'forum_list_item_buttons'>
-				<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Remove")."</a>
+				<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Notebook/Remove")."</a>
 					</div>
 				</div>
 			</li>";

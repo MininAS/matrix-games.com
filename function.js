@@ -67,7 +67,7 @@ setTimeout (() =>{
 	text = e_windowInfoText.innerHTML;
 	if (text != 'none')
 	    f_windowInfoPopup ('info', text);
-}, 1000);
+}, 2000);
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
 function f_isWindowsHeightAlignment () {
@@ -171,7 +171,7 @@ function f_windowInfoPopup(s_name, s_text)
 			e_windowInfoText.innerHTML = s_text;
 			break;
 		case 'hide_popup':
-			e_windowInfoText.innerHTML = '';
+			e_windowInfoText.innerHTML = 'none';
 			e_windowInfoPopup.style.display = 'none';
 			e_windowInfoShadow.style.display = 'none';
 			flag_PAUSE = false;

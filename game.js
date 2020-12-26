@@ -66,8 +66,10 @@ function f_updateUserTopList () {
 function f_scrollAndSelectSubgameItem (){
 	if (i_canvasLayout > 0){
 		e = document.getElementById('G'+i_canvasLayout);
-		e.scrollIntoView();
-        e.classList.add ('selected_subgame_item');
+		if (e){
+			e.scrollIntoView();
+	        e.classList.add ('selected_subgame_item');
+		}
 	}
 }
 

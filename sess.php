@@ -1,4 +1,6 @@
 <?php
+set_error_handler('f_error');
+date_default_timezone_set('Europe/Moscow');
 // Открытие сессии
 	if (isset ($_COOKIE["LMG"])) session_id ($_COOKIE["LMG"]);
 	if (!isset ($_COOKIE["sound"])) {setcookie("sound", 'on', time()+31536000); $_COOKIE["sound"]="on";}
@@ -9,9 +11,13 @@
 	session_set_cookie_params (31536000);
 	session_start ();
 
-	mysql_connect("localhost", "root", "");
+	// mysql_connect("localhost", "root", "");
+	// mysql_query ("SET NAMES 'utf8'");
+	// mysql_select_db ("mininas_db");
+
+    mysql_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
 	mysql_query ("SET NAMES 'utf8'");
-	mysql_select_db ("mininas_db");
+	mysql_select_db ("matrix-gam_db");
 
 	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
 	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
@@ -26,6 +32,9 @@
 		");
 	}
 	$_SESSION["lang"] = $_COOKIE["lang"];
+	$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
+
+    $instant_message = 'none';
 
 // Восстановление переменных+++++++++++++++++++++++++
 	// Переменная переменного типа

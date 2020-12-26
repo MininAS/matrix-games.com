@@ -38,7 +38,7 @@ require ("sess.php");
  		exit('
 			{
 				"res": "100",
-				"message": '._l("Gamebook/The game was removed, perhaps right now.").'"
+				"message": "'._l("Gamebook/The game was removed, perhaps right now.").'"
 			}
 		');
 
