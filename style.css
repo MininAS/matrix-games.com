@@ -208,6 +208,9 @@ body > #body {
 /*=============== Левый экран с пользователями и играми ======================*/
 
 	#user_top {
+        -webkit-transition: all 2s;
+        transition: all 2s;
+        height: 500px;
 		min-width: 250px;
 	}
 		#user_top_middle {
@@ -216,7 +219,7 @@ body > #body {
 			display: block;
 			overflow: auto;
 			scroll-behavior: smooth;
-			height: 500px;
+			height: 480px;
 			padding: 20px 10px 0px 6px;
 		}
 

@@ -48,8 +48,7 @@ date_default_timezone_set('Europe/Moscow');
 	if (!isset ($_GET["sort"])) $_GET["sort"] = "id";
 	else {
 		$a_sort = array (
-			'id', 'login', 'data DESC',
-			'time DESC', 'N_visit DESC',
+			'id', 'login', 'data DESC, time DESC', 'N_visit DESC',
 			'N_ballov DESC', 'N_game DESC', 'N_mess DESC'
 		);
 		if (!in_array ($_GET["sort"], $a_sort)){

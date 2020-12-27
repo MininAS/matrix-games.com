@@ -72,12 +72,13 @@ setTimeout (() =>{
 // Выравниваем высоту окна user_top по высоте основного блока с играми
 function f_isWindowsHeightAlignment () {
 	var windowHeightFirst = 0;
-	windowUserTop = document.getElementById('user_top_middle');
+	windowUserTop = document.getElementById('user_top');
+	windowUserTopMiddle = document.getElementById('user_top_middle');
 	var idTime = setInterval( function () {
 		if (typeof windowUserTop == 'object') {
 			windowHeight = getComputedStyle(document.getElementById('box_game')).height;
-			windowHeight = (windowHeight.replace(/px/g, '') - 46) + 'px';
-			windowUserTop.style.height = windowHeight;
+			windowUserTop.style.height = (windowHeight.replace(/px/g, '') - 26) + 'px';
+			windowUserTopMiddle.style.height = (windowHeight.replace(/px/g, '') - 46) + 'px';
   		if (windowHeightFirst == windowHeight) clearInterval(idTime);
 			windowHeightFirst = windowHeight;
 		}

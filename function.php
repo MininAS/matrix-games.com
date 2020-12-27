@@ -172,7 +172,7 @@ function f_mail ($user, $mail_mess, $lang = 'default')
 				margin: 0px auto; text-align: center;
 			}
 			table {
-				border: 3px solid #fff; max-width: 500px; margin: 0px auto;
+				border: 3px solid #fff; max-width: 600px; margin: 0px auto;
 				border-radius: 6px; background-color: #f7f7f7;
 				padding: 5px; box-shadow: 0px 0px 5px #888;
 				filter: progid:DXImageTransform.Microsoft.Shadow(color='#888', Direction=145, Strength=3);

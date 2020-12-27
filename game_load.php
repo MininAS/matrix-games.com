@@ -7,7 +7,7 @@ require ("sess.php");
 		exit ('
 			{
 				"res": "100",
-				"message": "'._l("Gamebook/Please, login that you'll be able in competition.").'"
+				"message": "'._l("Gamebook/Please, login that you'll be able to competition.").'"
 			}
 		');
 	}
