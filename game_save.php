@@ -2,8 +2,7 @@
 	require ("function.php");
 	require ("sess.php");
 
-	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin")
-	{
+	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin"){
 		exit ('
 			{
 				"res": "100",
@@ -22,12 +21,6 @@
 		');
 	}
 
-	$result = f_mysqlQuery ("
-		SELECT id FROM games_".$theme."_com
-		WHERE id IN (SELECT MIN(id) FROM games_".$theme."_com
-		GROUP BY id_game) AND id_user=".$_SESSION["id"].";");
-	$count = mysql_num_rows($result);
-
 	$string = explode (":", $subGameData);
 
 	if ($string[2] <= 100){
@@ -39,8 +32,8 @@
 		');
 	}
 
-	if ($canvasLayout == "0")
-	{
+    $count = getUserThemeGameAmount ($theme, $_SESSION["id"]);
+	if ($canvasLayout == "0"){
 		if ($count >= 5)
 			exit('
 				{

@@ -215,19 +215,9 @@ function IP_quest ()
 	}
 	return count ($arr);
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-// Обработка запроса к БД
-function f_mysqlQuery($query)
-{
-	$result = mysql_query($query);
-	if (!$result) {
-		$result = "Запрос: ".$query." - выдал ошибку: ". mysql_error()."/n";
-		log_file ($result);
-	}
-	else return $result;
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-// Обработка ошибок в PHP
+
+// Обработка ошибок в PHP ------------------------------------------------------
+
 function f_error($error, $text, $file, $line=0)
 {
 	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."/n";
@@ -235,78 +225,9 @@ function f_error($error, $text, $file, $line=0)
 	f_mail (1, $string);
 	return false;
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-// Ежедневное резевное сохранение базы данных
-function db_saver()
-{
-	$result = f_mysqlQuery("SHOW TABLES");
-	$tables = array();
-	for($i = 0; $i < mysql_num_rows($result); $i++)
-	{
-		$row = mysql_fetch_row($result);
-		$tables[] = $row[0];
-	}
 
-	$fp = fopen("db_saver/".date ("Y.m.d").".sql","w");
-	$text = "
--- SQL Dump
--- База дынных сайта LMG
--- MininAS
-";
+// Вход через Вконтакте --------------------------------------------------------
 
-	fwrite($fp,$text);
-	foreach($tables as $item)
-	{
-		$text = "
--- ---------------------------------------------------
-
---
--- Структура таблицы - ".$item."
---
-		";
-		fwrite($fp,$text);
-		$text = "";
-		$sql = "SHOW CREATE TABLE ".$item;
-		$result = f_mysqlQuery($sql);
-		$row = mysql_fetch_row($result);
-		$text .= "\n".$row[1].";";
-		fwrite($fp,$text);
-		$text = "";
-		$text .="
-
---
--- Дамп данных таблицы ".$item."
---
-		";
-		$text .= "\nINSERT INTO `".$item."` VALUES";
-		fwrite($fp,$text);
-		$sql2 = "SELECT * FROM `".$item."`";
-		$result2 = f_mysqlQuery($sql2);
-		$text = "";
-		for($i = 0; $i < mysql_num_rows($result2); $i++)
-		{
-			$row = mysql_fetch_row($result2);
-			if($i == 0) $text .= "\n(";
-			else  $text .= ",\n(";
-			foreach($row as $v)
-			{
-				$text .= "'".mysql_real_escape_string($v)."',";
-			}
-			$text = rtrim($text,",");
-			$text .= ")";
-			if($i > 10)
-			{
-				fwrite($fp,$text);
-				$text = "";
-			}
-		}
-		$text .= ";\n";
-		fwrite($fp,$text);
-	}
-	fclose($fp);
-}
-
-// Вход через Вконтакте -------------------------------------------------------------------------------
 function authOpenAPIMember()
 {
 	$session = array();
@@ -411,4 +332,6 @@ function f_getTranslatedText ($lang){
 	$arr = json_decode($string, true);
 	return  $arr;
 }
+
+require ("sql_queries.php");
 ?>

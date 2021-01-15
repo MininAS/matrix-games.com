@@ -30,7 +30,8 @@ switch($_GET["lang"]){
         Records are already immortalized game results. You can be here also but it will be more difficult.<br>
 		&nbsp&nbsp&nbsp&nbsp
 		To select a game, you need to click on a game block by a picture or a  text, you will go to a zero game - this is a new layout of a field.
-        Only five games can be saved (you must be registered).
+        Only five games can be saved (you must be registered).<br>
+        A mark - <img src = 'img/user_theme_game_amount_checkbox.png' alt='checkbox'/> points to your saved games.
         If you saved at least one, you can compete with other players.
         To compete, you need to choose a game from the tournament table or select it directly in the game
         in the "Layout Combinations" list on the page right side, where an fully list of games will be presented.<br>
@@ -57,7 +58,7 @@ switch($_GET["lang"]){
 		если вы у себя на странице - то информация будет по вашим наградам,
 		если в игре то по результатам рекордов и набранных медалей за все время. <br>
 		- <img src = 'img/k_pause.png' alt='Пауза'/> - необходима в некоторых играх если вы вздумали отлучиться на не долго. <br>
-		- <img src = 'img/k_newgame.png' alt='Начать заново'/> - в режиме игры для начала новой комбинации игры. <br>
+		- <img src = 'img/k_new_game.png' alt='Начать заново'/> - в режиме игры для начала новой комбинации игры. <br>
 		- <img src = 'img/k_save.png' alt='Сохранение игры'/> - в некоторых играх для ручного сохранения (например \"Замыкание\"). <br>
 		- <img src = 'img/k_sound_on.png' alt='Звук'/> - включение и выключение звука. <br>
 		- <img src = 'img/k_lang_rus.png' alt='Язык'/> - смена языка - русский/английский. <br>
@@ -73,7 +74,8 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
 		Для выбора игры вам необходимо нажать по блоку игры по картинке или тексту, вы перейдете к нулевой игре - это новый расклад поля.
 		Сохранить можно только пять игр (вы должны быть зарегистрированы),
-		а сохранив хотя бы одну, вы можете соревноваться с другими игроками.
+		а сохранив хотя бы одну, вы можете соревноваться с другими игроками.<br>
+        Маркер - <img src = 'img/user_theme_game_amount_checkbox.png' alt='checkbox'/> укажет на количество, уже сохранненых вами игр.
 		Для соревнования вам необходимо выбрать игру из турнирной таблицы или выбрать ее непосредственно в игре
 		в списке «Комбинации полей» в правой части экрана, где будет представлен весь список партий.<br>
 		&nbsp&nbsp&nbsp&nbsp

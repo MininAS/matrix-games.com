@@ -79,7 +79,7 @@
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=17'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=12.1'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=13'></script>";
 
 	require ("display.php");
 ?>

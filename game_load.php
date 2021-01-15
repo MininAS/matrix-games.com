@@ -12,13 +12,8 @@ require ("sess.php");
 		');
 	}
 
-	$result = f_mysqlQuery ("
-		SELECT id FROM games_".$theme."_com
-		WHERE id IN (SELECT MIN(id) FROM games_".$theme."_com GROUP BY id_game)
-		AND id_user=".$_SESSION["id"].";");
-	$NplayGame = mysql_num_rows($result);
-
-	if ($NplayGame < 1)
+	$count = getUserThemeGameAmount ($theme, $_SESSION["id"]);
+	if ($count < 1)
 		exit('
 			{
 				"res": "100",

@@ -2,7 +2,6 @@ var e_layoutNumber = document.getElementById('game_sport')
 var e_scoreViewer = document.getElementById('myNballov')
 var e_topWindow = document.getElementById('user_top_middle')
 var e_newGameButton = document.getElementById('k_newGame')
-
 var s_theme = document.getElementById('theme').value;
 var i_canvasLayout = parseInt (document.getElementById('canvasLayout').value);
 var i_score = 0;
@@ -87,19 +86,19 @@ e_topWindow.onclick = function (event){
 	event = event || window.event;
 	elm = event.target;
 	while (elm != e_topWindow){
-		if (elm.tagName == 'LI') break;
+		if (elm.classList.contains('selectable_list_item')){
+			i_canvasLayout = parseInt (elm.id.match(/[0-9]+/g));
+			f_gameStart ();
+			break;
+		}
 		else elm = elm.parentNode;
 	}
-	i_canvasLayout = parseInt (elm.id.match(/[0-9]+/g));
-	f_gameStart ();
 }
 
 e_newGameButton.onclick = function(){
 	i_canvasLayout = 0;
 	f_gameStart ();
 }
-f_greateGame ();
-f_gameStart ();
 
 function f_scrollScore (e, i) {
 	var o = document.createElement ('p');
@@ -124,3 +123,6 @@ function f_playSound (name) {
 		setTimeout (() => {o.remove()}, 100)
 	}
 }
+
+f_greateGame ();
+f_gameStart ();

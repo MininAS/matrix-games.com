@@ -11,14 +11,6 @@ date_default_timezone_set('Europe/Moscow');
 	session_set_cookie_params (31536000);
 	session_start ();
 
-	// mysql_connect("localhost", "root", "");
-	// mysql_query ("SET NAMES 'utf8'");
-	// mysql_select_db ("mininas_db");
-
-    mysql_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
-	mysql_query ("SET NAMES 'utf8'");
-	mysql_select_db ("matrix-gam_db");
-
 	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
 	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
 	$_SESSION["dopusk"] = isset ($_SESSION["dopusk"]) ? $_SESSION["dopusk"] : "";
