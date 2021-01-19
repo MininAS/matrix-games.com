@@ -59,7 +59,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
-				<? echo (_l('Regards Minin Aleksandr!'))?> (v12.1 - 15.12.2020)</p>
+				<? echo (_l('Regards Minin Aleksandr!'))?> (v13 - 15.01.2021)</p>
 			</div>
 		</div>
 	</div>

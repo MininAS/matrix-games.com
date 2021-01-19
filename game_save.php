@@ -103,7 +103,7 @@
 				    ._l('Game names/'.$theme, $data[4])
 				    ." № ".$canvasLayout." => ".$data_[2]
 				    .".<br><a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout
-				    ."'><br><&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]);
+				    ."'><br>&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]);
 				$regEdit = "20";
 				f_saveTecnicMessage($_SESSION["id"], $data[0],
 				    _l("Mails/I played you game successfully", $data[4])
