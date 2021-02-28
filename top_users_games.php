@@ -8,13 +8,13 @@
     if ($_SESSION["dopusk"]=="yes"){
 	    $userThemGameAmount = getUserThemeGameAmount ($theme, $_SESSION["id"]);
 		echo ("
-			<div class = 'gameExistenceCheckboxContainer'>
+			<div id = 'gameCheckboxContainer'>
 		");
 	    for ($i = 0; $i < 5; $i++){
-			$class = ($i < $userThemGameAmount) ? "green" : "";
+			$class = ($i < $userThemGameAmount) ? "openedGameCheckbox" : "";
 		    echo ("
-			    <ul class = 'gameExistenceCheckbox key'>
-				    <li class = '".$class."'></li>
+			    <ul class = 'gameCheckbox ".$class." key'>
+				    <li></li>
 				</ul>");
 		}
 		echo ("
@@ -74,16 +74,17 @@
 		");
 
 		if ($_SESSION["id"] == $winner[0] || $_SESSION["id"] == $pioneer[0]){
-			if ($_SESSION["id"] == $pioneer[0])
+			if ($_SESSION["id"] == $pioneer[0]){
 				echo ("
-				<ul class = 'gameExistenceCheckbox key'>
-					<li class = 'green'></li>
+				<ul class = 'gameCheckbox key openedGameCheckbox'>
+					<li></li>
 				</ul>
 				");
+			}
 		    if ($_SESSION["id"] == $winner[0])
 			    echo ("
-				<ul class = 'gameExistenceCheckbox key'>
-					<li class = 'blue'></li>
+				<ul class = 'gameCheckbox key winnedGameCheckbox'>
+					<li></li>
 				</ul>
 			    ");
 		}

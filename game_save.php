@@ -96,21 +96,21 @@
 			if ($data_[0] != $data[0])
 			{
 				f_mail ($data[0],
-				    $data_[1]." "
-					._l("Mails/played against you successfully.", $data[4])
-					." "
-				    ._l("Mails/New score in game", $data[4])." "
-				    ._l('Game names/'.$theme, $data[4])
-				    ." № ".$canvasLayout." => ".$data_[2]
-				    .".<br><a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout
-				    ."'><br>&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]);
-				$regEdit = "20";
+				    $data_[1]." ".
+					_l("Mails/played against you successfully.", $data[4])." ".
+				    _l("Mails/New score in game", $data[4])." ".
+				    _l('Game names/'.$theme, $data[4]).
+				    " № ".$canvasLayout." => ".$data_[2].
+				    ".<br><a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout.
+				    "'><br>&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]
+				);
 				f_saveTecnicMessage($_SESSION["id"], $data[0],
-				    _l("Mails/I played you game successfully", $data[4])
-					." "
-					._l('Game names/'.$theme, $data[4])
-					." № ".$canvasLayout." => ".$data_[2].".
-					<A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< "._l("Mails/Replay", $data[4])." >>></a>");
+				    _l("Mails/I played you game successfully", $data[4]).
+					" ".
+					_l('Game names/'.$theme, $data[4]).
+					" № ".$canvasLayout." => ".$data_[2].
+					". <A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< "._l("Mails/Replay", $data[4])." >>></a>"
+				);
 				echo('
 					{
 						"res": "200",

@@ -1,7 +1,7 @@
-var e_layoutNumber = document.getElementById('game_sport')
-var e_scoreViewer = document.getElementById('myNballov')
-var e_topWindow = document.getElementById('user_top_middle')
-var e_newGameButton = document.getElementById('k_newGame')
+const e_layoutNumber = document.getElementById('game_sport')
+const e_scoreViewer = document.getElementById('myNballov')
+const e_topWindow = document.getElementById('user_top_middle')
+const e_newGameButton = document.getElementById('k_newGame')
 var s_theme = document.getElementById('theme').value;
 var i_canvasLayout = parseInt (document.getElementById('canvasLayout').value);
 var i_score = 0;
@@ -70,6 +70,7 @@ function f_scrollAndSelectSubgameItem (){
 	        e.classList.add ('selected_subgame_item');
 		}
 	}
+	autoScrollingChBoxes();
 }
 
 function f_endGame() {
@@ -92,6 +93,43 @@ e_topWindow.onclick = function (event){
 			break;
 		}
 		else elm = elm.parentNode;
+	}
+}
+
+e_topWindow.onscroll = autoScrollingChBoxes;
+
+function autoScrollingChBoxes(){
+	const e_gameChBoxContainer = document.getElementById('gameCheckboxContainer')
+	if (!e_gameChBoxContainer) return
+	const e_scrollExChBox = Array.from(
+		e_gameChBoxContainer.getElementsByTagName('ul')
+	);
+	const e_listExChBox = Array.from(
+		document.querySelectorAll('.messageLists ul.openedGameCheckbox')
+	);
+    var scrollY = e_topWindow.scrollTop;
+	var containerHeight = e_gameChBoxContainer.getBoundingClientRect().height;
+
+	for (i = 0; i < 5; i++){
+		if (!e_listExChBox[i]){
+			if (i == 0)
+				e_scrollExChBox[0].style.top = '22px';
+			else {
+				y = e_scrollExChBox[i - 1].offsetTop;
+				e_scrollExChBox[i].style.top = `${y + 22}px`;
+			}
+			continue;
+		}
+		y = e_listExChBox[i].offsetTop - scrollY;
+        borderTop = i * 22 + 7;
+		borderBottom = containerHeight - ((5 - i) * 22 + 15);
+
+		if (y > borderTop && y < borderBottom)
+		    e_scrollExChBox[i].style.top = `${y - 2}px`;
+		else if (y <= borderTop)
+		    e_scrollExChBox[i].style.top = `${borderTop}px`;
+		else if (y >= borderBottom)
+		    e_scrollExChBox[i].style.top = `${borderBottom}px`;
 	}
 }
 

@@ -146,7 +146,7 @@
 			}
 		');
 		if (isset ($_POST["e_mail"])) f_mail ($_SESSION["id"],
-		_l("Mails/Register on the Logic Matrix Games website!"),
+		_l("Mails/Register on the Logic Matrix Games website!")."<br>".
 		_l("Mails/Hello!")."<br>".
 		_l("Mails/Thank you for visiting our website.")."<br>".
 		_l("Mails/If you like simple logic games, we will be glad to see you definitely again and again.")."<br>".

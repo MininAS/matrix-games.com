@@ -6,18 +6,26 @@ date_default_timezone_set('Europe/Moscow');
 	    if (preg_match("/sess_[0-9a-z]{32}/", $_COOKIE["LMG"]))
 	        session_id ($_COOKIE["LMG"]);
 
-	if (!isset ($_COOKIE["sound"])){
-		if (!in_array (($_COOKIE["lang"]), array("on", "off"))){
+	if (isset ($_COOKIE["sound"])){
+		if (!in_array (($_COOKIE["sound"]), array("on", "off"))){
 			setcookie("sound", 'on', time()+31536000);
 			$_COOKIE["sound"]="on";
 		}
 	}
+	else {
+		setcookie("sound", 'on', time()+31536000);
+		$_COOKIE["sound"]="on";
+	}
 
-	if (!isset ($_COOKIE["lang"])){
+	if (isset ($_COOKIE["lang"])){
 		if (!in_array (($_COOKIE["lang"]), array("rus", "eng"))){
 			setcookie("lang", 'rus', time()+31536000);
 			$_COOKIE["lang"]="rus";
 		}
+	}
+	else {
+		setcookie("lang", 'rus', time()+31536000);
+		$_COOKIE["lang"]="rus";
 	}
 
 	session_name ("LMG");
@@ -117,7 +125,7 @@ date_default_timezone_set('Europe/Moscow');
 		$a_sessionData = array();
 		foreach ($arr as $key) {
 			$data = preg_split ('/\|s:[0-9]+:/', $key);
-			$a_sessionData[$data[0]] = $data[1] ? $data[1] : '';
+			$a_sessionData[$data[0]] = isset($data[1]) ? $data[1] : '';
 		}
 		return $a_sessionData;
 	}
