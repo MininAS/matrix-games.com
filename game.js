@@ -109,7 +109,8 @@ function autoScrollingChBoxes(){
 	);
     var scrollY = e_topWindow.scrollTop;
 	var containerHeight = e_gameChBoxContainer.getBoundingClientRect().height;
-
+	var containerWidth = e_topWindow.getBoundingClientRect().width;
+	
 	for (i = 0; i < 5; i++){
 		if (!e_listExChBox[i]){
 			if (i == 0)
@@ -121,15 +122,22 @@ function autoScrollingChBoxes(){
 			continue;
 		}
 		y = e_listExChBox[i].offsetTop - scrollY;
+		x = e_listExChBox[i].offsetLeft - containerWidth + 16;
         borderTop = i * 22 + 7;
 		borderBottom = containerHeight - ((5 - i) * 22 + 15);
 
-		if (y > borderTop && y < borderBottom)
+		if (y > borderTop && y < borderBottom){
 		    e_scrollExChBox[i].style.top = `${y - 2}px`;
-		else if (y <= borderTop)
+			e_scrollExChBox[i].style.left = `${x}px`;
+		}
+		else if (y <= borderTop){
 		    e_scrollExChBox[i].style.top = `${borderTop}px`;
-		else if (y >= borderBottom)
+			e_scrollExChBox[i].style.left = '3px';
+		}
+		else if (y >= borderBottom){
 		    e_scrollExChBox[i].style.top = `${borderBottom}px`;
+			e_scrollExChBox[i].style.left = '3px';
+	    }
 	}
 }
 

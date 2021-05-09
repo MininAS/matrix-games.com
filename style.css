@@ -248,9 +248,13 @@ body > #body {
 		width: 22px;
         height: 100%;
     }
-	#gameCheckboxContainer .gameCheckbox{
+	#gameCheckboxContainer .gameCheckbox {
         position: absolute;
+		transition: left 0.5s;
     }
+	.messageLists .openedGameCheckbox{
+		opacity: 0.2;
+	}
         .gameCheckbox{
             display: inline;
         	margin: 2px;

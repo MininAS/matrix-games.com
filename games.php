@@ -45,7 +45,7 @@
 			{
 				f_mysqlQuery ("INSERT games_".$theme."_med (id_user, medal, score)
 								VALUE (".$data[1].", ".$medal.", ".$data[2].");");
-				$q = _l("Mails/, also you earned a medal", $data[6])." <IMG SRC = 'img/medal_".$medal.".gif' alt = 'Medal'/>.";
+				$q = _l("Mails/, also you earned a medal", $data[6])." <img src = 'img/medal_".$medal.".gif' alt = 'Medal'/>.";
 			}
 			$message = _l("Game", $data[6])." "
 			    ._l('Game names/'.$theme, $data[6])
@@ -60,7 +60,7 @@
 					log_file ("Удаление игры. Получает балл ".$data[1]." с результатом ".$data[2]." очков.");
 				}
 		}
-		else $instant_message = _l("The game had have removde already.");
+		else $instant_message = _l("The game had have removed already.");
 		$canvasLayout = 0;
 	}
 
@@ -79,7 +79,7 @@
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=17'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=14.2'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=14.3'></script>";
 
 	require ("display.php");
 ?>
