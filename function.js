@@ -14,11 +14,11 @@ for(var i=0; i<animeWindows.length; i++)
 {
 	animeWindows[i].onmouseenter = function()
 	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=3';
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=4';
 	}
 	animeWindows[i].onmouseleave = function ()
 	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=3';
+		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=4';
 	}
 }
 
@@ -274,11 +274,11 @@ function f_changeLanguage ()
 	window.location.reload();
 }
 
-function f_showSoundButton () {
-	e_soundButton = document.getElementById('k_sound');
-	var idTime = setInterval( function () {
-		if (typeof e_soundButton == 'object') {
-			e_soundButton.style.display = 'inline-block';
+function f_showElementById (id) {
+	let elm = document.getElementById(id);
+	let idTime = setInterval( function () {
+		if (typeof elm == 'object') {
+			elm.style.display = 'inline-block';
   		    clearInterval(idTime);
 		}
 	}, 500);

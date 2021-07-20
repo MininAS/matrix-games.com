@@ -78,6 +78,11 @@
 				<img src = 'img/k_new_game.png' alt='"._l('Tooltips/New game')."'/>
 			</a>
 		</li>
+		<li id = 'k_revert'>
+			<a href = '#' onClick = 'f_revertLastMotion();'>
+				<img src = 'img/k_revert.png' alt='"._l('Tooltips/Revert')."'/>
+			</a>
+		</li>
 		<li id = 'k_endGame'>
 			<a href = '#' onClick = 'f_endGame ();'>
 				<img src = 'img/k_save.png' alt='"._l('Tooltips/Save game')."'/>

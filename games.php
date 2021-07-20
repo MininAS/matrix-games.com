@@ -48,8 +48,8 @@
 				$q = _l("Mails/, also you earned a medal", $data[6])." <img src = 'img/medal_".$medal.".gif' alt = 'Medal'/>.";
 			}
 			$message = _l("Game", $data[6])." "
-			    ._l('Game names/'.$theme, $data[6])
-			    ." №".$canvasLayout
+				._l('Game names/'.$theme, $data[6])
+				." №".$canvasLayout
 				." "._l("Mails/where you were winer has been deleted and your rating has been raised by one", $data[6]).$q;
 			f_mail ($data[1], $message, $data[6]);
 			f_saveTecnicMessage (0, $data[1], $message);
@@ -69,7 +69,7 @@
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
 		<ul class = 'windowTitle'>
-		    <li>"._l('Game names/'.$theme)."
+			<li>"._l('Game names/'.$theme)."
 			    <i id = 'game_sport'> №".$canvasLayout."</i>
 			</li>
 		</ul>
@@ -78,8 +78,9 @@
 	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=17'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=14.3'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18
+	'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=14.5'></script>";
 
 	require ("display.php");
 ?>

@@ -39,7 +39,7 @@ e.addEventListener('touchmove', function(event) {
 }, false);
 e.addEventListener('touchmove', f_mousemove);
 
-f_showSoundButton ();
+f_showElementById ('k_sound');
 
 	<!--Создаем массив игрового поля-->
 function f_greateGame ()

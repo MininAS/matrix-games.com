@@ -12,7 +12,7 @@ var i_Nverify = 0;    			// количество проверок за один 
 var i_Nball;					// кол-во на удаление
 
 document.getElementById('game').style.width = XxX * QqQ+"px";
-f_showSoundButton ();
+f_showElementById ('k_sound');
 
 	<!--Создаем массив игрового поля-->
 function f_greateGame (){

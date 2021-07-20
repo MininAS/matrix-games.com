@@ -16,7 +16,7 @@ e.addEventListener('touchmove', function(event) {
 }, false);
 e.classList.toggle('noselect');
 
-f_showSoundButton ();
+f_showElementById ('k_sound');
 
 	<!--Доздаем массив игрового поля-->
 function f_greateGame ()

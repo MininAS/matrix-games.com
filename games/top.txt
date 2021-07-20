@@ -1,1 +1,1 @@
-filler	sphere	number	barrel	sapper	circuit	slicing	bouncer	tetris	tetcolor
+slicing	filler	sphere	number	barrel	sapper	circuit	bouncer	tetris

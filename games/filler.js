@@ -1,15 +1,15 @@
-var matrix = [];
+const matrix = [];
 var yourSquare = {};
 var compSquare = {};
-var XxX = 30;
-var YyY = 20;
+const XxX = 30;
+const YyY = 20;
+const square_size = 24
 var i_squares_of_comp = 0;
 
 const arrColor = ["White", "Blue", "Red", "Magenta", "Lime", "Orange", "Yellow"]
 
-document.getElementById('game').style.width = XxX * 24+"px";
-
 function f_greateGame(){
+	e_gameElementsContaner.style.width = XxX * square_size + "px";
 	for (i = 0; i <= (YyY - 1); i ++){
 		let row = [];
 		for (ii = 0; ii <= (XxX - 1); ii ++){
@@ -101,12 +101,7 @@ function f_paint(newColor, callback){
 	matrix.forEach(e => {
 		e.forEach(e => {
             if (e.tmpCol == 1){
-				arr = [];
-				if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
-				if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
-				if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
-			    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
-			 	arr.forEach(e_ => {
+			 	f_getNeighbourSquares(e).forEach(e_ => {
 				 	if (e_.tmpCol == 0 && e_.color == e.color){
 						e_.tmpCol = 2;
 						flag_END = false;
@@ -155,6 +150,15 @@ function f_paint(newColor, callback){
 	else setTimeout(f_paint, 0, newColor, callback);
 }
 
+function f_getNeighbourSquares (e){
+	const arr = [];
+	if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
+	if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
+	if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
+    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
+	return arr;
+}
+
 function f_clearTmpCol(){
 	matrix.forEach(e => {
 		e.forEach(e => {
@@ -171,12 +175,7 @@ function f_getSquaresAmount(){
 		matrix.forEach(e => {
 			e.forEach(e => {
 	            if (e.tmpCol == 1){
-					arr = [];
-					if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
-					if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
-					if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
-				    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
-				 	arr.forEach(e_ => {
+				 	f_getNeighbourSquares(e).forEach(e_ => {
 					 	if (e_.tmpCol == 0 && e_.color == e.color){
 							e_.tmpCol = 1;
 							flag_END = false;
@@ -205,12 +204,7 @@ function f_calculateMaxAmountColorAround (){
 		matrix.forEach(e => {
 			e.forEach(e => {
 		           if (e.tmpCol == 4){
-					let arr = [];
-					if ((e.i_x + 1) < XxX) arr.push(matrix[e.i_y][e.i_x + 1]);
-					if ((e.i_x - 1) >= 0)  arr.push(matrix[e.i_y][e.i_x - 1]);
-					if ((e.i_y + 1) < YyY) arr.push(matrix[e.i_y + 1][e.i_x]);
-				    if ((e.i_y - 1) >= 0)  arr.push(matrix[e.i_y - 1][e.i_x]);
-				 	arr.forEach(e => {
+				 	f_getNeighbourSquares(e).forEach(e => {
 					 	if (e.tmpCol == 0 && e.color == i){
 							e.tmpCol = 1;
 						}
@@ -243,15 +237,14 @@ function f_newGame (){
 	f_clearTmpCol();
 }
 
-function f_oldGame()
-{
-	for (i = 0; i <= (XxX - 1); i ++){
-		for (ii = 0; ii <= (YyY - 1); ii++){
-			e = matrix[ii][i];
-			qq = i * 20 + ii;
-			str = i_canvasKeymap.substr (qq, 1);
+function f_oldGame(){
+	let i = 0;
+	matrix.forEach(e => {
+		 e.forEach(e => {
+			str = i_canvasKeymap.substr (i, 1);
 			e.setElmColor(str);
 			e.setDefaultStyle();
-		}
-	}
+			i ++;
+		})
+	})
 }

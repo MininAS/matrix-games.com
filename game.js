@@ -1,3 +1,4 @@
+const e_gameElementsContaner = document.getElementById('game');
 const e_layoutNumber = document.getElementById('game_sport')
 const e_scoreViewer = document.getElementById('myNballov')
 const e_topWindow = document.getElementById('user_top_middle')
@@ -146,16 +147,16 @@ e_newGameButton.onclick = function(){
 	f_gameStart ();
 }
 
-function f_scrollScore (e, i) {
+function f_scrollScore (elm, i) {
 	var o = document.createElement ('p');
 	document.getElementById('game_block').appendChild(o);
 	o.innerHTML = i;
 	o.className = 'border_inset scroll_score';
-	o.style.top = e.offsetTop + 'px';
-	o.style.left = e.offsetLeft + 'px';
+	o.style.top = elm.offsetTop + 'px';
+	o.style.left = elm.offsetLeft + 'px';
 	randomOffset = Math.random() * (400 - 100) + 100;
 	setTimeout (() => {
-		o.style.top = e.offsetTop - Math.round(randomOffset) + 'px';
+		o.style.top = elm.offsetTop - Math.round(randomOffset) + 'px';
 		o.style.opacity = 0;}, 10);
 	o.addEventListener('transitionend', () => {o.remove();});
 	o.addEventListener('webkitTransitionEnd', () => {o.remove();});

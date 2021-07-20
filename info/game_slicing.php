@@ -8,6 +8,7 @@ switch($_GET["lang"]){
         A mouse click will remove the squares from the field.
         A points sum is equal an  arithmetic progression of the number of squares removed simultaneously.
         You can see the amount in the tooltip if you hover over them.
+		You can revert a last motion by certain menu button or mouse right button.
         <?
         break;
 
@@ -18,6 +19,7 @@ switch($_GET["lang"]){
         если их несколько рядом одного цвета. Клик мышью удалит квадраты с поля.
         Сумма очков, равна арифметической прогрессии от количества одновременно удаляемых квадратов.
         Сумму вы можете найти в подсказке, если наведете курсор на них.
+		Вы можете отменить последнее движение с помощью определенной кнопки меню или правой кнопки мыши.
 		<?
 }
 ?>

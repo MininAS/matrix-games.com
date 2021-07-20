@@ -650,7 +650,7 @@ body > #body {
 	cursor: pointer;
 }
 
-#k_pauseGame, #k_endGame, #k_sound{
+#k_pauseGame, #k_endGame, #k_sound, #k_revert{
 	display: none;
 }
 .submit {
