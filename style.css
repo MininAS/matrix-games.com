@@ -252,16 +252,18 @@ body > #body {
         position: absolute;
 		transition: left 0.5s;
     }
-	.messageLists .openedGameCheckbox{
+	#user_top .messageLists .openedGameCheckbox{
 		opacity: 0.2;
 	}
+    .messageLists .gameCheckbox{
+			float: right;
+		}
         .gameCheckbox{
-            display: inline;
         	margin: 2px;
         	border: 2px solid #555;
         	background-color: #bbb;
         	border-radius: 4px;
-            float: right;
+            display: inline-block;
         }
             .gameCheckbox li{
                 width: 10px;
@@ -273,9 +275,12 @@ body > #body {
             .openedGameCheckbox li{
                 background-color: rgb(0,254,12);
             }
-            .winnedGameCheckbox li{
+            .wonGameCheckbox li{
                 background-color: rgb(63,72,204);
-        }
+            }
+            .deletedGameCheckbox li{
+                background-color: rgb(255, 0, 0);
+            }
 
 /*=============== Список игр =================================================*/
   #box_game {
@@ -553,13 +558,19 @@ body > #body {
 }
 
 #info_div {
-	text-align: center;
+	text-align: justify;
 	min-width: 200px;
     max-width: 1000px;
 	max-height: 400px;
 	padding: 10px;
 	margin: 0px auto;
 	overflow: auto;
+}
+#info_div img{
+	margin-bottom: -10px;
+}
+#info_div ul{
+	margin-bottom: -5px;
 }
 
 #statistic {

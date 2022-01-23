@@ -17,22 +17,61 @@
 		else return $result;
 	}
 
-	function getUserThemeGameAmount ($theme, $user){
+	function getUserSubgameAmount ($game, $user){
 		$result = f_mysqlQuery ("
 			SELECT id
-			FROM games_".$theme."_com
+			FROM games_".$game."_com
 			WHERE id IN (
 				SELECT MIN(id)
-				FROM games_".$theme."_com
+				FROM games_".$game."_com
 			    GROUP BY id_game
 			)
 			AND id_user=".$user.";"
 		);
-		if (@mysql_num_rows($result)) 
+		if (@mysql_num_rows($result))
 		    return mysql_num_rows($result);
 		else
 		    return 0;
 	}
+
+	function getSubgameСreator ($game, $subgame){
+		$result = f_mysqlQuery ("
+			SELECT *
+			FROM games_".$game."
+			WHERE id_game=".$subgame.";"
+		);
+		$count = mysql_num_rows($result);
+		if ($count != 1)
+            return "none";
+		$result = f_mysqlQuery ("
+			SELECT id_user
+			FROM games_".$game."_com
+			WHERE id IN (
+				SELECT MIN(id)
+				FROM games_".$game."_com
+				WHERE id_game=".$subgame."
+			);"
+		);
+		$data = mysql_fetch_row($result);
+		return $data[0];
+	}
+
+    function getSubgameBestPlayer ($game, $subgame){
+		$result = f_mysqlQuery ("
+			SELECT id_user, users.login, score, users.lang
+			FROM games_".$game."_com AS tb, users
+			WHERE id_game=".$subgame." AND id_user=users.id
+			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
+		$data = mysql_fetch_row ($result);
+		$array = array (
+			"id" =>    $data[0],
+			"login" => $data[1],
+			"score" => $data[2],
+			"lang" =>  $data[3],
+		);
+        return $array;
+	}
+
 
 // Ежедневное резевное сохранение базы данных
 	function db_saver(){

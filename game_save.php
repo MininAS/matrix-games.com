@@ -32,7 +32,7 @@
 		');
 	}
 
-    $count = getUserThemeGameAmount ($theme, $_SESSION["id"]);
+    $count = getUserSubgameAmount ($theme, $_SESSION["id"]);
 	if ($canvasLayout == "0"){
 		if ($count >= 5)
 			exit('
@@ -70,12 +70,7 @@
 				}
 			');
 
-		$result = f_mysqlQuery ("
-			SELECT id_user, users.login, users.F_mailG, users.mail, users.lang
-			FROM games_".$theme."_com AS tb, users
-			WHERE id_game=".$canvasLayout." AND id_user=users.id
-			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
-		$data = mysql_fetch_row($result);
+		$bestPlayer_old = getSubgameBestPlayer ($theme, $canvasLayout);
 
 		if (f_mysqlQuery ("
 				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
@@ -86,31 +81,32 @@
 			log_file ("Сохранение игры в ".$theme." №".$canvasLayout.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 
-			$result = f_mysqlQuery ("
-				SELECT id_user, users.login, score
-				FROM games_".$theme."_com AS tb, users
-				WHERE id_game=".$canvasLayout." AND id_user=users.id
-				ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
-			$data_ = mysql_fetch_row($result);
+			$bestPlayer_new = getSubgameBestPlayer ($theme, $canvasLayout);
+			$creator = getSubgameСreator ($theme, $canvasLayout);
 
-			if ($data_[0] != $data[0])
-			{
-				f_mail ($data[0],
-				    $data_[1]." ".
-					_l("Mails/played against you successfully.", $data[4])." ".
-				    _l("Mails/New score in game", $data[4])." ".
-				    _l('Game names/'.$theme, $data[4]).
-				    " № ".$canvasLayout." => ".$data_[2].
-				    ".<br><a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout.
-				    "'><br>&lt;&lt;&lt; "._l("Mails/Replay", $data[4])." >>><a>", $data[4]
-				);
-				f_saveTecnicMessage($_SESSION["id"], $data[0],
-				    _l("Mails/I played you game successfully", $data[4]).
-					" ".
-					_l('Game names/'.$theme, $data[4]).
-					" № ".$canvasLayout." => ".$data_[2].
-					". <A href =\"./games.php?theme=".$theme."&canvasLayout=".$canvasLayout."\"><br><<< "._l("Mails/Replay", $data[4])." >>></a>"
-				);
+			if ($bestPlayer_new["id"] != $bestPlayer_old["id"]) {
+				$message = $bestPlayer_new["login"]." ".
+					_l("Mails/played against you successfully.", $bestPlayer_old["lang"])." ".
+				    _l("Mails/New score in game", $bestPlayer_old["lang"])." ".
+				    _l('Game names/'.$theme, $bestPlayer_old["lang"]).
+				    " № ".$canvasLayout." => ".$bestPlayer_new["score"].".";
+
+				if ($bestPlayer_old["id"] != $creator)
+				    $message .= "<br>
+				    <a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayout=".$canvasLayout.
+				    "'><br>&lt;&lt;&lt; "._l("Mails/Replay", $bestPlayer_old["lang"])." >>><a>";
+
+				f_mail ($bestPlayer_old["id"], $message, $bestPlayer_old["lang"]);
+
+				if ($bestPlayer_old["id"] != $creator)
+				    $message = _l("Mails/I won your last score", $bestPlayer_old["lang"]);
+				else
+					$message = _l("Mails/I played your game successfully", $bestPlayer_old["lang"]);
+				$message .= " "._l('Game names/'.$theme, $bestPlayer_old["lang"]).
+				    " № ".$canvasLayout." => ".$bestPlayer_new["score"].".";
+
+				f_saveTecnicMessage($_SESSION["id"], $bestPlayer_old["id"], $message, $theme, $canvasLayout);
+
 				echo('
 					{
 						"res": "200",

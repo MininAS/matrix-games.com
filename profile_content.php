@@ -8,9 +8,12 @@
 	}
 
 	$text = "";
-	$result = f_mysqlQuery ("SELECT s1.id, s1.id_user, text, s1.time, s1.data, s2.login FROM users_mess AS s1, users AS s2
-							WHERE s1.id_tema=".$_SESSION["id"]." AND s1.basket=0 AND s1.id_user=s2.id ORDER BY s1.data DESC, s1.time DESC;");
+	$result = f_mysqlQuery ("
+	    SELECT s1.id, s1.id_user, text, s1.time, s1.data, s2.login, game, subgame
+		FROM users_mess AS s1, users AS s2
+		WHERE s1.id_tema=".$_SESSION["id"]." AND s1.basket=0 AND s1.id_user=s2.id ORDER BY s1.data DESC, s1.time DESC;");
 	$count = mysql_num_rows($result);
+
 	if ($count >= 1){
 		$text .= "
 			<ul class = 'messageLists'>";
@@ -24,11 +27,39 @@
 					<span>".$data[5]."</span>
 					<p class = 'data text_insignificant'>".$data[3]." / ".$data[4]."</p>
 				</div>
+			    <div  class = 'text'>";
 
-			    <div  class = 'text'>
-					<p>".$data[2]."</p>
-					<div class = 'forum_list_item_buttons'>
-				<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Notebook/Remove")."</a>
+				if ($data[6] != "" && $data[7] != 0){
+					$creator = getSubgameСreator ($data[6], $data[7]);
+					$bestPlayer = getSubgameBestPlayer ($data[6], $data[7]);
+					if ($creator == "none")
+						$text .= "
+						<ul class = 'gameCheckbox key deletedGameCheckbox'>
+						    <li></li>
+					    </ul>";
+                    else if ($creator == $_SESSION["id"])
+						$text .= "
+						<ul class = 'gameCheckbox key openedGameCheckbox'>
+						    <li></li>
+					    </ul>";
+					else if ($bestPlayer["id"] == $_SESSION["id"])
+						$text .= "
+						<ul class = 'gameCheckbox key wonGameCheckbox'>
+						    <li></li>
+					    </ul>";
+				}
+					$text .= "
+					    <p>".$data[2]."</p>
+						<div class = 'forum_list_item_buttons'>";
+
+				if ($data[6] != "" && $data[7] != 0)
+					if ($creator != "none" && $creator != $_SESSION["id"] && $bestPlayer["id"] != $_SESSION["id"])
+						$text .= "
+							<a href = './games.php?theme=".$data[6]."&canvasLayout=".$data[7]."'
+								class = 'text_insignificant'>"._l("Mails/Replay")."</a>";
+
+				$text .= "
+						<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Notebook/Remove")."</a>
 					</div>
 				</div>
 			</li>";

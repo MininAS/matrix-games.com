@@ -12,7 +12,7 @@ require ("sess.php");
 		');
 	}
 
-	$count = getUserThemeGameAmount ($theme, $_SESSION["id"]);
+	$count = getUserSubgameAmount ($theme, $_SESSION["id"]);
 	if ($count < 1)
 		exit('
 			{

@@ -86,14 +86,16 @@
 			';
 	}
 
-	function f_saveTecnicMessage($from, $user, $text){
-		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data)
+	function f_saveTecnicMessage($from, $user, $text, $game = "", $subgame = 0){
+		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data, game, subgame)
 					VALUE (
 						".$user.",
 						".$from.",
 						'".$text."',
 						'".date("H:i")."',
-						'".date("y.m.d")."'
+						'".date("y.m.d")."',
+						'".$game."',
+						'".$subgame."'
 					);
 				")
 			){

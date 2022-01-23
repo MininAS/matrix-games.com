@@ -6,7 +6,7 @@
 
 // Просмотр съигранных игр =====================================================
     if ($_SESSION["dopusk"]=="yes"){
-	    $userThemGameAmount = getUserThemeGameAmount ($theme, $_SESSION["id"]);
+	    $userThemGameAmount = getUserSubgameAmount ($theme, $_SESSION["id"]);
 		echo ("
 			<div id = 'gameCheckboxContainer'>
 		");
@@ -83,7 +83,7 @@
 			}
 		    if ($_SESSION["id"] == $winner[0])
 			    echo ("
-				<ul class = 'gameCheckbox key winnedGameCheckbox'>
+				<ul class = 'gameCheckbox key wonGameCheckbox'>
 					<li></li>
 				</ul>
 			    ");
