@@ -10,8 +10,9 @@
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
 			<li><p>"._l("Notebook/Note book")."</p></li>
+			<li id = 'forum_primary' class = 'key'><p>/</p></li>
+			<li id = 'forum_secondary' class = 'key'><p>//</p></li>
 		</ul>
-		<li id = 'k_up'></li>
 		<div id = 'messageWindow'>
 		</div>
 	</div>";
@@ -39,6 +40,6 @@
 	}
 
 	$body .= "
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=9.81'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=10.1'></script>";
 require ("display.php");
 ?>

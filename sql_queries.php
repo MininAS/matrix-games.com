@@ -72,6 +72,21 @@
         return $array;
 	}
 
+# forum -------------------------------------------------------------------
+
+    function getForumMessageById ($id){
+		$result = f_mysqlQuery ("
+			SELECT id_tema, id_user, text
+			FROM forum
+			WHERE id=".$id.";");
+		$data = mysql_fetch_row ($result);
+		$array = array (
+			"id_tema" => $data[0],
+			"id_user" => $data[1],
+			"text" =>    $data[2],
+		);
+        return $array;
+	}
 
 // Ежедневное резевное сохранение базы данных
 	function db_saver(){

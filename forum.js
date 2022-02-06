@@ -1,13 +1,14 @@
-var e_forumNewThemeInputField = document.querySelector('#formSendTheme [name="newThemeName"]');
-var e_forumNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
-var e_forumSaveMessageTitle = document.querySelector('#formSendMessage .windowTitle > li');
-var e_forumMessageBlock = document.getElementById('messageWindow');
-var e_forumDeleteConfirmPopup = document.getElementById('messDeleteConfirmPopup');
-var e_forumDeleteConfirmButton = document.querySelector('#messDeleteConfirmPopup .k_enter');
-var e_forumNewThemeSendButton = document.querySelector('#formSendTheme .k_enter');
-var e_forumNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
-var e_forumCloseEditModeButton = document.querySelector('#formSendMessage .k_close');
-var e_forumKeyUp = document.getElementById('k_up');
+const e_forumNewThemeInputField = document.querySelector('#formSendTheme [name="newThemeName"]');
+const e_forumNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
+const e_forumSaveMessageTitle = document.querySelector('#formSendMessage .windowTitle > li');
+const e_forumPrimaryTopic = document.querySelector('#forum_primary');
+const e_forumSecondaryTopic = document.querySelector('#forum_secondary');
+const e_forumMessageBlock = document.getElementById('messageWindow');
+const e_forumDeleteConfirmPopup = document.getElementById('messDeleteConfirmPopup');
+const e_forumDeleteConfirmButton = document.querySelector('#messDeleteConfirmPopup .k_enter');
+const e_forumNewThemeSendButton = document.querySelector('#formSendTheme .k_enter');
+const e_forumNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
+const e_forumCloseEditModeButton = document.querySelector('#formSendMessage .k_close');
 var currentTheme = 0;
 var parentTheme = 0;
 var currentMess = 0;
@@ -30,10 +31,7 @@ e_forumMessageBlock.onclick = function (event) {
 		else if (elm.classList.contains('forum_theme')) {
 			parentTheme = currentTheme;
 			currentTheme = elm.getAttribute('item');
-			if (currentTheme != 0) e_forumKeyUp.style.display = 'block';
-			else e_forumKeyUp.style.display = 'none';
 			f_forumUpdateContent(currentTheme);
-			f_isWindowsHeightAlignment();
 			break;
 		}
 		else if (elm.classList.contains('forum_redaction_message_link')){
@@ -48,14 +46,6 @@ e_forumMessageBlock.onclick = function (event) {
 		}
 		else elm = elm.parentNode;
 	}
-}
-
-e_forumKeyUp.onclick = function () {
-	currentTheme = parentTheme;
-	if (parentTheme == 0) e_forumKeyUp.style.display = 'none';
-	else parentTheme = 0;
-	f_forumUpdateContent(parentTheme);
-	f_isWindowsHeightAlignment ();
 }
 
 if (e_forumNewThemeSendButton)
@@ -101,20 +91,31 @@ if (e_forumDeleteConfirmPopup)
 
 function f_forumUpdateContent(theme){
 	theme = theme ? theme : currentTheme;
-	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme, null);
+	f_fetchUpdateContent('messageWindow', 'forum_content.php?theme=' + theme, f_isWindowsHeightAlignment);
 	if(e_forumNewThemeInputField){
 		e_forumNewThemeInputField.value = "";
 		e_forumNewMessageInputField.value = "";
 		e_forumCloseEditModeButton.style.display = 'none';
 		e_forumDeleteConfirmPopup.style.display = 'none';
 		e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
-		if (parentTheme != 0) f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
-		else f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
-		if (currentTheme == 0) f_changeInputFieldDisablement(e_forumNewMessageInputField, true);
-		else f_changeInputFieldDisablement(e_forumNewMessageInputField, false);
+		if (parentTheme != 0)
+			f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
+		else
+			f_changeInputFieldDisablement(e_forumNewThemeInputField, false);
+		if (currentTheme == 0)
+			f_changeInputFieldDisablement(e_forumNewMessageInputField, true);
+		else
+			f_changeInputFieldDisablement(e_forumNewMessageInputField, false);
 	}
+	if (parentTheme != 0)
+		e_forumSecondaryTopic.classList.toggle("hidden", false);
+	else
+		e_forumSecondaryTopic.classList.toggle("hidden", true);
+	if (currentTheme == 0)
+		e_forumPrimaryTopic.classList.toggle("hidden", true);
+	else
+		e_forumPrimaryTopic.classList.toggle("hidden", false);
 	currentMess = 0;
-	f_isWindowsHeightAlignment ();
 }
 
 function f_convertSmilesAndTagFormat(someText){
@@ -124,4 +125,15 @@ function f_convertSmilesAndTagFormat(someText){
 	someText = someText.replace(/<img src=\"smile\//g, '{[:');
 	someText = someText.replace(/.gif\">/g, ':]}');
 	return someText
+}
+
+e_forumPrimaryTopic.onclick = () => {
+	currentTheme = parentTheme = 0;
+	f_forumUpdateContent(parentTheme);
+}
+
+e_forumSecondaryTopic.onclick = () => {
+	currentTheme = parentTheme;
+	parentTheme = 0;
+	f_forumUpdateContent(parentTheme);
 }
