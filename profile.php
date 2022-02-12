@@ -16,18 +16,21 @@
 	{
 		if (isset ($_GET['photo']))
 			save_avatar($_SESSION["id"], $_GET['photo']);
-		else if (is_uploaded_file ($_FILES ["avatar"]["tmp_name"]))
-		{
+		else if (is_uploaded_file ($_FILES ["avatar"]["tmp_name"])) {
 			$avatar=$_FILES ["avatar"]["tmp_name"];
 			$avatar_type=$_FILES ["avatar"]["type"];
 			$avatar_size=$_FILES ["avatar"]["size"];
 			if ($avatar_size<=20000000 &&
-			      ($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
+			    ($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
 				|| $avatar_type=="image/png" || $avatar_type=="image/gif"))
-					save_avatar($_SESSION["id"],$avatar);
+				save_avatar($_SESSION["id"],$avatar);
 			else $instant_message = _l("A file format is not supported.");
 		}
-		else $instant_message = _l("Invalid user data.");
+		else {
+			$instant_message = _l("Invalid user data.");
+		    log_file ("Ошибка при загрузке файла: ".$_FILES['avatar']['error']);
+			log_file ("https://www.php.net/manual/ru/features.file-upload.errors.php");
+		}
 	}
 
 // Изменение личных данных
@@ -82,13 +85,10 @@
 			<div>
 				<input type = 'hidden' name = 'MAX_FILE_SIZE' value='20000000'/>
 			    <input class = 'border_inset' value = 'Привет' placeholder='Choose File'
-				    type='file' name='avatar'
-					size='30' maxlenght='30'
-					accept = 'image/gif, image/jpeg, image/jpg, image/png'/>
+				    type='file' name='avatar'size='30' accept = 'image/*'/>
 				<input type = 'hidden' name = 'regEdit' value = '3'/>
 			</div>";
-	if (isset ($_COOKIE["vk_app_2729439"]) && $_SESSION["id"] != "" && ($_SESSION["dopusk"]='yes' || $_SESSION["dopusk"]='admin'))
-	{
+	if (isset ($_COOKIE["vk_app_2729439"]) && $_SESSION["id"] != "" && ($_SESSION["dopusk"]='yes' || $_SESSION["dopusk"]='admin')) {
 		$body .= "<div class = 'k_vk' onClick='redirect_vk_photo_url();'></div>";
 	}
 	$body .= "
