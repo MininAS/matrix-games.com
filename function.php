@@ -286,6 +286,7 @@ function save_avatar($id_outfile, $infile)
 	else {
 		$log = "Пытался загрузить " . $size['mime'] . "тип файла."; log_file ($log);
 		$instant_message = _l("A file format is not supported.");
+		return;
 	}
 
   	$x=imagesx($im); $y=imagesy($im);

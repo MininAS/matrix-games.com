@@ -60,7 +60,7 @@
 				else echo ('
 						{
 							"res": "100",
-							"message": "'._l("Some parameter is invalid.").'"
+							"message": "'._l("Profile/Some parameter is invalid.").'"
 						}
 					');
 			}
@@ -133,7 +133,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'.l("You are already authorized.").'"
+				"message": "'.l("Profile/You are already authorized.").'"
 			}
 		');
 	}
@@ -142,7 +142,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "'._l("Registration was successful.").'"
+				"message": "'._l("Profile/Registration was successful.").'"
 			}
 		');
 		if (isset ($_POST["e_mail"])) f_mail ($_SESSION["id"],

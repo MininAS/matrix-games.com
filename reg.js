@@ -36,20 +36,20 @@ function text_login ()
 				   	result = data.substr (0, 1);
 				   	if (result == 'f'){
 				   	    if (getCookie('vk_app_2729439') != undefined) {
-				   	    	elm.innerHTML = ' - ' + _l('user with this name is existed.');
+				   	    	elm.innerHTML = ' - ' + _l('Profile/user with this name is existed.');
 				   			elm.style.color = 'blue';
-				   			document.getElementById('pass1_').innerHTML = ' - ' + _l('password of this name, please.');
+				   			document.getElementById('pass1_').innerHTML = ' - ' + _l('Profile/password of this name, please.');
 				   			f_changeInputFieldDisablement(e_regPass2InputField, true);
 				   			f_changeInputFieldDisablement(e_regEmailInputField, true);
 				   			elmt.disabled = false;
 				   		}
 				   		else {
-				   			elm.innerHTML = ' - ' + _l('the name is not available.');
+				   			elm.innerHTML = ' - ' + _l('Profile/the name is not available.');
 				   			elm.style.color = 'red';
 				   		}
 				   	}
 				   	if (result == 't') {
-				   		elm.innerHTML = ' - ' + _l('the name is available!');
+				   		elm.innerHTML = ' - ' + _l('Profile/the name is available!');
 				   		elm.style.color = 'green';
 				   		f_changeInputFieldDisablement(e_regPass2InputField, false);
 				   		f_changeInputFieldDisablement(e_regEmailInputField, false);
@@ -58,7 +58,7 @@ function text_login ()
 	}
 	else
 	{
-		elm.innerHTML = ' - ' + _l('valid characters') + ' - .-_.';
+		elm.innerHTML = ' - ' + _l('Profile/valid characters') + ' - .-_.';
 		elm.style.color = 'red';
 	}
 }
@@ -74,7 +74,7 @@ function text_pass1 ()
 	}
 	else
 	{
-		elm.innerHTML = ' - ' + _l('password is very shot.');
+		elm.innerHTML = ' - ' + _l('Profile/password is very shot.');
 		elm.style.color = 'red';
 	}
 	text_pass2 ();
@@ -90,7 +90,7 @@ function text_pass2 ()
 	}
 	else
 	{
-		elm.innerHTML = ' - ' + _l('second password is not match.');
+		elm.innerHTML = ' - ' + _l('Profile/second password is not match.');
 		elm.style.color = 'red';
 	}
 }
@@ -106,7 +106,7 @@ function text_e_mail ()
 	}
 	else
 	{
-		elm.innerHTML = ' - ' + _l('address is invalid.');
+		elm.innerHTML = ' - ' + _l('Profile/address is invalid.');
 		elm.style.color = 'red';
 	}
 }
