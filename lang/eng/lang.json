@@ -67,7 +67,7 @@
         "sending game emails": "sending game emails",
         "sending service emails": "sending service emails",
         "Remove account": "Remove account",
-        "Are you sure you want to delete your account and leave this site?": "Are you sure you want to delete your account and leave this site?",
+        "If you sure input password:": "If you sure input password:",
         "The name is already existed, please use another name.": "The name is already existed, please use another name.",
         "Some parameter is invalid.": "Some parameter is invalid.",
         "You are already authorized.": "You are already authorized.",
@@ -86,7 +86,8 @@
         "valid characters": "valid characters",
         "password is very shot.": "password is very shot.",
         "second password is not match.": "second password is not match.",
-        "address is invalid.": "address is invalid."
+        "address is invalid.": "address is invalid.",
+        "Account has removed.": "Account has removed."
     },
 	"Server response awaiting ...": "Server response awaiting ...",
 	"Pause": "Pause",

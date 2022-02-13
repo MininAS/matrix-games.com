@@ -67,7 +67,7 @@
         "sending game emails": "доставка игровых писем",
         "sending service emails": "доставка служебных писем",
         "Remove account": "Удалить аккаунт",
-        "Are you sure you want to delete your account and leave this site?": "Вы действительно хотите удалить аккаунт и покинуть этот сайт?",
+        "If you sure input password:": "Если уверены, то введите пароль:",
         "The name is already existed, please use another name.": "Такое имя уже существует, попробуйте использовать другое.",
         "Some parameter is invalid.": "Что то было введено не верно.",
         "You are already authorized.": "Вы уже авторизованы.",
@@ -86,7 +86,8 @@
         "valid characters": "допустимые символы",
         "password is very shot.": "пароль слишком короткий.",
         "second password is not match.": "повторение пароля не совпадает.",
-        "address is invalid.": "адрес не допустим."
+        "address is invalid.": "адрес не допустим.",
+        "Account has removed.": "Аккаунт удален."
     },
 	"Now at site": "Сейчас на сайте",
     "Amount of quests": "Гостей",

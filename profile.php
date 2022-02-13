@@ -136,16 +136,18 @@
 		</form>
 
 <!--Удаление аккаунта-->
-		<div'><a href='#' onClick = \"f_windowInfoPopup ('accaunt-delet');\">"._l("Profile/Remove account")."</a></div>
-		<div id = 'accaunt-delet' class = 'invisible_block' style = \"display: none;\">
-			<p class = 'big'>"._l("Profile/Are you sure you want to delete your account and leave this site?")."
-			<form ACTION = 'exit.php' name = 'exit'>
-				<div class = 'k_enter'><input class = 'submit' type = 'submit' NAME='reset'></div>
-				<input type = 'hidden' name = 'regEdit' value = '9'>
-			</form>
-		</div>";
+		<div id = 'profileAccountDeletionLink'><a href = '#'>"._l("Profile/Remove account")."</a></div>
+	</div>
+	<div id = 'profileAccountDeletion' class = 'invisible windowSite popupMenu'>
+	    <form method = 'POST' action = 'exit.php' name = 'exit'>
+		    <p class = 'big'>"._l("Profile/If you sure input password:")."</p>
+			<input type = 'password' name = 'passwordDeletion' size = '10' maxlenght = '15'/>
+			<input type = 'hidden' name = 'regEdit' value = '9'>
+			<div class = 'k_enter'><input class = 'submit' type = 'submit' NAME='reset'></div>
+		</form>
+	</div>";
 
 	$body .= "
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=11'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=11.1'></script>";
 require ("display.php");
 ?>

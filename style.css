@@ -631,7 +631,7 @@ body > #body {
 	position: absolute;
 	z-index: 300;
 	padding: 0px 5px;
-	max-width: 300px;
+	max-width: 500px;
 }
 
 .scroll_score {

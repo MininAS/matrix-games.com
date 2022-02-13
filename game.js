@@ -24,11 +24,8 @@ function f_gameStart (){
 		e_layoutNumber.style.display = 'none';
 		f_newGame ();
 	}
-	else {
-		e_layoutNumber.style.display = 'inline';
-		e_layoutNumber.innerHTML = '№ ' + i_canvasLayout;
+	else
 		f_fetchGameLoading (f_oldGame);
-	}
 	flag_PLAY = true;
 	flag_PAUSE = false;
 	f_updateUserTopList ();
@@ -48,6 +45,8 @@ function f_fetchGameLoading (callback) {
 					flag_PAUSE = false;
 				    callback();
 					f_windowInfoPopup ('hide_popup');
+					e_layoutNumber.style.display = 'inline';
+					e_layoutNumber.innerHTML = '№ ' + i_canvasLayout;
 				}
 				else {
 					f_windowInfoPopup ('info', data.message);
@@ -111,7 +110,7 @@ function autoScrollingChBoxes(){
     var scrollY = e_topWindow.scrollTop;
 	var containerHeight = e_gameChBoxContainer.getBoundingClientRect().height;
 	var containerWidth = e_topWindow.getBoundingClientRect().width;
-	
+
 	for (i = 0; i < 5; i++){
 		if (!e_listExChBox[i]){
 			if (i == 0)

@@ -6,8 +6,11 @@
 	<link rel="SHORTCUT ICON" href="img/icon.png">
 </head>
 <body>
-	<div id = 'body'  class = 'windowSite'>
-		 <?_l('There is needed authorization. You will redirected to home page.');?>
+	<div class = 'windowSite'>
+		 <?
+            $text = isset($text) ? $text : 'There is needed authorization. You will redirected to home page.';
+		    echo (_l($text));
+		 ?>
 	</div>
 	<script type = 'text/javascript' language = 'JavaScript'>
 		setTimeout ('window.location.href = "index.php"', 5000);

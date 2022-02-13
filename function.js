@@ -165,9 +165,6 @@ function f_windowInfoPopup(s_name, s_text)
 		case 'smile':
 			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);
 			break;
-		case 'accaunt-delet':
-			e_windowInfoText.innerHTML = document.getElementById('accaunt-delet').innerHTML;
-			break;
 		case 'info':
 			e_windowInfoText.innerHTML = s_text;
 			break;

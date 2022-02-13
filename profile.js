@@ -1,7 +1,9 @@
-var e_profileMessageBlock = document.getElementById('messageWindow');
-var e_profileNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
-var e_profileNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
-var e_profileNewMessageDestination = document.getElementById('dropDownUserList');
+const e_profileMessageBlock = document.getElementById('messageWindow');
+const e_profileNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
+const e_profileNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
+const e_profileNewMessageDestination = document.getElementById('dropDownUserList');
+const e_profileAccountDeletionLink = document.getElementById('profileAccountDeletionLink');
+const e_profileAccountDeletionPopup = document.getElementById('profileAccountDeletion');
 
 f_profileUpdateContent();
 f_fetchUpdateContent('dropDownUserList', 'drop_down_user_list.php', null);
@@ -27,6 +29,20 @@ e_profileNewMessageSendButton.onclick = function () {
 	f_fetchSaving ('profile_send_message.php?',
 		'string=' + string +
 		'&user=' + user, f_profileUpdateContent);
+}
+
+e_profileAccountDeletionLink.onclick = function (event) {
+	event = event || window.event;
+	e_profileAccountDeletionPopup.style.display = 'block';
+	x = event.pageX || event.clientX;
+	y = event.pageY || event.clientY;
+	e_profileAccountDeletionPopup.style.left = x-350+'px';
+	e_profileAccountDeletionPopup.style.top = y-25+'px';
+	return false;
+}
+
+e_profileAccountDeletionPopup.onmouseleave = function () {
+    e_profileAccountDeletionPopup.style.display = 'none';
 }
 
 function f_profileUpdateContent(){
