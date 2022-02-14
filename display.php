@@ -17,8 +17,8 @@
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=19.93">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.3'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.2'></script>
-	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?160'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.3'></script>
+	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
 	<div id = 'body'>

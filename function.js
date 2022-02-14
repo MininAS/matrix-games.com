@@ -104,7 +104,7 @@ function authInfo(response) {
 					if (req.responseText == 'false'){
 						VK.Api.call (
 							'users.get',
-							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.126},
+							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.89},
 							function(r) {
 								if(r.response){
 									var str = "?";
@@ -284,7 +284,7 @@ function f_showElementById (id) {
 // Загрузка аватара с Вконтакте--------------------------------
 function redirect_vk_photo_url()
 {
-	VK.Api.call('users.get', {fields: 'photo_200, has_photo', v: 5.8}, function(r) {
+	VK.Api.call('users.get', {fields: 'photo_200, has_photo', v: 5.89}, function(r) {
 		if(r.response) window.location.href='profile.php?regEdit=3&photo='+r.response[0]['photo_200'];
 	});
 }
