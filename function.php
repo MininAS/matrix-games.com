@@ -308,7 +308,7 @@ function save_avatar($id_outfile, $infile)
   	imagedestroy($im3);
 
 		$log = "Поменял аватару."; log_file ($log);
-		$instant_message = _l("The foto has downloaded.");
+		$instant_message = _l("The photo has downloaded.");
 }
 
 // Локализация тектовая

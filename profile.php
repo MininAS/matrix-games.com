@@ -15,7 +15,7 @@
 	if ($regEdit == "3")
 	{
 		if (isset ($_GET['photo']))
-			save_avatar($_SESSION["id"], $_GET['photo']);
+			save_avatar($_SESSION["id"], urldecode ($_GET['photo']));
 		else if (is_uploaded_file ($_FILES ["avatar"]["tmp_name"])) {
 			$avatar=$_FILES ["avatar"]["tmp_name"];
 			$avatar_type=$_FILES ["avatar"]["type"];

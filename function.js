@@ -285,7 +285,11 @@ function f_showElementById (id) {
 function redirect_vk_photo_url()
 {
 	VK.Api.call('users.get', {fields: 'photo_200, has_photo', v: 5.89}, function(r) {
-		if(r.response) window.location.href='profile.php?regEdit=3&photo='+r.response[0]['photo_200'];
+		if(r.response) {
+		    $photo = encodeURIComponent (r.response[0]['photo_200']);
+			console.log ($photo);
+			window.location.href='profile.php?regEdit=3&photo=' + $photo;
+		}
 	});
 }
 
