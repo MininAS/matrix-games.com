@@ -8,6 +8,20 @@
     // mysql_query ("SET NAMES 'utf8'");
     // mysql_select_db ("matrix-gam_db");
 
+	function getUserLogin($id){
+		$result = f_mysqlQuery ("
+			SELECT login
+			FROM users
+			WHERE id=".$id.";"
+		);
+		if (@mysql_num_rows($result)){
+		    $data = mysql_fetch_row ($result);
+			return $data[0];
+		}
+		else
+			return "?????";
+	}
+
 	function f_mysqlQuery($query){
 		$result = mysql_query($query);
 		if (!$result) {

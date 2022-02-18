@@ -24,10 +24,10 @@ require ("sess.php");
 	// Кто открыл и кто лучше сыграл.
 	// Читаем кто лучше сыграл. Если есть кто-то лучше вставляем его данные.
 	$result = f_mysqlQuery ("
-		SELECT id_user, users.login, score
-		FROM games_".$theme."_com AS tb, users
-		WHERE id_game=".$canvasLayout." AND id_user=users.id
-		ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
+		SELECT id_user, score
+		FROM games_".$theme."_com
+		WHERE id_game=".$canvasLayout."
+		ORDER BY score DESC, xod, data, time LIMIT 1;");
 	$count = mysql_num_rows($result);
 	if ($count == 0)
  		exit('

@@ -16,8 +16,8 @@ $text = "";
 		</li>";
 	}
 
-	$result = f_mysqlQuery ("SELECT s1.id, s1.id_user, s1.text, s1.time, s1.data, s2.login FROM forum AS s1, users AS s2
-	                         WHERE s1.id_tema=".$theme." AND s1.status=1 AND s1.basket=0 AND s1.id_user=s2.id;");
+	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
+	                         WHERE id_tema=".$theme." AND status=1 AND basket=0;");
     $count = mysql_num_rows($result);
     if ($count > 0){
 		while ($data = mysql_fetch_row ($result)){
@@ -27,7 +27,7 @@ $text = "";
 						<div class = 'avatar'>
 					".f_img (3, $data[1]);
 			$text .= "</div>
-						<span>".$data[5]."</span>
+						<span>".getUserLogin($data[1])."</span>
 						<p class = 'data text_insignificant'>".$data[3]." / ".$data[4]."</p>
 					</div>
 
@@ -41,9 +41,10 @@ $text = "";
 			$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT COUNT(*) FROM forum WHERE id_tema=".$data[0]." AND status=0 AND basket=0;"));
 			if ($data_[0]!=0){
 				$text .= _l("Notebook/Messages").": #".$data_[0];
-				$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT s2.login, s1.time, s1.data FROM forum AS s1, users AS s2
-														WHERE s1.id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0].") AND s1.id_user=s2.id AND s1.basket=0;"));
-				$text .= " ".$data_[0]." ".$data_[1]." ".$data_[2];
+				$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT id_user, time, data FROM forum
+														WHERE id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0].")
+														AND basket=0;"));
+				$text .= " ".getUserLogin($data[0])." ".$data_[1]." ".$data_[2];
 			}
 			$text .= "
 						</span>
@@ -66,8 +67,8 @@ $text = "";
 
 // Просмотр сообщений в теме =================================================================================
 	// Кол. сообщений
-	$result = f_mysqlQuery ("SELECT s1.id, s1.id_user, s1.text, s1.time, s1.data, s2.login FROM forum AS s1, users AS s2
-							WHERE s1.id_tema=".$theme." AND s1.status=0 AND s1.basket=0 AND s1.id_user=s2.id ORDER BY data DESC, time DESC;");
+	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
+							WHERE id_tema=".$theme." AND status=0 AND basket=0 ORDER BY data DESC, time DESC;");
     $count = mysql_num_rows($result);
 	if ($count >= 1) {
 		$text .= "
@@ -80,7 +81,7 @@ $text = "";
 					<div class = 'avatar'>
 				".f_img (3, $data[1]);
 			$text .= "</div>
-					<span>".$data[5]."</span>
+					<span>".getUserLogin($data[1])."</span>
 					<p class = 'data text_insignificant'>".$data[3]." / ".$data[4]."</p>
 				</div>
 

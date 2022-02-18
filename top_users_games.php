@@ -38,18 +38,18 @@
     while ($subGame = mysql_fetch_row ($subGames)){
 		$winner = mysql_fetch_row (
 			f_mysqlQuery ("
-			    SELECT id_user, users.login, score
-				FROM games_".$theme."_com AS tb, users
-				WHERE id_game=".$subGame[0]." AND id_user=users.id
-			    ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;
+			    SELECT id_user, score
+				FROM games_".$theme."_com
+				WHERE id_game=".$subGame[0]."
+			    ORDER BY score DESC, xod, data, time LIMIT 1;
 			")
 		);
 
 		$subGameResults = f_mysqlQuery ("
-		    SELECT id_user, users.login, score
-			FROM games_".$theme."_com AS s1, users
-			WHERE id_game=".$subGame[0]." AND id_user=users.id
-			ORDER BY s1.data, s1.time;
+		    SELECT id_user, score
+			FROM games_".$theme."_com
+			WHERE id_game=".$subGame[0]."
+			ORDER BY data, time;
 		");
 
 		$pioneer = mysql_fetch_row ($subGameResults);
@@ -67,8 +67,8 @@
 									".$subGame[0]."
 								</span>
 					</div>
-					<span>".$winner[1]."</span>
-					<p class = 'data big'>".$winner[2]."</p>
+					<span>".getUserLogin($winner[0])."</span>
+					<p class = 'data big'>".$winner[1]."</p>
 				</div>
 				<div class = 'text'>
 		");
@@ -91,7 +91,7 @@
 
 		while ($player = mysql_fetch_row($subGameResults)){
 			echo ("
-				    <p class = 'small'> ".$player[2]." - ".$player[1]."</p>"
+				    <p class = 'small'> ".$player[1]." - ".getUserLogin($player[0])."</p>"
 			);
 		}
 
