@@ -14,7 +14,8 @@
 			FROM users
 			WHERE id=".$id.";"
 		);
-		if (@mysql_num_rows($result)){
+		$count = mysql_num_rows($result);
+		if ($count == 1){
 		    $data = mysql_fetch_row ($result);
 			return $data[0];
 		}

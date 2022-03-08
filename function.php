@@ -143,7 +143,7 @@ function f_convertSmilesAndTagFormat($text){
 		$arr = preg_split ("/\{\[:|:\]\}/i", $text);
 		$text="";
 		while (list($key, $value) = each ($arr)){
-			if (preg_match("[a-z]", $value)){
+			if (preg_match("/[a-z]{2}/i", $value)){
 				$file=$value.".gif";
 				if (@file_exists ("smile/$file")) $text = $text."<img src=\"smile/".$value.".gif\">";
 				else $text = $text.$value;

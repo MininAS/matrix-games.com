@@ -42,9 +42,9 @@ $text = "";
 			if ($data_[0]!=0){
 				$text .= _l("Notebook/Messages").": #".$data_[0];
 				$data_ = mysql_fetch_row (f_mysqlQuery ("SELECT id_user, time, data FROM forum
-														WHERE id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0].")
-														AND basket=0;"));
-				$text .= " ".getUserLogin($data[0])." ".$data_[1]." ".$data_[2];
+														WHERE id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0]." AND basket=0)
+														"));
+				$text .= " ".getUserLogin($data_[0])." ".$data_[1]." ".$data_[2];
 			}
 			$text .= "
 						</span>

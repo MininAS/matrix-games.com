@@ -45,7 +45,7 @@
 			{
 				f_mysqlQuery ("INSERT games_".$theme."_med (id_user, medal, score)
 								VALUE (".$data[1].", ".$medal.", ".$data[2].");");
-				$q = _l("Mails/, also you earned a medal", $data[6])." <img src = 'img/medal_".$medal.".gif' alt = 'Medal'/>.";
+				$q = _l("Mails/, also you earned a medal", $data[6])." <img src = \'img/medal_".$medal.".gif\' alt = \'Medal\'/>.";
 			}
 			$message = _l("Game", $data[6])." "
 				._l('Game names/'.$theme, $data[6])
