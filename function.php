@@ -27,7 +27,7 @@
 			$ip = getenv ("REMOTE_ADDR");
 			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
 			if ($_SESSION["login"] ==  "") $login = "Quest"; else $login = $_SESSION["login"];
-			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\n";
+			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t".$_SERVER['HTTP_USER_AGENT']."\n";
 			fwrite ($file, $string);
 			fclose ($file);
 		}

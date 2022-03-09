@@ -19,7 +19,7 @@ function f_greateGame(){
 	document.oncontextmenu = new Function ("return false;");
 	e_gameElementsContaner.style.width = XxX * square_size + "px";
 	e_gameElementsContaner.onmousedown = f_catchRightButton;
-	
+
 	for (i = 0; i <= (YyY - 1); i ++){
 		let row = [];
 		for (ii = 0; ii <= (XxX - 1); ii ++){
@@ -61,6 +61,8 @@ function f_greateGame(){
 				this.color = color;
 				this.style.background = arrColor[color];
 			}
+			e.setElmColor(0);
+			e.setDefaultStyle();
             row.push(e);
 		}
 		matrix.push(row);
@@ -71,12 +73,13 @@ function f_greateGame(){
 	selectedSquareAmountBox.style.display = 'none';
 }
 
-function f_catchRightButton (e) {		
-	e = (event) ? event : window.event;
+function f_catchRightButton (e) {
 	if (e.button != 2 || !flag_PLAY) return;
 	e.stopPropagation();
 	e.preventDefault();
 	f_revertLastMotion ();
+	f_moveSquareOut ();
+	f_moveSquareOver (e);
 	return false;
 }
 
@@ -87,7 +90,7 @@ function f_moveSquareOver (e){
 	f_clearTmpCol();
 	elm.tmpCol = 1;
 	selectedSquareAmount = f_getSquaresAmount ();
-	if (selectedSquareAmount < 2) return; 
+	if (selectedSquareAmount < 2) return;
 	matrix.forEach(e => {
 		e.forEach(e => {
 	        if (e.tmpCol == 2){
@@ -95,14 +98,14 @@ function f_moveSquareOver (e){
 			}
 		});
 	});
-	
+
 	let score = 0;
 	for (i=1; i <= selectedSquareAmount; i++) {score += i;}
 	selectedSquareAmountBox.innerHTML = score;
 	selectedSquareAmountBox.style.display = 'block';
 }
 
-function f_moveSquareOut (e){
+function f_moveSquareOut (){
 	if (!flag_PLAY) return;
 	matrix.forEach(e => {
 		e.forEach(e => {
@@ -116,7 +119,6 @@ function f_moveSquareOut (e){
 }
 
 function f_moveSquare (evnt){
-	if (!flag_PLAY) return;
 	selectedSquareAmountBox.style.top = (evnt.pageY || evnt.clientY) - 20 + 'px';
 	selectedSquareAmountBox.style.left = (evnt.pageX || evnt.clientX) + 30 + 'px';
 }
@@ -154,9 +156,9 @@ function f_getNeighbourSquares (e){
 
 function f_slice (e){
 	if (!flag_PLAY) return;
-	if (selectedSquareAmount < 2) return; 
+	if (selectedSquareAmount < 2) return;
 	flag_PLAY = false;
-	
+
 	i_canvasLayoutRevert = "";
 	matrix.forEach(e => {
 		e.forEach(e => {
@@ -164,7 +166,7 @@ function f_slice (e){
 			i_scoreRevert = i_score;
 		});
 	});
-	
+
 	selectedSquareAmountBox.style.display = 'none';
 	let score = 0;
 	for (i=1; i <= selectedSquareAmount; i++) {score += i;}
