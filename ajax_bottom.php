@@ -5,7 +5,7 @@
 // Читаем файлы сессий и определяем посетителей за текущие месяц, день и последние пол часа(online)
 	$i_onlineUser = "";
 	$i_amountUsers = 0;
-	$i_onlineQuest = 0;
+	$i_onlineGuest = 0;
 	$i_questDay = 0;
 	$i_questMonth = 0;
 
@@ -18,7 +18,7 @@
  			$arr = f_getSessionInfo($filename);
 			if ($arr['last_time'] > (date ("U") - 1800)){
 				if ($arr['login'] == "Guest")
-				    $i_onlineQuest++;
+				    $i_onlineGuest++;
 				else {
 				    $i_amountUsers ++;
 					if ($i_amountUsers > 1)
@@ -31,8 +31,8 @@
     if ($i_amountUsers != 0)
         $i_onlineUser .= ". ";
 
-	if ($i_onlineQuest != 0)
-	    $i_onlineUser = $i_onlineUser._l('Amount of quests')." - ".$i_onlineQuest.".";
+	if ($i_onlineGuest != 0)
+	    $i_onlineUser = $i_onlineUser._l('Amount of guests')." - ".$i_onlineGuest.".";
 
 $text = $i_onlineUser;
 
