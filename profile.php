@@ -36,7 +36,7 @@
 // Изменение личных данных
 	if ($regEdit == "102")
 	{
-		$data = mysql_fetch_row (f_mysqlQuery ("SELECT pass FROM users WHERE id=".$_SESSION["id"].";"));
+		$data = mysqli_fetch_row(f_mysqlQuery ("SELECT pass FROM users WHERE id=".$_SESSION["id"].";"));
 		if ($_POST["value3"]==$data[0])
 		if ($_POST["value1"]==$_POST["value1"])
 		if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
@@ -75,7 +75,7 @@
 	</div>";
 
 // Редактирование личных данных -----------------------------------------------------------------------------------------------------------------------
-	$data = mysql_fetch_row (f_mysqlQuery ("SELECT login, mail, F_mailG, F_mail FROM users WHERE id=".$_SESSION["id"].";"));
+	$data = mysqli_fetch_row(f_mysqlQuery ("SELECT login, mail, F_mailG, F_mail FROM users WHERE id=".$_SESSION["id"].";"));
 	$body .= "
 	<div id = 'windowSettingsProfile' class = 'windowSite'>
 		<ul class = 'windowTitle'><li>"._l("Profile/Setting")."</li></ul>

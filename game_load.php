@@ -28,7 +28,7 @@ require ("sess.php");
 		FROM games_".$theme."_com
 		WHERE id_game=".$canvasLayout."
 		ORDER BY score DESC, xod, data, time LIMIT 1;");
-	$count = mysql_num_rows($result);
+	$count = mysqli_num_rows($result);
 	if ($count == 0)
  		exit('
 			{
@@ -37,14 +37,14 @@ require ("sess.php");
 			}
 		');
 
-	$data=mysql_fetch_row($result);
+	$data=mysqli_fetch_row($result);
 	// Кто открыл игру
 	$result = f_mysqlQuery ("
 		SELECT id_user
 		FROM games_".$theme."_com
 		WHERE id_game=".$canvasLayout."
 		ORDER BY id LIMIT 1;");
-	$data_ = mysql_fetch_row($result);
+	$data_ = mysqli_fetch_row($result);
 
 	if ($_SESSION["id"] == $data_[0])
 	 	exit('
@@ -65,7 +65,7 @@ require ("sess.php");
 		SELECT gameboard
 		FROM games_".$theme."
 		WHERE id_game=".$canvasLayout.";");
-	$data=mysql_fetch_row($result);
+	$data=mysqli_fetch_row($result);
 	echo('
 		{
 			"res": "200",

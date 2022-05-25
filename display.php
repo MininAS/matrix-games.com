@@ -12,7 +12,7 @@
 		миниигры, мини игры, MininAS, Logical Matrix Games, Logic,
 		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка,
 		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
-
+	<meta name="viewport" content="width=device-width, user-scalable=yes">
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=19.93">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">

@@ -1,7 +1,7 @@
 <?
-$qwery = f_mysqlQuery ("SELECT pass, id, login, dopusk, lang FROM users GROUP BY id;");
+$query = f_mysqlQuery ("SELECT pass, id, login, dopusk, lang FROM users GROUP BY id;");
 $instant_message = _l("Login or password were invalid.");
-while ($data = mysql_fetch_row($qwery))
+while ($data = mysqli_fetch_row($query))
 {
 	if (preg_match("/".$data[2]."/i", $_POST["login"])  && $data[0] == $_POST["pass"])
 	{

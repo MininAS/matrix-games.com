@@ -6,8 +6,8 @@
 		$member = authOpenAPIMember();
 		if($member !== false)
 		{
-			$qwery = f_mysqlQuery ("SELECT `id`, `login`, `dopusk` FROM users WHERE id_vk = ".$member['id'].";");
-			if ($data = mysql_fetch_row($qwery))
+			$query = f_mysqlQuery ("SELECT `id`, `login`, `dopusk` FROM users WHERE id_vk = ".$member['id'].";");
+			if ($data = mysqli_fetch_row($query))
 			{
 				$_SESSION["dopusk"] = $data[2]; $_SESSION["id"] = $data[0];
 				$_SESSION["login"] = $data[1];

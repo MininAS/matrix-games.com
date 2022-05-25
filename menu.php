@@ -44,7 +44,7 @@
 			<li id = 'k_profile' alt='"._l('Tooltips/Your profile')."'>
 				<a href = 'profile.php'>
 			";
-			$data = mysql_fetch_row (f_mysqlQuery ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";"));
+			$data = mysqli_fetch_row(f_mysqlQuery ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";"));
 			if ($data[0] == 1)
 			    echo "
 					<div id = 'letter'></div>

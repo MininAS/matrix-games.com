@@ -35,8 +35,8 @@
 		GROUP BY id_game
 		ORDER BY sum DESC;
     ");
-    while ($subGame = mysql_fetch_row ($subGames)){
-		$winner = mysql_fetch_row (
+    while ($subGame = mysqli_fetch_row($subGames)){
+		$winner = mysqli_fetch_row(
 			f_mysqlQuery ("
 			    SELECT id_user, score
 				FROM games_".$theme."_com
@@ -52,8 +52,8 @@
 			ORDER BY data, time;
 		");
 
-		$pioneer = mysql_fetch_row ($subGameResults);
-		mysql_data_seek ($subGameResults, 0);
+		$pioneer = mysqli_fetch_row($subGameResults);
+		mysqli_data_seek ($subGameResults, 0);
 
 		$selectable = $_SESSION["id"] == $winner[0] || $_SESSION["id"] == $pioneer[0]
 		    ? "indicated_list_item"
@@ -89,7 +89,7 @@
 			    ");
 		}
 
-		while ($player = mysql_fetch_row($subGameResults)){
+		while ($player = mysqli_fetch_row($subGameResults)){
 			echo ("
 				    <p class = 'small'> ".$player[1]." - ".getUserLogin($player[0])."</p>"
 			);

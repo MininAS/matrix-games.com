@@ -1,12 +1,18 @@
 <?php
 
-	mysql_connect("localhost", "root", "");
-	mysql_query ("SET NAMES 'utf8'");
-	mysql_select_db ("mininas_db");
+	$DB_ru = @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
+    $DB_localhost = @mysqli_connect("localhost", "root", "");
+	if (!$DB_Connection && !$DB_localhost){
+		exit("Не удается найти сервер базы данных");
+	}
+	$DB_Connection = $DB_ru ? $DB_ru : $DB_localhost;
+	mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
+    mysqli_select_db ($DB_Connection, "matrix-gam_db");
 
-    // mysql_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
-    // mysql_query ("SET NAMES 'utf8'");
-    // mysql_select_db ("matrix-gam_db");
+    function db(){
+        global $DB_Connection;
+		return $DB_Connection;
+	}
 
 	function getUserLogin($id){
 		$result = f_mysqlQuery ("
@@ -14,19 +20,19 @@
 			FROM users
 			WHERE id=".$id.";"
 		);
-		$count = mysql_num_rows($result);
+		$count = mysqli_num_rows($result);
 		if ($count == 1){
-		    $data = mysql_fetch_row ($result);
+		    $data = mysqli_fetch_row($result);
 			return $data[0];
 		}
 		else
 			return "?????";
 	}
 
-	function f_mysqlQuery($query){
-		$result = mysql_query($query);
+	function f_mysqlQuery ($query) {
+		$result = mysqli_query(db(), $query);
 		if (!$result) {
-			$result = "Запрос: ".$query." - выдал ошибку: ". mysql_error()."/n";
+			$result = "Запрос: ".$query." - выдал ошибку: ".mysqli_error(db())."/n";
 			log_file ($result);
 		}
 		else return $result;
@@ -43,8 +49,8 @@
 			)
 			AND id_user=".$user.";"
 		);
-		if (@mysql_num_rows($result))
-		    return mysql_num_rows($result);
+		if (@mysqli_num_rows($result))
+		    return mysqli_num_rows($result);
 		else
 		    return 0;
 	}
@@ -55,7 +61,7 @@
 			FROM games_".$game."
 			WHERE id_game=".$subgame.";"
 		);
-		$count = mysql_num_rows($result);
+		$count = mysqli_num_rows($result);
 		if ($count != 1)
             return "none";
 		$result = f_mysqlQuery ("
@@ -67,7 +73,7 @@
 				WHERE id_game=".$subgame."
 			);"
 		);
-		$data = mysql_fetch_row($result);
+		$data = mysqli_fetch_row($result);
 		return $data[0];
 	}
 
@@ -77,7 +83,7 @@
 			FROM games_".$game."_com AS tb, users
 			WHERE id_game=".$subgame." AND id_user=users.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
-		$data = mysql_fetch_row ($result);
+		$data = mysqli_fetch_row($result);
 		$array = array (
 			"id" =>    $data[0],
 			"login" => $data[1],
@@ -94,7 +100,7 @@
 			SELECT id_tema, id_user, text
 			FROM forum
 			WHERE id=".$id.";");
-		$data = mysql_fetch_row ($result);
+		$data = mysqli_fetch_row($result);
 		$array = array (
 			"id_tema" => $data[0],
 			"id_user" => $data[1],
@@ -107,8 +113,8 @@
 	function db_saver(){
 		$result = f_mysqlQuery("SHOW TABLES");
 		$tables = array();
-		for($i = 0; $i < mysql_num_rows($result); $i++){
-			$row = mysql_fetch_row($result);
+		for($i = 0; $i < mysqli_num_rows($result); $i++){
+			$row = mysqli_fetch_row($result);
 			$tables[] = $row[0];
 		}
 
@@ -132,7 +138,7 @@
 			$text = "";
 			$sql = "SHOW CREATE TABLE ".$item;
 			$result = f_mysqlQuery($sql);
-			$row = mysql_fetch_row($result);
+			$row = mysqli_fetch_row($result);
 			$text .= "\n".$row[1].";";
 			fwrite($fp,$text);
 			$text = "";
@@ -147,12 +153,12 @@
 			$sql2 = "SELECT * FROM `".$item."`";
 			$result2 = f_mysqlQuery($sql2);
 			$text = "";
-			for($i = 0; $i < mysql_num_rows($result2); $i++){
-				$row = mysql_fetch_row($result2);
+			for($i = 0; $i < mysqli_num_rows($result2); $i++){
+				$row = mysqli_fetch_row($result2);
 				if($i == 0) $text .= "\n(";
 				else  $text .= ",\n(";
 				foreach($row as $v){
-					$text .= "'".mysql_real_escape_string($v)."',";
+					$text .= "'".mysqli_real_escape_string(db(), $v)."',";
 				}
 				$text = rtrim($text,",");
 				$text .= ")";

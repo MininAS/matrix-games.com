@@ -1,5 +1,5 @@
 <?php
-set_error_handler('f_error');
+set_error_handler('f_errorHandler');
 date_default_timezone_set('Europe/Moscow');
 // Открытие сессии
 	if (isset ($_COOKIE["LMG"]))
@@ -66,13 +66,13 @@ date_default_timezone_set('Europe/Moscow');
 			'N_ballov DESC', 'N_game DESC', 'N_mess DESC'
 		);
 		if (!in_array ($_GET["sort"], $a_sort)){
-			f_error('Неверные входящие данные:', ' параметр sort не соответствует допустимому значению. Sort='.$_GET["sort"], 'sess.php', 0);
+			f_errorHandler('Неверные входящие данные:', ' параметр sort не соответствует допустимому значению. Sort='.$_GET["sort"], 'sess.php', 0);
 			$_GET["sort"] = 'id';
 		}
 	}
 	// Переменные цифровые
 	$arr = array ('canvasLayout', 'user', 'regEdit', 'mess');
-	while (list($key, $value) = each ($arr)){
+	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
 		$$v = (int)$$v;
@@ -80,10 +80,10 @@ date_default_timezone_set('Europe/Moscow');
 
 	// Переменные текстовые
 	$arr = array ('newThemeName', 'subGameData', 'newNotebookItemText');
-	while (list($key, $value) = each ($arr)){
+	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
-		$$v = mysql_real_escape_string($$v);
+		$$v = mysqli_real_escape_string(db(), $$v);
 	}
 
 // Открытие сессии dopusk - пользователь зарегестрирован, frequency - открывает при первом прохождении через

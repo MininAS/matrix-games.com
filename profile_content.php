@@ -14,12 +14,12 @@
 		WHERE id_tema=".$_SESSION["id"]." AND basket=0
 		ORDER BY data DESC, time DESC;"
 	);
-	$count = mysql_num_rows($result);
+	$count = mysqli_num_rows($result);
 
 	if ($count >= 1){
 		$text .= "
 			<ul class = 'messageLists'>";
-		while ($data = mysql_fetch_row ($result)){
+		while ($data = mysqli_fetch_row($result)){
 			$text .= "
 			<li class = 'forum_message' item = ".$data[0].">
 				<div class = 'message_autor'>

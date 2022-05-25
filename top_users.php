@@ -10,7 +10,7 @@
 
 	$result = f_mysqlQuery ("SELECT id, login, N_ballov FROM users ORDER BY N_ballov DESC, data DESC;");
 	$i_Users = 0;
-	while ($data=mysql_fetch_row ($result))
+	while ($data=mysqli_fetch_row($result))
 	{
 		$i_Users ++;
 		$text .= "

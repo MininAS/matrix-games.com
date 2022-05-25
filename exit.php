@@ -13,7 +13,7 @@
 	    pass='".$_POST["passwordDeletion"]."';
     ");
 
-	if (mysql_num_rows($result) != 1) {
+	if (mysqli_num_rows($result) != 1) {
 		$text = 'Invalid user data.';
 		$log = ''; log_file ($log);
 		require ("display_non_authorization.php");

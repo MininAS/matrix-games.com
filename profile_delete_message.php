@@ -8,7 +8,7 @@
 	}
 
 	$result = f_mysqlQuery ("SELECT id_tema FROM users_mess WHERE id=".$mess.";");
-	if (mysql_num_rows ($result) != 1){
+	if (mysqli_num_rows($result) != 1){
 		echo ('
 			{
 				"res": "100",
@@ -18,7 +18,7 @@
 		exit;
 	}
 
-	$data = mysql_fetch_row ($result);
+	$data = mysqli_fetch_row($result);
 	if ($_SESSION["id"] != $data[0]){
 		echo ('
 			{

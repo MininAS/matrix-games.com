@@ -12,7 +12,7 @@
 	}
 
 	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $subGameData)){
-		f_error('Неверные входящие данные с игрового поля: ', $subGameData, 'game_save.php', 0);
+		f_errorHandler('Неверные входящие данные с игрового поля: ', $subGameData, 'game_save.php', 0);
 		exit('
 			{
 				"res": "110",
@@ -61,7 +61,7 @@
 	else
 	{
 		$result = f_mysqlQuery ("SELECT id_game FROM games_".$theme." WHERE id_game=".$canvasLayout.";");
-		$count = mysql_num_rows($result);
+		$count = mysqli_num_rows($result);
 		if ($count != 1)
 			exit('
 				{

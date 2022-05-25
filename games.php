@@ -21,7 +21,7 @@
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin")
 	{
 // Лучший по баллам, так же проверяем, что игра присутствует.
-		if ($data=mysql_fetch_row(f_mysqlQuery
+		if ($data=mysqli_fetch_row(f_mysqlQuery
 		   ("   SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail, users.lang
 				FROM games_".$theme."_com AS s1, users
 				WHERE id_game=".$canvasLayout." AND id_user=users.id
@@ -34,7 +34,7 @@
 									WHERE score IN (SELECT MAX(score) FROM games_".$theme."_com GROUP BY id_game)
 									ORDER BY score DESC
 									LIMIT 5;");
-			while ($data_=mysql_fetch_row ($result))
+			while ($data_=mysqli_fetch_row($result))
 			{
 				if ($data[0] == $data_[0]) $medal = $Ni;
 				$Ni++;

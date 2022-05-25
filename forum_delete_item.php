@@ -8,7 +8,7 @@
 	}
 
 	$result = f_mysqlQuery ("SELECT * FROM forum WHERE id=".$theme.";");
-	if (mysql_num_rows ($result) != 1){
+	if (mysqli_num_rows($result) != 1){
 		echo ('
 			{
 				"res": "100",
@@ -18,7 +18,7 @@
 		exit;
 	}
 
-	$data = mysql_fetch_row ($result);
+	$data = mysqli_fetch_row($result);
 	if ($_SESSION["id"] != $data[2]){
 		echo ('
 			{
@@ -31,7 +31,7 @@
 
 	if ($data[6] == 1){
 		$result = f_mysqlQuery ("SELECT id FROM forum WHERE id_tema=".$theme." AND basket=0;");
-		if (mysql_num_rows ($result) != 0){
+		if (mysqli_num_rows($result) != 0){
 			echo ('
 				{
 					"res": "100",

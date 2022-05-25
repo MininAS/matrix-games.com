@@ -3,7 +3,7 @@
 	require ("sess.php");
 	$text = "";
 
-	$data=mysql_fetch_row (f_mysqlQuery ("SELECT login, N_ballov FROM users WHERE id=".$user.";"));
+	$data=mysqli_fetch_row(f_mysqlQuery ("SELECT login, N_ballov FROM users WHERE id=".$user.";"));
 // Рисуем результат =============================================================
 	$text .= "
 		<div id = 'statistic'  align = 'center'>
@@ -33,7 +33,7 @@
 		fclose ($file);
 		while (list ($key,$theme) = each ($str_theme))
 		{
-			$data=mysql_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM games_".$theme."_med WHERE id_user=".$user.";"));
+			$data=mysqli_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM games_".$theme."_med WHERE id_user=".$user.";"));
 			if ($data[0] > 0)
 			{
 				$flag_OK = true;
@@ -47,7 +47,7 @@
 					ORDER BY  `ms` DESC
 					LIMIT 5");
 				$Ni = 0;
-				while ($data = mysql_fetch_row ($result))
+				while ($data = mysqli_fetch_row($result))
 				{
 					$Ni++;
 					if ($data[0] == $user) $text .= "<p class = 'cup'><IMG SRC=\"img/cup_".$Ni."_.png\" alt = 'Cup'></p>";
@@ -60,7 +60,7 @@
 				{
 					$text .="
 				<td>";
-					$data=mysql_fetch_row(f_mysqlQuery ("SELECT COUNT(*), MAX(score) FROM games_".$theme."_med WHERE id_user=".$user." AND medal=".$i.";"));
+					$data=mysqli_fetch_row(f_mysqlQuery ("SELECT COUNT(*), MAX(score) FROM games_".$theme."_med WHERE id_user=".$user." AND medal=".$i.";"));
 					if ($data[0] != 0) $text .= "
 				<IMG SRC = 'img/medal_".$i.".gif' alt = 'Medal'/> х ".$data[0];
 					$text .= "</td>

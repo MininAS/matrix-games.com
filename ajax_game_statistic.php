@@ -26,9 +26,9 @@
 		GROUP BY  `id_user`
 		ORDER BY  `mc` DESC, `medal`");
 	$Ni = 0; $Ne = 0;
-	while ($data = mysql_fetch_row ($result))
+	while ($data = mysqli_fetch_row($result))
 	{
-		$data_ = mysql_fetch_row ($result_);
+		$data_ = mysqli_fetch_row($result_);
 		$text .="
 			<tr>
 				<td>";
@@ -47,7 +47,7 @@
 				WHERE `id_user` = ".$data_[1]."
 				GROUP BY  `medal`
 				ORDER BY  `medal`");
-			while ($data__ = mysql_fetch_row ($result__))
+			while ($data__ = mysqli_fetch_row($result__))
 			{
 				for ($i=1;$i<=$data__[1]; $i++)
 				$text .= "<p class = 'med'><IMG SRC='img/medal_".$data__[0].".gif' alt = 'Medal'></p>";

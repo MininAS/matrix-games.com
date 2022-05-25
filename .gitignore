@@ -1,0 +1,10 @@
+avatar/*.jpg
+avatar/*.jpeg
+avatar/*.png
+db_saver/*.sql
+logbook/*.txt
+logbook/*.log
+sess/sess_*
+google*
+yandex*
+sitemap.xml

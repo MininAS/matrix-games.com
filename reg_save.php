@@ -10,9 +10,9 @@
 			if ($_SESSION["dopusk"] == "no" && $_SESSION["id"] == ""){
 				if (preg_match("/[a-zA-Z0-9А-Яа-я_\.\-\@\Ё]+/", $_POST["login"]) &&
 					preg_match("/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/", $_POST["e_mail"])){
-					$qwery = f_mysqlQuery ("SELECT login FROM users;");
+					$query = f_mysqlQuery ("SELECT login FROM users;");
 					$flag = true;
-					while ($data = mysql_fetch_row($qwery))
+					while ($data = mysqli_fetch_row($query))
 					    if ($data[0] == $_POST["login"]){
 							$flag = false; break;
 						}
@@ -84,9 +84,9 @@
 		$reg = 0;
 // Регистрация
 		if (preg_match("/[a-zA-Z0-9А-Яа-я_\.\-\@\Ё]+/", $_POST["login"])){
-			$qwery = f_mysqlQuery ("SELECT login FROM users;");
+			$query = f_mysqlQuery ("SELECT login FROM users;");
 			$flag = true;
-			while ($data = mysql_fetch_row($qwery)) if ($data[0] == $_POST["login"]) {$flag = false; break;}
+			while ($data = mysqli_fetch_row($query)) if ($data[0] == $_POST["login"]) {$flag = false; break;}
 			if ($flag == true) $reg++;
 		}
 		if (preg_match("/.{4,}/", $_POST["pass"])) $reg++;

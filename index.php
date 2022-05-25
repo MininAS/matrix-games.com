@@ -1,17 +1,17 @@
-<?php
-	require ("function.php");
-	require ("sess.php");		$_SESSION["page"] = "index";
+<?
+	require "function.php";
+	require "sess.php";		$_SESSION["page"] = "index";
 	$record = array ();
 	$record_ = array ();
 	$body = "";
 
-	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php");
+	if (isset($_POST["login"]) && isset($_POST["pass"])) require ("auth.php");
 
 	$file=fopen ("games/top.txt", "r");
 	$gameNames = fgetcsv($file, 1000, "\t");
 	fclose ($file);
 	$div_chet = "chet";
-	while (list ($key,$list) = each ($gameNames))
+	foreach ($gameNames as $key => $list)
 	{
 		$theme = $gameNames[$key];
 		$body .= "
@@ -33,7 +33,7 @@
 			ORDER BY  `ms` DESC
 			LIMIT 5");
 		$Ni = 1;
-		$data = mysql_fetch_row ($result);
+		$data = mysqli_fetch_row($result);
 		$body .= "
 		<div class = 'record ".$div_chet."'>
 			<div>
@@ -43,7 +43,7 @@
 				<li><i class = 'small'>".$data[1]."</i></li>
 			</ul>
 		";
-		while ($data = mysql_fetch_row ($result)){
+		while ($data = mysqli_fetch_row($result)){
 			$Ni++;
 			$body .= "
 			<ul>
@@ -70,9 +70,9 @@
 				GROUP BY `id_game`) AS tb
 				ON tg.`id_game` = tb.`id_game` AND tg.`score` = tb.`ms`
 				ORDER BY `score` DESC, `id`");
-    	while ($data = mysql_fetch_row ($result))
+    	while ($data = mysqli_fetch_row($result))
 		{
-			$d = mysql_fetch_row (f_mysqlQuery ("SELECT `login` FROM `users` WHERE id = ".$data[1]));
+			$d = mysqli_fetch_row(f_mysqlQuery ("SELECT `login` FROM `users` WHERE id = ".$data[1]));
 			$flag = true;
 			for ($i=1; $i <= 5; $i++) if ($nic[$i] == $d[0] || $id_game[$i] == $data[0]) $flag = false;
 			if ($flag == true)

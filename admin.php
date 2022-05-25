@@ -10,7 +10,7 @@
 		$a_sort = array ('id', 'login', 'data DESC, time DESC', 'N_visit DESC', 'N_ballov DESC', 'N_game DESC', 'N_mess DESC');
 		if (!in_array ($_GET["sort"], $a_sort))
 		{
-			f_error('Неверные входящие данные:', ' параметр sort не соответствует допустимому значению. Sort='.$_GET["sort"], 'sess.php', 0);
+			f_errorHandler('Неверные входящие данные:', ' параметр sort не соответствует допустимому значению. Sort='.$_GET["sort"], 'sess.php', 0);
 			$_GET["sort"] = 'id';
 		}
 	}
@@ -32,7 +32,7 @@
 		if ($user == "0")
 		{
 			$result = f_mysqlQuery ("SELECT id FROM users;");
-			while  ($data = mysql_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
+			while  ($data = mysqli_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
 		}
 		else f_saveUserMessage ($user, $string);
 	}
@@ -42,7 +42,7 @@
 		if ($user == "0")
 		{
 		 	$result = f_mysqlQuery ("SELECT id FROM users;");
-			while ($data = mysql_fetch_row ($result)) f_mail ($data[0], $string);
+			while ($data = mysqli_fetch_row ($result)) f_mail ($data[0], $string);
 		}
 		else f_mail ($user, $string);
 	}
@@ -72,7 +72,7 @@
 // Сортируем
 	$result = f_mysqlQuery("SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R FROM users ORDER BY ".$_GET["sort"].";");
 	$i_Users = 0;
-	while  ($data = mysql_fetch_row ($result))
+	while  ($data = mysqli_fetch_row ($result))
 	{
 			$body .= "
 		<TR align=\"center\">
@@ -108,7 +108,7 @@
 				<option value = ''>Кому:</option>
 				<option value = '0'>Всем</option>\n";
 		$result = f_mysqlQuery("SELECT id, login FROM users ORDER BY login;");
-		while ($data = mysql_fetch_row ($result))
+		while ($data = mysqli_fetch_row ($result))
 		{
 			$body .= "
 			<option value = '".$data[0]."'>".$data[1]."</option>\n";
@@ -134,8 +134,8 @@
 			<select name='user'>
 				<option value=''>Кому:</option>
 				<option value='0'>Всем</option>\n";
-		mysql_data_seek ($result, 0);
-		while ($data = mysql_fetch_row ($result))
+		mysqli_data_seek ($result, 0);
+		while ($data = mysqli_fetch_row ($result))
 		{
 			$body .= "
 				<option value = '".$data[0]."'>".$data[1]."</option>\n";
@@ -158,8 +158,8 @@
 			<ul class = 'windowTitle'><li>Изменить статус аккаунта</li></ul>
 			<select name = 'user'>
 				<option class = '' value = '0'>Кому:</option>\n";
-	mysql_data_seek ($result, 0);
-	while ($data = mysql_fetch_row ($result))
+	mysqli_data_seek ($result, 0);
+	while ($data = mysqli_fetch_row ($result))
 	{
 		$body .= "
 				<option value = '".$data[0]."'>".$data[1]."</option>\n";

@@ -14,7 +14,7 @@
 
 	$text = f_convertSmilesAndTagFormat($text);
 	$result = f_mysqlQuery ("SELECT id_user, text FROM forum WHERE id=".$mess.";");
-	$data = mysql_fetch_row ($result);
+	$data = mysqli_fetch_row($result);
 	if ($_SESSION["id"] == $data[0]){
 		if (f_mysqlQuery ("UPDATE forum SET text='".$text."' WHERE id=".$mess.";")){
 			$log = "Исправил сообщение id=".$mess." в форуме с текстом (".$data[1].") на (".$text.")."; log_file ($log);

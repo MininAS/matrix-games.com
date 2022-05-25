@@ -5,7 +5,7 @@
 
 		$file_freq = fopen ("logbook/frequency.txt", "r+");
 		if (@!$file_freq)
-		    f_error("Файл не найден.", "Не найден файл количества посещений в папке logbook.");
+		    f_errorHandler("Файл не найден.", "Не найден файл количества посещений в папке logbook.");
 		else{
 			flock ($file_freq, 2+4);
 			$string = fgets ($file_freq,100);
@@ -20,13 +20,13 @@
 // Запись в лог учета посещений
 	function log_file ($log)
 	{
-		$name = "logbook/".date ("Y.m.d").".txt";
+		$name = "logbook/".date ("Y.m.d").".log";
 		if (file_exists($name))
 		{
 			$file=fopen ($name, "a");
 			$ip = getenv ("REMOTE_ADDR");
 			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
-			if ($_SESSION["login"] ==  "") $login = "Quest"; else $login = $_SESSION["login"];
+			if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
 			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t".$_SERVER['HTTP_USER_AGENT']."\n";
 			fwrite ($file, $string);
 			fclose ($file);
@@ -142,7 +142,7 @@ function f_convertSmilesAndTagFormat($text){
 	if (strstr ($text, "{[:")){
 		$arr = preg_split ("/\{\[:|:\]\}/i", $text);
 		$text="";
-		while (list($key, $value) = each ($arr)){
+		foreach ($arr as $key => $value){
 			if (preg_match("/[a-z]{2}/i", $value)){
 				$file=$value.".gif";
 				if (@file_exists ("smile/$file")) $text = $text."<img src=\"smile/".$value.".gif\">";
@@ -159,7 +159,7 @@ function f_convertSmilesAndTagFormat($text){
 function f_mail ($user, $mail_mess, $lang = 'default')
 {
 	$result=f_mysqlQuery ("SELECT F_mail, mail, lang FROM users WHERE id=".$user.";");
-	$data = mysql_fetch_row ($result);
+	$data = mysqli_fetch_row ($result);
 	if ($data[0] == 1)
 	{
 		$mail_mess=str_replace ("\\r\\n", "<br>", $mail_mess);
@@ -210,8 +210,11 @@ function IP_quest ()
 		while ($d = fgetcsv ($file, 1000, "\t"))
 		{
 			$f_ARR = true; reset ($arr);
-			while (list($key, $value) = each ($arr)) if ($d[2] == $value) {$f_ARR = false; break;}
-			if ($f_ARR == true) array_push ($arr, $d[2]);
+			foreach ($arr as $key => $value)
+			    if ($d[2] == $value)
+				    $f_ARR = false; break;
+			if ($f_ARR == true)
+			    array_push ($arr, $d[2]);
 		}
 		fclose ($file);
 	}
@@ -220,12 +223,15 @@ function IP_quest ()
 
 // Обработка ошибок в PHP ------------------------------------------------------
 
-function f_error($error, $text, $file, $line=0)
+function f_errorHandler($errno, $text, $file, $line=0)
 {
-	$string = $error." - ".$text." в файле: ".$file.", строка №".$line."/n";
+	if (!(error_reporting() & $errno))
+        return false;
+    
+	$string = $errno." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);
 	f_mail (1, $string);
-	return false;
+	return true;
 }
 
 // Вход через Вконтакте --------------------------------------------------------

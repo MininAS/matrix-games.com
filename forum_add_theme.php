@@ -8,7 +8,7 @@
 	}
 
 	if ($theme != 0){
-		$data = mysql_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
+		$data = mysqli_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
 		if ($data[0] != 0){
 			echo('
 				{
@@ -49,7 +49,7 @@
 		');
 		return;
 	}
-	$data = mysql_fetch_row(f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND basket=0 AND text="'.$new_str.'";'));
+	$data = mysqli_fetch_row(f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND basket=0 AND text="'.$new_str.'";'));
 	if ($data){
 		echo('
 			{
