@@ -1,68 +1,34 @@
+@import url("/style_body.css");
+@import url("/style_text.css");
+@import url("/style_popup.css");
+@import url("/style_forum.css");
+@import url("/style_game.css");
+@import url("/style_menu.css");
+
 /*=============== Default ====================================================*/
-@font-face{
-    font-family: 'Comic';
-    src: url("../font.ttf") format("truetype");
-	font-style: normal;
-    font-weight: normal;
-}
 
-I, P, A, CENTER, EM, TD,
-OPTION, SELECT, DIV,
-INPUT, TEXTAREA, UL, OL, LI{
-    font-family: Comic;
-	font-style: normal;
-	text-decoration: none; color: #000;
+i, a, ul, li, ol, p, form, img, table, tr, td{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+    list-style: none;
 }
-form, img, table, tr, td{
-	border: 0px; margin: 0px; padding: 0px;
-}
-a, ul, li, ol, p {
-	margin: 0px; padding: 0px; text-decoration: none; list-style: none;
-}
-
-.invisible {
-	display: none;
-}
-/*=============== Текст ======================================================*/
-a:hover {
-	color: #666;
-}
-.small {
-	font-size: 10pt; font-style: normal;
-}
-.big {
-	font-size: 15pt; font-weight: bold;
-}
-.very-big {
-	font-size: 24pt; font-weight: bold;
-}
-.text_insignificant {
-	font-size: 8pt; color: #aaa;
-}
-.noselect {
-  -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-         -o-user-select: none;
-            user-select: none;
-}
-
-
 
 table, td.grand {
 	width: 100%;
 }
-#instruct img {
-	margin: 10px;
-}
+
 input, textarea, select, .border_inset  {
 	border: 2px solid #888;
 	border-radius: 4px;
 	background-color: #fff;
 }
 
+/*=============== Common ====================================================*/
+
+.invisible {
+	display: none;
+}
 .selectable_list_item {
 	border-radius: 6px;
 	cursor: pointer;
@@ -78,150 +44,6 @@ input, textarea, select, .border_inset  {
     background-color: #eee;
     box-shadow: 0px 0px 3px #333;
 }
-
-/*=============== Тело  ======================================================*/
-body {
-	background-color: #eee;
-}
-body > #body {
-	margin: 0px auto;
-	max-width: 1200px;
-	display: grid;
-	grid-template-columns: 2fr 5fr;
-}
-/*=============== Окна сайта =================================================*/
-.windowSite {
-	-webkit-transition: all .5s;
-	transition: all .5s;
-	text-align: center;
-	margin: 5px;
-	position: relative;
-	border: 3px solid #fff;
-	border-radius: 6px;
-	background-color: #f7f7f7;
-	padding: 5px;
-	box-shadow: 0px 0px 5px #888;
-}
-	.windowSite:hover {
-			box-shadow: 0px 0px 10px #000;
-		}
-
-.windowTitle {
-	position: absolute;
-	display: flex;
-    align-self: center;
-	font-size: 12pt;
-	top: -3px;
-	left: 10px;
-	border: 3px solid #fff;
-	border-top: 0px;
-	background-color: #eee;
-	padding: 4px;
-	border-radius: 0px 0px 7px 7px;
-	z-index: 200;
-}
-	.windowTitle li {
-		border: 2px solid #555;
-		background-color: #bbb;
-		margin-top: -10px;
-		padding: 2px 10px;
-		border-radius: 4px;
-	}
-	#forum_primary, #forum_secondary {
-		transition: all .5s;
-		width: 26px;
-		margin-left: 10px;
-	}
-		#forum_primary.hidden, #forum_secondary.hidden {
-			width: 0px;
-			margin-left: 0px;
-			padding: 2px 0px;
-			border: 0px;
-			font-size: 0pt;
-		}
-
-
-/*=============== Списки в меню и над игрой ==================================*/
-	#menu {
-		grid-column: 1 / 3;
-		margin-bottom: 20px;
-		height: 66px;
-	}
-		#menu > a > img {
-			float: left;
-			height: 100%;
-		}
-		#menu ul {
-			position: absolute;
-			display: flex;
-			bottom: -10px;
-			left: 250px;
-		}
-			#menu ul li {
-				border: 3px solid #fff;
-				background-color: #eee;
-				height: 36px;
-				margin: 5px 5px 7px 5px;
-				padding: 4px 4px 0px 4px;
-				border-bottom: 0px;
-				border-radius: 7px 7px 0px 0px;
-			}
-				#menu ul li a {
-					position: relative;
-					min-width: 30px;
-					height: 30px;
-					padding: 4px;
-					display: block;
-					border: 2px solid #555;
-					background-color: #bbb;
-					border-radius: 4px;
-					box-shadow: 0px 0px 3px #fff;
-					margin-bottom: -6px;
-					cursor: pointer;
-				}
-				#menu ul li a:hover {
-					background-color: #ddd !important;
-				}
-		#letter {
-			position: absolute;
-			width: 13px; height: 10px;
-			top: -5px; right: -5px;
-			background-image: url('img/letter.png');
-		}
-
-/* ============== Блок атентификации ======================================== */
-	#blockAuth {
-		float: right;
-		display: grid;
-		grid-template-columns: 300px 1fr;
-		text-align: right;
-	}
-		#blockAuth i {
-			vertical-align: middle;
-			padding: 0px 10px;
-		}
-		#blockAuth #myNballov {
-			grid-column: 1 / 2;
-			font-size: 20pt;
-			vertical-align: middle;
-			padding: 0px 10px;
-		}
-		#blockAuth .avatar {
-			grid-column: 2 / 3;
-			grid-row: 1 / 3;
-			align-content: center;
-			margin: 3px 10px;
-		}
-		#blockAuth form {
-			grid-column: 2 / 3;
-			grid-row: 1 / 3;
-			display: grid;
-			grid-template-columns: 3fr 5fr 1fr 1fr;
-			grid-template-rows: 1fr 1fr;
-			grid-column-gap: 5px;
-			grid-row-gap: 2px;
-		}
-		#registration {grid-column: 4 / 5; grid-row: 1 / 3;}
 
 /*=============== Левый экран с пользователями и играми ======================*/
 
@@ -293,6 +115,7 @@ body > #body {
             }
 
 /*=============== Список игр =================================================*/
+
   #box_game {
 		min-width: 750px;
 		display: flex;
@@ -393,105 +216,8 @@ body > #body {
 					margin-bottom: -5px;
 				}
 
-/*=============== Некоторые настройки окон в играх ===========================*/
-		#game_block {
-			height: 100%;
-		}
-			#game {
-				margin: 20px auto;
-				font-size: 0em;
-			}
-				#tag_Mine {
-					top: 50px;
-					left: 15%;
-				}
-					#tag_Mine img {
-						height: 100%;
-						width: 30px;
-					}
-					#tag_Mine p {
-						position: absolute;
-						display: block;
-					}
-
-/*=============== Обсуждалки =================================================*/
-#messageWindow {
-	min-height: 200px;
-	padding-top: 20px;
-	overflow: auto;
-	max-height: 400px;
-}
-	ul.messageLists {
-		margin-top: 5px;
-	}
-	.forum_topic_header {
-        border-bottom: 2px solid #eee;
-	}
-		ul.messageLists > li {
-			display: grid;
-			align-items: center;
-			grid-template-columns: 1fr 4fr;
-			padding: 5px;
-			margin: 5px;
-		}
-			ul.messageLists .message_autor {
-				min-width: 120px;
-				grid-column: 1 / 2;
-				align-self: start;
-				border-right: 2px solid #eee;
-				padding: 5px;
-				display: grid;
-				grid-template-columns: 1fr 2fr;
-				align-items: center;
-                position: relative;
-			}
-				ul.messageLists .message_autor .avatar {grid-column: 1 / 2;}
-				ul.messageLists .message_autor span    {grid-column: 2 / 3;}
-				ul.messageLists .message_autor .data   {grid-column: 1 / 3;}
-
-			ul.messageLists .text {
-				grid-column: 2 / 3;
-				padding-left: 5%;
-				text-align: left;
-			}
-                ul.messageLists .top_list_item_number {
-                    position: absolute;
-                    top: 0px;
-                    right: 0px;
-                }
-				ul.messageLists .forum_list_item_buttons {
-					float: right;
-				}
-
-		.formSendTheme {
-			display: grid;
-			grid-template-columns: repeat(8, 1fr);
-			grid-template-rows: repeat(2, 1fr);
-			grid-gap: 4px 4px;
-		}
-
-		.formSendTheme .c_enterText,
-        .formSendTheme p            {grid-column: 2 / 8; grid-row: 2 / 3;}
-        .formSendTheme select       {grid-column: 6 / 8; grid-row: 1 / 2;}
-		.formSendTheme .k_enter     {grid-column: 8 / 9; grid-row: 2 / 3;}
-
-		.formSendMessage {
-			display: grid;
-			grid-template-columns: repeat(8, 1fr);
-			grid-template-rows: repeat(4, 1fr);
-			grid-gap: 4px 4px;
-		}
-			.formSendMessage select   {grid-column: 6 / 8; grid-row: 1 / 2;}
-			.formSendMessage textarea {grid-column: 2 / 8; grid-row: 2 / 5;}
-			.formSendMessage .k_close {grid-column: 8 / 9; grid-row: 2 / 3;}
-			.formSendMessage .k_smile {grid-column: 8 / 9; grid-row: 3 / 4;}
-			.formSendMessage .k_enter {grid-column: 8 / 9; grid-row: 4 / 5;}
-
-	.message_non_existed {
-		padding: 20px;
-	}
-
 /*=============== Настройки пользователя =====================================*/
+
 	#windowSettingsProfile {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -514,6 +240,7 @@ body > #body {
 		#windowSettingsProfile form :nth-of-type(3) {grid-area: third;}
 
 /*=============== Окно регистрации пользователя ==============================*/
+
 	#windowRegistration {
 		padding: 40px 0px;
 		display: grid;
@@ -529,118 +256,8 @@ body > #body {
 			grid-row: 1 / 2;
 		}
 
-/*=============== Низ сайта ==================================================*/
-	#bottom {
-		text-align: left;
-		margin-top: 20px;
-		grid-column: 1 / 3;
-		min-height: 60px;
-		max-height: 100px;
-	}
-		#bottom > div {
-			display: inline-block;
-		}
-		#sateVersion {
-			margin: 5px;
-			padding-left: 10px;
-			width: 65%;
-			border-left: 2px solid #eee;
-		}
-
-/*=============== Всплывающие блоки ==================================================*/
-#black_glass {
-	opacity: 0.7;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	display: none;
-	width: 100%;
-	z-index: 1001;
-	background-color: #000;
-}
-#text_help {
-	display: none;
-	position: absolute;
-}
-#window_info_popup {
-	width: 100%;
-	display: none;
-	position: fixed !important;
-	top: 120px;
-	z-index: 1002;
-}
-
-#info_div {
-	text-align: justify;
-	min-width: 200px;
-    max-width: 1000px;
-	max-height: 400px;
-	padding: 10px;
-	margin: 0px auto;
-	overflow: auto;
-}
-#info_div img{
-	margin-bottom: -10px;
-}
-#info_div ul{
-	margin-bottom: -5px;
-}
-
-#statistic {
-	display: table;
-	width: 90%;
-}
-	#statistic p {
-		display: table-cell;
-		vertical-align: middle;
-		text-align: center;
-		font-weight: bold;
-		font-size: 50px !important;
-		width: 30%;
-	}
-	#stat_med .cup {
-		text-align: center;
-		background-color: #bbb;
-		margin: 2px;
-		padding: 2px;
-		border: 2px solid #aaa;
-		background-color: #fff;
-		border-radius: 4px;
-	}
-	.med {
-		display: inline;
-		margin-right: -10px;
-	}
-#k_vk {
-	margin-bottom: -10px !important;
-	width: 79px;
-}
-
-#smiles {
-	display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    align-items: center;
-    justify-items: center;
-}
-	#smiles img{
-		cursor: pointer;
-	}
-
-.toolTip, .popupMenu {
-	display: none;
-	position: absolute;
-	z-index: 300;
-	padding: 0px 5px;
-	max-width: 500px;
-}
-
-.scroll_score {
-	transition: all 3s linear;
-	-webkit-transition: all 3s linear;
-	position: absolute;
-	z-index: 999;
-}
 /*=============== Кнопки дополнительные ==================================================*/
+
 .k_smile, .k_enter, .k_close, .k_vk, .k_reg {
 	display: block;
 	height: 20px;

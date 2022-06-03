@@ -18,7 +18,7 @@ $text = "";
 
 	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
 	                         WHERE id_tema=".$theme." AND status=1 AND basket=0;");
-    $count = mysqli_num_rows$result);
+    $count = mysqli_num_rows($result);
     if ($count > 0){
 		while ($data = mysqli_fetch_row($result)){
 			$text .= "

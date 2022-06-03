@@ -1,0 +1,35 @@
+@font-face{
+    font-family: 'Comic';
+    src: url("../font.ttf") format("truetype");
+}
+body, i, a, ul, li, ol, p, form, img, table, tr, td{
+  font-family: 'Comic';
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none; 
+  color: #222222;
+}
+a:hover {
+	color: #666;
+}
+.small {
+	font-size: 10pt; font-style: normal;
+}
+.big {
+	font-size: 15pt; font-weight: bold;
+}
+.very-big {
+	font-size: 24pt; font-weight: bold;
+}
+.text_insignificant {
+	font-size: 8pt; color: #aaa;
+}
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none;
+}

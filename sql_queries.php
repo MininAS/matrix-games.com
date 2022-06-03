@@ -2,7 +2,7 @@
 
 	$DB_ru = @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
     $DB_localhost = @mysqli_connect("localhost", "root", "");
-	if (!$DB_Connection && !$DB_localhost){
+	if (!$DB_ru && !$DB_localhost){
 		exit("Не удается найти сервер базы данных");
 	}
 	$DB_Connection = $DB_ru ? $DB_ru : $DB_localhost;
