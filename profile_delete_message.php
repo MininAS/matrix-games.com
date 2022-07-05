@@ -30,7 +30,7 @@
 	}
 
 	$result = f_mysqlQuery ("UPDATE users_mess SET basket=1 WHERE id=".$mess.";");
-	$count = mysql_affected_rows ();
+	$count = mysqli_affected_rows ();
 	if ($count == 1) {
 		log_file ("Строка №".$mess." отмечен как удаленный.");
 		echo ('
@@ -40,11 +40,18 @@
 			}
 		');
 	}
+	elseif ($count == 0)
+		echo ('
+			{
+				"res": "100",
+				"message": "'._l("Notebook/The message is not existed.").'"
+			}
+		');
 	else
-	echo ('
-		{
-			"res": "100",
-			"message": "'._l("Notebook/The message has not removed.").'"
-		}
-	');
+		echo ('
+			{
+				"res": "100",
+				"message": "'._l("Notebook/The message has not removed.").'"
+			}
+		');
 ?>

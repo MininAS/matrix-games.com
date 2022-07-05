@@ -27,6 +27,7 @@
         "The message is saved.": "The message is saved.",
         "The message is not saved.": "The message saving is failed. Try again. In case of failure, please contact the site administrator.",
 		"The message has not removed.": "The message removing is failed. Try again. In case of failure, please contact the site administrator.",
+        "The message is not existed.": "The message is not existed.",
         "The maximum nesting depth is two topics.": "The maximum nesting depth is two topics.",
         "Cannot create a topic with an empty name.": "Cannot create a topic with an empty name.",
         "Use more long name.": "Use more long name.",
