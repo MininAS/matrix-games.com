@@ -32,9 +32,8 @@ function text_login ()
 					return response.text()
 				}
 			})
-			.then (data => {
-				   	result = data.substr (0, 1);
-				   	if (result == 'f'){
+			.then (result => {
+				   	if (result == 1){
 				   	    if (getCookie('vk_app_2729439') != undefined) {
 				   	    	elm.innerHTML = ' - ' + _l('Profile/user with this name is existed.');
 				   			elm.style.color = 'blue';
@@ -48,7 +47,7 @@ function text_login ()
 				   			elm.style.color = 'red';
 				   		}
 				   	}
-				   	if (result == 't') {
+				   	if (result == 0) {
 				   		elm.innerHTML = ' - ' + _l('Profile/the name is available!');
 				   		elm.style.color = 'green';
 				   		f_changeInputFieldDisablement(e_regPass2InputField, false);

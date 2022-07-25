@@ -26,6 +26,7 @@
 		GROUP BY  `id_user`
 		ORDER BY  `mc` DESC, `medal`");
 	$Ni = 0; $Ne = 0;
+	if (isset($result) && isset($result_))
 	while ($data = mysqli_fetch_row($result))
 	{
 		$data_ = mysqli_fetch_row($result_);

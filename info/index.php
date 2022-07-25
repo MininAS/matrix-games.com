@@ -43,7 +43,7 @@ switch($_GET["lang"]){
         which a player who opened this game layout.<br><br>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 		Let a game be fair.
-        <?
+        <?php
         break;
 
     default:
@@ -87,6 +87,6 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
 		Что это за соревнования – вы выбираете чужую игру, и вам на поле предоставляется копия расклада игровой комбинации,
 		которая была у игрока, который ее открыл. А смысл в том, что игра будет честной, и совершенно не зависеть от разного расклада фишек.
-		<?
+		<?php
 }
 ?>

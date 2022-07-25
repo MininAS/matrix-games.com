@@ -11,9 +11,10 @@
 		echo ("
 			<option value = '0'>"._l('User')."</option>
 		");
-	while ($data = mysqli_fetch_row($result)){
-		echo ("
-			<option value = '".$data[0]."'>".$data[1]."</option>
-		");
-    }
+	if (isset($result))
+		while ($data = mysqli_fetch_row($result)){
+			echo ("
+				<option value = '".$data[0]."'>".$data[1]."</option>
+			");
+		}
 ?>

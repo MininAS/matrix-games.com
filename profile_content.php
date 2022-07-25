@@ -14,7 +14,7 @@
 		WHERE id_tema=".$_SESSION["id"]." AND basket=0
 		ORDER BY data DESC, time DESC;"
 	);
-	$count = mysqli_num_rows($result);
+	$count = isset($result) ? mysqli_num_rows($result) : 0;
 
 	if ($count >= 1){
 		$text .= "

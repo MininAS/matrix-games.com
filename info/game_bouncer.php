@@ -19,7 +19,7 @@
         <br>
         &nbsp&nbsp&nbsp&nbsp
         When you try to knock another color, a stone joins to a massif, and the massif will add one row in weight.
-        <?
+        <?php
         break;
 
     default:
@@ -41,6 +41,6 @@
         &nbsp&nbsp&nbsp&nbsp
         При ударе в другой цвет, камень выброшенный вами присоединяется к верхним камням,
         а весь каменный массив прибавит в весе на один ряд.
-        <?
+        <?php
  }
  ?>

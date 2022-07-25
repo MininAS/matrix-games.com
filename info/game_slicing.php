@@ -9,7 +9,7 @@ switch($_GET["lang"]){
         A points sum is equal an  arithmetic progression of the number of squares removed simultaneously.
         You can see the amount in the tooltip if you hover over them.
 		You can revert a last motion by certain menu button or mouse right button.
-        <?
+        <?php
         break;
 
     default:
@@ -20,6 +20,6 @@ switch($_GET["lang"]){
         Сумма очков, равна арифметической прогрессии от количества одновременно удаляемых квадратов.
         Сумму вы можете найти в подсказке, если наведете курсор на них.
 		Вы можете отменить последнее движение с помощью определенной кнопки меню или правой кнопки мыши.
-		<?
+		<?php
 }
 ?>

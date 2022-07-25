@@ -35,6 +35,7 @@
 		GROUP BY id_game
 		ORDER BY sum DESC;
     ");
+	if (isset($subGames))
     while ($subGame = mysqli_fetch_row($subGames)){
 		$winner = mysqli_fetch_row(
 			f_mysqlQuery ("

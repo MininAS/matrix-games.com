@@ -1,4 +1,4 @@
-<?
+<?php
 	require ("function.php");
 	require ("sess.php");
 
@@ -46,7 +46,7 @@
 									);
 						");
 						$log = "Регистрация пользователя ".$_SESSION["login"]." через VK."; log_file ($log);
-						$_SESSION["id"] = mysql_insert_id();
+						$_SESSION["id"] = mysqli_insert_id($DB_Connection);
 						if (isset ($_POST["photo"])) save_avatar ($_SESSION["id"], $_POST["photo"]);
 						message ();
 					}
@@ -117,7 +117,7 @@
 			");
 			$log = "Регистрация пользователя ".$_SESSION["login"];
 			log_file ($log);
-			$_SESSION["id"] = mysql_insert_id();
+			$_SESSION["id"] = mysqli_insert_id($DB_Connection);
 			message ();
 		}
 		else {
@@ -133,7 +133,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'.l("Profile/You are already authorized.").'"
+				"message": "'._l("Profile/You are already authorized.").'"
 			}
 		');
 	}

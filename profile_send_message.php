@@ -11,7 +11,7 @@
 		exit ('
 			{
 				"res": "002",
-				"message": "'._l("There is no name to whom to send the message.").'"
+				"message": "'._l("Profile/Enter recipient name.").'"
 			}
 		');
 

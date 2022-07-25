@@ -1,4 +1,4 @@
-<?
+<?php
 // Файл frequency хранит число посещений сайта, вызывая эту функцию мы увеличиваем его на еденицу
 	function frequency_add ()
 	{
@@ -27,7 +27,7 @@
 			$ip = getenv ("REMOTE_ADDR");
 			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
 			if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
-			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t".$_SERVER['HTTP_USER_AGENT']."\n";
+			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t\n";
 			fwrite ($file, $string);
 			fclose ($file);
 		}
@@ -159,9 +159,8 @@ function f_convertSmilesAndTagFormat($text){
 function f_mail ($user, $mail_mess, $lang = 'default')
 {
 	$result=f_mysqlQuery ("SELECT F_mail, mail, lang FROM users WHERE id=".$user.";");
-	$data = mysqli_fetch_row ($result);
-	if ($data[0] == 1)
-	{
+	$data = isset($result) ? mysqli_fetch_row ($result) : [1, "mininas@sampo.ru"];
+	if ($data[0] == 1){
 		$mail_mess=str_replace ("\\r\\n", "<br>", $mail_mess);
 		mail ($data[1], _l("Mails/News from LMG ==>>", $lang),
 		"
@@ -223,11 +222,11 @@ function IP_quest ()
 
 // Обработка ошибок в PHP ------------------------------------------------------
 
-function f_errorHandler($errno, $text, $file, $line=0)
+function f_errorHandler($errno, $text, $file = "---", $line=0)
 {
 	if (!(error_reporting() & $errno))
         return false;
-    
+
 	$string = $errno." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);
 	f_mail (1, $string);
@@ -341,6 +340,4 @@ function f_getTranslatedText ($lang){
 	$arr = json_decode($string, true);
 	return  $arr;
 }
-
-require ("sql_queries.php");
 ?>

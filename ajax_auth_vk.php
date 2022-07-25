@@ -1,4 +1,4 @@
-<?
+<?php
 	require ("function.php");
 	require ("sess.php");
 	if (isset ($_COOKIE["vk_app_2729439"]))

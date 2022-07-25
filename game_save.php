@@ -2,6 +2,14 @@
 	require ("function.php");
 	require ("sess.php");
 
+	if (!$DB_Connection && !$DB)
+	    exit ('
+			{
+				"res": "100",
+				"message": "'._l("Database was not connected by some reason.").'"
+			}
+		');
+
 	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin"){
 		exit ('
 			{
@@ -43,7 +51,7 @@
 			');
 
 		f_mysqlQuery ("INSERT games_".$theme." (gameboard) VALUES ('".$string[0]."');");
-		$new_row_id = mysql_insert_id ();
+		$new_row_id = mysqli_insert_id ($DB_Connection);
 		if (f_mysqlQuery ("
 			INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
 			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');")){

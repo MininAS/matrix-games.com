@@ -39,12 +39,14 @@
 			</li>
 			";
 // если пользователь авторизовался
-		if ($_SESSION["page"] != "profile" && ($_SESSION["dopusk"]=="yes" || $_SESSION["dopusk"]=="admin")){
+		if ($_SESSION["page"] != "profile"
+		&& ($_SESSION["dopusk"]=="yes" || $_SESSION["dopusk"]=="admin")){
 			echo "
 			<li id = 'k_profile' alt='"._l('Tooltips/Your profile')."'>
 				<a href = 'profile.php'>
 			";
-			$data = mysqli_fetch_row(f_mysqlQuery ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";"));
+			$result = f_mysqlQuery ("SELECT F_bette FROM users WHERE id=".$_SESSION["id"].";");
+			$data = isset($result) ? mysqli_fetch_row($result) : [0];
 			if ($data[0] == 1)
 			    echo "
 					<div id = 'letter'></div>

@@ -13,7 +13,7 @@ switch($_GET["lang"]){
                     (three touches - the third in a cell) can be used on a cell with number around which
                     flags are already placed.<br>
         In any case, always follow cells with numbers, they display a mines amount are located around.
-        <?
+        <?php
         break;
 
     default:
@@ -29,6 +29,6 @@ switch($_GET["lang"]){
                     (в три касания - третье по клетке) можно использовать на клетке с цифрами,
                     вокруг которой уже расставлены флаги.<br>
         В любом случае всегда ориентируйтесь по клеткам с цифрами, именно они указывают на количество мин расположенных вокруг.
-		<?
+		<?php
 }
 ?>

@@ -49,8 +49,8 @@
 		');
 		return;
 	}
-	$data = mysqli_fetch_row(f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND basket=0 AND text="'.$new_str.'";'));
-	if ($data){
+	$result = f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND basket=0 AND text="'.$new_str.'";');
+	if ($result){
 		echo('
 			{
 				"res": "104",
@@ -80,7 +80,7 @@
 				"message": "'._l("Notebook/The topic is saved.").'"
 			}
 		');
-		$data = mysql_insert_id ();
+		$data = mysqli_insert_id ($DB_Connection);
 		$log = "Создание новой темы №".$data; log_file ($log);
 		f_mail (1, "На форуме было добавлена тема: ".$new_str." в теме = ".$theme);
 	}

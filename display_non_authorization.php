@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class = 'windowSite'>
-		 <?
+		 <?php
             $text = isset($text) ? $text : 'There is needed authorization. You will redirected to home page.';
 		    echo (_l($text));
 		 ?>

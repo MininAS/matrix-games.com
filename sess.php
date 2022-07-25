@@ -1,6 +1,7 @@
 <?php
 set_error_handler('f_errorHandler');
 date_default_timezone_set('Europe/Moscow');
+
 // Открытие сессии
 	if (isset ($_COOKIE["LMG"]))
 	    if (preg_match("/sess_[0-9a-z]{32}/", $_COOKIE["LMG"]))
@@ -48,7 +49,9 @@ date_default_timezone_set('Europe/Moscow');
 	$_SESSION["lang"] = $_COOKIE["lang"];
 	$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
 
-    $instant_message = 'none';
+// Подключаем сервер БД
+	$instant_message = 'none';
+	require ("sql_queries.php");
 
 // Восстановление переменных+++++++++++++++++++++++++
 	// Переменная переменного типа
@@ -83,7 +86,8 @@ date_default_timezone_set('Europe/Moscow');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
-		$$v = mysqli_real_escape_string(db(), $$v);
+		if ($DB_Connection)
+		    $$v = mysqli_real_escape_string($DB_Connection, $$v);
 	}
 
 // Открытие сессии dopusk - пользователь зарегестрирован, frequency - открывает при первом прохождении через

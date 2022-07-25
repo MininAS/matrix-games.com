@@ -1,9 +1,15 @@
-<?
+<?php
+
+    // Проверка существования имени пользователя в БД.
+
 	require ("function.php");
 	require ("sess.php");
-// ѕроверка формы на правильность ввода	 и проверка существует ли пользователь с таким именем
-	$query = f_mysqlQuery ("SELECT login FROM users;");
-	$flag = true;
-	while ($data = mysqli_fetch_row($query)) if (strcasecmp($data[0], $_POST["login"]) == 0) {echo ("false"); $flag = false; break;}
-	if ($flag == true) echo ("true")
+
+	$query = f_mysqlQuery ("
+	    SELECT id
+		FROM users
+		WHERE login='".$_POST["login"]."';
+	");
+	$count = isset($query) ? mysqli_num_rows($query) : 0;
+	echo ($count);
 ?>

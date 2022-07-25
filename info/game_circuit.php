@@ -11,7 +11,7 @@ switch($_GET["lang"]){
         After the first short circuit, you will still have conductors that fall down,
         you can moving them by mouse dragging in the direction you need,
         if the cell is not busy in this direction.
-        <?
+        <?php
         break;
 
     default:
@@ -25,6 +25,6 @@ switch($_GET["lang"]){
         После первого замыкании у вас останутся проводники которые упадут вниз,
         вы можете двигать их перетаскивая мышью в нужном вам направлении,
         если в этом направлении клетка не занята.
-		<?
+		<?php
 }
 ?>

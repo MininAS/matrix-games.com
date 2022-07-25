@@ -9,7 +9,7 @@ switch($_GET["lang"]){
         To grab a neighboring cell, you need to choose the same color.
         You can choose the color using a mouse or touch on the field use some cell, some color square. <br>
         If you choose your opponent’s color or yours then you will lose your a game move.
-        <?
+        <?php
         break;
 
     default:
@@ -23,6 +23,6 @@ switch($_GET["lang"]){
 		любая клетка, любой цветной квадрат.<br>
         &nbsp&nbsp&nbsp&nbsp
         Если вы выберите цвет противника или свой тогда вы потеряете ход.
-		<?
+		<?php
 }
 ?>

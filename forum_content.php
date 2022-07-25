@@ -6,8 +6,8 @@ $text = "";
 
 	$text .= "
 	<ul class = 'messageLists'>";
-	$parent = getForumMessageById ($theme);
 	if ($theme != 0){
+		$parent = getForumMessageById ($theme);
 		$text .= "
 		<li class = 'forum_topic_header'>
 			<div class = 'text'>
@@ -18,7 +18,7 @@ $text = "";
 
 	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
 	                         WHERE id_tema=".$theme." AND status=1 AND basket=0;");
-    $count = mysqli_num_rows($result);
+    $count = isset($result) ? mysqli_num_rows($result) : 0;
     if ($count > 0){
 		while ($data = mysqli_fetch_row($result)){
 			$text .= "
@@ -59,7 +59,7 @@ $text = "";
 				</li>";
 		}
 	}
-	elseif ($parent["id_tema"] == 0)
+	elseif ($theme != 0)
 		$text .= "
 			<p class = 'message_non_existed'>....... "._l("Notebook/Topics are not exist")." .......</p>";
 	$text .= "
@@ -69,7 +69,7 @@ $text = "";
 	// Кол. сообщений
 	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
 							WHERE id_tema=".$theme." AND status=0 AND basket=0 ORDER BY data DESC, time DESC;");
-    $count = mysqli_num_rows($result);
+    $count = isset($result) ? mysqli_num_rows($result) : 0;
 	if ($count >= 1) {
 		$text .= "
 			<p>"._l("Notebook/Topic messages")."</p>

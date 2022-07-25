@@ -55,7 +55,7 @@ switch($_GET["lang"]){
         - if the moving is not possible.<br><br>
         &nbsp&nbsp&nbsp&nbsp
         Source of gif animated images is site http://preloaders.net
-		<?
+		<?php
         break;
 
     default:
@@ -114,6 +114,6 @@ switch($_GET["lang"]){
 		- если их сдвиг не возможен.<br><br>
         &nbsp&nbsp&nbsp&nbsp
         Изображения анимированных GIF-картинок взяты с сайта http://preloaders.net
-		<?
+		<?php
 }
 ?>

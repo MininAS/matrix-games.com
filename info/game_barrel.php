@@ -51,7 +51,7 @@ switch($_GET["lang"]){
                     Points: (number of balls) x 10
             </tr>
         </table>
-        <?
+        <?php
         break;
 
     default:
@@ -106,6 +106,6 @@ switch($_GET["lang"]){
                 </td>
             </tr>
         </table>
-        <?
+        <?php
     }
 ?>

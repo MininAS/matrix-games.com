@@ -24,13 +24,13 @@
 	<div id = 'body'>
 		<div id = 'menu' class = 'windowSite'>
 			<a href='index.php'><img src = 'img/logotip.png' alt = '<? echo (_l('Tooltips/Home'))?>'></a>
-				<?require ("menu.php");?>
+				<?php require ("menu.php"); ?>
 		</div>
 		<div id = 'user_top' class = 'windowSite'>
 			<div id = 'user_top_middle'></div>
 		</div>
 		<div id = 'box_game'>
-			<? echo ($body);?>
+			<?php echo ($body);?>
 		</div>
 		<div id = 'bottom' class = 'windowSite'>
 			<div id = 'index'>
@@ -59,7 +59,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
-				<? echo (_l('Regards Minin Aleksandr!'))?> (v16 - 03.06.2022)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v16 - 25.07.2022)</p>
 			</div>
 		</div>
 	</div>

@@ -43,7 +43,7 @@
 	}
 
 	$result = f_mysqlQuery ("UPDATE forum SET basket=1 WHERE id=".$theme.";");
-	$count = mysqli_affected_rows ();
+	$count = isset($result) ? mysqli_affected_rows ($DB_Connection) : 0;
 	if ($count == 1) {
 		log_file ("Строка №".$theme." отмечен как удаленный.");
 		echo ('

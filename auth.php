@@ -1,4 +1,4 @@
-<?
+<?php
 $query = f_mysqlQuery ("SELECT pass, id, login, dopusk, lang FROM users GROUP BY id;");
 $instant_message = _l("Login or password were invalid.");
 while ($data = mysqli_fetch_row($query))

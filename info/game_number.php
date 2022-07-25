@@ -39,7 +39,7 @@ switch($_GET["lang"]){
             </td>
         </tr>
         </table>
-        <?
+        <?php
         break;
 
     default:
@@ -84,6 +84,6 @@ switch($_GET["lang"]){
             </td>
         </tr>
         </table>
-		<?
+		<?php
 }
 ?>

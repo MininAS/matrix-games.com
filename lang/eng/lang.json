@@ -1,4 +1,5 @@
 {
+    "Database was not connected by some reason.": "Database was not connected by some reason.",
 	"Home page": {
 	    "High score": "High score"
 	},
@@ -42,8 +43,7 @@
         "The input field is empty.": "The input field is empty.",
         "The text is very shot.": "The text is very shot.",
         "The text is very long.": "The text is very long.",
-		"No posts": "No posts",
-        "There is no name to whom to send the message.": "There is no name to whom to send the message."
+		"No posts": "No posts"
 	},
 	"Gamebook": {
         "Please, login that you'll be able to competition.": "Please, login that you'll be able to competition.",
@@ -88,7 +88,8 @@
         "password is very shot.": "password is very shot.",
         "second password is not match.": "second password is not match.",
         "address is invalid.": "address is invalid.",
-        "Account has removed.": "Account has removed."
+        "Account has removed.": "Account has removed.",
+        "Enter recipient name.": "Enter recipient name."
     },
 	"Server response awaiting ...": "Server response awaiting ...",
 	"Pause": "Pause",
@@ -156,7 +157,7 @@
     "The photo has downloaded.": "The photo has downloaded.",
     "The password has changed.": "The password has changed.",
     "The mail has changed.": "The mail has changed.",
-    "The checkboxes have chenged.": "The checkboxes have chenged.",
+    "The checkboxes have changed.": "The checkboxes have changed.",
     "Mails": {
         "Register on the Logic Matrix Games website!": "Register on the Logic Matrix Games website!",
         "Hello!": "Hello!",

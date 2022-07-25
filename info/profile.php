@@ -15,7 +15,7 @@ switch($_GET["lang"]){
         Click to the menu statistics button you can see the window shows you your some earned rewards.
         Challenge cups - they can be won by other player who have scored a higher record than yours in the current position.
         Medals and points for each game will be immortalized here.
-        <?
+        <?php
         break;
 
     default:
@@ -33,7 +33,7 @@ switch($_GET["lang"]){
         В статистике по кнопке в меню - окно демонстрирует вам ваши заработанные награды.
 		Кубки переходящие, у вас их могут выиграть игроки набравшие больший рекорд чем у вас в текущем положении.
         Медали и баллы для каждой игры здесь будут увековечены.
-		<?
+		<?php
 }
 ?>
 

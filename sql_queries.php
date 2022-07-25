@@ -1,18 +1,37 @@
 <?php
-
-	$DB_ru = @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
     $DB_localhost = @mysqli_connect("localhost", "root", "");
-	if (!$DB_ru && !$DB_localhost){
-		exit("Не удается найти сервер базы данных");
-	}
-	$DB_Connection = $DB_ru ? $DB_ru : $DB_localhost;
-	mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
-    mysqli_select_db ($DB_Connection, "matrix-gam_db");
+	$DB_ru =        @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
+	$DB_Connection = $DB_ru ?: ($DB_localhost ?: false);
 
-    function db(){
-        global $DB_Connection;
-		return $DB_Connection;
+	if ($DB_Connection){
+	    mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
+        $DB = mysqli_select_db ($DB_Connection, "matrix-gam_db");
+		if (!$DB){
+			log_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
+			$instant_message = _l("Database was not connected by some reason.");
+		}
 	}
+	else {
+		log_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
+		$instant_message = _l("Database was not connected by some reason.");
+		$DB = false;
+	}
+
+	function f_mysqlQuery ($query) {
+		global $DB_Connection;
+		global $DB;
+		if ($DB_Connection && $DB){
+		    $result = mysqli_query($DB_Connection, $query);
+		    if (!$result){
+			    $result = "Запрос: ".$query." - выдал ошибку: ".mysqli_error($DB_Connection)."/n";
+			    log_file ($result);
+		    }
+		    else return $result;
+		}
+		else return null;
+	}
+
+# users ---------------------------------------------------------------
 
 	function getUserLogin($id){
 		$result = f_mysqlQuery ("
@@ -20,7 +39,7 @@
 			FROM users
 			WHERE id=".$id.";"
 		);
-		$count = mysqli_num_rows($result);
+		$count = isset($result) ? mysqli_num_rows($result) : 0;
 		if ($count == 1){
 		    $data = mysqli_fetch_row($result);
 			return $data[0];
@@ -29,14 +48,24 @@
 			return "?????";
 	}
 
-	function f_mysqlQuery ($query) {
-		$result = mysqli_query(db(), $query);
-		if (!$result) {
-			$result = "Запрос: ".$query." - выдал ошибку: ".mysqli_error(db())."/n";
-			log_file ($result);
-		}
-		else return $result;
+    function getUserSettings(){
+		$result = f_mysqlQuery ("
+		    SELECT login, mail, F_mailG, F_mail
+		    FROM users
+			WHERE id=".$_SESSION["id"].";"
+		);
+        $data = isset($result) ? mysqli_fetch_row($result) : ["--", "--", 0, 0];
+		$array = array (
+			"login" =>          $data[0],
+			"e_mail" =>         $data[1],
+			"flag_game_mess" => $data[2],
+			"flag_info_mess" => $data[3],
+		);
+        return $array;
 	}
+
+
+# games------------------------------------------------------------------------
 
 	function getUserSubgameAmount ($game, $user){
 		$result = f_mysqlQuery ("
@@ -49,10 +78,8 @@
 			)
 			AND id_user=".$user.";"
 		);
-		if (@mysqli_num_rows($result))
-		    return mysqli_num_rows($result);
-		else
-		    return 0;
+		$count = isset($result) ? mysqli_num_rows($result) : 0;
+		return $count;
 	}
 
 	function getSubgameСreator ($game, $subgame){
@@ -100,7 +127,7 @@
 			SELECT id_tema, id_user, text
 			FROM forum
 			WHERE id=".$id.";");
-		$data = mysqli_fetch_row($result);
+		$data = isset($result) ? mysqli_fetch_row($result) : [0, 0, ""];
 		$array = array (
 			"id_tema" => $data[0],
 			"id_user" => $data[1],
@@ -111,6 +138,10 @@
 
 // Ежедневное резевное сохранение базы данных
 	function db_saver(){
+		global $DB_Connection;
+		global $DB;
+		if (!$DB_Connection || !$DB) return;
+
 		$result = f_mysqlQuery("SHOW TABLES");
 		$tables = array();
 		for($i = 0; $i < mysqli_num_rows($result); $i++){
@@ -158,7 +189,7 @@
 				if($i == 0) $text .= "\n(";
 				else  $text .= ",\n(";
 				foreach($row as $v){
-					$text .= "'".mysqli_real_escape_string(db(), $v)."',";
+					$text .= "'".mysqli_real_escape_string($DB_Connection, $v)."',";
 				}
 				$text = rtrim($text,",");
 				$text .= ")";
