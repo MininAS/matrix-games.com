@@ -64,7 +64,7 @@
 		$canvasLayout = 0;
 	}
 
-// Просмотр съигранных игр ====================================================================================================================
+// Просмотр сыгранных игр ====================================================================================================================
 	$log = $theme."/".$canvasLayout; log_file ($log);
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
@@ -78,8 +78,8 @@
 	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.2'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.1'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.3'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.2'></script>";
 
 	require ("display.php");
 ?>

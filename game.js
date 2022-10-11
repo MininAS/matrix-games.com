@@ -99,13 +99,13 @@ e_topWindow.onclick = function (event){
 e_topWindow.onscroll = autoScrollingChBoxes;
 
 function autoScrollingChBoxes(){
-	const e_gameChBoxContainer = document.getElementById('gameCheckboxContainer')
+	const e_gameChBoxContainer = document.getElementById('gameCheckboxScrollContainer')
 	if (!e_gameChBoxContainer) return
 	const e_scrollExChBox = Array.from(
 		e_gameChBoxContainer.getElementsByTagName('ul')
 	);
 	const e_listExChBox = Array.from(
-		document.querySelectorAll('.messageLists ul.openedGameCheckbox')
+		document.querySelectorAll('.messageLists .openedGameCheckbox')
 	);
     var scrollY = e_topWindow.scrollTop;
 	var containerHeight = e_gameChBoxContainer.getBoundingClientRect().height;
@@ -122,12 +122,12 @@ function autoScrollingChBoxes(){
 			continue;
 		}
 		y = e_listExChBox[i].offsetTop - scrollY;
-		x = e_listExChBox[i].offsetLeft - containerWidth + 16;
+		x = e_listExChBox[i].offsetLeft - containerWidth + 12;
         borderTop = i * 22 + 7;
 		borderBottom = containerHeight - ((5 - i) * 22 + 15);
 
 		if (y > borderTop && y < borderBottom){
-		    e_scrollExChBox[i].style.top = `${y - 2}px`;
+		    e_scrollExChBox[i].style.top = `${y - 6}px`;
 			e_scrollExChBox[i].style.left = `${x}px`;
 		}
 		else if (y <= borderTop){

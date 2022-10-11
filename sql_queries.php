@@ -10,14 +10,13 @@
 			log_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
 			$instant_message = _l("Database was not connected by some reason.");
 		}
-	}
-	else {
+	} else {
 		log_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
 		$instant_message = _l("Database was not connected by some reason.");
 		$DB = false;
 	}
 
-	function f_mysqlQuery ($query) {
+	function f_mysqlQuery($query){
 		global $DB_Connection;
 		global $DB;
 		if ($DB_Connection && $DB){
@@ -67,9 +66,9 @@
 
 # games------------------------------------------------------------------------
 
-	function getUserSubgameAmount ($game, $user){
+	function getUserSubGameAmount($game, $user){
 		$result = f_mysqlQuery ("
-			SELECT id
+			SELECT COUNT(*) AS count
 			FROM games_".$game."_com
 			WHERE id IN (
 				SELECT MIN(id)
@@ -78,11 +77,31 @@
 			)
 			AND id_user=".$user.";"
 		);
-		$count = isset($result) ? mysqli_num_rows($result) : 0;
+		$count = isset($result) ? mysqli_fetch_row($result)[0] : 0;
 		return $count;
 	}
 
-	function getSubgameСreator ($game, $subgame){
+	function getSubSubGameAmount($game, $subgame) {
+		$result = f_mysqlQuery ("
+			SELECT COUNT(*) as count
+			FROM games_".$game."_com
+			WHERE id_game=".$subgame.";"
+		);
+		$count = isset($result) ? mysqli_fetch_row($result)[0] : 0;
+		return $count;
+	}
+
+	function getSubSubGameAmountForUsers($game, $subgame) {
+		$result = f_mysqlQuery ("
+			SELECT id_user, COUNT(*)
+			FROM games_".$game."_com
+			WHERE id_game=".$subgame."
+			GROUP BY id_user;"
+		);
+		return $result;
+	}
+
+	function getSubGameСreator($game, $subgame) {
 		$result = f_mysqlQuery ("
 			SELECT *
 			FROM games_".$game."
@@ -104,9 +123,9 @@
 		return $data[0];
 	}
 
-    function getSubgameBestPlayer ($game, $subgame){
+    function getSubGameBestPlayer($game, $subgame) {
 		$result = f_mysqlQuery ("
-			SELECT id_user, users.login, score, users.lang
+			SELECT id_user, users.login, score, users.lang, DATEDIFF(NOW(), tb.data) AS live
 			FROM games_".$game."_com AS tb, users
 			WHERE id_game=".$subgame." AND id_user=users.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
@@ -116,13 +135,14 @@
 			"login" => $data[1],
 			"score" => $data[2],
 			"lang" =>  $data[3],
+			"live" =>  $data[4],
 		);
         return $array;
 	}
 
 # forum -------------------------------------------------------------------
 
-    function getForumMessageById ($id){
+    function getForumMessageById($id){
 		$result = f_mysqlQuery ("
 			SELECT id_tema, id_user, text
 			FROM forum

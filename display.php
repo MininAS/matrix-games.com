@@ -14,8 +14,9 @@
 		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
 	<meta name="viewport" content="width=device-width, user-scalable=yes">
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
-	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=20">
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
+
+	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=21">
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.3'></script>
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.3'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
@@ -23,7 +24,7 @@
 <body>
 	<div id = 'body'>
 		<div id = 'menu' class = 'windowSite'>
-			<a href='index.php'><img src = 'img/logotip.png' alt = '<? echo (_l('Tooltips/Home'))?>'></a>
+			<a href='index.php'><img src = 'img/logotip.png' alt = '<?php echo (_l('Tooltips/Home'))?>'></a>
 				<?php require ("menu.php"); ?>
 		</div>
 		<div id = 'user_top' class = 'windowSite'>
@@ -57,8 +58,8 @@
 					<!-- /Yandex.Metrika counter -->
 			</div>
 			<div id = 'sateVersion'>
-				<p class = 'small'><? echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
-				<p class = 'small'><? echo (_l('If you find some bug, please comment it'))?><br/>
+				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
+				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
 				<?php echo (_l('Regards Minin Aleksandr!'))?> (v16 - 25.07.2022)</p>
 			</div>
 		</div>
@@ -67,7 +68,7 @@
 	<div id = "black_glass"></div>
 
 	<div id = 'window_info_popup'>
-		<div id = 'info_div' class = 'windowSite'><? echo ($instant_message) ?></div>
+		<div id = 'info_div' class = 'windowSite'><?php echo ($instant_message) ?></div>
 	</div>
 
 	<div id = 'text_key' class = 'border_inset toolTip'></div>

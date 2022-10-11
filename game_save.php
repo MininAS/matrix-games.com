@@ -40,7 +40,7 @@
 		');
 	}
 
-    $count = getUserSubgameAmount ($theme, $_SESSION["id"]);
+    $count = getUserSubGameAmount ($theme, $_SESSION["id"]);
 	if ($canvasLayout == "0"){
 		if ($count >= 5)
 			exit('
@@ -78,7 +78,7 @@
 				}
 			');
 
-		$bestPlayer_old = getSubgameBestPlayer ($theme, $canvasLayout);
+		$bestPlayer_old = getSubGameBestPlayer ($theme, $canvasLayout);
 
 		if (f_mysqlQuery ("
 				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
@@ -89,8 +89,8 @@
 			log_file ("Сохранение игры в ".$theme." №".$canvasLayout.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 
-			$bestPlayer_new = getSubgameBestPlayer ($theme, $canvasLayout);
-			$creator = getSubgameСreator ($theme, $canvasLayout);
+			$bestPlayer_new = getSubGameBestPlayer ($theme, $canvasLayout);
+			$creator = getSubGameСreator ($theme, $canvasLayout);
 
 			if ($bestPlayer_new["id"] != $bestPlayer_old["id"]) {
 				$message = $bestPlayer_new["login"]." ".

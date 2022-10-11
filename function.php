@@ -3,9 +3,9 @@
 	function frequency_add ()
 	{
 
-		$file_freq = fopen ("logbook/frequency.txt", "r+");
+		$file_freq = fopen ("logs/frequency.txt", "r+");
 		if (@!$file_freq)
-		    f_errorHandler("Файл не найден.", "Не найден файл количества посещений в папке logbook.");
+		    f_errorHandler("Файл не найден.", "Не найден файл количества посещений в папке logs.");
 		else{
 			flock ($file_freq, 2+4);
 			$string = fgets ($file_freq,100);
@@ -20,7 +20,7 @@
 // Запись в лог учета посещений
 	function log_file ($log)
 	{
-		$name = "logbook/".date ("Y.m.d").".log";
+		$name = "logs/".date ("Y.m.d").".log";
 		if (file_exists($name))
 		{
 			$file=fopen ($name, "a");
@@ -42,7 +42,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 // Эта функция возвращает число посещений сайта
 	function frequency_read ()
-	{	$file_freq = fopen ("logbook/frequency.txt", "r");
+	{	$file_freq = fopen ("logs/frequency.txt", "r");
 		$strong = fgets ($file_freq,100);
 		if (@!$file_freq) {$freqread = "#"; exit;} else {$freqread=$strong; }
 		fclose ($file_freq);
@@ -203,7 +203,7 @@ function f_mail ($user, $mail_mess, $lang = 'default')
 function IP_quest ()
 {
 	$arr = array();
-	$file=fopen ("logbook/".date ("Y.m.d").".txt", "r");
+	$file=fopen ("logs/".date ("Y.m.d").".txt", "r");
 	if (isset ($file))
 	{
 		while ($d = fgetcsv ($file, 1000, "\t"))

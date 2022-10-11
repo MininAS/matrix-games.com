@@ -2,8 +2,8 @@ avatar/*.jpg
 avatar/*.jpeg
 avatar/*.png
 db_saver/*.sql
-logbook/*.txt
-logbook/*.log
+logs/*.txt
+logs/*.log
 sess/sess_*
 google*
 yandex*

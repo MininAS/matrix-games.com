@@ -32,22 +32,22 @@
 			    <div  class = 'text'>";
 
 				if ($data[5] != "" && $data[6] != 0){
-					$creator = getSubgameСreator ($data[5], $data[6]);
-					$bestPlayer = getSubgameBestPlayer ($data[5], $data[6]);
+					$creator = getSubGameСreator ($data[5], $data[6]);
+					$bestPlayer = getSubGameBestPlayer ($data[5], $data[6]);
 					if ($creator == "none")
 						$text .= "
-						<ul class = 'gameCheckbox key deletedGameCheckbox'>
-						    <li></li>
+						<ul class = 'gameCheckbox key'>
+						    <li class = 'deletedGameCheckbox'></li>
 					    </ul>";
                     else if ($creator == $_SESSION["id"])
 						$text .= "
-						<ul class = 'gameCheckbox key openedGameCheckbox'>
-						    <li></li>
+						<ul class = 'gameCheckbox key'>
+						    <li class = 'openedGameCheckbox'></li>
 					    </ul>";
 					else if ($bestPlayer["id"] == $_SESSION["id"])
 						$text .= "
-						<ul class = 'gameCheckbox key wonGameCheckbox'>
-						    <li></li>
+						<ul class = 'gameCheckbox key'>
+						    <li class = 'wonGameCheckbox'></li>
 					    </ul>";
 				}
 					$text .= "

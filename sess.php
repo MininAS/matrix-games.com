@@ -10,29 +10,35 @@ date_default_timezone_set('Europe/Moscow');
 	if (isset ($_COOKIE["sound"])){
 		if (!in_array (($_COOKIE["sound"]), array("on", "off"))){
 			setcookie("sound", 'on', time()+31536000);
-			$_COOKIE["sound"]="on";
+			$_COOKIE["sound"] = "on";
 		}
 	}
 	else {
 		setcookie("sound", 'on', time()+31536000);
-		$_COOKIE["sound"]="on";
+		$_COOKIE["sound"] = "on";
 	}
 
 	if (isset ($_COOKIE["lang"])){
 		if (!in_array (($_COOKIE["lang"]), array("rus", "eng"))){
-			setcookie("lang", 'rus', time()+31536000);
-			$_COOKIE["lang"]="rus";
+			setcookie("lang", 'rus', time() + 31536000);
+			$_COOKIE["lang"] = "rus";
 		}
 	}
 	else {
 		setcookie("lang", 'rus', time()+31536000);
-		$_COOKIE["lang"]="rus";
+		$_COOKIE["lang"] = "rus";
 	}
 
 	session_name ("LMG");
 	session_save_path ("sess");
 	session_set_cookie_params (31536000);
 	session_start ();
+
+	$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
+
+	// Подключаем сервер БД
+	$instant_message = 'none';
+	require ("sql_queries.php");
 
 	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
 	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
@@ -47,11 +53,6 @@ date_default_timezone_set('Europe/Moscow');
 		");
 	}
 	$_SESSION["lang"] = $_COOKIE["lang"];
-	$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
-
-// Подключаем сервер БД
-	$instant_message = 'none';
-	require ("sql_queries.php");
 
 // Восстановление переменных+++++++++++++++++++++++++
 	// Переменная переменного типа

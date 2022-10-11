@@ -14,7 +14,6 @@ var i_Nball;					// кол-во на удаление
 document.getElementById('game').style.width = XxX * QqQ+"px";
 f_showElementById ('k_sound');
 
-	<!--Создаем массив игрового поля-->
 function f_greateGame (){
 	for (i=1; i<=(XxX * YyY); i++){
 		var myElement_ = document.createElement ('div');
@@ -174,10 +173,11 @@ function f_useSuperSphere (){
 		o_elm1.color -= 10;
 		o_elm1.src = 'img/ball_'+o_elm1.color+'.png';
 		i_Nverify += 10;
-		if (f_verifySequences ()){
-			f_playSound('sphere_super');
-		    f_delet ();
-		}
+		f_playSound('sphere_super');
+		if (f_verifySequences())
+		    f_delet();
+		else
+		    flag_PLAY = true;
 	}
 }
 

@@ -70,7 +70,7 @@ input, textarea, select, .border_inset  {
 			box-shadow: 0px 0px 3px #000;
 		}
 
-    #gameCheckboxContainer {
+    #gameCheckboxScrollContainer {
         display: inline-flex;
         flex-direction: column;
         position: absolute;
@@ -80,37 +80,42 @@ input, textarea, select, .border_inset  {
 		width: 22px;
         height: 100%;
     }
-	#gameCheckboxContainer .gameCheckbox {
+	#gameCheckboxScrollContainer .gameCheckbox {
         position: absolute;
 		transition: left 0.5s;
     }
 	#user_top .messageLists .openedGameCheckbox{
 		opacity: 0.2;
 	}
-    .messageLists .gameCheckbox{
-			float: right;
+    .gameCheckboxContainer{
+		width: 100%;
+		display: flex;
+        flex-direction: row-reverse;
 		}
         .gameCheckbox{
         	margin: 2px;
+			padding: 2px;
         	border: 2px solid #555;
         	background-color: #bbb;
         	border-radius: 4px;
-            display: inline-block;
+            display: inline-flex;
         }
             .gameCheckbox li{
                 width: 10px;
-                height: 10px;
-                margin: 2px;
+                height: 6px;
+				margin: 0px;
+				padding: 0px;
                 box-shadow: 0px 0px 3px #222;
                 border-radius: 3px;
+				display: inline-block;
             }
-            .openedGameCheckbox li{
+            .gameCheckbox .openedGameCheckbox{
                 background-color: rgb(0,254,12);
             }
-            .wonGameCheckbox li{
+            .gameCheckbox .wonGameCheckbox{
                 background-color: rgb(63,72,204);
             }
-            .deletedGameCheckbox li{
+            .gameCheckbox .deletedGameCheckbox{
                 background-color: rgb(255, 0, 0);
             }
 
@@ -163,8 +168,6 @@ input, textarea, select, .border_inset  {
 				vertical-align: middle;
 				display: inline-block;
 			}
-
-
 			.record {
 				position: absolute;
 				max-width: 210px;
