@@ -22,26 +22,35 @@ for(var i=0; i<animeWindows.length; i++)
 	}
 }
 
-// Подсказки на кнопках_______________________________________________________
-menuButtonTooltip = document.getElementById('text_key');
-menuButtons = document.getElementById('menu').getElementsByTagName('a');
-for (var i=0; i < menuButtons.length; i++)
-{
-	if (menuButtons[i].getElementsByTagName('img')[0])
+// Подсказки на кнопках и маркерах
+f_showKeyTooltips();
+
+function f_showKeyTooltips(){
+	menuButtonTooltip = document.getElementById('text_key');
+	menuButtons =       document.querySelectorAll('#menu a img');
+	gameBoxMarkers =    document.getElementsByClassName('gameCheckbox');
+
+	arr = [...menuButtons, ...gameBoxMarkers]
+	console.log(arr)
+	for (var i=0; i < arr.length; i++)
 	{
-		menuButtons[i].onmousemove = function (e)
+		if (arr[i].hasAttribute("alt"))
 		{
-			menuButtonTooltip.innerHTML = this.getElementsByTagName('img')[0].alt;
-			menuButtonTooltip.style.display = 'block';
-			e = e || window.e;
-			x = e.pageX || e.clientX;
-			y = e.pageY || e.clientY;
-			menuButtonTooltip.style.left = x-100+'px';
-			menuButtonTooltip.style.top = y+25+'px';
+			arr[i].onmousemove = function (e)
+			{
+				menuButtonTooltip.innerHTML = this.getAttribute("alt");
+				menuButtonTooltip.style.display = 'block';
+				e = e || window.e;
+				x = e.pageX || e.clientX;
+				y = e.pageY || e.clientY;
+				menuButtonTooltip.style.left = x-100+'px';
+				menuButtonTooltip.style.top = y+25+'px';
+			}
+			arr[i].onmouseout = () => menuButtonTooltip.style.display = 'none';
 		}
-		menuButtons[i].onmouseout = function () {menuButtonTooltip.style.display = 'none';}
 	}
 }
+
 f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
 
 // Включаем виджет "Мне ндравится ВКонтакте"

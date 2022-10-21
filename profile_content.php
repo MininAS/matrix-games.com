@@ -36,17 +36,17 @@
 					$bestPlayer = getSubGameBestPlayer ($data[5], $data[6]);
 					if ($creator == "none")
 						$text .= "
-						<ul class = 'gameCheckbox key'>
+						<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Removed')."'>
 						    <li class = 'deletedGameCheckbox'></li>
 					    </ul>";
                     else if ($creator == $_SESSION["id"])
 						$text .= "
-						<ul class = 'gameCheckbox key'>
+						<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Your game')."'>
 						    <li class = 'openedGameCheckbox'></li>
 					    </ul>";
 					else if ($bestPlayer["id"] == $_SESSION["id"])
 						$text .= "
-						<ul class = 'gameCheckbox key'>
+						<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Your victory')."'>
 						    <li class = 'wonGameCheckbox'></li>
 					    </ul>";
 				}

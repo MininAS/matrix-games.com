@@ -15,8 +15,10 @@
 		");
 	    for ($i = 0; $i < 5; $i++){
 			$class = ($i < $userSubGameAmount) ? "openedGameCheckbox" : "";
+			$alt = ($i < $userSubGameAmount) ? _l('Tooltips/Your game')
+			    : (5 - $userSubGameAmount)." "._l('Tooltips/games you can save');
 		    echo ("
-			    <ul class = 'gameCheckbox key'>
+			    <ul class = 'gameCheckbox key' alt = '".$alt."'>
 				    <li class = '".$class."'></li>
 				</ul>");
 		}
@@ -71,24 +73,25 @@
 		");
 		if ($_SESSION["id"] == $pioneer[0])
 			echo ("
-					<ul class = 'gameCheckbox key'>
+					<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Your game')."'>
 						<li class = 'openedGameCheckbox'></li>
 					</ul>
 			");
 		if ($_SESSION["id"] == $winner["id"])
 			echo ("
-				<ul class = 'gameCheckbox key'>
+				<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Your victory')."'>
 					<li class = 'wonGameCheckbox'></li>
 				</ul>
 			");
 		if ($subSubGameAmount >= 5){
+			$left =  ($_life_exp_of_subgame - $winner["live"]) >= 0 ? ($_life_exp_of_subgame - $winner["live"]) : 0;
 			echo ("
-				<ul class = 'gameCheckbox key'>
+				<ul class = 'gameCheckbox key' alt='".$left." "._l('Tooltips/days until removing')."'>
 			");
+			$aggregate = $_life_exp_of_subgame / $_life_exp_block_visual;
 			for ($i = 1; $i <= $_life_exp_block_visual; $i++){
-				$aggregate = $i * $_life_exp_block_visual / $_life_exp_of_subgame;
-				$opacity = ($aggregate <= $winner["live"]) ? (1 / $_life_exp_block_visual * $i) : 1;
-				$class =   ($aggregate <= $winner["live"]) ? "deletedGameCheckbox" : "";
+				$opacity = ($i * $aggregate <= $winner["live"]) ? (1 / $_life_exp_block_visual * $i) : 1;
+				$class =   ($i * $aggregate <= $winner["live"]) ? "deletedGameCheckbox" : "";
 				echo ("
 					<li class = '".$class."' style='opacity:".$opacity."'></li>
 				");

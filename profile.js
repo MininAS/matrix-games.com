@@ -46,8 +46,12 @@ e_profileAccountDeletionPopup.onmouseleave = function () {
 }
 
 function f_profileUpdateContent(){
-	f_fetchUpdateContent('messageWindow', 'profile_content.php', null);
+	f_fetchUpdateContent('messageWindow', 'profile_content.php', f_profileUpdateState);
 	e_profileNewMessageInputField.value = "";
 	e_profileNewMessageDestination.value = 0;
+}
+
+function f_profileUpdateState(){
+	f_showKeyTooltips();
 	f_isWindowsHeightAlignment ();
 }

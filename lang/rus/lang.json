@@ -110,7 +110,12 @@
 		"Language": "Язык",
         "Revert": "Отменить",
 		"Exit": "Выход",
-		"Reg": "Регистрация"
+		"Reg": "Регистрация",
+        "Your game": "Ваша игра",
+        "Your victory": "Ваша победа",
+        "Removed": "Удалена",
+        "days until removing": "дней до удаления",
+        "games you can save": "игр вы можете сохранить"
 	},
 	"Game": "Игра",
 	"Game names": {

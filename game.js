@@ -59,7 +59,13 @@ function f_updateUserTopList () {
 	f_fetchUpdateContent (
 		'user_top_middle',
 	    'top_users_games.php?theme=' + s_theme,
-		 f_scrollAndSelectSubgameItem);
+		f_updateUserTopListState);
+}
+
+function f_updateUserTopListState(){
+	f_scrollAndSelectSubgameItem ();
+	autoScrollingChBoxes();
+	f_showKeyTooltips();
 }
 
 function f_scrollAndSelectSubgameItem (){
@@ -70,7 +76,6 @@ function f_scrollAndSelectSubgameItem (){
 	        e.classList.add ('selected_subgame_item');
 		}
 	}
-	autoScrollingChBoxes();
 }
 
 function f_endGame() {

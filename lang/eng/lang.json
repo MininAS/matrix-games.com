@@ -113,7 +113,12 @@
 		"Language": "Language",
         "Revert": "Revert",
 		"Exit": "Exit",
-		"Reg": "Registration"
+		"Reg": "Registration",
+        "Your game": "Your game",
+        "Your victory": "Your victory",
+        "Removed": "Removed",
+        "days until removing": "days until removing",
+        "games you can save": "games you can save"
 	},
 	"Game": "Game",
 	"Game names": {
