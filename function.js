@@ -30,8 +30,7 @@ function f_showKeyTooltips(){
 	menuButtons =       document.querySelectorAll('#menu a img');
 	gameBoxMarkers =    document.getElementsByClassName('gameCheckbox');
 
-	arr = [...menuButtons, ...gameBoxMarkers]
-	console.log(arr)
+	arr = [...menuButtons, ...gameBoxMarkers];
 	for (var i=0; i < arr.length; i++)
 	{
 		if (arr[i].hasAttribute("alt"))

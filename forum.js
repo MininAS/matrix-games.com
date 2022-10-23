@@ -66,15 +66,19 @@ if (e_forumNewMessageSendButton)
 			f_fetchSaving ('forum_add_message.php?',
 				'newNotebookItemText=' + string +
 				'&theme=' + currentTheme, f_forumUpdateContent);
-		if (currentMess != 0)
+		if (currentMess != 0){
 			f_fetchSaving ('forum_edit_message.php?',
 				'newNotebookItemText=' + string +
 				'&mess=' + currentMess, f_forumUpdateContent);
+			e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
+		}
 	}
 
 if (e_forumCloseEditModeButton)
-	e_forumCloseEditModeButton.onclick = () => f_forumUpdateContent();
-
+	e_forumCloseEditModeButton.onclick = () => {
+		f_forumUpdateContent();
+	    e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
+	}
 
 if (e_forumDeleteConfirmButton)
 	e_forumDeleteConfirmButton.onclick = function () {
@@ -97,7 +101,6 @@ function f_forumUpdateContent(theme){
 		e_forumNewMessageInputField.value = "";
 		e_forumCloseEditModeButton.style.display = 'none';
 		e_forumDeleteConfirmPopup.style.display = 'none';
-		e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
 		if (parentTheme != 0)
 			f_changeInputFieldDisablement(e_forumNewThemeInputField, true);
 		else
