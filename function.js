@@ -165,10 +165,7 @@ function f_windowInfoPopup(s_name, s_text)
 			break;
 		case 'text_help':
 		    let currentPage = window.location.pathname.match(/([a-z]+)/)[0];
-			let fileName = (currentPage == 'games')
-			    ? "game_" + s_theme
-				: currentPage;
-			f_fetchUpdateContent('info_div', 'info/' + fileName + '.php?lang=' + getCookie('lang'), null);
+			f_fetchUpdateContent('info_div', 'info/' + currentPage + '.php?lang=' + getCookie('lang') + '&theme=' + s_text, null);
 			break;
 		case 'smile':
 			f_fetchUpdateContent('info_div', 'ajax_smile.php', null);

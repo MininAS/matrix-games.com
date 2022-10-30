@@ -39,7 +39,7 @@
             #menu ul li a:hover {
                 background-color: #ddd !important;
             }
-    #letter {
+    .letter {
         position: absolute;
         width: 13px; height: 10px;
         top: -5px; right: -5px;

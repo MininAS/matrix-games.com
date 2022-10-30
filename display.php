@@ -16,9 +16,9 @@
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 
-	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=21">
+	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=22">
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.4'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.4'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.5'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v16 - 21.10.2022)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17 - 30.10.2022)</p>
 			</div>
 		</div>
 	</div>

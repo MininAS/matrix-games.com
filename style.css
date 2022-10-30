@@ -7,7 +7,7 @@
 
 /*=============== Default ====================================================*/
 
-i, a, ul, li, ol, p, form, img, table, tr, td{
+i, a, ul, li, ol, p, form, img, table{
 	border: 0px;
 	margin: 0px;
 	padding: 0px;
@@ -16,6 +16,9 @@ i, a, ul, li, ol, p, form, img, table, tr, td{
 
 table, td.grand {
 	width: 100%;
+}
+td {
+	padding: 5px;
 }
 
 input, textarea, select, .border_inset  {

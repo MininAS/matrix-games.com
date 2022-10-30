@@ -49,7 +49,7 @@
 			$data = isset($result) ? mysqli_fetch_row($result) : [0];
 			if ($data[0] == 1)
 			    echo "
-					<div id = 'letter'></div>
+					<div class = 'letter'></div>
 				";
 			echo "
 					<img src = 'img/k_profile.png' alt='"._l('Tooltips/Your profile')."'/>
@@ -104,7 +104,7 @@
     if ($_SESSION['page'] != 'admin' && $_SESSION["page"] != "reg")
 		echo "
 			<li id = 'k_help'>
-				<a href = '#' onClick = f_windowInfoPopup('text_help');>
+				<a href = '#' onClick = \"f_windowInfoPopup('text_help', '".$theme."')\";>
 					<img src = 'img/k_help.png' alt='"._l('Tooltips/Information')."'/>
 				</a>
 			</li>

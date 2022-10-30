@@ -36,7 +36,7 @@ switch($_GET["lang"]){
 					Direct it at an adjacent sphere, you will destroy all spheres on the field of this color.
 					Motion count increases at four.
                 </td>
-				<td><img src ='img/ball_10.gif'/></td>
+				<td><img src ='img/ball_9.gif'/></td>
             </tr>
             <tr>
                 <td><img src ='img/sphere_info_6.png'/></td>
@@ -95,7 +95,7 @@ switch($_GET["lang"]){
                     Направив ее на соседнюю сферу вы уничтожите все сферы на поле этого цвета.
                     Количество ходов становиться на четверо больше.
                 </td>
-				<td><img src ='img/ball_10.gif'/></td>
+				<td><img src ='img/ball_9.gif'/></td>
             </tr>
             <tr>
                 <td><img src ='img/sphere_info_6.png'/></td>
