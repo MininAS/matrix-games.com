@@ -58,7 +58,7 @@ function f_fetchGameLoading (callback) {
 function f_updateUserTopList () {
 	f_fetchUpdateContent (
 		'user_top_middle',
-	    'top_users_games.php?theme=' + s_theme,
+	    'game_list.php?theme=' + s_theme,
 		f_updateUserTopListState);
 }
 

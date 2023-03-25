@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17 - 30.10.2022)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17 - 25.12.2022)</p>
 			</div>
 		</div>
 	</div>
