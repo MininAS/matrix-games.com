@@ -28,10 +28,8 @@
 			<tr>";
 		for ($i=1; $i <= 5; $i++) $medal[$i] = 0;
 		$flag_OK = false;
-		$file=fopen ("games/top.txt", "r");
-		$str_theme = fgetcsv($file, 1000, "\t");
-		fclose ($file);
-		foreach ($str_theme as $key => $theme)
+		$arr = getCurrentGameArrayOrder();
+		foreach ($arr as $theme => $value)
 		{
 			$data=mysqli_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM games_".$theme."_med WHERE id_user=".$user.";"));
 			if ($data[0] > 0)

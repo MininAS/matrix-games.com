@@ -1,12 +1,19 @@
 <?php
-set_error_handler('f_errorHandler');
-date_default_timezone_set('Europe/Moscow');
+	set_error_handler('f_errorHandler');
+	date_default_timezone_set('Europe/Moscow');
 
-// Открытие сессии
+	// Инициализация переменной мгновенных сообщений.
+	$instant_message = 'none';
+
+	// Стартуем БД и инициализируем функции.
+	require ("sql_queries.php");
+
+	// Проверка сессии
 	if (isset ($_COOKIE["LMG"]))
 	    if (preg_match("/sess_[0-9a-z]{32}/", $_COOKIE["LMG"]))
 	        session_id ($_COOKIE["LMG"]);
 
+	// Параметр включения звука.
 	if (isset ($_COOKIE["sound"])){
 		if (!in_array (($_COOKIE["sound"]), array("on", "off"))){
 			setcookie("sound", 'on', time()+31536000);
@@ -18,6 +25,7 @@ date_default_timezone_set('Europe/Moscow');
 		$_COOKIE["sound"] = "on";
 	}
 
+	// Параметр выбора языка.
 	if (isset ($_COOKIE["lang"])){
 		if (!in_array (($_COOKIE["lang"]), array("rus", "eng"))){
 			setcookie("lang", 'rus', time() + 31536000);
@@ -29,22 +37,23 @@ date_default_timezone_set('Europe/Moscow');
 		$_COOKIE["lang"] = "rus";
 	}
 
+	// Параметр последовательности игр.
+	if (!isset ($_COOKIE["games_order"])){
+		$arr = getDefaultGameArrayOrder();
+		$string = json_encode($arr);
+		setcookie("games_order", $string, time()+31536000);
+		$_COOKIE["games_order"] = $string;
+	}
+
 	session_name ("LMG");
 	session_save_path ("sess");
 	session_set_cookie_params (31536000);
 	session_start ();
 
-	$LANG_ARRAY = f_getTranslatedText($_COOKIE["lang"]);
+	// Вынимаем словарь соответствующего языка (rus, eng).
+	$GLOBALS['LANG_ARRAY'] = f_getTranslatedText($_COOKIE["lang"]);
 
-	// Подключаем сервер БД
-	$instant_message = 'none';
-	require ("sql_queries.php");
-
-	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
-	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
-	$_SESSION["dopusk"] = isset ($_SESSION["dopusk"]) ? $_SESSION["dopusk"] : "";
-	$_SESSION["frequency"] = isset ($_SESSION["frequency"]) ? $_SESSION["frequency"] : "";
-	$_SESSION["page"] = isset ($_SESSION["page"]) ? $_SESSION["page"] : "";
+	// Проверка изменен ли язык, если да обновляем его в БД для пользователя.
 	if ($_SESSION["id"] != "" && $_SESSION["lang"] != $_COOKIE["lang"]){
 	    f_mysqlQuery ("
 			UPDATE users
@@ -54,13 +63,11 @@ date_default_timezone_set('Europe/Moscow');
 	}
 	$_SESSION["lang"] = $_COOKIE["lang"];
 
-// Восстановление переменных+++++++++++++++++++++++++
-	// Переменная переменного типа
-	$theme = isset ($_GET['theme']) ? $_GET['theme'] : (isset($_POST['theme']) ? $_POST['theme'] : null);
-	$file = fopen ("games/top.txt", "r");
-	$a_theme = fgetcsv ($file, 1000, "\t");
-	fclose ($file);
-	if (!in_array ($theme, $a_theme)) $theme = (int)$theme;
+
+	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
+	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
+	$_SESSION["dopusk"] = isset ($_SESSION["dopusk"]) ? $_SESSION["dopusk"] : "no";
+	$_SESSION["page"] = isset ($_SESSION["page"]) ? $_SESSION["page"] : "";
 
 	// Переменная сортировка сравнение по массиву
 	if (!isset ($_GET["sort"])) $_GET["sort"] = "id";
@@ -74,6 +81,12 @@ date_default_timezone_set('Europe/Moscow');
 			$_GET["sort"] = 'id';
 		}
 	}
+
+	// Проверяем тему(имя игры) на соответствие списку иначе инициируем как integer.
+	$theme = isset ($_GET['theme']) ? $_GET['theme'] : (isset($_POST['theme']) ? $_POST['theme'] : null);
+	$list = getDefaultGameArrayOrder();
+	if (!in_array ($theme, $list)) $theme = (int)$theme;
+
 	// Переменные цифровые
 	$arr = array ('canvasLayout', 'user', 'regEdit', 'mess');
 	foreach ($arr as $key => $value){

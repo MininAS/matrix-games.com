@@ -8,28 +8,24 @@
 
 	if (isset($_POST["login"]) && isset($_POST["pass"])) require ("auth.php");
 
-	$file=fopen ("games/top.txt", "r");
-	$gameNames = fgetcsv($file, 1000, "\t");
-	fclose ($file);
+	$arr = getCurrentGameArrayOrder();
 	$div_chet = "chet";
-	foreach ($gameNames as $key => $list)
-	{
-		$theme = $gameNames[$key];
+	foreach ($arr as $game_name => $value){
 		$body .= "
 	<div class = 'windowSite winPreshowGameItem ".$div_chet."'>
-		<a href = 'games.php?theme=".$theme."'>
+		<a href = 'games.php?theme=".$game_name."'>
 		";
 		$body .= "
-				<img id = '".$theme."' class = 'border_inset' src = 'img/".$theme."_.gif?lastVersion=4' alt = 'Gamebox'>
-				<i class = 'big'>"._l('Game names/'.$theme)."</i><br/>
-				<i>"._l('Taglines/'.$theme)."</i>
+				<img id = '".$game_name."' class = 'border_inset' src = 'img/".$game_name."_.gif?lastVersion=4' alt = 'Gamebox'>
+				<i class = 'big'>"._l('Game names/'.$game_name)."</i><br/>
+				<i>"._l('Taglines/'.$game_name)."</i>
 		</a>
 		";
 		// Данные для рекорда
 		$result = f_mysqlQuery ("
 			SELECT  `login`, MAX(  `score` ) AS  `ms`
-			FROM  `games_".$theme."_med` ,  `users`
-			WHERE  `users`.`id` =  `games_".$theme."_med`.`id_user`
+			FROM  `games_".$game_name."_med` ,  `users`
+			WHERE  `users`.`id` =  `games_".$game_name."_med`.`id_user`
 			GROUP BY  `id_user`
 			ORDER BY  `ms` DESC
 			LIMIT 5");
@@ -66,9 +62,9 @@
 		for ($i=1; $i <= 5; $i++) {$nic[$i] = ""; $id_game[$i] = "";}
 		$result = f_mysqlQuery ("
 				SELECT tg.`id_game`, tg.`id_user`, tg.`score`, tg.`id`
-				FROM `games_".$theme."_com` tg
+				FROM `games_".$game_name."_com` tg
 				JOIN (SELECT  `id_game`, MAX(`score`) AS `ms`
-				FROM `games_".$theme."_com`
+				FROM `games_".$game_name."_com`
 				GROUP BY `id_game`) AS tb
 				ON tg.`id_game` = tb.`id_game` AND tg.`score` = tb.`ms`
 				ORDER BY `score` DESC, `id`");
@@ -80,7 +76,7 @@
 				if ($flag == true)
 				{
 					$body .= "
-		<a href = 'games.php?theme=".$theme."&canvasLayout=".$data[0]."'>
+		<a href = 'games.php?theme=".$game_name."&canvasLayout=".$data[0]."'>
 			<ul class = 'line_game_".$chet."'>
 				<li><IMG SRC=\"img/medal_".$Ni.".gif\" alt = 'Medal'></li>
 				<li><i class = 'small'>".$d[0]."</i></li>

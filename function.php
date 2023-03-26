@@ -1,4 +1,7 @@
 <?php
+/**
+ * @todo Вырезать frequency_add
+ */
 // Файл frequency хранит число посещений сайта, вызывая эту функцию мы увеличиваем его на еденицу
 	function frequency_add ()
 	{
@@ -233,8 +236,9 @@ function f_errorHandler($errno, $text, $file = "---", $line=0)
 	return true;
 }
 
-// Вход через Вконтакте --------------------------------------------------------
-
+/**
+ * Вход через Вконтакте --------------------------------------------------------
+ */
 function authOpenAPIMember()
 {
 	$session = array();
@@ -267,16 +271,24 @@ function authOpenAPIMember()
 	}
 	return $member;
 }
-function f_img($i, $id)
-{
-	$d="avatar/".$id."_$i.jpeg";
-	if (file_exists ($d))
-		$t = "
-		<img class = 'border_inset' src = '$d' alt = 'Avatar'>";
-	else $t = "
-		<img src = 'avatar/0_$i.png' alt = 'Avatar'>";
-	return $t;
-}
+
+	/**
+	 * Проверяет наличие файла изображения и возвращает HTML таг его или по умолчанию.
+	 * @param int $i - размер (1, 2, 3)
+	 * @param int $id - идентификатор пользователя
+	 * @return string $t - HTML таг
+	 */
+	function f_img($i, $id)
+	{
+		$d="avatar/".$id."_$i.jpeg";
+		if (file_exists ($d))
+			$t = "
+			<img class = 'border_inset' src = '$d' alt = 'Avatar'>";
+		else $t = "
+			<img src = 'avatar/0_$i.png' alt = 'Avatar'>";
+		return $t;
+	}
+
 // Сохранение аватара с соответствующими габаритами -----------------------------
 
 function save_avatar($id_outfile, $infile)
@@ -314,30 +326,88 @@ function save_avatar($id_outfile, $infile)
 
 		$log = "Поменял аватару."; log_file ($log);
 		$instant_message = _l("The photo has downloaded.");
-}
+	}
 
 // Локализация тектовая
-function _l($str, $lang = 'default'){
-	$path = explode ('/', $str);
-	if ($lang == 'default')
-	    $arr = $GLOBALS['LANG_ARRAY'];
-	else {
-		$arr = f_getTranslatedText($lang);
-	}
-	foreach ($path as $key){
-		if (array_key_exists($key, $arr))
-			$arr = $arr[$key];
+	function _l($str, $lang = 'default'){
+		$path = explode ('/', $str);
+		if ($lang == 'default')
+			$arr = $GLOBALS['LANG_ARRAY'];
 		else {
-		    $arr = end($path);
-			break;
+			$arr = f_getTranslatedText($lang);
 		}
+		foreach ($path as $key){
+			if (array_key_exists($key, $arr))
+				$arr = $arr[$key];
+			else {
+				$arr = end($path);
+				break;
+			}
+		}
+		return $arr;
 	}
-    return $arr;
-}
 
-function f_getTranslatedText ($lang){
-	$string = file_get_contents ("lang/".$lang."/lang.json");
-	$arr = json_decode($string, true);
-	return  $arr;
-}
+	function f_getTranslatedText ($lang){
+		$string = file_get_contents ("lang/".$lang."/lang.json");
+		$arr = json_decode($string, true);
+		return  $arr;
+	}
+
+// Функции работы со списком игр и их порядком на главной странице ---------------------
+
+	/**
+	 * Возвращает список игр с порядком по умолчанию в БД.
+	 * @return array $arr Массив где ключи - имена игр, значения по умолчанию равны 0.
+	 */
+	function getDefaultGameArrayOrder() {
+		$result = f_mysqlQuery ("
+			SELECT name
+			FROM games;
+		");
+		$arr = array();
+		if (isset($result)){
+			while ($data = mysqli_fetch_row ($result))
+			{
+				$arr[$data[0]] = 0;
+			}
+		}
+		return $arr;
+	}
+
+	/**
+	 * Устанавливает порядок списка игр по количеству вхождений игрока.
+	 * Извлекает сохраненный порядок игр для пользователя из COOKIE games_order.
+	 * Проверяет если количество вхождений одной из игр = 3(default), то поднимает его в начало,
+	 * обнуляет значение и уменьшает на 1 значения остальных (эффект таяния, если долго не открывали игру).
+	 * Затем сохраняет список опять в COOKIE.
+	 * Если значение в COOKIE не возможно преобразовать из JSON в массив, то возвращает массив по умолчнию
+	 */
+	function getCurrentGameArrayOrder($occurrences = 3) {
+		$arr = json_decode($_COOKIE["games_order"], true);
+		if (is_array($arr)){
+			foreach($arr as $game_name => $value)
+				if ($value >= $occurrences)	{
+					unset($arr[$game_name]);
+					$arr = [$game_name => 0] + $arr;
+					foreach($arr as $game_name => $value)
+						if ($value != 0)
+							$arr[$game_name] --;
+					break;
+				}
+			$string = json_encode($arr);
+			setcookie("games_order", $string, time()+31536000);
+			$_COOKIE["games_order"] = $string;
+		}
+		else
+			$arr = getDefaultGameArrayOrder();
+		return $arr;
+	}
+
+	function increaseGameOccurrenceAmount ($theme) {
+		$arr = json_decode($_COOKIE["games_order"], true);
+		$arr[$theme] ++;
+		$string = json_encode($arr);
+		setcookie("games_order", $string, time()+31536000);
+		$_COOKIE["games_order"] = $string;
+	}
 ?>

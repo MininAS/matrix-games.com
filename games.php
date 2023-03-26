@@ -5,7 +5,8 @@
 	$body = "";
 	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php"); //Аутентификация
 	if ($canvasLayout == null) $canvasLayout = 0;
-// Проверка на то, что игра выбрана, а следовательно вход на эту страницу выполнен коректно(с центральной).
+
+	// Проверка на то, что игра выбрана, а следовательно вход на эту страницу выполнен корректно (с центральной).
 	if ($theme == null)
 	{
 		echo ("
@@ -17,10 +18,14 @@
 		exit;
 	}
 
-// Удаление игры
+	// Увеличим количество посещений в игре. Используется для порядка расположения игр в списке начального экрана
+	increaseGameOccurrenceAmount($theme);
+
+	// Удаление игры
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin")
 	{
-// Лучший по баллам, так же проверяем, что игра присутствует.
+
+		// Лучший по баллам, так же проверяем, что игра присутствует.
 		if ($data=mysqli_fetch_row(f_mysqlQuery
 		   ("   SELECT s1.id, id_user, score, users.login, users.F_mailG, users.mail, users.lang
 				FROM games_".$theme."_com AS s1, users

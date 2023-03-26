@@ -10,7 +10,7 @@
 		умные игры, соревнование разума, матрица,
 		соревнования на логику, логические матричные игры, логика,
 		миниигры, мини игры, MininAS, Logical Matrix Games, Logic,
-		Тетрис, Наполнитель, Вышибала, Квантование, короткое замыкание, Числа, Бочка,
+		Тетрис, Наполнитель, Вышибала, Квантование, Короткое замыкание, Числа, Бочка,
 		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
 	<meta name="viewport" content="width=device-width, user-scalable=yes">
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17 - 25.12.2022)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17.2 - 26.03.2023)</p>
 			</div>
 		</div>
 	</div>
