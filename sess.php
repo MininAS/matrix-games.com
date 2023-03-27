@@ -104,16 +104,6 @@
 		    $$v = mysqli_real_escape_string($DB_Connection, $$v);
 	}
 
-// Открытие сессии dopusk - пользователь зарегестрирован, frequency - открывает при первом прохождении через
-// сценарий разрешение на увеличение числа посещений.
-// Если первый раз зашел то допуск - гость.
-	if ($_SESSION["frequency"]!="yes"){
-		$_SESSION["dopusk"] = "no";
-		frequency_add (); 		// Количество посещений данного сайта
-		log_file ("\tПосещение сайта. ");
-		$_SESSION["frequency"] = "yes";
-	}
-
 // Ставим время последнего посещения
 	$_SESSION["last_time"] = date ("U");
 	if ($_SESSION["id"] != "")
