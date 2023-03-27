@@ -181,7 +181,14 @@ function f_windowInfoPopup(s_name, s_text)
 			return;
 	}
 	e_windowInfoPopup.style.display = 'block';
-	e_windowInfoShadow.style.height = getDocumentHeight()+'px';
+	e_windowInfoShadow.style.height = Math.max(
+		document.body.scrollHeight, document.body.offsetHeight,
+		document.documentElement.clientHeight, document.documentElement.scrollHeight,
+		document.documentElement.offsetHeight ) + 'px';
+	e_windowInfoShadow.style.width = Math.max(
+		document.body.scrollWidth, document.body.offsetWidth,
+		document.documentElement.clientWidth, document.documentElement.scrollWidth,
+		document.documentElement.offsetWidth ) + 'px';
 	e_windowInfoShadow.style.display = 'block';
 	flag_PAUSE = true;
 }
@@ -229,20 +236,6 @@ function f_fetchSaving (s_saverFile, s_attributes, callback) {
 						callback();
 					}
 			})
-}
-
-//CROSS// Определение высоты окна ---------------------------------------------------------------------------------
-var ua = navigator.userAgent.toLowerCase();
-var isOpera = (ua.indexOf('opera') > -1);
-var isIE = (!isOpera && ua.indexOf('msie') > -1);
-function getDocumentHeight() {
-	return Math.max(document.compatMode != 'CSS1Compat' ? document.body.scrollHeight
-	: document.documentElement.scrollHeight, getViewportHeight());
-}
-function getViewportHeight() {
-	return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat')
-	? document.documentElement.clientHeight : document.body.clientHeight
-	: (document.parentWindow || document.defaultView).innerHeight;
 }
 
 // Отключение и включение звука

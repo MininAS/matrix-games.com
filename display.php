@@ -18,7 +18,7 @@
 
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=22">
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.4'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.5'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.6'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
