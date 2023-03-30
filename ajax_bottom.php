@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 	$text = "";
 // Читаем файлы сессий и определяем посетителей за текущие месяц, день и последние пол часа(online)
 	$i_onlineUser = "";

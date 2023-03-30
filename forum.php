@@ -1,10 +1,11 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 	$_SESSION["page"] = "forum";
-	$log = "..."; log_file ($log);
+	$log = "...";
+	log_file ($log);
 
-	if (isset($_POST["login"]) && isset($_POST["pass"]))	require ("auth.php");
+	if (isset($_POST["login"]) && isset($_POST["pass"]))
+		require ("auth.php");
 
 	$body = "
 	<div class = 'windowSite'>
@@ -18,8 +19,7 @@
 	</div>";
 
 // Форма для сообщений -----------------------------------------------------------------------------------------------------
-	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
-	{
+	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin") {
 		$body .= "
 	<div id = 'formSendTheme' class = 'formSendTheme windowSite'>
 		<ul class = 'windowTitle'><li>"._l("Notebook/New topic")."</li></ul>

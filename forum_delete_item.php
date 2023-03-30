@@ -1,14 +1,13 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin") {
 		require ("display_non_authorization.php");
 		exit;
 	}
 
 	$result = f_mysqlQuery ("SELECT * FROM forum WHERE id=".$theme.";");
-	if (mysqli_num_rows($result) != 1){
+	if (mysqli_num_rows($result) != 1) {
 		echo ('
 			{
 				"res": "100",
@@ -19,7 +18,7 @@
 	}
 
 	$data = mysqli_fetch_row($result);
-	if ($_SESSION["id"] != $data[2]){
+	if ($_SESSION["id"] != $data[2]) {
 		echo ('
 			{
 				"res": "100",
@@ -29,9 +28,9 @@
 		exit;
 	}
 
-	if ($data[6] == 1){
+	if ($data[6] == 1) {
 		$result = f_mysqlQuery ("SELECT id FROM forum WHERE id_tema=".$theme." AND basket=0;");
-		if (mysqli_num_rows($result) != 0){
+		if (mysqli_num_rows($result) != 0) {
 			echo ('
 				{
 					"res": "100",

@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
 	if (!$DB_Connection && !$DB)
 	    exit ('
@@ -10,7 +9,7 @@
 			}
 		');
 
-	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin"){
+	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin") {
 		exit ('
 			{
 				"res": "100",
@@ -19,7 +18,7 @@
 		');
 	}
 
-	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $subGameData)){
+	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $subGameData)) {
 		f_errorHandler('Неверные входящие данные с игрового поля: ', $subGameData, 'game_save.php', 0);
 		exit('
 			{
@@ -31,7 +30,7 @@
 
 	$string = explode (":", $subGameData);
 
-	if ($string[2] <= 100){
+	if ($string[2] <= 100) {
 		exit('
 			{
 				"res": "110",
@@ -41,7 +40,7 @@
 	}
 
     $count = getUserSubGameAmount ($theme, $_SESSION["id"]);
-	if ($canvasLayout == "0"){
+	if ($canvasLayout == "0") {
 		if ($count >= 5)
 			exit('
 				{
@@ -50,11 +49,15 @@
 				}
 			');
 
-		f_mysqlQuery ("INSERT games_".$theme." (gameboard) VALUES ('".$string[0]."');");
+		f_mysqlQuery ("
+			INSERT games_".$theme." (gameboard)
+			VALUES ('".$string[0]."');
+		");
 		$new_row_id = mysqli_insert_id ($DB_Connection);
 		if (f_mysqlQuery ("
 			INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');")){
+			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');
+		")) {
 			echo('
 				{
 					"res": "200",
@@ -68,7 +71,11 @@
 	}
 	else
 	{
-		$result = f_mysqlQuery ("SELECT id_game FROM games_".$theme." WHERE id_game=".$canvasLayout.";");
+		$result = f_mysqlQuery ("
+			SELECT id_game
+			FROM games_".$theme."
+			WHERE id_game=".$canvasLayout.";
+		");
 		$count = mysqli_num_rows($result);
 		if ($count != 1)
 			exit('
@@ -84,7 +91,7 @@
 				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
 				VALUES (".$canvasLayout.", ".$_SESSION["id"].", ".$string[2].",
 					".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');
-			")){
+			")) {
 
 			log_file ("Сохранение игры в ".$theme." №".$canvasLayout.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр

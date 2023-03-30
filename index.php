@@ -1,7 +1,9 @@
 <?php
-	require "function.php";
-	require "sess.php";
+	require "init.php";
 	$_SESSION["page"] = "index";
+	$log = "...";
+	log_file ($log);
+
 	$record = array ();
 	$record_ = array ();
 	$body = "";

@@ -1,14 +1,19 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin") {
 		require ("display_non_authorization.php");
 		exit;
 	}
 
-	if ($theme != 0){
-		$data = mysqli_fetch_row(f_mysqlQuery('SELECT id_tema FROM forum WHERE id='.$theme.';'));
+	if ($theme != 0) {
+		$data = mysqli_fetch_row(
+			f_mysqlQuery("
+				SELECT id_tema
+				FROM forum
+				WHERE id=".$theme.";
+			")
+		);
 		if ($data[0] != 0){
 			echo('
 				{
@@ -49,7 +54,13 @@
 		');
 		return;
 	}
-	$result = f_mysqlQuery('SELECT * FROM forum WHERE id_tema='.$theme.' AND basket=0 AND text="'.$new_str.'";');
+	$result = f_mysqlQuery("
+		SELECT *
+		FROM forum
+		WHERE id_tema=".$theme."
+			AND basket=0
+			AND text='".$new_str."';
+	");
 	if ($result){
 		echo('
 			{
@@ -63,17 +74,18 @@
 	$new_str = str_replace ("<", "&#60", $new_str);
 	$new_str = str_replace (">", "&#62", $new_str);
 	$new_str = str_replace ("\r\n", "<BR>", $new_str);
-	if (f_mysqlQuery ("INSERT forum (id_tema, status, id_user, text, time, data)
-				VALUE (
-					".$theme.",
-					1,
-					".$_SESSION["id"].",
-					'".$new_str."',
-					'".date("H:i")."',
-					'".date("y.m.d")."'
-				);
-			")
-		){
+	if (f_mysqlQuery ("
+			INSERT forum (id_tema, status, id_user, text, time, data)
+			VALUE (
+				".$theme.",
+				1,
+				".$_SESSION["id"].",
+				'".$new_str."',
+				'".date("H:i")."',
+				'".date("y.m.d")."'
+			);
+		")
+	) {
 		echo ('
 			{
 				"res": "200",

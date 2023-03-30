@@ -8,11 +8,11 @@
         $DB = mysqli_select_db ($DB_Connection, "matrix-gam_db");
 		if (!$DB){
 			log_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
-			$instant_message = _l("Database was not connected by some reason.");
+			$GLOBALS['instant_message'] = _l("Database was not connected by some reason.");
 		}
 	} else {
 		log_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
-		$instant_message = _l("Database was not connected by some reason.");
+		$GLOBALS['instant_message'] = _l("Database was not connected by some reason.");
 		$DB = false;
 	}
 

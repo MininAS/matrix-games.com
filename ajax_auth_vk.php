@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 	if (isset ($_COOKIE["vk_app_2729439"]))
 	{
 		$member = authOpenAPIMember();
@@ -28,7 +27,7 @@
 		}
 		else
 		{
-			$instant_message = _l("Invalid user data.");
+			$GLOBALS['instant_message'] = _l("Invalid user data.");
 		}
 	}
 ?>

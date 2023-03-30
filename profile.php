@@ -1,18 +1,22 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 	$_SESSION["page"] = "profile";
-	$log = "..."; log_file ($log);
+	$log = "...";
+	log_file ($log);
 
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin") {
 		require ("display_non_authorization.php");
 		exit;
 	}
 
-	f_mysqlQuery ("UPDATE users SET F_bette=0 WHERE id=".$_SESSION["id"].";");
+	f_mysqlQuery ("
+		UPDATE users
+		SET F_bette=0
+		WHERE id=".$_SESSION["id"].";
+	");
 
 	if ($DB)
-	    switch ($regEdit){
+	    switch ($regEdit) {
 // Запись новового изображения
 		case 3:
 			if (isset ($_GET['photo']))
@@ -25,10 +29,10 @@
 					($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
 					|| $avatar_type=="image/png" || $avatar_type=="image/gif"))
 					save_avatar($_SESSION["id"],$avatar);
-				else $instant_message = _l("A file format is not supported.");
+				else $GLOBALS['instant_message'] = _l("A file format is not supported.");
 			}
 			else {
-				$instant_message = _l("Invalid user data.");
+				$GLOBALS['instant_message'] = _l("Invalid user data.");
 				log_file ("Ошибка при загрузке файла: ".$_FILES['avatar']['error']);
 				log_file ("https://www.php.net/manual/ru/features.file-upload.errors.php");
 			}
@@ -40,19 +44,19 @@
 			if ($_POST["value3"]==$data[0])
 			if ($_POST["value1"]==$_POST["value1"])
 			if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
-				$instant_message = _l("The password has changed.");
+				$GLOBALS['instant_message'] = _l("The password has changed.");
 			break;
 
 		case 111:
 			if (f_mysqlQuery("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
-			$instant_message = _l("The mail has changed.");
+			$GLOBALS['instant_message'] = _l("The mail has changed.");
 			break;
 
 		case 109:
 			if ($_POST["value1"]!=1) $_POST["value1"] = 0;
 			if ($_POST["value2"]!=1) $_POST["value2"] = 0;
 			if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";"))
-				$instant_message = _l("The checkboxes have changed.");
+				$GLOBALS['instant_message'] = _l("The checkboxes have changed.");
 			break;
 	}
 
@@ -128,13 +132,15 @@
 		  <div></div>
 			<div>
 				<input TYPE = 'checkbox' VALUE = '1' NAME = 'value1' ";
-		if ($settings['flag_game_mess'] == 1) $body .= "checked";
+		if ($settings['flag_game_mess'] == 1)
+			$body .= "checked";
 		$body .= "/><i> - "._l("Profile/sending game emails")."</i>
 			</div>
 			<div>
 				<input type = 'hidden' NAME = 'regEdit' VALUE = '109'>
 				<input type = 'checkbox' VALUE = '1' NAME = 'value2' ";
-		if ($settings['flag_info_mess'] == 1) $body .= "checked";
+		if ($settings['flag_info_mess'] == 1)
+			$body .= "checked";
 		$body .= "/><i> - "._l("Profile/sending service emails")."</i>
 			</div>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'key'/></div>

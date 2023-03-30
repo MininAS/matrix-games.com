@@ -1,7 +1,8 @@
 <?php
-	require ("function.php");
-	require ("sess.php");		$_SESSION["page"] = "reg";
-	if ($_SESSION['dopusk'] != 'no') exit ("
+	require "init.php";
+	$_SESSION["page"] = "reg";
+	if ($_SESSION['dopusk'] != 'no')
+		exit ("
         	<script type = 'text/javascript' language = 'JavaScript'>
 				setTimeout ('window.location.href = \"index.php\"', 2000);
 			</script>
@@ -14,16 +15,16 @@
 	$second_name = "";
 	$additional_fields = "";
 
-if (isset ($_COOKIE["vk_app_2729439"])){
-	$reg_text = _l("Profile/The first visit through Vkontakte.");
-    $login = $_GET["last_name"]."_".$_GET["first_name"];
-	$first_name = $_GET["first_name"];
-	$second_name = $_GET["last_name"];
-	$additional_fields = "
-		<INPUT id = 'first_name' TYPE = 'hidden' NAME='first_name' value = ".$first_name.">
-		<INPUT id = 'last_name' TYPE = 'hidden' NAME='last_name' value = ".$second_name.">
-		<INPUT id = 'photo' TYPE = 'hidden' NAME='photo' value = ".$_GET["photo_200"].">";
-}
+	if (isset ($_COOKIE["vk_app_2729439"])) {
+		$reg_text = _l("Profile/The first visit through Vkontakte.");
+		$login = $_GET["last_name"]."_".$_GET["first_name"];
+		$first_name = $_GET["first_name"];
+		$second_name = $_GET["last_name"];
+		$additional_fields = "
+			<INPUT id = 'first_name' TYPE = 'hidden' NAME='first_name' value = ".$first_name.">
+			<INPUT id = 'last_name' TYPE = 'hidden' NAME='last_name' value = ".$second_name.">
+			<INPUT id = 'photo' TYPE = 'hidden' NAME='photo' value = ".$_GET["photo_200"].">";
+	}
 
 	$body .="
 	<div id = 'windowRegistration' class = 'windowSite'>

@@ -1,22 +1,21 @@
 <?php
-	require ("function.php");
-	require ("sess.php");		$_SESSION["page"] = "admin";
-	$log = "..."; log_file ($log);
+	require "init.php";
+	$_SESSION["page"] = "admin";
+	$log = "...";
+	log_file ($log);
 
 	// Переменная сортировка сравнение по массиву
 	if (!isset ($_GET["sort"])) $_GET["sort"] = "id";
-	else
-	{
+	else {
 		$a_sort = array ('id', 'login', 'data DESC, time DESC', 'N_visit DESC', 'N_ballov DESC', 'N_game DESC', 'N_mess DESC');
-		if (!in_array ($_GET["sort"], $a_sort))
-		{
+		if (!in_array ($_GET["sort"], $a_sort)) {
 			f_errorHandler('Неверные входящие данные:', ' параметр sort не соответствует допустимому значению. Sort='.$_GET["sort"], 'sess.php', 0);
 			$_GET["sort"] = 'id';
 		}
 	}
-// Блок аунтификации // Удаляем по баллу у каждого пользователя
-	if ($_SESSION["dopusk"]!="admin")
-	{
+
+// Блок аунтификации // Удаляем по баллу у каждого пользователя.
+	if ($_SESSION["dopusk"]!="admin") {
 		echo ("
 		Эта страница для администраторов сайта.
 		<script type = 'text/javascript' language = 'JavaScript'>
@@ -24,30 +23,38 @@
 		</script>");
 		exit;
 	}
-	else if ($regEdit == "78") f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov-1 WHERE N_ballov>0;");
+	else if ($regEdit == "78")
+		f_mysqlQuery ("
+			UPDATE users SET N_ballov=N_ballov-1
+			WHERE N_ballov>0;
+		");
 
-// Сохранение личного сообщения
-	if ($regEdit == "1")
-	{
-		if ($user == "0")
-		{
+// Сохранение личного сообщения.
+	if ($regEdit == "1") {
+		if ($user == "0") {
 			$result = f_mysqlQuery ("SELECT id FROM users;");
 			while  ($data = mysqli_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
 		}
-		else f_saveUserMessage ($user, $string);
+		else
+			f_saveUserMessage ($user, $string);
 	}
-// Сохранение личного письма
-	if ($regEdit == "2" && $string != null)
-	{
-		if ($user == "0")
-		{
+
+// Сохранение личного письма.
+	if ($regEdit == "2" && $string != null) {
+		if ($user == "0") {
 		 	$result = f_mysqlQuery ("SELECT id FROM users;");
 			while ($data = mysqli_fetch_row ($result)) f_mail ($data[0], $string);
 		}
-		else f_mail ($user, $string);
+		else
+			f_mail ($user, $string);
 	}
-// Изменение личных данных
-	if ($regEdit == "103" && $_SESSION["dopusk"] == "admin") f_mysqlQuery ("UPDATE users SET dopusk='".$_GET["value1"]."' WHERE id=".$user.";");
+
+// Изменение личных данных.
+	if ($regEdit == "103" && $_SESSION["dopusk"] == "admin")
+		f_mysqlQuery ("
+			UPDATE users SET dopusk='".$_GET["value1"]."'
+			WHERE id=".$user.";
+		");
 
 	$body = "";
 
@@ -69,11 +76,15 @@
 	    </table>
 	<div id = 'messageWindow' class = 'messageLists'>
 	<table width = '100%' border = '2' cellpadding = '2' cellspacing = '2'>";
+
 // Сортируем
-	$result = f_mysqlQuery("SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R FROM users ORDER BY ".$_GET["sort"].";");
+	$result = f_mysqlQuery("
+		SELECT id, login, N_visit, time, data, N_ballov, N_game, N_mess, time_R, data_R
+		FROM users
+		ORDER BY ".$_GET["sort"].";
+	");
 	$i_Users = 0;
-	while  ($data = mysqli_fetch_row ($result))
-	{
+	while  ($data = mysqli_fetch_row ($result)) {
 			$body .= "
 		<TR align=\"center\">
 			<td>".$data[0]."</td>
@@ -98,8 +109,7 @@
 
 // Отпарвка сообщений ========================================================================================
 	$body .="";
-	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
-	{
+	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin") {
 		$body .= "
 		<form action='admin.php' name='send_mess'>
 		<div class = 'formSendMessage windowSite'>
@@ -108,8 +118,7 @@
 				<option value = ''>Кому:</option>
 				<option value = '0'>Всем</option>\n";
 		$result = f_mysqlQuery("SELECT id, login FROM users ORDER BY login;");
-		while ($data = mysqli_fetch_row ($result))
-		{
+		while ($data = mysqli_fetch_row ($result)) {
 			$body .= "
 			<option value = '".$data[0]."'>".$data[1]."</option>\n";
 		}
@@ -125,8 +134,7 @@
 	}
 
 // Отпарвка писем ------------------------------------------------------------------------------------------------------------
-	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin")
-	{
+	if ($_SESSION["dopusk"] == "yes" || $_SESSION["dopusk"] == "admin") {
 		$body .= "
 		<form action='admin.php' name='send_mess_' >
 		<div class = 'formSendMessage windowSite'>
@@ -134,9 +142,9 @@
 			<select name='user'>
 				<option value=''>Кому:</option>
 				<option value='0'>Всем</option>\n";
+
 		mysqli_data_seek ($result, 0);
-		while ($data = mysqli_fetch_row ($result))
-		{
+		while ($data = mysqli_fetch_row ($result)) {
 			$body .= "
 				<option value = '".$data[0]."'>".$data[1]."</option>\n";
 		}
@@ -149,9 +157,9 @@
 		</div>
 		</form>";
 	}
+
 // Меню администратора ---------------------------------------------------------------------------------------------------------------------------------------------
-	if (@$_SESSION["dopusk"]=="admin")
-	{
+	if (@$_SESSION["dopusk"]=="admin") {
 		$body .= "
 		<form action = 'admin.php' name = 'users' width = '65%'>
 		<div class = 'formSendTheme windowSite'>
@@ -159,8 +167,7 @@
 			<select name = 'user'>
 				<option class = '' value = '0'>Кому:</option>\n";
 	mysqli_data_seek ($result, 0);
-	while ($data = mysqli_fetch_row ($result))
-	{
+	while ($data = mysqli_fetch_row ($result)) {
 		$body .= "
 				<option value = '".$data[0]."'>".$data[1]."</option>\n";
 	}
@@ -181,6 +188,6 @@
 		<p>Убавить по баллу у всех играков</p><a class = 'k_enter' href = 'admin.php?regEdit=78'></a>
 	</div>";
 	}
+
 // Вставляем файл где описан объект из 6-ти ячеек
 require ("display.php");
-?>

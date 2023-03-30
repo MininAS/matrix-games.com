@@ -1,8 +1,7 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
-	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
+	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin") {
 		require ("display_non_authorization.php");
 		exit;
 	}
@@ -12,7 +11,7 @@
 			<option value = '0'>"._l('User')."</option>
 		");
 	if (isset($result))
-		while ($data = mysqli_fetch_row($result)){
+		while ($data = mysqli_fetch_row($result)) {
 			echo ("
 				<option value = '".$data[0]."'>".$data[1]."</option>
 			");

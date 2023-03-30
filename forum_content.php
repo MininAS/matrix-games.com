@@ -1,12 +1,10 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
-$text = "";
-
+	$text = "";
 	$text .= "
 	<ul class = 'messageLists'>";
-	if ($theme != 0){
+	if ($theme != 0) {
 		$parent = getForumMessageById ($theme);
 		$text .= "
 		<li class = 'forum_topic_header'>
@@ -16,11 +14,14 @@ $text = "";
 		</li>";
 	}
 
-	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
-	                         WHERE id_tema=".$theme." AND status=1 AND basket=0;");
+	$result = f_mysqlQuery ("
+		SELECT id, id_user, text, time, data
+		FROM forum
+	    WHERE id_tema=".$theme." AND status=1 AND basket=0;
+	");
     $count = isset($result) ? mysqli_num_rows($result) : 0;
-    if ($count > 0){
-		while ($data = mysqli_fetch_row($result)){
+    if ($count > 0) {
+		while ($data = mysqli_fetch_row($result)) {
 			$text .= "
 				<li class = 'forum_theme selectable_list_item' item = ".$data[0].">
 					<div class = 'message_autor'>
@@ -33,17 +34,37 @@ $text = "";
 
 					<div class = 'text'>
 						<p>".$data[2]."</p>";
-			$data_ = mysqli_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM forum WHERE id_tema=".$data[0]." AND status=1 AND basket=0;"));
+			$data_ = mysqli_fetch_row (
+				f_mysqlQuery ("
+					SELECT COUNT(*)
+					FROM forum
+					WHERE id_tema=".$data[0]." AND status=1 AND basket=0;
+				")
+			);
 			$text .= "
 						<span class = 'small'>";
 			if ($data_[0]!=0)
 				$text .= _l("Notebook/Topics").": #".$data_[0]." | ";
-			$data_ = mysqli_fetch_row(f_mysqlQuery ("SELECT COUNT(*) FROM forum WHERE id_tema=".$data[0]." AND status=0 AND basket=0;"));
+			$data_ = mysqli_fetch_row (
+				f_mysqlQuery ("
+					SELECT COUNT(*)
+					FROM forum
+					WHERE id_tema=".$data[0]." AND status=0 AND basket=0;
+				")
+			);
 			if ($data_[0]!=0){
 				$text .= _l("Notebook/Messages").": #".$data_[0];
-				$data_ = mysqli_fetch_row(f_mysqlQuery ("SELECT id_user, time, data FROM forum
-														WHERE id IN (SELECT MAX(id) FROM forum WHERE id_tema=".$data[0]." AND basket=0)
-														"));
+				$data_ = mysqli_fetch_row (
+					f_mysqlQuery ("
+						SELECT id_user, time, data
+						FROM forum
+						WHERE id IN (
+							SELECT MAX(id)
+							FROM forum
+							WHERE id_tema=".$data[0]." AND basket=0
+						)
+					")
+				);
 				$text .= " ".getUserLogin($data_[0])." ".$data_[1]." ".$data_[2];
 			}
 			$text .= "
@@ -67,8 +88,11 @@ $text = "";
 
 // Просмотр сообщений в теме =================================================================================
 	// Кол. сообщений
-	$result = f_mysqlQuery ("SELECT id, id_user, text, time, data FROM forum
-							WHERE id_tema=".$theme." AND status=0 AND basket=0 ORDER BY data DESC, time DESC;");
+	$result = f_mysqlQuery ("
+		SELECT id, id_user, text, time, data
+		FROM forum
+		WHERE id_tema=".$theme." AND status=0 AND basket=0 ORDER BY data DESC, time DESC;
+	");
     $count = isset($result) ? mysqli_num_rows($result) : 0;
 	if ($count >= 1) {
 		$text .= "

@@ -1,10 +1,11 @@
 <?php
-	// Запись в лог учета посещений
-	function log_file ($log)
-	{
+	/**
+	 * Запись в журнал с добавлением даты, IP и идентификаторов сессии.
+	 * @param string $log
+	 */
+	function log_file ($log) {
 		$name = "logs/".date ("Y.m.d").".log";
-		if (file_exists($name))
-		{
+		if (file_exists($name)) {
 			$file=fopen ($name, "a");
 			$ip = getenv ("REMOTE_ADDR");
 			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
@@ -13,8 +14,7 @@
 			fwrite ($file, $string);
 			fclose ($file);
 		}
-		else
-		{
+		else {
 			$file = fopen ($name, "w");
 			db_saver ();
 			fclose ($file);
@@ -22,26 +22,39 @@
 		}
 	}
 
-// Замена тегов, невидимых символов и смайлов и сохранение сообщения или редактриование старого --------------
-	function f_saveUserMessage($user, $text)
-	{
+	/**
+	 * Сохраняет сообщение в БД, при этом вставляя смайлы и таги.
+	 * @param int $user идентификатор пользователя,
+	 * @param string $text текстовое сообщение.
+	 */
+	function f_saveUserMessage($user, $text) {
 		$text=trim($text);
         $status = f_checkLengthMessage($text);
 		if (!$status) return $status;
         $text = f_convertSmilesAndTagFormat($text);
-		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data)
-					VALUE (
-						".$user.",
-						".$_SESSION["id"].",
-						'".$text."',
-						'".date("H:i")."',
-						'".date("y.m.d")."'
-					);
-				")
-			){
-			f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
-			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$user.";");
-			$log = "Sent message for ".$user; log_file ($log);
+		if (f_mysqlQuery ("
+				INSERT users_mess (id_tema, id_user, text, time, data)
+				VALUE (
+					".$user.",
+					".$_SESSION["id"].",
+					'".$text."',
+					'".date("H:i")."',
+					'".date("y.m.d")."'
+				);
+			")
+		) {
+			f_mysqlQuery ("
+				UPDATE users
+				SET N_mess=N_mess+1
+				WHERE id=".$_SESSION["id"].";
+			");
+			f_mysqlQuery ("
+				UPDATE users
+				SET F_bette=1
+				WHERE id=".$user.";
+			");
+			$log = "Sent message for ".$user;
+			log_file ($log);
 			return '
 				{
 					"res": "200",
@@ -58,7 +71,7 @@
 			';
 	}
 
-	function f_saveTecnicMessage($from, $user, $text, $game = "", $subgame = 0){
+	function f_saveTecnicMessage($from, $user, $text, $game = "", $subgame = 0) {
 		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data, game, subgame)
 					VALUE (
 						".$user.",
@@ -70,15 +83,19 @@
 						'".$subgame."'
 					);
 				")
-			){
-			f_mysqlQuery ("UPDATE users SET F_bette=1 WHERE id=".$user.";");
+			) {
+			f_mysqlQuery ("
+				UPDATE users
+				SET F_bette=1
+				WHERE id=".$user.";
+			");
 			$log = "Отправилено сообщение для ".$user; log_file ($log);
 		}
 	}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Проверка длинны сообщения
-function f_checkLengthMessage($text){
+function f_checkLengthMessage($text) {
 			if (empty($text))
 				return '
 					{
@@ -105,20 +122,22 @@ function f_checkLengthMessage($text){
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Форматирование смайлов
-function f_convertSmilesAndTagFormat($text){
+function f_convertSmilesAndTagFormat($text) {
 	$text=str_replace ("<", "&#60", $text);
 	$text=str_replace (">", "&#62", $text);
 	$text=str_replace ("\\r\\n", "<br>", $text);
 	$text=str_replace ("\\n", "<br>", $text);
 // Проверка на смайлы
-	if (strstr ($text, "{[:")){
+	if (strstr ($text, "{[:")) {
 		$arr = preg_split ("/\{\[:|:\]\}/i", $text);
 		$text="";
-		foreach ($arr as $key => $value){
-			if (preg_match("/[a-z]{2}/i", $value)){
+		foreach ($arr as $key => $value) {
+			if (preg_match("/[a-z]{2}/i", $value)) {
 				$file=$value.".gif";
-				if (@file_exists ("smile/$file")) $text = $text."<img src=\"smile/".$value.".gif\">";
-				else $text = $text.$value;
+				if (@file_exists ("smile/$file"))
+					$text = $text."<img src=\"smile/".$value.".gif\">";
+				else
+					$text = $text.$value;
 			}
 			else $text=$text.$value;
 		}
@@ -132,7 +151,7 @@ function f_mail ($user, $mail_mess, $lang = 'default')
 {
 	$result=f_mysqlQuery ("SELECT F_mail, mail, lang FROM users WHERE id=".$user.";");
 	$data = isset($result) ? mysqli_fetch_row ($result) : [1, "mininas@sampo.ru"];
-	if ($data[0] == 1){
+	if ($data[0] == 1) {
 		$mail_mess=str_replace ("\\r\\n", "<br>", $mail_mess);
 		mail ($data[1], _l("Mails/News from LMG ==>>", $lang),
 		"
@@ -170,35 +189,12 @@ function f_mail ($user, $mail_mess, $lang = 'default')
 		"Content-type: text/html; charset=utf-8 \r\n"."From: LMG <mininas@sampo.ru>\r\n");
 	}
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-// Сколько разных IP за сутки
-function IP_quest ()
-{
-	$arr = array();
-	$file=fopen ("logs/".date ("Y.m.d").".txt", "r");
-	if (isset ($file))
-	{
-		while ($d = fgetcsv ($file, 1000, "\t"))
-		{
-			$f_ARR = true; reset ($arr);
-			foreach ($arr as $key => $value)
-			    if ($d[2] == $value)
-				    $f_ARR = false; break;
-			if ($f_ARR == true)
-			    array_push ($arr, $d[2]);
-		}
-		fclose ($file);
-	}
-	return count ($arr);
-}
 
 // Обработка ошибок в PHP ------------------------------------------------------
 
-function f_errorHandler($errno, $text, $file = "---", $line=0)
-{
+function f_errorHandler($errno, $text, $file = "---", $line=0) {
 	if (!(error_reporting() & $errno))
         return false;
-
 	$string = $errno." - ".$text." в файле: ".$file.", строка №".$line."/n";
 	log_file ($string);
 	f_mail (1, $string);
@@ -214,11 +210,9 @@ function authOpenAPIMember()
 	$member = FALSE;
 	$valid_keys = array('expire', 'mid', 'secret', 'sid', 'sig');
 	$app_cookie = $_COOKIE['vk_app_2729439'];
-	if ($app_cookie)
-	{
+	if ($app_cookie) {
 		$session_data = explode ('&', $app_cookie, 10);
-		foreach ($session_data as $pair)
-		{
+		foreach ($session_data as $pair) {
 			list($key, $value) = explode('=', $pair, 2);
 			if (empty($key) || empty($value) || !in_array($key, $valid_keys)) continue;
 			$session[$key] = $value;
@@ -260,18 +254,18 @@ function authOpenAPIMember()
 
 // Сохранение аватара с соответствующими габаритами -----------------------------
 
-function save_avatar($id_outfile, $infile)
-{
-    global $instant_message;
-
+function save_avatar($id_outfile, $infile) {
 	$infile = str_replace("https://", "http://", $infile);
     $size = getimagesize($infile);
-    if ($size['mime'] == 'image/jpeg') $im=imagecreatefromjpeg ($infile);
-	elseif ($size['mime'] == 'image/png') $im=imagecreatefrompng ($infile);
-	elseif ($size['mime'] == 'image/gif') $im=imagecreatefromgif ($infile);
+    if ($size['mime'] == 'image/jpeg')
+		$im=imagecreatefromjpeg ($infile);
+	elseif ($size['mime'] == 'image/png')
+		$im=imagecreatefrompng ($infile);
+	elseif ($size['mime'] == 'image/gif')
+		$im=imagecreatefromgif ($infile);
 	else {
 		$log = "Пытался загрузить " . $size['mime'] . "тип файла."; log_file ($log);
-		$instant_message = _l("A file format is not supported.");
+		$GLOBALS['instant_message'] = _l("A file format is not supported.");
 		return;
 	}
 
@@ -293,19 +287,20 @@ function save_avatar($id_outfile, $infile)
     imagedestroy($im2);
   	imagedestroy($im3);
 
-		$log = "Поменял аватару."; log_file ($log);
-		$instant_message = _l("The photo has downloaded.");
+		$log = "Поменял аватару.";
+		log_file ($log);
+		$GLOBALS['instant_message'] = _l("The photo has downloaded.");
 	}
 
 // Локализация тектовая
-	function _l($str, $lang = 'default'){
+	function _l($str, $lang = 'default') {
 		$path = explode ('/', $str);
 		if ($lang == 'default')
 			$arr = $GLOBALS['LANG_ARRAY'];
 		else {
 			$arr = f_getTranslatedText($lang);
 		}
-		foreach ($path as $key){
+		foreach ($path as $key) {
 			if (array_key_exists($key, $arr))
 				$arr = $arr[$key];
 			else {
@@ -316,7 +311,7 @@ function save_avatar($id_outfile, $infile)
 		return $arr;
 	}
 
-	function f_getTranslatedText ($lang){
+	function f_getTranslatedText ($lang) {
 		$string = file_get_contents ("lang/".$lang."/lang.json");
 		$arr = json_decode($string, true);
 		return  $arr;
@@ -334,9 +329,8 @@ function save_avatar($id_outfile, $infile)
 			FROM games;
 		");
 		$arr = array();
-		if (isset($result)){
-			while ($data = mysqli_fetch_row ($result))
-			{
+		if (isset($result)) {
+			while ($data = mysqli_fetch_row ($result)) {
 				$arr[$data[0]] = 0;
 			}
 		}
@@ -353,7 +347,7 @@ function save_avatar($id_outfile, $infile)
 	 */
 	function getCurrentGameArrayOrder($occurrences = 3) {
 		$arr = json_decode($_COOKIE["games_order"], true);
-		if (is_array($arr)){
+		if (is_array($arr)) {
 			foreach($arr as $game_name => $value)
 				if ($value >= $occurrences)	{
 					unset($arr[$game_name]);

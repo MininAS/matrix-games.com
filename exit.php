@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 // Удаление аккаунта
 	if (!$regEdit == "9" || !$_SESSION["dopusk"] == "yes") {
 		require ("display_non_authorization.php");

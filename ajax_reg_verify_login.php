@@ -1,9 +1,6 @@
 <?php
-
     // Проверка существования имени пользователя в БД.
-
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
 	$query = f_mysqlQuery ("
 	    SELECT id

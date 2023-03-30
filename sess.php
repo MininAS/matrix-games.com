@@ -1,13 +1,4 @@
 <?php
-	set_error_handler('f_errorHandler');
-	date_default_timezone_set('Europe/Moscow');
-
-	// Инициализация переменной мгновенных сообщений.
-	$instant_message = 'none';
-
-	// Стартуем БД и инициализируем функции.
-	require ("sql_queries.php");
-
 	// Проверка сессии
 	if (isset ($_COOKIE["LMG"]))
 	    if (preg_match("/sess_[0-9a-z]{32}/", $_COOKIE["LMG"]))

@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
 	if ($_SESSION["dopusk"]!="yes" && $_SESSION["dopusk"]!="admin"){
 		require ("display_non_authorization.php");

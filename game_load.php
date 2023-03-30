@@ -1,9 +1,7 @@
 <?php
-require ("function.php");
-require ("sess.php");
+	require "init.php";
 
-	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin")
-	{
+	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin") {
 		exit ('
 			{
 				"res": "100",

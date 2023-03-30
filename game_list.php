@@ -1,6 +1,5 @@
 <?php
-	require ("function.php");
-	require ("sess.php");
+	require "init.php";
 
 	$_life_exp_of_subgame = 18;    # days
 	$_life_exp_block_visual = 6;   # items
@@ -8,12 +7,12 @@
 	if ($canvasLayout == "") $canvasLayout = 0;
 
 // Просмотр сыгранных игр =====================================================
-    if ($_SESSION["dopusk"]=="yes"){
+    if ($_SESSION["dopusk"]=="yes") {
 	    $userSubGameAmount = getUserSubGameAmount ($theme, $_SESSION["id"]);
 		echo ("
 			<div id = 'gameCheckboxScrollContainer'>
 		");
-	    for ($i = 0; $i < 5; $i++){
+	    for ($i = 0; $i < 5; $i++) {
 			$class = ($i < $userSubGameAmount) ? "openedGameCheckbox" : "";
 			$alt = ($i < $userSubGameAmount) ? _l('Tooltips/Your game')
 			    : (5 - $userSubGameAmount)." "._l('Tooltips/games you can save');
@@ -41,7 +40,7 @@
 		ORDER BY sum DESC;
     ");
 	if (isset($subGames))
-    while ($subGame = mysqli_fetch_row($subGames)){
+    while ($subGame = mysqli_fetch_row($subGames)) {
 		$winner = getSubGameBestPlayer($theme, $subGame[0]);
 		$subSubGameAmount = getSubSubGameAmount($theme, $subGame[0]);
 		$subGameResults = f_mysqlQuery ("
@@ -83,13 +82,13 @@
 					<li class = 'wonGameCheckbox'></li>
 				</ul>
 			");
-		if ($subSubGameAmount >= 5){
+		if ($subSubGameAmount >= 5) {
 			$left =  ($_life_exp_of_subgame - $winner["live"]) >= 0 ? ($_life_exp_of_subgame - $winner["live"]) : 0;
 			echo ("
 				<ul class = 'gameCheckbox key' alt='".$left." "._l('Tooltips/days until removing')."'>
 			");
 			$aggregate = $_life_exp_of_subgame / $_life_exp_block_visual;
-			for ($i = 1; $i <= $_life_exp_block_visual; $i++){
+			for ($i = 1; $i <= $_life_exp_block_visual; $i++) {
 				$opacity = ($i * $aggregate <= $winner["live"]) ? (1 / $_life_exp_block_visual * $i) : 1;
 				$class =   ($i * $aggregate <= $winner["live"]) ? "deletedGameCheckbox" : "";
 				echo ("
@@ -105,8 +104,8 @@
 		    <p> ".$pioneer[1]." - ".getUserLogin($pioneer[0])."</p>"
         );
 
-		for ($i = 2; $player = mysqli_fetch_row($subGameResults); $i++){
-			if ($i == 2){
+		for ($i = 2; $player = mysqli_fetch_row($subGameResults); $i++) {
+			if ($i == 2) {
 			    if ($subSubGameAmount > 4)
 					echo ("
 						<center> + ".($subSubGameAmount - 3)." + </center>
@@ -123,7 +122,7 @@
 				");
 		}
 
-		if ($_SESSION["dopusk"] == "admin"){
+		if ($_SESSION["dopusk"] == "admin") {
 			echo ("
 				<div class = 'forum_list_item_buttons'>
 					<a class = 'text_insignificant'
