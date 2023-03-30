@@ -1,7 +1,7 @@
 <?php
 	require "init.php";
 
-	$_life_exp_of_subgame = 18;    # days
+	$_life_exp_of_subgame = $GLOBALS['subgame_expiry'];    # days
 	$_life_exp_block_visual = 6;   # items
 
 	if ($canvasLayout == "") $canvasLayout = 0;

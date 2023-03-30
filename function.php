@@ -4,22 +4,13 @@
 	 * @param string $log
 	 */
 	function log_file ($log) {
-		$name = "logs/".date ("Y.m.d").".log";
-		if (file_exists($name)) {
-			$file=fopen ($name, "a");
-			$ip = getenv ("REMOTE_ADDR");
-			if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
-			if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
-			$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t\n";
-			fwrite ($file, $string);
-			fclose ($file);
-		}
-		else {
-			$file = fopen ($name, "w");
-			db_saver ();
-			fclose ($file);
-			log_file ($log);
-		}
+		$file=fopen ($GLOBALS['log_file_name'], "a");
+		$ip = getenv ("REMOTE_ADDR");
+		if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
+		if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
+		$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t\n";
+		fwrite ($file, $string);
+		fclose ($file);
 	}
 
 	/**
