@@ -27,7 +27,7 @@
 		}
 		else
 		{
-			$GLOBALS['instant_message'] = _l("Invalid user data.");
+			$GLOBALS['INSTANT_MESSAGE'] = _l("Invalid user data.");
 		}
 	}
 ?>

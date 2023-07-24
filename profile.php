@@ -29,10 +29,10 @@
 					($avatar_type=="image/jpg" || $avatar_type=="image/jpeg"
 					|| $avatar_type=="image/png" || $avatar_type=="image/gif"))
 					save_avatar($_SESSION["id"],$avatar);
-				else $GLOBALS['instant_message'] = _l("A file format is not supported.");
+				else $GLOBALS['INSTANT_MESSAGE'] = _l("A file format is not supported.");
 			}
 			else {
-				$GLOBALS['instant_message'] = _l("Invalid user data.");
+				$GLOBALS['INSTANT_MESSAGE'] = _l("Invalid user data.");
 				log_file ("Ошибка при загрузке файла: ".$_FILES['avatar']['error']);
 				log_file ("https://www.php.net/manual/ru/features.file-upload.errors.php");
 			}
@@ -44,19 +44,19 @@
 			if ($_POST["value3"]==$data[0])
 			if ($_POST["value1"]==$_POST["value1"])
 			if (f_mysqlQuery("UPDATE users SET pass='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
-				$GLOBALS['instant_message'] = _l("The password has changed.");
+				$GLOBALS['INSTANT_MESSAGE'] = _l("The password has changed.");
 			break;
 
 		case 111:
 			if (f_mysqlQuery("UPDATE users SET mail='".$_POST["value1"]."' WHERE id=".$_SESSION["id"].";"))
-			$GLOBALS['instant_message'] = _l("The mail has changed.");
+			$GLOBALS['INSTANT_MESSAGE'] = _l("The mail has changed.");
 			break;
 
 		case 109:
 			if ($_POST["value1"]!=1) $_POST["value1"] = 0;
 			if ($_POST["value2"]!=1) $_POST["value2"] = 0;
 			if (f_mysqlQuery("UPDATE users SET F_mailG=".$_POST["value1"].", F_mail=".$_POST["value2"]." WHERE id=".$_SESSION["id"].";"))
-				$GLOBALS['instant_message'] = _l("The checkboxes have changed.");
+				$GLOBALS['INSTANT_MESSAGE'] = _l("The checkboxes have changed.");
 			break;
 	}
 

@@ -68,7 +68,7 @@
 	<div id = "black_glass"></div>
 
 	<div id = 'window_info_popup'>
-		<div id = 'info_div' class = 'windowSite'><?php echo ($GLOBALS['instant_message']) ?></div>
+		<div id = 'info_div' class = 'windowSite'><?php echo ($GLOBALS['INSTANT_MESSAGE']) ?></div>
 	</div>
 
 	<div id = 'text_key' class = 'border_inset toolTip'></div>

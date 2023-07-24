@@ -1,5 +1,5 @@
 <?php
-    $DB_localhost = @mysqli_connect("localhost", "root", "");
+    $DB_localhost = @mysqli_connect("localhost", "mininas", "3214");
 	$DB_ru =        @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
 	$DB_Connection = $DB_ru ?: ($DB_localhost ?: false);
 
@@ -7,15 +7,18 @@
 	    mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
         $DB = mysqli_select_db ($DB_Connection, "matrix-gam_db");
 		if (!$DB){
-			log_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
-			$GLOBALS['instant_message'] = _l("Database was not connected by some reason.");
+			log_to_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
+			$GLOBALS['INSTANT_MESSAGE'] = _l("Database was not connected by some reason.");
 		}
 	} else {
-		log_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
-		$GLOBALS['instant_message'] = _l("Database was not connected by some reason.");
+		log_to_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
+		$GLOBALS['INSTANT_MESSAGE'] = _l("SQL server was not connected by some reason.");
 		$DB = false;
 	}
 
+	/**
+	 * Запрос к БД с логированием ошибок
+	 */
 	function f_mysqlQuery($query){
 		global $DB_Connection;
 		global $DB;
@@ -30,7 +33,7 @@
 		else return null;
 	}
 
-# Пользователи ----------------------------------------------------------------
+// Пользователи ----------------------------------------------------------------
 
 	function getUserLogin($id){
 		$result = f_mysqlQuery ("
@@ -64,8 +67,14 @@
 	}
 
 
-# games------------------------------------------------------------------------
+// games------------------------------------------------------------------------
 
+	/**
+	 * Вернуть количество подигр в игре для игрока.
+	 * @param string $game имя игры,
+	 * @param int $user идентификатор пользователя.
+	 * @return int
+	 */
 	function getUserSubGameAmount($game, $user){
 		$result = f_mysqlQuery ("
 			SELECT COUNT(*) AS count
@@ -91,16 +100,6 @@
 		return $count;
 	}
 
-	function getSubSubGameAmountForUsers($game, $subgame) {
-		$result = f_mysqlQuery ("
-			SELECT id_user, COUNT(*)
-			FROM games_".$game."_com
-			WHERE id_game=".$subgame."
-			GROUP BY id_user;"
-		);
-		return $result;
-	}
-
 	function getSubGameСreator($game, $subgame) {
 		$result = f_mysqlQuery ("
 			SELECT *
@@ -123,24 +122,35 @@
 		return $data[0];
 	}
 
+	/**
+	 * Возвращает лучшего игрока на поле с данными.
+	 * @param string $game наименование игры
+	 * @param int $canvas номер поля игры
+	 * @return array id идентификатор,
+	 *               login логин,
+	 *               lang язык установленный пользователем,
+	 *               score сумма очков в этом поле,
+	 *               live время жизни в днях с последней выигрышной попытки.
+	 */
     function getSubGameBestPlayer($game, $subgame) {
 		$result = f_mysqlQuery ("
-			SELECT id_user, users.login, score, users.lang, DATEDIFF(NOW(), tb.data) AS live
-			FROM games_".$game."_com AS tb, users
-			WHERE id_game=".$subgame." AND id_user=users.id
+			SELECT us.id, us.login, us.lang,
+			       tb.score, DATEDIFF(NOW(), tb.data) AS live
+			FROM games_".$game."_com AS tb, users AS us
+			WHERE id_game=".$subgame." AND id_user=us.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
 		$data = mysqli_fetch_row($result);
 		$array = array (
 			"id" =>    $data[0],
 			"login" => $data[1],
-			"score" => $data[2],
-			"lang" =>  $data[3],
+			"lang" =>  $data[2],
+			"score" => $data[3],
 			"live" =>  $data[4],
 		);
         return $array;
 	}
 
-# forum -------------------------------------------------------------------
+// forum -------------------------------------------------------------------
 
     function getForumMessageById($id){
 		$result = f_mysqlQuery ("
@@ -156,7 +166,7 @@
         return $array;
 	}
 
-# Ежедневное резевное сохранение базы данных ----------------------------------
+// Ежедневное резервное сохранение базы данных ----------------------------------
 
 	function db_saver(){
 		global $DB_Connection;

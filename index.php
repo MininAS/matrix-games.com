@@ -4,8 +4,6 @@
 	$log = "...";
 	log_file ($log);
 
-	$record = array ();
-	$record_ = array ();
 	$body = "";
 
 	if (isset($_POST["login"]) && isset($_POST["pass"])) require ("auth.php");

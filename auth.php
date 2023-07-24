@@ -5,7 +5,7 @@ $query = f_mysqlQuery ("
 	WHERE UPPER(login) = UPPER('".$_POST["login"]."');
 ");
 
-$GLOBALS['instant_message'] = _l("Login or password were invalid.");
+$GLOBALS['INSTANT_MESSAGE'] = _l("Login or password were invalid.");
 if ($data = mysqli_fetch_row($query)) {
 	if (preg_match("/".$data[2]."/i", $_POST["login"])  && $data[0] == $_POST["pass"]) {
 		$_SESSION["dopusk"] = $data[3];
@@ -22,7 +22,7 @@ if ($data = mysqli_fetch_row($query)) {
 				ip='".getenv ("REMOTE_ADDR")."'
 			WHERE id=".$_SESSION["id"].";
 		");
-		$GLOBALS['instant_message'] = 'none';
+		$GLOBALS['INSTANT_MESSAGE'] = 'none';
 	}
 }
 ?>

@@ -30,7 +30,7 @@
 
 	// Параметр последовательности игр.
 	if (!isset ($_COOKIE["games_order"])){
-		$arr = getDefaultGameArrayOrder();
+		$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
 		$string = json_encode($arr);
 		setcookie("games_order", $string, time()+31536000);
 		$_COOKIE["games_order"] = $string;
@@ -41,8 +41,10 @@
 	session_set_cookie_params (31536000);
 	session_start ();
 
-	// Вынимаем словарь соответствующего языка (rus, eng).
-	$GLOBALS['LANG_ARRAY'] = f_getTranslatedText($_COOKIE["lang"]);
+	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
+	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
+	$_SESSION["dopusk"] = isset ($_SESSION["dopusk"]) ? $_SESSION["dopusk"] : "no";
+	$_SESSION["page"] = isset ($_SESSION["page"]) ? $_SESSION["page"] : "";
 
 	// Проверка изменен ли язык, если да обновляем его в БД для пользователя.
 	if ($_SESSION["id"] != "" && $_SESSION["lang"] != $_COOKIE["lang"]){
@@ -53,12 +55,6 @@
 		");
 	}
 	$_SESSION["lang"] = $_COOKIE["lang"];
-
-
-	$_SESSION["id"] = isset ($_SESSION["id"]) ? $_SESSION["id"] : "";
-	$_SESSION["login"] = isset ($_SESSION["login"]) ? $_SESSION["login"] : "Guest";
-	$_SESSION["dopusk"] = isset ($_SESSION["dopusk"]) ? $_SESSION["dopusk"] : "no";
-	$_SESSION["page"] = isset ($_SESSION["page"]) ? $_SESSION["page"] : "";
 
 	// Переменная сортировка сравнение по массиву
 	if (!isset ($_GET["sort"])) $_GET["sort"] = "id";
@@ -75,8 +71,8 @@
 
 	// Проверяем тему(имя игры) на соответствие списку иначе инициируем как integer.
 	$theme = isset ($_GET['theme']) ? $_GET['theme'] : (isset($_POST['theme']) ? $_POST['theme'] : null);
-	$list = getDefaultGameArrayOrder();
-	if (!in_array ($theme, $list)) $theme = (int)$theme;
+	$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
+	if (!in_array ($theme, $arr)) $theme = (int)$theme;
 
 	// Переменные цифровые
 	$arr = array ('canvasLayout', 'user', 'regEdit', 'mess');

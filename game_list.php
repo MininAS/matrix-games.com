@@ -1,7 +1,7 @@
 <?php
 	require "init.php";
 
-	$_life_exp_of_subgame = $GLOBALS['subgame_expiry'];    # days
+	$_life_exp_of_subgame = $GLOBALS['SUBGAME_EXPIRY'];    # days
 	$_life_exp_block_visual = 6;   # items
 
 	if ($canvasLayout == "") $canvasLayout = 0;
@@ -84,6 +84,10 @@
 			");
 		if ($subSubGameAmount >= 5) {
 			$left =  ($_life_exp_of_subgame - $winner["live"]) >= 0 ? ($_life_exp_of_subgame - $winner["live"]) : 0;
+			# Если игра живет больше дней чем $winner["live"] - ставим метку 2 - на удаление после полуночи.
+			if ($left == 0) {
+				f_mysqlQuery ("UPDATE games_".$theme." SET remove=2 WHERE id_game=".$subGame[0].";");
+			}
 			echo ("
 				<ul class = 'gameCheckbox key' alt='".$left." "._l('Tooltips/days until removing')."'>
 			");

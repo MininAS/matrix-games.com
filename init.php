@@ -11,29 +11,52 @@
      * Значение по умолчанию - none. Если переменная содержит текст, то сообщение
 	 * будет выведено в popup окне при завершении загрузки страницы.
      */
-	$GLOBALS['instant_message'] = 'none';
+	$GLOBALS['INSTANT_MESSAGE'] = 'none';
 
 	/**
-	 * Имя файла логирования по сегодняшней дате.
+	 * Имена файлов логирования:
+	 *  - ежедневный,
+	 *  - ежемесячный.
 	 */
-	$GLOBALS['log_file_name'] = 'logs/'.date('Y.m.d').'.log';
+	$GLOBALS['DAILY_LOGFILE'] = 'logs/'.date('Y.m.d').'.log';
+	$GLOBALS['MONTHLY_LOGFILE'] = 'logs/'.date('Y.m').'.log';
 
 	/**
-	 *
+	 * Время жизни подигры в случае если есть пять и более сохраненных подподигр.
 	 */
-	$GLOBALS['subgame_expiry'] = 18;   # дней
+	$GLOBALS['SUBGAME_EXPIRY'] = 18;   # дней
 
-	// Стартуем БД и инициализируем функции.
+	/**
+	 * Список игр в порядке его расположения на основной странице.
+	 */
+	$GLOBALS['DEFAULT_GAME_LIST_ORDER'] = [
+		"sphere" => 0,
+		"tetris" => 0,
+		"slicing" => 0,
+		"sapper" => 0,
+		"number" => 0,
+		"filler" => 0,
+		"circuit" => 0,
+		"bouncer" => 0,
+		"barrel" => 0
+	];
+
+	// Стартуем БД и инициализируем сессию.
 	require "sql_queries.php";
 	require "sess.php";
+
+	/**
+	 * Кладем в переменную словарь языка который соответствует пользовательскому значению.
+	 */
+	$GLOBALS['LANG_ARRAY'] = f_getTranslatedText($_COOKIE["lang"]);
 
     /**
 	 * Наличие файла логирования на дату входа является флагом для инициализация действий на текущий день:
 	 *  - создание файла ежедневного логирования;
 	 *  - резервное сохранение БД.
 	 */
-	if (!file_exists($GLOBALS['log_file_name'])) {
-		$file = fopen ($GLOBALS['log_file_name'], "w");
+	if (!file_exists($GLOBALS['DAILY_LOGFILE'])){
+		$file = fopen ($GLOBALS['DAILY_LOGFILE'], "w");
 		fclose ($file);
 		db_saver ();
 	}
