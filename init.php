@@ -51,13 +51,27 @@
 	$GLOBALS['LANG_ARRAY'] = f_getTranslatedText($_COOKIE["lang"]);
 
     /**
-	 * Наличие файла логирования на дату входа является флагом для инициализация действий на текущий день:
+	 * Наличие файла логирования на дату входа является флагом для инициализации действий на текущий день:
 	 *  - создание файла ежедневного логирования;
+	 *  - удаление игр с флагом (remove = 1);
 	 *  - резервное сохранение БД.
 	 */
 	if (!file_exists($GLOBALS['DAILY_LOGFILE'])){
+
 		$file = fopen ($GLOBALS['DAILY_LOGFILE'], "w");
 		fclose ($file);
+
+		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {
+			$result = f_mysqlQuery("
+			    SELECT id_game 
+				FROM games_".$game." 
+				WHERE remove = 1
+			");
+			while ($canvas = mysqli_fetch_row ($result)){
+				removeGameCanvas ($game, $canvas[0]);
+			}
+		}
+		
 		db_saver ();
 	}
 ?>

@@ -19,7 +19,7 @@
 		if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
 		if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
 		$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t\n";
-		log ($string);
+		log_to_file ($string);
 	}
 
 	/**
@@ -391,7 +391,7 @@
 	 */
 	function removeGameCanvas($game, $canvas) {
 		$subSubGameAmount = getSubSubGameAmount($game, $canvas);
-		if ($subSubGameAmount = 0)
+		if ($subSubGameAmount == 0)
 			log_file("Попытка удаление подигры которая в базе не найдена.");
 		if ($subSubGameAmount < 5) {
 			if ($_SESSION["dopusk"] == "admin")
@@ -436,7 +436,7 @@
 		if (f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvas.";"))
 			if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvas.";"))
 				log_file ("
-				    Удаление игры "._l($game, "rus")."(".$game.").
+				    Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvas.".
 				    Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.
 				");
 

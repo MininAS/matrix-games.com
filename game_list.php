@@ -84,9 +84,9 @@
 			");
 		if ($subSubGameAmount >= 5) {
 			$left =  ($_life_exp_of_subgame - $winner["live"]) >= 0 ? ($_life_exp_of_subgame - $winner["live"]) : 0;
-			# Если игра живет больше дней чем $winner["live"] - ставим метку 2 - на удаление после полуночи.
+			# Если игра живет больше дней чем $winner["live"] - ставим метку 1 - на удаление после полуночи.
 			if ($left == 0) {
-				f_mysqlQuery ("UPDATE games_".$theme." SET remove=2 WHERE id_game=".$subGame[0].";");
+				f_mysqlQuery ("UPDATE games_".$theme." SET remove=1 WHERE id_game=".$subGame[0].";");
 			}
 			echo ("
 				<ul class = 'gameCheckbox key' alt='".$left." "._l('Tooltips/days until removing')."'>
