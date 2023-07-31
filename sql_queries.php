@@ -139,6 +139,9 @@
 			FROM games_".$game."_com AS tb, users AS us
 			WHERE id_game=".$subgame." AND id_user=us.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
+		$count = mysqli_num_rows($result);
+		if ($count != 1)
+            return "none";
 		$data = mysqli_fetch_row($result);
 		$array = array (
 			"id" =>    $data[0],
