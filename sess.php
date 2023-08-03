@@ -29,12 +29,17 @@
 	}
 
 	// Параметр последовательности игр.
-	if (!isset ($_COOKIE["games_order"])){
-		$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
-		$string = json_encode($arr);
-		setcookie("games_order", $string, time()+31536000);
-		$_COOKIE["games_order"] = $string;
+	if (isset ($_COOKIE["games_order"])){
+		$expected = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
+		$current =  json_decode($_COOKIE["games_order"], true);
+		$sum = array_diff_key($expected, $current);
+        if (count($sum) > 0)
+			setGameOrderToCookies($expected);
+		else
+			log_to_file("WARNING: Не правильный входящий параметр для порядка игр. games_order = ".print_r($current, true));
 	}
+	else 
+		setGameOrderToCookies($GLOBALS['DEFAULT_GAME_LIST_ORDER']);
 
 	session_name ("LMG");
 	session_save_path ("sess");
@@ -123,5 +128,15 @@
 			$a_sessionData[$data[0]] = isset($data[1]) ? $data[1] : '';
 		}
 		return $a_sessionData;
+	}
+
+	/**
+	 * Переводит массив в JSON и публикует в cookies.
+	 * @param array $arr массив с именами игр и значениями вхождений.
+	 */
+	function setGameOrderToCookies($arr){
+		$string = json_encode($arr);
+		setcookie("games_order", $string, time()+31536000);
+		$_COOKIE["games_order"] = $string;
 	}
 ?>

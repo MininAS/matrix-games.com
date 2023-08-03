@@ -367,9 +367,7 @@
 							$arr[$game_name] --;
 					break;
 				}
-			$string = json_encode($arr);
-			setcookie("games_order", $string, time()+31536000);
-			$_COOKIE["games_order"] = $string;
+			setGameOrderToCookies($arr);
 		}
 		else 
 			$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
@@ -379,9 +377,7 @@
 	function increaseGameOccurrenceAmount ($game) {
 		$arr = json_decode($_COOKIE["games_order"], true);
 		$arr[$game] ++;
-		$string = json_encode($arr);
-		setcookie("games_order", $string, time()+31536000);
-		$_COOKIE["games_order"] = $string;
+		setGameOrderToCookies($arr);
 	}
 
 	/**
