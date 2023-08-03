@@ -22,9 +22,9 @@
 	$GLOBALS['MONTHLY_LOGFILE'] = 'logs/'.date('Y.m').'.log';
 
 	/**
-	 * Время жизни подигры в случае если есть пять и более сохраненных подподигр.
+	 * Время жизни расклада(слоя) в случае если есть пять и более сохраненных попыток.
 	 */
-	$GLOBALS['SUBGAME_EXPIRY'] = 18;   # дней
+	$GLOBALS['LAYOUT_EXPIRY'] = 18;   # дней
 
 	/**
 	 * Список игр в порядке его расположения на основной странице.
@@ -67,8 +67,8 @@
 				FROM games_".$game." 
 				WHERE remove = 1
 			");
-			while ($canvas = mysqli_fetch_row ($result)){
-				removeGameCanvas ($game, $canvas[0]);
+			while ($canvasLayout = mysqli_fetch_row ($result)){
+				removeGameCanvas ($game, $canvasLayout[0]);
 			}
 		}
 		

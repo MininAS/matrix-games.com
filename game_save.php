@@ -18,8 +18,8 @@
 		');
 	}
 
-	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $subGameData)) {
-		f_errorHandler('Неверные входящие данные с игрового поля: ', $subGameData, 'game_save.php', 0);
+	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $canvasLayoutData)) {
+		f_errorHandler('Неверные входящие данные с игрового поля: ', $canvasLayoutData, 'game_save.php', 0);
 		exit('
 			{
 				"res": "110",
@@ -28,7 +28,7 @@
 		');
 	}
 
-	$string = explode (":", $subGameData);
+	$string = explode (":", $canvasLayoutData);
 
 	if ($string[2] <= 100) {
 		exit('
@@ -39,7 +39,7 @@
 		');
 	}
 
-    $count = getUserSubGameAmount ($theme, $_SESSION["id"]);
+    $count = getUserLayoutAmount ($theme, $_SESSION["id"]);
 	if ($canvasLayout == "0") {
 		if ($count >= 5)
 			exit('
@@ -85,7 +85,7 @@
 				}
 			');
 
-		$bestPlayer_old = getSubGameBestPlayer ($theme, $canvasLayout);
+		$bestPlayer_old = getLayoutBestPlayer ($theme, $canvasLayout);
 
 		if (f_mysqlQuery ("
 				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
@@ -96,8 +96,8 @@
 			log_file ("Сохранение игры в ".$theme." №".$canvasLayout.".");
 			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 
-			$bestPlayer_new = getSubGameBestPlayer ($theme, $canvasLayout);
-			$creator = getSubGameСreator ($theme, $canvasLayout);
+			$bestPlayer_new = getLayoutBestPlayer ($theme, $canvasLayout);
+			$creator = getLayoutСreator ($theme, $canvasLayout);
 
 			if ($bestPlayer_new["id"] != $bestPlayer_old["id"]) {
 				$message = $bestPlayer_new["login"]." ".

@@ -78,10 +78,10 @@
 	 * @param int $user идентификатор пользователя куму отправить,
 	 * @param string $text текстовое сообщение,
 	 * @param string $game имя игры,
-	 * @param int $subgame идентификатор подигры.
+	 * @param int $canvasLayout идентификатор слоя.
 	 */
-	function f_saveTecnicMessage($from, $user, $text, $game = "", $subgame = 0) {
-		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data, game, subgame)
+	function f_saveTecnicMessage($from, $user, $text, $game = "", $canvasLayout = 0) {
+		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data, game, layout)
 					VALUE (
 						".$user.",
 						".$from.",
@@ -89,7 +89,7 @@
 						'".date("H:i")."',
 						'".date("y.m.d")."',
 						'".$game."',
-						'".$subgame."'
+						'".$canvasLayout."'
 					);
 				")
 			) {
@@ -387,22 +387,22 @@
 	/**
 	 * Удаление игры, определение лучшего игрока, назначение наград и отправка почты.
 	 * @param string $game имя игры,
-	 * @param int $canvas идентификатор подигры.
+	 * @param int $canvasLayout идентификатор слоя.
 	 */
-	function removeGameCanvas($game, $canvas) {
-		$subSubGameAmount = getSubSubGameAmount($game, $canvas);
-		if ($subSubGameAmount == 0)
-			log_file("Попытка удаление подигры которая в базе не найдена.");
-		if ($subSubGameAmount < 5) {
+	function removeGameCanvas($game, $canvasLayout) {
+		$attemptAmount = getAttemptAmount($game, $canvasLayout);
+		if ($attemptAmount == 0)
+			log_file("Попытка удаление слоя который в базе не найден.");
+		if ($attemptAmount < 5) {
 			if ($_SESSION["dopusk"] == "admin")
-				log_file("Удаление подигры с правами администратора.");
+				log_file("Удаление слоя с правами администратора.");
 			else {
-				log_file("Попытка удаление подигры с количеством попыток = ".$subSubGameAmount.".");
+				log_file("Попытка удаление слоя с количеством попыток = ".$attemptAmount.".");
 				return;
 			}
 		}
 
-		$bestPlayer = getSubGameBestPlayer ($game, $canvas);
+		$bestPlayer = getLayoutBestPlayer ($game, $canvasLayout);
 
 		// Пятерка лидеров с медалями
 		$Ni = 1; $medal = 0;
@@ -417,7 +417,7 @@
 			LIMIT 5;
 		");
 		while ($data_=mysqli_fetch_row($result)) {
-			if ($canvas == $data_[0]) $medal = $Ni;
+			if ($canvasLayout == $data_[0]) $medal = $Ni;
 			$Ni++;
 		}
 		f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$bestPlayer["id"].";");
@@ -429,14 +429,14 @@
 		}
 		$message = _l("Game", $bestPlayer["lang"])." "
 			._l('Game names/'.$game, $bestPlayer["lang"])
-			." №".$canvas
+			." №".$canvasLayout
 			." "._l("Mails/where you were winer has been deleted and your rating has been raised by one", $bestPlayer["lang"]).$q;
 		f_mail ($bestPlayer["id"], $message, $bestPlayer["lang"]);
 		f_saveTecnicMessage (0, $bestPlayer["id"], $message);
-		if (f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvas.";"))
-			if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvas.";"))
+		if (f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvasLayout.";"))
+			if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayout.";"))
 				log_file ("
-				    Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvas.".
+				    Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayout.".
 				    Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.
 				");
 

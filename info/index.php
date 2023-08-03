@@ -27,7 +27,7 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
         Right side - blocks of games with attached tournament tables of prize places according currently, you can be here if you play better. Therefore, the table with medals is not permanent and will always change if someone played more better or game was removed. Records are already immortalized game results. You can be here also but it will be more difficult.<br>
 		&nbsp&nbsp&nbsp&nbsp
-		To select a game, you need to click on a game block by a picture or a  text, you will go to a zero game - this is a new layout of a field. To compete, you can to choose a game from the tournament table or select it directly in the game in the "Layout Combinations" list on the page right side, where an fully list of games will be presented.<br>
+		To select a game, you need to click on a game block by a picture or a text, you will go to a zero game - this is a new layout of a field. To compete, you can to choose a game from the tournament table or select it directly in the game in the "Layout Combinations" list on the page right side, where an fully list of games will be presented.<br>
 		&nbsp&nbsp&nbsp&nbsp
         What kind of competition is this - you choose someone else's game, and you are given the same layout of the field playing combination, which a player who opened this game layout.<br><br>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -61,9 +61,9 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
 		Правая сторона - блоки игр с прикрепленными к ним турнирными таблицами призовых мест по текущему времени, участников которых вы можете сдвинуть вниз, если у вас получится лучше. Следовательно, таблица с медалями не носит постоянного характера и всегда, будет меняться. Рекорды – это уже увековеченные партии в которых вы сможете сдвинуть соперника по баллам сыграв в любой из партии этой игры.
 		&nbsp&nbsp&nbsp&nbsp
-		Для выбора игры вам необходимо нажать по блоку игры по картинке или тексту, вы перейдете к нулевой игре - это новый расклад поля. Для соревнования вы можете выбрать игру из турнирной таблицы или выбрать ее непосредственно в игре в списке «Комбинации полей» в правой части экрана, где будет представлен весь список партий.<br>
+		Для выбора игры вам необходимо нажать по блоку игры по картинке или тексту, вы перейдете к нулевой игре - это новый расклад(слой) поля. Для соревнования вы можете выбрать игру из турнирной таблицы или выбрать ее непосредственно в игре в списке «Комбинации полей» в правой части экрана, где будет представлен весь список партий.<br>
 		&nbsp&nbsp&nbsp&nbsp
-		Что это за соревнования – вы выбираете чужую игру, и вам на поле предоставляется копия расклада игровой комбинации, которая была у игрока, который ее открыл. А смысл в том, что игра будет честной, и совершенно не зависеть от разного расклада фишек.<br><br>
+		Что это за соревнования – вы выбираете раскладку соперника в какой то из игр, и вам на поле предоставляется игровая комбинация, которая была у игрока, который ее открыл. А смысл в том, что игра будет честной, и совершенно не зависеть от разного расклада фишек.<br><br>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 		Пусть игра будет честной.
 		<?php

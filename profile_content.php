@@ -8,7 +8,7 @@
 
 	$text = "";
 	$result = f_mysqlQuery ("
-	    SELECT id, id_user, text, time, data, game, subgame
+	    SELECT id, id_user, text, time, data, game, layout
 		FROM users_mess
 		WHERE id_tema=".$_SESSION["id"]." AND basket=0
 		ORDER BY data DESC, time DESC;"
@@ -31,8 +31,8 @@
 			    <div  class = 'text'>";
 
 				if ($data[5] != "" && $data[6] != 0){
-					$creator = getSubGameСreator ($data[5], $data[6]);
-					$bestPlayer = getSubGameBestPlayer ($data[5], $data[6]);
+					$creator = getLayoutСreator ($data[5], $data[6]);
+					$bestPlayer = getLayoutBestPlayer ($data[5], $data[6]);
 					if ($creator == "none")
 						$text .= "
 						<ul class = 'gameCheckbox key' alt='"._l('Tooltips/Removed')."'>

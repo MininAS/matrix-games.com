@@ -10,7 +10,7 @@
 		');
 	}
 
-	$count = getUserSubGameAmount ($theme, $_SESSION["id"]);
+	$count = getUserLayoutAmount ($theme, $_SESSION["id"]);
 	if ($count < 1)
 		exit('
 			{

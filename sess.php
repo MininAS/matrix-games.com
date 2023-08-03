@@ -83,7 +83,7 @@
 	}
 
 	// Переменные текстовые
-	$arr = array ('newThemeName', 'subGameData', 'newNotebookItemText');
+	$arr = array ('newThemeName', 'canvasLayoutData', 'newNotebookItemText');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);

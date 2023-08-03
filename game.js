@@ -63,17 +63,17 @@ function f_updateUserTopList () {
 }
 
 function f_updateUserTopListState(){
-	f_scrollAndSelectSubgameItem ();
+	f_scrollAndSelectLayoutItem ();
 	autoScrollingChBoxes();
 	f_showKeyTooltips();
 }
 
-function f_scrollAndSelectSubgameItem (){
+function f_scrollAndSelectLayoutItem (){
 	if (i_canvasLayout > 0){
 		e = document.getElementById('G'+i_canvasLayout);
 		if (e){
 			e.scrollIntoView();
-	        e.classList.add ('selected_subgame_item');
+	        e.classList.add ('selected_layout_item');
 		}
 	}
 }
@@ -82,7 +82,7 @@ function f_endGame() {
 	flag_PLAY = false;
 	flag_GAMEOVER = true;
 	f_fetchSaving ('game_save.php',
-		'subGameData=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
+		'canvasLayoutData=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
 		'&theme=' + s_theme +
 		'&canvasLayout=' + i_canvasLayout,
 		f_updateUserTopList);

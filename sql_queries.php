@@ -70,12 +70,12 @@
 // games------------------------------------------------------------------------
 
 	/**
-	 * Вернуть количество подигр в игре для игрока.
+	 * Вернуть количество раскладов в игре для игрока.
 	 * @param string $game имя игры,
 	 * @param int $user идентификатор пользователя.
 	 * @return int
 	 */
-	function getUserSubGameAmount($game, $user){
+	function getUserLayoutAmount($game, $user){
 		$result = f_mysqlQuery ("
 			SELECT COUNT(*) AS count
 			FROM games_".$game."_com
@@ -90,21 +90,27 @@
 		return $count;
 	}
 
-	function getSubSubGameAmount($game, $subgame) {
+	/**
+	 * Вернуть количество попыток в раскладе игры.
+	 * @param string $game имя игры,
+	 * @param int $canvasLayout идентификатор слоя.
+	 * @return int
+	 */
+	function getAttemptAmount($game, $canvasLayout) {
 		$result = f_mysqlQuery ("
 			SELECT COUNT(*) as count
 			FROM games_".$game."_com
-			WHERE id_game=".$subgame.";"
+			WHERE id_game=".$canvasLayout.";"
 		);
 		$count = isset($result) ? mysqli_fetch_row($result)[0] : 0;
 		return $count;
 	}
 
-	function getSubGameСreator($game, $subgame) {
+	function getLayoutСreator($game, $canvasLayout) {
 		$result = f_mysqlQuery ("
 			SELECT *
 			FROM games_".$game."
-			WHERE id_game=".$subgame.";"
+			WHERE id_game=".$canvasLayout.";"
 		);
 		$count = mysqli_num_rows($result);
 		if ($count != 1)
@@ -115,7 +121,7 @@
 			WHERE id IN (
 				SELECT MIN(id)
 				FROM games_".$game."_com
-				WHERE id_game=".$subgame."
+				WHERE id_game=".$canvasLayout."
 			);"
 		);
 		$data = mysqli_fetch_row($result);
@@ -125,19 +131,19 @@
 	/**
 	 * Возвращает лучшего игрока на поле с данными.
 	 * @param string $game наименование игры
-	 * @param int $canvas номер поля игры
+	 * @param int $canvasLayout идентификатор игры
 	 * @return array id идентификатор,
 	 *               login логин,
 	 *               lang язык установленный пользователем,
 	 *               score сумма очков в этом поле,
 	 *               live время жизни в днях с последней выигрышной попытки.
 	 */
-    function getSubGameBestPlayer($game, $subgame) {
+    function getLayoutBestPlayer($game, $canvasLayout) {
 		$result = f_mysqlQuery ("
 			SELECT us.id, us.login, us.lang,
 			       tb.score, DATEDIFF(NOW(), tb.data) AS live
 			FROM games_".$game."_com AS tb, users AS us
-			WHERE id_game=".$subgame." AND id_user=us.id
+			WHERE id_game=".$canvasLayout." AND id_user=us.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
 		$count = mysqli_num_rows($result);
 		if ($count != 1)
