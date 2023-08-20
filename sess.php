@@ -33,10 +33,10 @@
 		$expected = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
 		$current =  json_decode($_COOKIE["games_order"], true);
 		$sum = array_diff_key($expected, $current);
-        if (count($sum) > 0)
+        if (count($sum) > 0){
 			setGameOrderToCookies($expected);
-		else
 			log_to_file("WARNING: Не правильный входящий параметр для порядка игр. games_order = ".print_r($current, true));
+		}
 	}
 	else 
 		setGameOrderToCookies($GLOBALS['DEFAULT_GAME_LIST_ORDER']);

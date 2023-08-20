@@ -6,7 +6,7 @@
 	 */
 	function log_to_file ($string) {
 		$file=fopen ($GLOBALS['DAILY_LOGFILE'], "a");
-		fwrite ($file, $string);
+		fwrite ($file, date ("H:i:s")."\t".$string."\t\n");
 		fclose ($file);
 	}
 
@@ -18,7 +18,7 @@
 		$ip = getenv ("REMOTE_ADDR");
 		if ($_SESSION["id"] == "") $id = 0; else $id = $_SESSION["id"];
 		if ($_SESSION["login"] ==  "") $login = "Guest"; else $login = $_SESSION["login"];
-		$string = date ("H:i:s")."\t".$ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log."\t\n";
+		$string = $ip."\t".$id."\t".$login."\t".$_SESSION["page"]."\t".$log;
 		log_to_file ($string);
 	}
 
@@ -98,7 +98,7 @@
 				SET F_bette=1
 				WHERE id=".$user.";
 			");
-			$log = "Отправилено сообщение для ".$user; log_file ($log);
+			$log = "Отправилено сообщение для ".$user; log_to_file ($log);
 		}
 	}
 
@@ -385,57 +385,66 @@
 	 * @param string $game имя игры,
 	 * @param int $canvasLayout идентификатор слоя.
 	 */
-	function removeGameCanvas($game, $canvasLayout) {
+	function removeGameCanvas($game, $canvasLayout, $medal = 10) {
+		log_to_file("-----------------------------------------------------
+					 Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayout.".
+		             Призовое место - ".$medal.".");
 		$attemptAmount = getAttemptAmount($game, $canvasLayout);
-		if ($attemptAmount == 0)
-			log_file("Попытка удаление слоя который в базе не найден.");
+		if ($attemptAmount == 0){
+			log_file("WARNING: Попытка удаление слоя который в базе не найден.
+					  Процедура остановлена.");
+			return false;
+		}
 		if ($attemptAmount < 5) {
 			if ($_SESSION["dopusk"] == "admin")
 				log_file("Удаление слоя с правами администратора.");
 			else {
-				log_file("Попытка удаление слоя с количеством попыток = ".$attemptAmount.".");
-				return;
+				log_file("WARNING: Попытка удаление слоя с количеством попыток = ".$attemptAmount.".
+				Процедура остановлена.");
+				return false;
 			}
 		}
 
 		$bestPlayer = getLayoutBestPlayer ($game, $canvasLayout);
+		log_to_file("Лучший игрок - ".$bestPlayer["login"]."(".$bestPlayer["id"].").");
 
-		// Пятерка лидеров с медалями
-		$Ni = 1; $medal = 0;
-		$result = f_mysqlQuery ("
-			SELECT id, id_user
-			FROM games_".$game."_com
-			WHERE score IN (
-				SELECT MAX(score)
-				FROM games_".$game."_com
-				GROUP BY id_game)
-			ORDER BY score DESC
-			LIMIT 5;
-		");
-		while ($data_=mysqli_fetch_row($result)) {
-			if ($canvasLayout == $data_[0]) $medal = $Ni;
-			$Ni++;
+		if (!f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvasLayout.";")){
+			log_to_file("ERROR: Игра не удалена из таблицы слоев.");
+			return false;
 		}
-		f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$bestPlayer["id"].";");
+		
+		if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayout.";"))
+			log_to_file("Игра удалена.");
+		else 
+			log_to_file("WARNING: Игра не удалена из таблицы попыток.");
+		
+
+		if (f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$bestPlayer["id"].";"))
+			log_to_file("Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.");
+		else 
+			log_to_file("WARNING: Пользователю не был добавлен балл.");
+		
 		$q = ".";
-		if ($medal != 0) {
-			f_mysqlQuery ("INSERT games_".$game."_med (id_user, medal, score)
-							VALUE (".$bestPlayer["id"].", ".$medal.", ".$bestPlayer["score"].");");
+		if ($medal >= 1 && $medal <= 5) {
+			f_mysqlQuery ("
+				INSERT games_".$game."_med (id_user, medal, score)
+				VALUE (".$bestPlayer["id"].", ".$medal.", ".$bestPlayer["score"].");
+			");
 			$q = _l("Mails/, also you earned a medal", $bestPlayer["lang"])." <img src = \'img/medal_".$medal.".gif\' alt = \'Medal\'/>.";
+			log_to_file(
+				"Пользователю ".$bestPlayer["login"]
+				."(".$bestPlayer["id"].") назначено призовое место № ".$medal);
 		}
+
 		$message = _l("Game", $bestPlayer["lang"])." "
 			._l('Game names/'.$game, $bestPlayer["lang"])
-			." №".$canvasLayout
-			." "._l("Mails/where you were winer has been deleted and your rating has been raised by one", $bestPlayer["lang"]).$q;
+			." №".$canvasLayout." "
+			._l("Mails/where you were winner has been deleted and your rating has been raised by one", $bestPlayer["lang"]).$q;
 		f_mail ($bestPlayer["id"], $message, $bestPlayer["lang"]);
 		f_saveTecnicMessage (0, $bestPlayer["id"], $message);
-		if (f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvasLayout.";"))
-			if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayout.";"))
-				log_file ("
-				    Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayout.".
-				    Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.
-				");
 
+		log_to_file("Процедура удаления завершена.
+			---------------------------------------------------");
 		return true;
 	}
 ?>

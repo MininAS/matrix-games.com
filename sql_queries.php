@@ -70,6 +70,30 @@
 // games------------------------------------------------------------------------
 
 	/**
+	 * Вернуть список полей для игры с номерами порядка по призовым местам.
+	 * @param string $game имя игры.
+	 * @return object $result объект запроса MySQL с идентификатором игры и местом.
+	 */
+	function getQueryMedalPlaces($game){
+		$result = f_mysqlQuery ("
+			SELECT t.id_game, medal
+			FROM games_".$game." as t,
+				(
+					SELECT id_game, @i := @i + 1 as medal
+					FROM games_".$game."_com, (SELECT @i := 0) as r
+					WHERE score IN (
+						SELECT MAX(score)
+						FROM games_".$game."_com
+						GROUP BY id_game
+					)
+					ORDER BY score DESC
+				) as c
+			WHERE t.id_game = c.id_game and t.remove = 1
+		");
+		return $result;
+	}
+
+	/**
 	 * Вернуть количество раскладов в игре для игрока.
 	 * @param string $game имя игры,
 	 * @param int $user идентификатор пользователя.

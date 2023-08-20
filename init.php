@@ -54,7 +54,7 @@
 	 * Наличие файла логирования на дату входа является флагом для инициализации действий на текущий день:
 	 *  - создание файла ежедневного логирования;
 	 *  - резервное сохранение БД;
-	 *  - удаление игр с флагом (remove = 1).
+	 *  - удаление игр с флагом (remove = 1) с определение призовых мест.
 	 */
 	if (!file_exists($GLOBALS['DAILY_LOGFILE'])){
 
@@ -64,13 +64,9 @@
 		db_saver ();
 
 		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {
-			$result = f_mysqlQuery("
-			    SELECT id_game 
-				FROM games_".$game." 
-				WHERE remove = 1
-			");
-			while ($canvasLayout = mysqli_fetch_row ($result)){
-				removeGameCanvas ($game, $canvasLayout[0]);
+			$result = getQueryMedalPlaces($game);
+			while ($data = mysqli_fetch_row ($result)){
+				removeGameCanvas ($game, $data[0], $data[1]);
 			}
 		}
 	}
