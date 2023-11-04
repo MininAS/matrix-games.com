@@ -1,4 +1,9 @@
 <?php
+
+if (!$DB_Connection) {
+	return;
+}
+
 $query = f_mysqlQuery ("
 	SELECT pass, id, login, dopusk, lang
 	FROM users

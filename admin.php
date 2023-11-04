@@ -14,7 +14,7 @@
 		}
 	}
 
-// Блок аунтификации // Удаляем по баллу у каждого пользователя.
+// Блок аутентификации.
 	if ($_SESSION["dopusk"]!="admin") {
 		echo ("
 		Эта страница для администраторов сайта.
@@ -25,8 +25,8 @@
 	}
 	else if ($regEdit == "78")
 		f_mysqlQuery ("
-			UPDATE users SET N_ballov=N_ballov-1
-			WHERE N_ballov>0;
+			UPDATE users SET N_ballov = N_ballov - 1
+			WHERE N_ballov > 0;
 		");
 
 // Сохранение личного сообщения.

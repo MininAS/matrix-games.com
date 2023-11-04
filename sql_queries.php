@@ -12,7 +12,7 @@
 		}
 	} else {
 		log_to_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
-		$GLOBALS['INSTANT_MESSAGE'] = _l("SQL server was not connected by some reason.");
+		$GLOBALS['INSTANT_MESSAGE'] = "SQL server was not connected by some reason.";
 		$DB = false;
 	}
 
@@ -66,6 +66,12 @@
         return $array;
 	}
 
+	function decreaseUserScore(){
+		f_mysqlQuery ("
+				UPDATE users SET N_ballov = N_ballov - 1
+				WHERE N_ballov > 0;
+		");
+	}
 
 // games------------------------------------------------------------------------
 

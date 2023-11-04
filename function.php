@@ -23,7 +23,7 @@
 	}
 
 	/**
-	 * Сохраняет сообщение в БД, при этом вставляя смайлы и таги.
+	 * Сохраняет сообщение в БД, при этом вставляя смайлы и тэги.
 	 * @param int $user идентификатор пользователя,
 	 * @param string $text текстовое сообщение.
 	 */
@@ -369,7 +369,7 @@
 				}
 			setGameOrderToCookies($arr);
 		}
-		else 
+		else
 			$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
 		return $arr;
 	}
@@ -412,18 +412,18 @@
 			log_to_file("ERROR: Игра не удалена из таблицы слоев.");
 			return false;
 		}
-		
+
 		if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayout.";"))
 			log_to_file("Игра удалена.");
-		else 
+		else
 			log_to_file("WARNING: Игра не удалена из таблицы попыток.");
-		
+
 
 		if (f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$bestPlayer["id"].";"))
 			log_to_file("Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.");
-		else 
+		else
 			log_to_file("WARNING: Пользователю не был добавлен балл.");
-		
+
 		$q = ".";
 		if ($medal >= 1 && $medal <= 5) {
 			f_mysqlQuery ("
