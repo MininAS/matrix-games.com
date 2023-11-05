@@ -125,7 +125,7 @@
 				echo('
 					{
 						"res": "200",
-						"message": "'._l("Gamebook/Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.").'"
+						"message": "'._l("Gamebook/Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.").'"
 					}
 				');
 			}

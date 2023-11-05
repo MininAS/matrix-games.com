@@ -353,7 +353,7 @@
 	 * Проверяет если количество вхождений одной из игр = 3(default), то поднимает его в начало,
 	 * обнуляет значение и уменьшает на 1 значения остальных (эффект таяния, если долго не открывали игру).
 	 * Затем сохраняет список опять в COOKIE.
-	 * Если значение в COOKIE не возможно преобразовать из JSON в массив, то возвращает массив по умолчнию.
+	 * Если значение в COOKIE не возможно преобразовать из JSON в массив, то возвращает массив по умолчанию.
 	 */
 	function getCurrentGameArrayOrder($occurrences = 3) {
 		$arr = json_decode($_COOKIE["games_order"], true);
@@ -419,8 +419,9 @@
 			log_to_file("WARNING: Игра не удалена из таблицы попыток.");
 
 
-		if (f_mysqlQuery ("UPDATE users SET N_ballov=N_ballov+1 WHERE id=".$bestPlayer["id"].";"))
-			log_to_file("Получает балл ".$bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков.");
+		if (f_mysqlQuery ("UPDATE users SET N_ballov = N_ballov + $attemptAmount WHERE id = ".$bestPlayer["id"].";"))
+			log_to_file($bestPlayer["login"]."(".$bestPlayer["id"].") с результатом ".$bestPlayer["score"]." очков,
+			            получает ".$attemptAmount." баллов.");
 		else
 			log_to_file("WARNING: Пользователю не был добавлен балл.");
 
@@ -432,14 +433,13 @@
 			");
 			$q = _l("Mails/, also you earned a medal", $bestPlayer["lang"])." <img src = \'img/medal_".$medal.".gif\' alt = \'Medal\'/>.";
 			log_to_file(
-				"Пользователю ".$bestPlayer["login"]
-				."(".$bestPlayer["id"].") назначено призовое место № ".$medal);
+				"Пользователю ".$bestPlayer["login"]."(".$bestPlayer["id"].") назначено призовое место № ".$medal);
 		}
 
 		$message = _l("Game", $bestPlayer["lang"])." "
 			._l('Game names/'.$game, $bestPlayer["lang"])
 			." №".$canvasLayout." "
-			._l("Mails/where you were winner has been deleted and your rating has been raised by one", $bestPlayer["lang"]).$q;
+			._l("Mails/where you were winner has been deleted and your rating has been raised by", $bestPlayer["lang"])." ".$attemptAmount." ".$q;
 		f_mail ($bestPlayer["id"], $message, $bestPlayer["lang"]);
 		f_saveTecnicMessage (0, $bestPlayer["id"], $message);
 

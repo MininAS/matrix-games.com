@@ -56,7 +56,7 @@
 		"The game is over. You have already saved five new games.": "The game is over. You have already saved five new games, more games cannot be saved until they are deleted due a better result. Compete with other players - select a game from the left list and try to get more points.",
 		"The game has saved.": "The game has saved.",
 		"Sorry, it seems the game has already been removed.": "Sorry, it seems the game has already been removed.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating."
+		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating."
     },
     "Profile": {
 		"Change image:": "Change image:",
@@ -178,7 +178,7 @@
         "News from LMG ==>>": "News from LMG ==>>",
         "Hello! Thank you for visiting and participating in the competition.": "Hello! Thank you for visiting and participating in the competition.",
         "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.": "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.",
-        "where you were winner has been deleted and your rating has been raised by one": "where you were winner has been deleted and your rating has been raised by one",
+        "where you were winner has been deleted and your rating has been raised by": "where you were winner has been deleted and your rating has been raised by",
         ", also you earned a medal": ", also you earned a medal"
     },
 	"Rating": {

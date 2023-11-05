@@ -56,7 +56,7 @@
 		"The game is over. You have already saved five new games.": "Игра завершена. Вами уже сохранено пять новых игр, более игр сохранить нельзя, пока они не будут удалены за наличием лучшего результата. Соревнуйтесь с другими игроками - выберите игру из списка с лева и попробуйте обыграть её.",
 		"The game has saved.": "Игра сохранена.",
 		"Sorry, it seems the game has already been removed.": "Простите, но похоже, что игра уже удалена.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get one point to overall rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите одно очко к общему рейтингу."
+		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите баллы к общему рейтингу."
     },
     "Profile": {
 		"Change image:": "Поменять изображение:",
@@ -178,7 +178,7 @@
         "News from LMG ==>>": "Новости с сайта LMG ==>>",
         "Hello! Thank you for visiting and participating in the competition.": "Здравствуйте! Благодарим за посещения и участие в соревнованиях.",
         "If you are not satisfied notifications, you can unsubscribe from it on the website on your page or reply to this letter.": "Если вас не устраивает рассылка данной информации, вы можете отказаться от нее на сайте на своей странице или ответить на это письмо.",
-        "where you were winner has been deleted and your rating has been raised by one": "в которой вы вели счет была удалена и у вас поднялся рейтинг на один",
+        "where you were winner has been deleted and your rating has been raised by": "в которой вы вели счет была удалена и у вас поднялся рейтинг на",
         ", also you earned a medal": ", плюс вы заработали медаль"
     },
 	"Rating": {
