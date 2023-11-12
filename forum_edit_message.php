@@ -7,22 +7,37 @@
 		exit;
 	}
 
-	$text=trim($newNotebookItemText);
+	$text=trim($newForumItemText);
 	$status = f_checkLengthMessage($text);
 	if ($status != "Alright")
 	 	exit($status);
 
 	$text = f_convertSmilesAndTagFormat($text);
-	$result = f_mysqlQuery ("SELECT id_user, text FROM forum WHERE id=".$mess.";");
-	$data = mysqli_fetch_row($result);
-	if ($_SESSION["id"] == $data[0]) {
-		if (f_mysqlQuery ("UPDATE forum SET text='".$text."' WHERE id=".$mess.";")){
-			$log = "Исправил сообщение id=".$mess." в форуме с текстом (".$data[1].") на (".$text.")."; log_file ($log);
-			f_mail (1, $log);
+	$message_info = getForumMessageById($mess);
+	$theme_name   = getForumMessageById($message_info['theme'])['text'];
+
+	if ($_SESSION["id"] == $message_info['author']) {
+		if (f_mysqlQuery ("
+			UPDATE forum
+			SET text='".$text."'
+			WHERE id=".$mess.";")
+		){
+			f_mail (1, "
+				На форуме было исправлено сообщение (".$mess.") пользователем: ".getUserLogin($_SESSION["id"])."(".$_SESSION["id"].")
+				- в теме: ".$theme_name."(".$message_info['theme'].")
+				- старый текст: ".$message_info['text']."
+				- новый текст: ".$text
+			);
+			log_file ("
+				Отредактировано сообщение (".$mess."):
+				- в теме: ".$theme_name."(".$message_info['theme'].")
+				- старый текст: ".$message_info['text']."
+				- новый текст: ".$text
+			);
 			echo ('
 				{
 					"res": "200",
-					"message": "'._l("Notebook/The message is edited.").'"
+					"message": "'._l("Forum/The message is edited.").'"
 				}
 			');
 		}
@@ -30,7 +45,7 @@
 			echo ('
 				{
 					"res": "100",
-					"message": "'._l("Notebook/The message editing is impossible.").'"
+					"message": "'._l("Forum/The message editing is impossible.").'"
 				}
 			');
 	}
@@ -38,7 +53,7 @@
 		echo ('
 			{
 				"res": "003",
-				"message": "'._l("Notebook/The message is not your.").'"
+				"message": "'._l("Forum/The message is not your.").'"
 			}
 		');
 ?>

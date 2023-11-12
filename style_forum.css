@@ -19,7 +19,7 @@
 			padding: 5px;
 			margin: 5px;
 		}
-			ul.messageLists .message_autor {
+			ul.messageLists .message_author {
 				min-width: 120px;
 				grid-column: 1 / 2;
 				align-self: start;
@@ -30,9 +30,9 @@
 				align-items: center;
                 position: relative;
 			}
-				ul.messageLists .message_autor .avatar {grid-column: 1 / 2;}
-				ul.messageLists .message_autor span    {grid-column: 2 / 3;}
-				ul.messageLists .message_autor .data   {grid-column: 1 / 3;}
+				ul.messageLists .message_author .avatar {grid-column: 1 / 2;}
+				ul.messageLists .message_author span    {grid-column: 2 / 3;}
+				ul.messageLists .message_author .data   {grid-column: 1 / 3;}
 
 			ul.messageLists .text {
 				grid-column: 2 / 3;

@@ -15,16 +15,16 @@
 	}
 
 	$result = f_mysqlQuery ("
-		SELECT id, id_user, text, time, data
+		SELECT id, author, text, time, date
 		FROM forum
-	    WHERE id_tema=".$theme." AND status=1 AND basket=0;
+	    WHERE theme=".$theme." AND status=1 AND bin=0;
 	");
     $count = isset($result) ? mysqli_num_rows($result) : 0;
     if ($count > 0) {
 		while ($data = mysqli_fetch_row($result)) {
 			$text .= "
 				<li class = 'forum_theme selectable_list_item' item = ".$data[0].">
-					<div class = 'message_autor'>
+					<div class = 'message_author'>
 						<div class = 'avatar'>
 					".f_img (3, $data[1]);
 			$text .= "</div>
@@ -38,30 +38,30 @@
 				f_mysqlQuery ("
 					SELECT COUNT(*)
 					FROM forum
-					WHERE id_tema=".$data[0]." AND status=1 AND basket=0;
+					WHERE theme=".$data[0]." AND status=1 AND bin=0;
 				")
 			);
 			$text .= "
 						<span class = 'small'>";
 			if ($data_[0]!=0)
-				$text .= _l("Notebook/Topics").": #".$data_[0]." | ";
+				$text .= _l("Forum/Topics").": #".$data_[0]." | ";
 			$data_ = mysqli_fetch_row (
 				f_mysqlQuery ("
 					SELECT COUNT(*)
 					FROM forum
-					WHERE id_tema=".$data[0]." AND status=0 AND basket=0;
+					WHERE theme=".$data[0]." AND status=0 AND bin=0;
 				")
 			);
 			if ($data_[0]!=0){
-				$text .= _l("Notebook/Messages").": #".$data_[0];
+				$text .= _l("Forum/Messages").": #".$data_[0];
 				$data_ = mysqli_fetch_row (
 					f_mysqlQuery ("
-						SELECT id_user, time, data
+						SELECT author, time, date
 						FROM forum
 						WHERE id IN (
 							SELECT MAX(id)
 							FROM forum
-							WHERE id_tema=".$data[0]." AND basket=0
+							WHERE theme=".$data[0]." AND bin=0
 						)
 					")
 				);
@@ -72,7 +72,7 @@
 						<div class = 'forum_list_item_buttons'>";
 			if (($_SESSION["id"]==$data[2] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin"){
 				$text .= "
-							<a class = 'forum_delete_item_link text_insignificant' href = '#' message = '".$data[0]."'>"._l("Notebook/Remove")."</a>";
+							<a class = 'forum_delete_item_link text_insignificant' href = '#' message = '".$data[0]."'>"._l("Forum/Remove")."</a>";
 			}
 					$text .= "
 						</div>
@@ -82,26 +82,26 @@
 	}
 	elseif ($theme != 0)
 		$text .= "
-			<p class = 'message_non_existed'>....... "._l("Notebook/Topics are not exist")." .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Forum/Topics are not exist")." .......</p>";
 	$text .= "
 	</ul>";
 
 // Просмотр сообщений в теме =================================================================================
 	// Кол. сообщений
 	$result = f_mysqlQuery ("
-		SELECT id, id_user, text, time, data
+		SELECT id, author, text, time, date
 		FROM forum
-		WHERE id_tema=".$theme." AND status=0 AND basket=0 ORDER BY data DESC, time DESC;
+		WHERE theme=".$theme." AND status=0 AND bin=0 ORDER BY date DESC, time DESC;
 	");
     $count = isset($result) ? mysqli_num_rows($result) : 0;
 	if ($count >= 1) {
 		$text .= "
-			<p>"._l("Notebook/Topic messages")."</p>
+			<p>"._l("Forum/Topic messages")."</p>
 			<ul class = 'messageLists'>";
 		while ($data = mysqli_fetch_row($result)) {
 			$text .= "
 			<li class = 'forum_message' item = ".$data[0].">
-				<div class = 'message_autor'>
+				<div class = 'message_author'>
 					<div class = 'avatar'>
 				".f_img (3, $data[1]);
 			$text .= "</div>
@@ -115,8 +115,8 @@
 			if (($_SESSION["id"]==$data[1] && $_SESSION["dopusk"]=="yes") || $_SESSION["dopusk"]=="admin")
 			{
 				$text .= "
-				<a href = '#' class = 'text_insignificant forum_redaction_message_link'>"._l("Notebook/Edit")."</a>
-				<a href = '#' class = 'text_insignificant forum_delete_item_link'>"._l("Notebook/Remove")."</a>";
+				<a href = '#' class = 'text_insignificant forum_redaction_message_link'>"._l("Forum/Edit")."</a>
+				<a href = '#' class = 'text_insignificant forum_delete_item_link'>"._l("Forum/Remove")."</a>";
 			}
 			$text .="
 					</div>
@@ -128,9 +128,8 @@
 	}
 	elseif ($theme != 0) {
 		$text .= "
-			<p class = 'message_non_existed'>....... "._l("Notebook/No post")." .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Forum/No posts")." .......</p>";
 	}
-
 
 $trans_tbl = get_html_translation_table (HTML_ENTITIES);
 $trans_tbl = array_flip ($trans_tbl);

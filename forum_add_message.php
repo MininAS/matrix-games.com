@@ -6,7 +6,7 @@
 		exit;
 	}
 
-	$text=trim($newNotebookItemText);
+	$text=trim($newForumItemText);
 	$status = f_checkLengthMessage($text);
 	if ($status != "Alright")
 	 	exit($status);
@@ -15,12 +15,13 @@
 		exit ('
 			{
 				"res": "002",
-				"message": "'._l("Notebook/The topic where you want to save the message is absent.").'"
+				"message": "'._l("Forum/The topic where you want to save the message is absent.").'"
 			}
 		');
 
 	$text = f_convertSmilesAndTagFormat($text);
-	if (f_mysqlQuery ("INSERT forum (id_tema, id_user, text, time, data)
+	$theme_name = getForumMessageById($theme)['text'];
+	if (f_mysqlQuery ("INSERT forum (theme, author, text, time, date)
 				VALUE (
 					".$theme.",
 					".$_SESSION["id"].",
@@ -29,14 +30,26 @@
 					'".date("y.m.d")."'
 				);
 			")
-		){
-		f_mysqlQuery ("UPDATE users SET N_mess=N_mess+1 WHERE id=".$_SESSION["id"].";");
-		f_mail (1, "На форуме было добавлено новое сообщение: ".$text." в теме = ".$theme);
-		$log = "Отправил сообщение в форум в тему №".$theme; log_file ($log);
+	){
+		f_mysqlQuery ("
+			UPDATE users
+			SET N_mess=N_mess+1
+			WHERE id=".$_SESSION["id"].";"
+		);
+		f_mail (1, "
+			На форуме было добавлено новое сообщение пользователем: ".getUserLogin($_SESSION["id"])."(".$_SESSION["id"].")
+			- в теме: ".$theme_name."(".$theme.")
+			- текст: ".$text
+		);
+		log_file ("
+			Отправил сообщение:
+			- в теме: ".$theme_name."(".$theme.")
+		    - текст: ".$text
+		);
 		echo ('
 			{
 				"res": "200",
-				"message": "'._l("Notebook/The message is saved.").'"
+				"message": "'._l("Forum/The message is saved.").'"
 			}
 		');
 	}
@@ -44,7 +57,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The message is not saved.").'"
+				"message": "'._l("Forum/The message is not saved.").'"
 			}
 		');
 ?>

@@ -58,7 +58,7 @@
 			return '
 				{
 					"res": "200",
-					"message": "'._l('Notebook/Message was sent.').'"
+					"message": "'._l('Forum/Message was sent.').'"
 				}
 			';
 		}
@@ -66,7 +66,7 @@
 			return '
 				{
 					"res": "100",
-					"message": "'._l('Notebook/Message was not sent.').'"
+					"message": "'._l('Forum/Message was not sent.').'"
 				}
 			';
 	}
@@ -104,28 +104,28 @@
 
 // Сообщения -----------------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Проверяет длину сообщения, должно быть между 5 <> 500
+	 * Проверяет длину сообщения, должно быть между 5 <> 1000
 	 */
 	function f_checkLengthMessage($text) {
 				if (empty($text))
 					return '
 						{
 							"res": "101",
-							"message": "'._l("Notebook/The input field is empty.").'"
+							"message": "'._l("Forum/The input field is empty.").'"
 						}
 					';
 				else if (strlen($text) < 5)
 					return '
 						{
 							"res": "102",
-							"message": "'._l("Notebook/The text is very shot.").'"
+							"message": "'._l("Forum/The text is very shot.").'"
 						}
 					';
-				else if (strlen($text) > 500)
+				else if (strlen($text) > 1000)
 					return '
 						{
 							"res": "103",
-							"message": "'._l("Notebook/The text is very long.").'"
+							"message": "'._l("Forum/The text is very long.").'"
 						}
 					';
 				else return "Alright";

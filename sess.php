@@ -38,7 +38,7 @@
 			log_to_file("WARNING: Не правильный входящий параметр для порядка игр. games_order = ".print_r($current, true));
 		}
 	}
-	else 
+	else
 		setGameOrderToCookies($GLOBALS['DEFAULT_GAME_LIST_ORDER']);
 
 	session_name ("LMG");
@@ -88,7 +88,7 @@
 	}
 
 	// Переменные текстовые
-	$arr = array ('newThemeName', 'canvasLayoutData', 'newNotebookItemText');
+	$arr = array ('newThemeName', 'canvasLayoutData', 'newForumItemText');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);

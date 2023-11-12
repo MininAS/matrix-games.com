@@ -3,8 +3,8 @@
     "Home page": {
 	    "High score": "Рекорд"
 	},
-    "Notebook": {
-        "Note book": "Записная книжка",
+    "Forum": {
+        "Forum": "Форум",
         "New topic": "Новая тема",
         "New message": "Новое сообщение",
         "Message editing": "Редактирование сообщения",
@@ -93,12 +93,12 @@
     },
 	"Now at site": "Сейчас на сайте",
     "Amount of guests": "Гостей",
-	"If you find some bug, please comment it": "Обнаруженные технические ошибки просьба комментировать на mininas@sampo.ru или на сайте в записной книжке.",
+	"If you find some bug, please comment it": "Обнаруженные технические ошибки просьба комментировать на mininas@sampo.ru или на форуме сайта.",
 	"Regards Minin Aleksandr!": "С Уважением Минин Александр!",
 	"There is needed authorization. You will redirected to home page.": "Извените, страница для авторизованных пользователей. Мы вас отправим на домашнюю страницу.",
 	"Tooltips": {
 	    "Home": "На главную",
-		"Note book": "Книга пожеланий",
+		"Forum": "Заметки",
 		"Your statistic":  "Ваша статистика",
 		"Your profile": "Ваш профиль",
 		"Sound": "Звук",

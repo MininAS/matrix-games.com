@@ -11,7 +11,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/Such topic or message is not exist.").'"
+				"message": "'._l("Forum/Such topic or message is not exist.").'"
 			}
 		');
 		exit;
@@ -22,7 +22,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The topic or the message is not your.").'"
+				"message": "'._l("Forum/The topic or the message is not your.").'"
 			}
 		');
 		exit;
@@ -34,7 +34,7 @@
 			echo ('
 				{
 					"res": "100",
-					"message": "'._l("Notebook/The topic must be empty for removing.").'"
+					"message": "'._l("Forum/The topic must be empty for removing.").'"
 				}
 			');
 			exit;
@@ -48,7 +48,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "'._l("Notebook/The topic or the message was removed.").'"
+				"message": "'._l("Forum/The topic or the message was removed.").'"
 			}
 		');
 	}
@@ -56,7 +56,7 @@
 	echo ('
 		{
 			"res": "100",
-			"message": "'._l("Notebook/The removing is impossible.").'"
+			"message": "'._l("Forum/The removing is impossible.").'"
 		}
 	');
 ?>

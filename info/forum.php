@@ -3,7 +3,7 @@
         case "eng":
             ?>
     		&nbsp&nbsp&nbsp&nbsp
-            Note book for wishes and comments writing, additions and changes some construction or design of the site.
+            Forum for wishes and comments writing, additions and changes some construction or design of the site.
             You can create topics and comment, edit and delete only your own.
             To enter the topic, click on it. You can exit to the previous topic by clicking on an arrow in the top right corner.
             <?php

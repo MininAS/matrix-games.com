@@ -21,7 +21,7 @@
 		while ($data = mysqli_fetch_row($result)){
 			$text .= "
 			<li class = 'forum_message' item = ".$data[0].">
-				<div class = 'message_autor'>
+				<div class = 'message_author'>
 					<div class = 'avatar'>
 				".f_img (3, $data[1]);
 			$text .= "</div>
@@ -60,7 +60,7 @@
 								class = 'text_insignificant'>"._l("Mails/Replay")."</a>";
 
 				$text .= "
-						<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Notebook/Remove")."</a>
+						<a href = '#' class = 'text_insignificant profile_delete_item_link'>"._l("Forum/Remove")."</a>
 					</div>
 				</div>
 			</li>";
@@ -70,7 +70,7 @@
 	}
 	else {
 		$text .= "
-			<p class = 'message_non_existed'>....... "._l("Notebook/No posts")." .......</p>";
+			<p class = 'message_non_existed'>....... "._l("Forum/No posts")." .......</p>";
 	}
 
 $trans_tbl = get_html_translation_table (HTML_ENTITIES);

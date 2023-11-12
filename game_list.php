@@ -57,7 +57,7 @@
 			: "selectable_list_item";
 		echo ("
 			<li id = 'G".$canvasLayout[0]."' class = '".$selectable."'>
-				<div class = 'message_autor'>
+				<div class = 'message_author'>
 					<div class = 'avatar'>
 					".f_img (3, $winner["id"])."
 					    		<span class = 'top_list_item_number text_insignificant'>
@@ -131,7 +131,7 @@
 				<div class = 'forum_list_item_buttons'>
 					<a class = 'text_insignificant'
 						href='games.php?regEdit=4&theme=".$theme."&canvasLayout=".$canvasLayout[0]."'
-						>"._l("Notebook/Remove")."</a>
+						>"._l("Forum/Remove")."</a>
 				</div>"
 			);
 		}

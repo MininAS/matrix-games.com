@@ -41,7 +41,7 @@ e_forumMessageBlock.onclick = function (event) {
 			e_forumNewMessageInputField.focus();
             currentMess = elm.parentNode.parentNode.parentNode.getAttribute('item');
 			e_forumCloseEditModeButton.style.display = 'block';
-			e_forumSaveMessageTitle.innerHTML = _l("Notebook/Message editing");
+			e_forumSaveMessageTitle.innerHTML = _l("Forum/Message editing");
 			break;
 		}
 		else elm = elm.parentNode;
@@ -53,7 +53,7 @@ if (e_forumNewThemeSendButton)
 		if (e_forumNewThemeInputField.disabled == true) return;
 	    var newThemeName = e_forumNewThemeInputField.value;
 		parameters =
-			'newNotebookItemText=' + newThemeName +
+			'newForumItemText=' + newThemeName +
 			'&theme=' + currentTheme;
 		f_fetchSaving ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
@@ -64,20 +64,20 @@ if (e_forumNewMessageSendButton)
 		var string = e_forumNewMessageInputField.value;
 		if (currentMess == 0)
 			f_fetchSaving ('forum_add_message.php?',
-				'newNotebookItemText=' + string +
+				'newForumItemText=' + string +
 				'&theme=' + currentTheme, f_forumUpdateContent);
 		if (currentMess != 0){
 			f_fetchSaving ('forum_edit_message.php?',
-				'newNotebookItemText=' + string +
+				'newForumItemText=' + string +
 				'&mess=' + currentMess, f_forumUpdateContent);
-			e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
+			e_forumSaveMessageTitle.innerHTML = _l("Forum/New message");
 		}
 	}
 
 if (e_forumCloseEditModeButton)
 	e_forumCloseEditModeButton.onclick = () => {
 		f_forumUpdateContent();
-	    e_forumSaveMessageTitle.innerHTML = _l("Notebook/New message");
+	    e_forumSaveMessageTitle.innerHTML = _l("Forum/New message");
 	}
 
 if (e_forumDeleteConfirmButton)

@@ -25,7 +25,7 @@
 			echo "
 			<li>
 				<a href = 'forum.php'>
-					<img src = 'img/k_book.png' alt='"._l('Tooltips/Note book')."'/>
+					<img src = 'img/k_book.png' alt='"._l('Tooltips/Forum')."'/>
 				</a>
 			</li>
 			";

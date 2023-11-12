@@ -1,7 +1,7 @@
 @import url("/style_body.css");
 @import url("/style_text.css");
 @import url("/style_popup.css");
-@import url("/style_forum.css");
+@import url("/style_forum.css?version=1");
 @import url("/style_game.css");
 @import url("/style_menu.css");
 

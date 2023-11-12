@@ -11,7 +11,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The message are not exist.").'"
+				"message": "'._l("Forum/The message are not exist.").'"
 			}
 		');
 		exit;
@@ -22,7 +22,7 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The message is not your.").'"
+				"message": "'._l("Forum/The message is not your.").'"
 			}
 		');
 		exit;
@@ -39,7 +39,7 @@
 		echo ('
 			{
 				"res": "200",
-				"message": "'._l("Notebook/The message has removed.").'"
+				"message": "'._l("Forum/The message has removed.").'"
 			}
 		');
 	}
@@ -47,14 +47,14 @@
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The message is not existed.").'"
+				"message": "'._l("Forum/The message is not existed.").'"
 			}
 		');
 	else
 		echo ('
 			{
 				"res": "100",
-				"message": "'._l("Notebook/The message has not removed.").'"
+				"message": "'._l("Forum/The message has not removed.").'"
 			}
 		');
 ?>

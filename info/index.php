@@ -6,7 +6,7 @@ switch($_GET["lang"]){
 		Menu: <br>
 		<table>
 			<tr><td><img src = 'img/k_home.png' alt='Home'/></td><td> - the key appears only when you are outside the home page to return to it.</td></tr>
-			<tr><td><img src = 'img/k_book.png' alt='Note book'/></td><td> - something like a small forum for discussions, comments and suggestions on the site.</td></tr>
+			<tr><td><img src = 'img/k_book.png' alt='Forum'/></td><td> - something like a small forum for discussions, comments and suggestions on the site.</td></tr>
 			<tr><td><img src = 'img/k_profile.png' alt='Your profile'/></td><td>
 				- your personal page, here you can read and send messages to other users, change your data and monitor your progress. </td></tr>
 		    <tr><td><img src = 'img/letter.png' alt='Letter'/></td><td> - sometimes you can see an letter that means you have one or more unread messages.<td></tr>
@@ -43,7 +43,7 @@ switch($_GET["lang"]){
 		Меню сайта: <br>
 		<table>
 			<tr><td><img src = 'img/k_home.png' alt='Home'/></td><td> - клавиша появляется только когда вы вне главной страницы для возврата к таковой.</td></tr>
-			<tr><td><img src = 'img/k_book.png' alt='Note book'/></td><td> - что - то вроде маленького форума для обсуждений, замечаний и просьб по сайту.</td></tr>
+			<tr><td><img src = 'img/k_book.png' alt='Forum'/></td><td> - что - то вроде маленького форума для обсуждений, замечаний и просьб по сайту.</td></tr>
 			<tr><td><img src = 'img/k_profile.png' alt='Your profile'/></td><td>
 			 - ваша личная страница, здесь можно читать и отправлять сообщения другим пользователям, изменять свои данные и наблюдать за своими достижениями.</td></tr>
 		    <tr><td><img src = 'img/letter.png' alt='Letter'/></td><td> - вы можете иногда наблюдать конвертик,

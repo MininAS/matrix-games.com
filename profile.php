@@ -63,7 +63,7 @@
 	$body = "
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
-			<li>"._l("Notebook/Messages")."</li>
+			<li>"._l("Forum/Messages")."</li>
 		</ul>
 		<div id = 'messageWindow'>
 		</div>
@@ -73,7 +73,7 @@
 
 	$body .= "
 	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
-		<ul class = 'windowTitle'><li>"._l("Notebook/To answer")."</li></ul>
+		<ul class = 'windowTitle'><li>"._l("Forum/To answer")."</li></ul>
 		<select id = 'dropDownUserList' name = 'user'>
 			<option value = '0'>Кому:</option>
 		</select>

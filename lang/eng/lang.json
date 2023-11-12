@@ -3,8 +3,8 @@
 	"Home page": {
 	    "High score": "High score"
 	},
-    "Notebook": {
-        "Note book": "Note book",
+    "Forum": {
+        "Forum": "Forum",
         "New topic": "New topic",
         "New message": "New message",
         "Message editing": "Message editing",
@@ -96,12 +96,12 @@
 	"To unpause game, click on this window.": "To unpause game, click on this window.",
 	"Now at site": "Now at site",
     "Amount of guests": "Amount of guests",
-	"If you find some bug, please comment it": "If you find some bug, please comment to mail:mininas@sampo.ru or in the website notebook.",
+	"If you find some bug, please comment it": "If you find some bug, please comment to mail:mininas@sampo.ru or in the website forum.",
 	"Regards Minin Aleksandr!": "Regards Minin Aleksandr!",
 	"There is needed authorization. You will redirected to home page.": "Sorry, the page for authorized users. You will redirected to home page.",
 	"Tooltips": {
 	    "Home": "Home",
-		"Note book": "Notebook",
+		"Forum": "Forum",
 		"Your statistic":  "Your statistic",
 		"Your profile": "Your profile",
 		"Sound": "Sound",

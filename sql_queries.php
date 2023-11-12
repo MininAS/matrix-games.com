@@ -193,14 +193,18 @@
 
     function getForumMessageById($id){
 		$result = f_mysqlQuery ("
-			SELECT id_tema, id_user, text
+			SELECT theme, author, text, date, time, status, bin
 			FROM forum
 			WHERE id=".$id.";");
-		$data = isset($result) ? mysqli_fetch_row($result) : [0, 0, ""];
+		$data = isset($result) ? mysqli_fetch_row($result) : [0, 0, "", "1970-01-01", "00:00:00", 0, 0];
 		$array = array (
-			"id_tema" => $data[0],
-			"id_user" => $data[1],
-			"text" =>    $data[2],
+			"theme"  => $data[0],
+			"author" => $data[1],
+			"text"   => $data[2],
+			"date"   => $data[3],
+			"time"   => $data[4],
+			"status" => $data[5],
+			"bin"    => $data[6]
 		);
         return $array;
 	}
