@@ -24,7 +24,7 @@
 	$result = f_mysqlQuery ("
 		SELECT id_user, score
 		FROM games_".$theme."_com
-		WHERE id_game=".$canvasLayout."
+		WHERE id_game=".$canvasLayoutId."
 		ORDER BY score DESC, xod, data, time LIMIT 1;");
 	$count = mysqli_num_rows($result);
 	if ($count == 0)
@@ -40,7 +40,7 @@
 	$result = f_mysqlQuery ("
 		SELECT id_user
 		FROM games_".$theme."_com
-		WHERE id_game=".$canvasLayout."
+		WHERE id_game=".$canvasLayoutId."
 		ORDER BY id LIMIT 1;");
 	$data_ = mysqli_fetch_row($result);
 
@@ -62,7 +62,7 @@
 	$result = f_mysqlQuery ("
 		SELECT gameboard
 		FROM games_".$theme."
-		WHERE id_game=".$canvasLayout.";");
+		WHERE id_game=".$canvasLayoutId.";");
 	$data=mysqli_fetch_row($result);
 	echo('
 		{

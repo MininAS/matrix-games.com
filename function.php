@@ -78,9 +78,9 @@
 	 * @param int $user идентификатор пользователя куму отправить,
 	 * @param string $text текстовое сообщение,
 	 * @param string $game имя игры,
-	 * @param int $canvasLayout идентификатор слоя.
+	 * @param int $canvasLayoutId идентификатор слоя.
 	 */
-	function f_saveTecnicMessage($from, $user, $text, $game = "", $canvasLayout = 0) {
+	function f_saveTecnicMessage($from, $user, $text, $game = "", $canvasLayoutId = 0) {
 		if (f_mysqlQuery ("INSERT users_mess (id_tema, id_user, text, time, data, game, layout)
 					VALUE (
 						".$user.",
@@ -89,7 +89,7 @@
 						'".date("H:i")."',
 						'".date("y.m.d")."',
 						'".$game."',
-						'".$canvasLayout."'
+						'".$canvasLayoutId."'
 					);
 				")
 			) {
@@ -383,13 +383,13 @@
 	/**
 	 * Удаление игры, определение лучшего игрока, назначение наград и отправка почты.
 	 * @param string $game имя игры,
-	 * @param int $canvasLayout идентификатор слоя.
+	 * @param int $canvasLayoutId идентификатор слоя.
 	 */
-	function removeGameCanvas($game, $canvasLayout, $medal = 10) {
+	function removeGameCanvas($game, $canvasLayoutId, $medal = 10) {
 		log_to_file("-----------------------------------------------------
-					 Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayout.".
+					 Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayoutId.".
 		             Призовое место - ".$medal.".");
-		$attemptAmount = getAttemptAmount($game, $canvasLayout);
+		$attemptAmount = getAttemptAmount($game, $canvasLayoutId);
 		if ($attemptAmount == 0){
 			log_file("WARNING: Попытка удаление слоя который в базе не найден.
 					  Процедура остановлена.");
@@ -405,15 +405,15 @@
 			}
 		}
 
-		$bestPlayer = getLayoutBestPlayer ($game, $canvasLayout);
+		$bestPlayer = getLayoutBestPlayer ($game, $canvasLayoutId);
 		log_to_file("Лучший игрок - ".$bestPlayer["login"]."(".$bestPlayer["id"].").");
 
-		if (!f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvasLayout.";")){
+		if (!f_mysqlQuery ("DELETE FROM games_".$game." WHERE id_game=".$canvasLayoutId.";")){
 			log_to_file("ERROR: Игра не удалена из таблицы слоев.");
 			return false;
 		}
 
-		if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayout.";"))
+		if (f_mysqlQuery ("DELETE FROM games_".$game."_com WHERE id_game=".$canvasLayoutId.";"))
 			log_to_file("Игра удалена.");
 		else
 			log_to_file("WARNING: Игра не удалена из таблицы попыток.");
@@ -438,7 +438,7 @@
 
 		$message = _l("Game", $bestPlayer["lang"])." "
 			._l('Game names/'.$game, $bestPlayer["lang"])
-			." №".$canvasLayout." "
+			." №".$canvasLayoutId." "
 			._l("Mails/where you were winner has been deleted and your rating has been raised by", $bestPlayer["lang"])." ".$attemptAmount." ".$q;
 		f_mail ($bestPlayer["id"], $message, $bestPlayer["lang"]);
 		f_saveTecnicMessage (0, $bestPlayer["id"], $message);

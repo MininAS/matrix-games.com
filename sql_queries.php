@@ -123,24 +123,24 @@
 	/**
 	 * Вернуть количество попыток в раскладе игры.
 	 * @param string $game имя игры,
-	 * @param int $canvasLayout идентификатор слоя.
+	 * @param int $canvasLayoutId идентификатор слоя.
 	 * @return int
 	 */
-	function getAttemptAmount($game, $canvasLayout) {
+	function getAttemptAmount($game, $canvasLayoutId) {
 		$result = f_mysqlQuery ("
 			SELECT COUNT(*) as count
 			FROM games_".$game."_com
-			WHERE id_game=".$canvasLayout.";"
+			WHERE id_game=".$canvasLayoutId.";"
 		);
 		$count = isset($result) ? mysqli_fetch_row($result)[0] : 0;
 		return $count;
 	}
 
-	function getLayoutСreator($game, $canvasLayout) {
+	function getLayoutСreator($game, $canvasLayoutId) {
 		$result = f_mysqlQuery ("
 			SELECT *
 			FROM games_".$game."
-			WHERE id_game=".$canvasLayout.";"
+			WHERE id_game=".$canvasLayoutId.";"
 		);
 		$count = mysqli_num_rows($result);
 		if ($count != 1)
@@ -151,7 +151,7 @@
 			WHERE id IN (
 				SELECT MIN(id)
 				FROM games_".$game."_com
-				WHERE id_game=".$canvasLayout."
+				WHERE id_game=".$canvasLayoutId."
 			);"
 		);
 		$data = mysqli_fetch_row($result);
@@ -161,19 +161,19 @@
 	/**
 	 * Возвращает лучшего игрока на поле с данными.
 	 * @param string $game наименование игры
-	 * @param int $canvasLayout идентификатор игры
+	 * @param int $canvasLayoutId идентификатор игры
 	 * @return array id идентификатор,
 	 *               login логин,
 	 *               lang язык установленный пользователем,
 	 *               score сумма очков в этом поле,
 	 *               live время жизни в днях с последней выигрышной попытки.
 	 */
-    function getLayoutBestPlayer($game, $canvasLayout) {
+    function getLayoutBestPlayer($game, $canvasLayoutId) {
 		$result = f_mysqlQuery ("
 			SELECT us.id, us.login, us.lang,
 			       tb.score, DATEDIFF(NOW(), tb.data) AS live
 			FROM games_".$game."_com AS tb, users AS us
-			WHERE id_game=".$canvasLayout." AND id_user=us.id
+			WHERE id_game=".$canvasLayoutId." AND id_user=us.id
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
 		$count = mysqli_num_rows($result);
 		if ($count != 1)

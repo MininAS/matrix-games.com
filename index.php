@@ -76,7 +76,7 @@
 				if ($flag == true)
 				{
 					$body .= "
-		<a href = 'games.php?theme=".$game_name."&canvasLayout=".$data[0]."'>
+		<a href = 'games.php?theme=".$game_name."&canvasLayoutId=".$data[0]."'>
 			<ul class = 'line_game_".$chet."'>
 				<li><IMG SRC=\"img/medal_".$Ni.".gif\" alt = 'Medal'></li>
 				<li><i class = 'small'>".$d[0]."</i></li>

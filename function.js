@@ -1,49 +1,48 @@
-var	e_windowInfoPopup = document.getElementById('window_info_popup');
-var	e_windowInfoShadow = document.getElementById('black_glass');
-var	e_windowInfoText = document.getElementById('info_div');
+var e_windowInfoPopup = document.getElementById('window_info_popup');
+var e_windowInfoShadow = document.getElementById('black_glass');
+var e_windowInfoText = document.getElementById('info_div');
 
 var flag_SOUND = getCookie('sound');
 var flag_LANG = getCookie('lang');
+var f_changeInputFieldDisablement = function (elm, state) {
+	elm.disabled = state;
+	if (state == true) elm.style.background = '#bbb';
+	else elm.style.background = '#fff';
+}
 
 e_windowInfoShadow.onclick = () => f_windowInfoPopup('hide_popup');
 e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
 
 // Включение анимации изображений полей игр
 animeWindows = document.getElementsByClassName('winPreshowGameItem');
-for(var i=0; i<animeWindows.length; i++)
-{
-	animeWindows[i].onmouseenter = function()
-	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'.gif?lastVersion=4';
+for (var i = 0; i < animeWindows.length; i++) {
+	animeWindows[i].onmouseenter = function () {
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '.gif?lastVersion=4';
 	}
-	animeWindows[i].onmouseleave = function ()
-	{
-		this.getElementsByTagName('img')[0].src = 'img/'+this.getElementsByTagName('img')[0].id+'_.gif?lastVersion=4';
+	animeWindows[i].onmouseleave = function () {
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '_.gif?lastVersion=4';
 	}
 }
 
 // Подсказки на кнопках и маркерах
 f_showKeyTooltips();
 
-function f_showKeyTooltips(){
+function f_showKeyTooltips() {
 	menuButtonTooltip = document.getElementById('text_key');
-	menuButtons =       document.querySelectorAll('#menu a img');
-	gameBoxMarkers =    document.getElementsByClassName('gameCheckbox');
+	menuButtons = document.querySelectorAll('#menu a img');
+	gameBoxMarkers = document.getElementsByClassName('gameCheckbox');
 
 	arr = [...menuButtons, ...gameBoxMarkers];
-	for (var i=0; i < arr.length; i++)
-	{
-		if (arr[i].hasAttribute("alt"))
-		{
-			arr[i].onmousemove = function (e)
-			{
+	for (var i = 0; i < arr.length; i++) {
+		if (arr[i].hasAttribute("alt")) {
+			arr[i].onmousemove = function (e) {
 				menuButtonTooltip.innerHTML = this.getAttribute("alt");
 				menuButtonTooltip.style.display = 'block';
 				e = e || window.e;
 				x = e.pageX || e.clientX;
 				y = e.pageY || e.clientY;
-				menuButtonTooltip.style.left = x-100+'px';
-				menuButtonTooltip.style.top = y+25+'px';
+				menuButtonTooltip.style.left = x - 100 + 'px';
+				menuButtonTooltip.style.top = y + 25 + 'px';
 			}
 			arr[i].onmouseout = () => menuButtonTooltip.style.display = 'none';
 		}
@@ -54,40 +53,41 @@ f_fetchUpdateContent('onlineUser', 'ajax_bottom.php', null);
 
 // Включаем виджет "Мне ндравится ВКонтакте"
 if (typeof VK == 'object') {
-		VK.init({apiId: 2729439});
-		VK.Widgets.Like('vk_like', {
-			type: "mini",
-			pageTitle: "Мини-игры на логику",
-			pageDescription: "Игры на логическую тематику, главным смыслом которых, является, соревнования между игроками.",
-			pageUrl: "http://matrix-games.ru",
-			pageImage: "http://matrix-games.ru/img/icon.png",
-			text: "Заходи, посоревнуемся.",
-			height: 30});
+	VK.init({ apiId: 2729439 });
+	VK.Widgets.Like('vk_like', {
+		type: "mini",
+		pageTitle: "Мини-игры на логику",
+		pageDescription: "Игры на логическую тематику, главным смыслом которых, является, соревнования между игроками.",
+		pageUrl: "http://matrix-games.ru",
+		pageImage: "http://matrix-games.ru/img/icon.png",
+		text: "Заходи, посоревнуемся.",
+		height: 30
+	});
 }
 
 if (!window.location.href.match('profile.php') && !window.location.href.match('games.php'))
 	f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
 // Запуск счетчика
-f_counter ();
-f_isWindowsHeightAlignment ();
+f_counter();
+f_isWindowsHeightAlignment();
 // Проверяем наличие мгновенного сообщения
-setTimeout (() =>{
+setTimeout(() => {
 	text = e_windowInfoText.innerHTML;
 	if (text != 'none')
-	    f_windowInfoPopup ('info', text);
+		f_windowInfoPopup('info', text);
 }, 2000);
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
-function f_isWindowsHeightAlignment () {
+function f_isWindowsHeightAlignment() {
 	var windowHeightFirst = 0;
 	windowUserTop = document.getElementById('user_top');
 	windowUserTopMiddle = document.getElementById('user_top_middle');
-	var idTime = setInterval( function () {
+	var idTime = setInterval(function () {
 		if (typeof windowUserTop == 'object') {
 			windowHeight = getComputedStyle(document.getElementById('box_game')).height;
 			windowUserTop.style.height = (windowHeight.replace(/px/g, '') - 26) + 'px';
 			windowUserTopMiddle.style.height = (windowHeight.replace(/px/g, '') - 46) + 'px';
-  		if (windowHeightFirst == windowHeight) clearInterval(idTime);
+			if (windowHeightFirst == windowHeight) clearInterval(idTime);
 			windowHeightFirst = windowHeight;
 		}
 	}, 1000);
@@ -95,76 +95,70 @@ function f_isWindowsHeightAlignment () {
 
 // Блок аутентификации через Вконтакте
 function authInfo(response) {
-	if (response.session)
-	{
+	if (response.session) {
 		var req = getXmlHttp();
-		req.onreadystatechange = function(){
+		req.onreadystatechange = function () {
 			if (req.readyState == 4)
-				if (req.status == 200)
-				{
-					if (req.responseText == 'true')
-					{
+				if (req.status == 200) {
+					if (req.responseText == 'true') {
 						if (window.location.href.match('index.php'))
 							window.location.href = location.pathname;
 						else
 							window.location.href = '';
 					}
-					if (req.responseText == 'false'){
-						VK.Api.call (
+					if (req.responseText == 'false') {
+						VK.Api.call(
 							'users.get',
-							{user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.89},
-							function(r) {
-								if(r.response){
+							{ user_ids: response.session.mid, fields: 'photo_200, has_photo', v: 5.89 },
+							function (r) {
+								if (r.response) {
 									var str = "?";
-									for(k in r.response[0]) {
-										str += k+"="+ r.response[0][k]+"&";
+									for (k in r.response[0]) {
+										str += k + "=" + r.response[0][k] + "&";
 									}
-									window.location.href='reg.php'+str;
+									window.location.href = 'reg.php' + str;
 								}
 								else console.log(r.error);
 							}
 						);
 					}
 				}
-			}
+		}
 		req.open('POST', 'ajax_auth_vk.php', true);
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		req.send(null);
 	}
 }
 
-function getXmlHttp()
-{
+function getXmlHttp() {
 	var xmlhttp;
-	try {xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");}
-	catch (e)
-	{
-		try	{xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");}
-		catch (E){xmlhttp = false;}
+	try { xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); }
+	catch (e) {
+		try { xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); }
+		catch (E) { xmlhttp = false; }
 	}
-	if (!xmlhttp && typeof XMLHttpRequest!='undefined') xmlhttp = new XMLHttpRequest();
+	if (!xmlhttp && typeof XMLHttpRequest != 'undefined') xmlhttp = new XMLHttpRequest();
 	return xmlhttp;
 }
 
 // Определение содержимого информационного окна -----------------------------------------------------
-function f_windowInfoPopup(s_name, s_text)
-{
+function f_windowInfoPopup(s_name, s_text) {
 	// if (!e_windowInfoText) return;
 	e_windowInfoText.innerHTML = _l("Server response awaiting ...");
 
-	switch(s_name) {
+	switch (s_name) {
 		case 'pause':
 			e_windowInfoText.innerHTML = "<p class = 'very-big'>" + _l("Pause") + "</p>" + _l("To unpause game, click on this window.");
 			break;
 		case 'user_top':
- 			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user='+s_text, null);
-            break;
+			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user=' + s_text, null);
+			break;
 		case 'user_game':
- 			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme='+s_text, null);
-			f_counter ();
+			f_fetchUpdateContent('info_div', 'ajax_game_statistic.php?theme=' + s_text, null);
+			f_counter();
 			break;
 		case 'text_help':
-		    let currentPage = window.location.pathname.match(/([a-z]+)/)[0];
+			let currentPage = window.location.pathname.match(/([a-z]+)/)[0];
 			f_fetchUpdateContent('info_div', 'info/' + currentPage + '.php?lang=' + getCookie('lang') + '&theme=' + s_text, null);
 			break;
 		case 'smile':
@@ -184,18 +178,17 @@ function f_windowInfoPopup(s_name, s_text)
 	e_windowInfoShadow.style.height = Math.max(
 		document.body.scrollHeight, document.body.offsetHeight,
 		document.documentElement.clientHeight, document.documentElement.scrollHeight,
-		document.documentElement.offsetHeight ) + 'px';
+		document.documentElement.offsetHeight) + 'px';
 	e_windowInfoShadow.style.width = Math.max(
 		document.body.scrollWidth, document.body.offsetWidth,
 		document.documentElement.clientWidth, document.documentElement.scrollWidth,
-		document.documentElement.offsetWidth ) + 'px';
+		document.documentElement.offsetWidth) + 'px';
 	e_windowInfoShadow.style.display = 'block';
 	flag_PAUSE = true;
 }
 
 // Добавление смайла в текст -------------------------------------------------------------
-function f_parseSmilesAtMessage (smile)
-{
+function f_parseSmilesAtMessage(smile) {
 	elm = document.querySelector('#formSendMessage textarea')
 	if (elm.disabled == true) return;
 	elm.value = elm.value + "{[:" + smile + ":]}";
@@ -203,65 +196,63 @@ function f_parseSmilesAtMessage (smile)
 
 // Fetch -------------------------------------------------------------------------
 
-function f_fetchUpdateContent (s_targetBlock, s_loaderFile, callback) {
+function f_fetchUpdateContent(s_targetBlock, s_loaderFile, callback) {
 	var myElement = document.getElementById(s_targetBlock);
 	fetch(s_loaderFile)
-		.then (response => {
+		.then(response => {
 			if (response.status == 200) return response.text()
-			else myElement.innerHTML =  response.status + " " + response.statusText
+			else myElement.innerHTML = response.status + " " + response.statusText
 		})
-			.then (data => {
-				myElement.innerHTML = data;
-				if (typeof callback == 'function')
-					callback ();
-			})
+		.then(data => {
+			myElement.innerHTML = data;
+			if (typeof callback == 'function')
+				callback();
+		})
 }
 
-function f_fetchSaving (s_saverFile, s_attributes, callback) {
-	f_windowInfoPopup ();
+function f_fetchSaving(s_saverFile, s_attributes, callback) {
+	f_windowInfoPopup();
 	fetch(s_saverFile, {
 		method: 'POST',
-		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		body: s_attributes
 	})
-		.then (response => {
+		.then(response => {
 			if (response.status == 200) return response.json();
-			else f_windowInfoPopup ('info', response.status + " " + response.statusText);
+			else f_windowInfoPopup('info', response.status + " " + response.statusText);
 		})
-			.then (data => {
-				f_windowInfoPopup ('info', data.message);
-				if (data.res.match(/^2/))
-				    if (typeof callback == 'function'){
-						if (data.id) i_canvasLayout = data.id
-						callback();
-					}
-			})
+		.then(data => {
+			f_windowInfoPopup('info', data.message);
+			if (data.res.match(/^2/))
+				if (typeof callback == 'function') {
+					if (data.id) i_canvasLayoutId = data.id
+					callback();
+				}
+		})
 }
 
 // Отключение и включение звука
-function f_sound_off ()
-{
+function f_sound_off() {
 	var date = new Date(2030, 00, 01);
-	if (getCookie('sound') == 'on'){
+	if (getCookie('sound') == 'on') {
 		document.cookie = "sound=off; expires=" + date.toUTCString();
 		flag_SOUND = 'off';
 	}
-	else{
+	else {
 		document.cookie = "sound=on; expires=" + date.toUTCString();
 		flag_SOUND = 'on';
 	}
-	document.querySelector('#k_sound a img').src = 'img/k_sound_'+flag_SOUND+'.png';
+	document.querySelector('#k_sound a img').src = 'img/k_sound_' + flag_SOUND + '.png';
 }
 
 // Смена языка
-function f_changeLanguage ()
-{
+function f_changeLanguage() {
 	var date = new Date(2030, 00, 01);
-	if (getCookie('lang') == 'rus'){
+	if (getCookie('lang') == 'rus') {
 		document.cookie = "lang=eng; expires=" + date.toUTCString();
 		flag_LANG = 'eng';
 	}
-	else{
+	else {
 		document.cookie = "lang=rus; expires=" + date.toUTCString();
 		flag_LANG = 'rus';
 	}
@@ -269,68 +260,73 @@ function f_changeLanguage ()
 	window.location.reload();
 }
 
-function f_showElementById (id) {
+function f_showElementById(id) {
 	let elm = document.getElementById(id);
-	let idTime = setInterval( function () {
+	let idTime = setInterval(function () {
 		if (typeof elm == 'object') {
 			elm.style.display = 'inline-block';
-  		    clearInterval(idTime);
+			clearInterval(idTime);
 		}
 	}, 500);
 }
 
 // Загрузка аватара с Вконтакте--------------------------------
-function redirect_vk_photo_url()
-{
-	VK.Api.call('users.get', {fields: 'photo_200, has_photo', v: 5.89}, function(r) {
-		if(r.response) {
-		    $photo = encodeURIComponent (r.response[0]['photo_200']);
-			console.log ($photo);
-			window.location.href='profile.php?regEdit=3&photo=' + $photo;
+function redirect_vk_photo_url() {
+	VK.Api.call('users.get', { fields: 'photo_200, has_photo', v: 5.89 }, function (r) {
+		if (r.response) {
+			$photo = encodeURIComponent(r.response[0]['photo_200']);
+			console.log($photo);
+			window.location.href = 'profile.php?regEdit=3&photo=' + $photo;
 		}
 	});
 }
 
 // Старт счетчиков
-function f_counter ()
-{
+function f_counter() {
 	// Yandex
 	(function (d, w, c) {
-		(w[c] = w[c] || []).push(function() {
+		(w[c] = w[c] || []).push(function () {
 			try {
 				w.yaCounter12200890 = new Ya.Metrika({
-					id:12200890,
-					clickmap:true,
-					trackLinks:true,
-					accurateTrackBounce:true
+					id: 12200890,
+					clickmap: true,
+					trackLinks: true,
+					accurateTrackBounce: true
 				});
-			} catch(e) { }
+			} catch (e) { }
 		});
-			var n = d.getElementsByTagName("script")[0],
+		var n = d.getElementsByTagName("script")[0],
 			s = d.createElement("script"),
 			f = function () { n.parentNode.insertBefore(s, n); };
-			s.type = "text/javascript";
-			s.async = true;
-			s.src = "https://mc.yandex.ru/metrika/watch.js";
-			if (w.opera == "[object Opera]") {
-				d.addEventListener("DOMContentLoaded", f, false);
-			} else { f(); }
+		s.type = "text/javascript";
+		s.async = true;
+		s.src = "https://mc.yandex.ru/metrika/watch.js";
+		if (w.opera == "[object Opera]") {
+			d.addEventListener("DOMContentLoaded", f, false);
+		} else { f(); }
 	})
-	(document, window, "yandex_metrika_callbacks");
+		(document, window, "yandex_metrika_callbacks");
 	// Live Internet
-	document.getElementById('LiveInternet').innerHTML = "<a href='//www.liveinternet.ru/click' "+
-		"target=_blank><img src='//counter.yadro.ru/hit?t19.5;r"+
-		escape(document.referrer)+((typeof(screen)=="undefined")?"":
-		";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-		screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-		";"+Math.random()+
-		"' alt='' title='LiveInternet: показано число просмотров за 24"+
-		" часа, посетителей за 24 часа и за сегодня' "+
+	document.getElementById('LiveInternet').innerHTML = "<a href='//www.liveinternet.ru/click' " +
+		"target=_blank><img src='//counter.yadro.ru/hit?t19.5;r" +
+		escape(document.referrer) + ((typeof (screen) == "undefined") ? "" :
+			";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+				screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+		";" + Math.random() +
+		"' alt='' title='LiveInternet: показано число просмотров за 24" +
+		" часа, посетителей за 24 часа и за сегодня' " +
 		"border='0' width='88' height='31'><\/a>";
 }
 
-var f_changeInputFieldDisablement = function(elm, state){
-	elm.disabled = state;
-	if (state == true) elm.style.background = '#bbb';
-	else  elm.style.background = '#fff';
+function f_randomId() {
+	var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var idLength = 50;
+	var id = "";
+	for (var i = 0; i <= idLength; i++) {
+		var randomNumber = Math.floor(Math.random() * chars.length);
+		id += chars.substring(randomNumber, randomNumber + 1);
+	}
+	id += '_' + new Date().toISOString()
+	return id
 }
+

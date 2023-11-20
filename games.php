@@ -9,8 +9,8 @@
 	//Аутентификация
 	if (isset($_POST["login"]) && isset($_POST["pass"]))
 		require ("auth.php");
-	if ($canvasLayout == null)
-		$canvasLayout = 0;
+	if ($canvasLayoutId == null)
+		$canvasLayoutId = 0;
 
 	// Проверка на то, что игра выбрана, а следовательно вход на эту страницу выполнен корректно (с центральной).
 	if ($theme == null) {
@@ -28,25 +28,25 @@
 
 	// Удаление игры
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin") {
-		if (removeGameCanvas($theme, $canvasLayout))
+		if (removeGameCanvas($theme, $canvasLayoutId))
 			$GLOBALS['INSTANT_MESSAGE'] = _l("The game has removed.");
 		else
 			$GLOBALS['INSTANT_MESSAGE'] = _l("The game had have removed already.");
-		$canvasLayout = 0;
+		$canvasLayoutId = 0;
 	}
 
 // Просмотр сыгранных игр ====================================================================================================================
-	$log = $theme."/".$canvasLayout; log_file ($log);
+	$log = $theme."/".$canvasLayoutId; log_file ($log);
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
 		<ul class = 'windowTitle'>
 			<li>"._l('Game names/'.$theme)."
-			    <i id = 'game_sport'> №".$canvasLayout."</i>
+			    <i id = 'game_sport'> №".$canvasLayoutId."</i>
 			</li>
 		</ul>
 		<div id = 'game'></div>
 	</div>
-	<input id = 'canvasLayout' type= 'hidden' name='canvasLayout' value='".$canvasLayout."'/>
+	<input id = 'canvasLayoutId' type= 'hidden' name='canvasLayoutId' value='".$canvasLayoutId."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
 	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.3'></script>

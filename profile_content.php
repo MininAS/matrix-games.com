@@ -56,7 +56,7 @@
 				if ($data[5] != "" && $data[6] != 0)
 					if ($creator != "none" && $creator != $_SESSION["id"] && $bestPlayer["id"] != $_SESSION["id"])
 						$text .= "
-							<a href = './games.php?theme=".$data[5]."&canvasLayout=".$data[6]."'
+							<a href = './games.php?theme=".$data[5]."&canvasLayoutId=".$data[6]."'
 								class = 'text_insignificant'>"._l("Mails/Replay")."</a>";
 
 				$text .= "

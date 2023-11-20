@@ -80,7 +80,7 @@
 	if (!in_array ($theme, $arr)) $theme = (int)$theme;
 
 	// Переменные цифровые
-	$arr = array ('canvasLayout', 'user', 'regEdit', 'mess');
+	$arr = array ('canvasLayoutId', 'user', 'regEdit', 'mess');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);

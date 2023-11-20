@@ -4,7 +4,7 @@
 	$_life_exp_of_layout = $GLOBALS['LAYOUT_EXPIRY'];    # days
 	$_life_exp_block_visual = 6;   # items
 
-	if ($canvasLayout == "") $canvasLayout = 0;
+	if ($canvasLayoutId == "") $canvasLayoutId = 0;
 
 // Просмотр сыгранных игр =====================================================
     if ($_SESSION["dopusk"]=="yes") {
@@ -33,14 +33,14 @@
 		<ul class = 'messageLists'>
 	");
 
-	$canvasLayouts = f_mysqlQuery ("
+	$canvasLayoutIds = f_mysqlQuery ("
 		SELECT id_game, MAX(score) AS sum
 		FROM games_".$theme."_com
 		GROUP BY id_game
 		ORDER BY sum DESC;
     ");
-	if (isset($canvasLayouts))
-    while ($canvasLayout = mysqli_fetch_row($canvasLayouts)) {
+	if (isset($canvasLayoutIds))
+    while ($canvasLayout = mysqli_fetch_row($canvasLayoutIds)) {
 		$winner = getLayoutBestPlayer($theme, $canvasLayout[0]);
 		$attemptAmount = getAttemptAmount($theme, $canvasLayout[0]);
 		$canvasLayoutResults = f_mysqlQuery ("
@@ -130,7 +130,7 @@
 			echo ("
 				<div class = 'forum_list_item_buttons'>
 					<a class = 'text_insignificant'
-						href='games.php?regEdit=4&theme=".$theme."&canvasLayout=".$canvasLayout[0]."'
+						href='games.php?regEdit=4&theme=".$theme."&canvasLayoutId=".$canvasLayout[0]."'
 						>"._l("Forum/Remove")."</a>
 				</div>"
 			);
