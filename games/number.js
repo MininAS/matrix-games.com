@@ -237,7 +237,7 @@ function f_paint() {
 				col = '#ffd';
 				break;
 			case 4:
-				col = '#ffb';;
+				col = '#ffb';
 				break;
 			case 8:
 				col = '#fdb';

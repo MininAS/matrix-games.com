@@ -80,7 +80,7 @@
 	if (!in_array ($theme, $arr)) $theme = (int)$theme;
 
 	// Переменные цифровые
-	$arr = array ('canvasLayoutId', 'user', 'regEdit', 'mess');
+	$arr = array ('canvasLayoutId', 'user', 'regEdit', 'mess', 'moves', 'score');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
@@ -88,7 +88,7 @@
 	}
 
 	// Переменные текстовые
-	$arr = array ('newThemeName', 'canvasLayoutData', 'newForumItemText');
+	$arr = array ('newThemeName', 'canvasLayoutData', 'canvasLayoutAttemptId', 'newForumItemText');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);

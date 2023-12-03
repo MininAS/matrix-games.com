@@ -18,7 +18,7 @@
 		');
 	}
 
-	if (!preg_match('~^[0-9/]+:[0-9]+:[-]*[0-9]+$~', $canvasLayoutData)) {
+	if (!preg_match('~^[0-9/]+$~', $canvasLayoutData)) {
 		f_errorHandler('Неверные входящие данные с игрового поля: ', $canvasLayoutData, 'game_save.php', 0);
 		exit('
 			{
@@ -28,9 +28,7 @@
 		');
 	}
 
-	$string = explode (":", $canvasLayoutData);
-
-	if ($string[2] <= 100) {
+	if ($score <= 100) {
 		exit('
 			{
 				"res": "110",
@@ -51,12 +49,12 @@
 
 		f_mysqlQuery ("
 			INSERT games_".$theme." (gameboard)
-			VALUES ('".$string[0]."');
+			VALUES ('".$canvasLayoutData."');
 		");
 		$new_row_id = mysqli_insert_id ($DB_Connection);
 		if (f_mysqlQuery ("
 			INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$string[2].", ".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');
+			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$score.", ".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
 		")) {
 			echo('
 				{
@@ -89,8 +87,8 @@
 
 		if (f_mysqlQuery ("
 				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-				VALUES (".$canvasLayoutId.", ".$_SESSION["id"].", ".$string[2].",
-					".$string[1].", '".date ("H:i")."', '".date ("y.m.d")."');
+				VALUES (".$canvasLayoutId.", ".$_SESSION["id"].", ".$score.",
+					".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
 			")) {
 
 			log_file ("Сохранение игры в ".$theme." №".$canvasLayoutId.".");

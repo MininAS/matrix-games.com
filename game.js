@@ -86,9 +86,12 @@ function f_endGame() {
 	flag_PLAY = false;
 	flag_GAMEOVER = true;
 	f_fetchSaving('game_save.php',
-		'canvasLayoutData=' + i_canvasKeymap + ':' + i_motion + ':' + i_score +
+		'canvasLayoutData=' + i_canvasKeymap +
+		'&moves=' + i_motion +
+		'&score=' + i_score +
 		'&theme=' + s_theme +
-		'&canvasLayoutId=' + i_canvasLayoutId,
+		'&canvasLayoutId=' + i_canvasLayoutId +
+		'&canvasLayoutAttemptId=' + i_gameAttemptId,
 		f_updateUserTopList);
 }
 
