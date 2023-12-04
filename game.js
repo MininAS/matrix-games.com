@@ -15,8 +15,14 @@ var flag_PLAY = false;
 var flag_GAMEOVER = false;
 var flag_PAUSE = false;
 var flag_NEWSTART = false;
+var flag_ANI = 0; // Кол-во запущенных анимашек
 
 function f_gameStart() {
+	flag_PLAY = false;
+	if (flag_ANI != 0) {
+		setTimeout(f_gameStart, 200);
+		return;
+	}
 	flag_NEWSTART = true;
 	flag_GAMEOVER = false;
 	i_score = 0;
@@ -82,7 +88,7 @@ function f_scrollAndSelectLayoutItem() {
 	}
 }
 
-function f_endGame() {
+function f_saveGame(flag_gameOver = false) {
 	flag_PLAY = false;
 	flag_GAMEOVER = true;
 	f_fetchSaving('game_save.php',
@@ -91,7 +97,8 @@ function f_endGame() {
 		'&score=' + i_score +
 		'&theme=' + s_theme +
 		'&canvasLayoutId=' + i_canvasLayoutId +
-		'&canvasLayoutAttemptId=' + i_gameAttemptId,
+		'&canvasLayoutAttemptId=' + i_gameAttemptId +
+		'&gameOver' + flag_gameOver,
 		f_updateUserTopList);
 }
 
@@ -183,5 +190,5 @@ function f_playSound(name) {
 	}
 }
 
-f_greateGame();
+f_createGame();
 f_gameStart();

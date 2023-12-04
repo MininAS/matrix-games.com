@@ -40,7 +40,7 @@ e.addEventListener('touchmove', f_mousemove);
 f_showElementById('k_sound');
 
 //Создаем массив игрового поля
-function f_greateGame() {
+function f_createGame() {
 	for (i = 1; i <= (XxX * YyY); i++) {
 		var elem = document.createElement('div');
 		document.getElementById('game').appendChild(elem);
@@ -287,7 +287,7 @@ function f_verify() {
 		if (flag_OK == true) arr.push(a_block[i].number);
 		else break;
 	}
-	if (flag_OK == true) f_endGame();
+	if (flag_OK == true) f_saveGame();
 }
 
 function f_newGame() {

@@ -3,7 +3,6 @@ var XxX = 10;
 var YyY = 10;
 var QqQ = 48;
 var WwW = 6;
-var flag_ANI = 0; // Кол-во запущенных анимашек
 var flag_PLAY = true; // Используем при переходе к другой игре при незаконченной анимации и от onClickа
 
 e = document.getElementById('game');
@@ -18,7 +17,7 @@ e.classList.toggle('noselect');
 
 f_showElementById('k_sound');
 
-function f_greateGame() {
+function f_createGame() {
 	for (i = 1; i <= XxX; i++)
 		a_block[i] = new Array();
 	for (ii = 1; ii <= YyY; ii++) {
@@ -150,7 +149,8 @@ function f_end(e) {
 				if (a_block[i][ii].volume != 9) flag = false;
 			}
 		}
-		if (flag == true) { flag_PLAY = false; f_endGame(); }
+		if (flag == true)
+			f_saveGame();
 	}
 	e.style.display = 'none';
 	e.remove();
@@ -179,11 +179,6 @@ function f_newGame() {
 			a_block[i][ii].onclick = f_game;
 		}
 	}
-
-	setTimeout(function () {
-		flag_PLAY = true;
-		flag_ANI = 0;
-	}, 2000); // Дать время для окончания анимации
 }
 
 function f_oldGame(i_game) {
@@ -210,12 +205,6 @@ function f_oldGame(i_game) {
 			a_block[i][ii].onclick = f_game;
 		}
 	}
-	setTimeout(function () {
-		flag_PLAY = true;
-		flag_ANI = 0;
-		i_motion = 0;
-		i_score = 0;
-	}, 1000); // Дать время для окончания анимации
 }
 
 function getOffset(elem) {

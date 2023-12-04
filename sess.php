@@ -96,6 +96,11 @@
 		    $$v = mysqli_real_escape_string($DB_Connection, $$v);
 	}
 
+	// Переменные boolean
+	$flag_gameOver = isset($_GET['flag_gameOver']) ? $_GET['flag_gameOver'] : (isset($_POST['flag_gameOver']) ? $_POST['flag_gameOver'] : false);
+	$flag_gameOver = $flag_gameOver == true ? true : false;
+
+
 // Ставим время последнего посещения
 	$_SESSION["last_time"] = date ("U");
 	if ($_SESSION["id"] != "")

@@ -39,7 +39,7 @@ myN_Mine.innerHTML = '500';
 myN_Mine.style.bottom = -22 + 'px';
 
 //Создаем массив игрового поля
-function f_greateGame() {
+function f_createGame() {
 	fragment = document.createDocumentFragment();
 	for (ii = YyY; ii >= 0; ii--) {
 		for (i = XxX; i >= 0; i--) {
@@ -70,7 +70,7 @@ function f_greateGame() {
 								if (a_block[i][ii].doom == 11) a_block[i][ii].src = 'img/sapper_10.png';
 							}
 						}
-						f_endGame();
+						f_saveGame();
 						return false;
 					}
 					if (this.view == 11) return true;
@@ -166,7 +166,7 @@ function f_onClick(event) // Левая кнопка мыши
 						if (a_block[i][ii].doom == 11) a_block[i][ii].src = 'img/sapper_10.png';
 					}
 				}
-				f_endGame();
+				f_saveGame();
 			}
 			else f_verify();
 		}
@@ -211,19 +211,20 @@ function f_verify() {
 		// Закончили скрол, теперь возобновляем игру (пауза для исключения неверного нажатия при сколе)
 		else setTimeout("flag_PLAY = true; if (flag_DOWN == true) {f_paintDoom(); flag_DOWN = false;}", 100);
 	}
-	else { flag_DOWN = false; f_endGame(); }
+	else { flag_DOWN = false; f_saveGame(); }
 }
 
 function f_time() {
-	if (flag_PAUSE == false && flag_GAMEOVER == false) i_score--;
-	if (typeof document.getElementById('myNballov') == 'object') document.getElementById('myNballov').innerHTML = i_score;
+	if (flag_PAUSE == false && flag_GAMEOVER == false)
+		i_score--;
+	e_scoreViewer.innerHTML = i_score;
 }
 
 function f_Shift() {
 	if (flag_DOWN == true) {
 		for (i = 0; i <= XxX; i++) { i_score += a_block[i][0].doom; if (a_block[i][0].doom == 11) i_motion++; }
 
-		document.getElementById('myNballov').innerHTML = i_score;
+		e_scoreViewer.innerHTML = i_score;
 		for (ii = 0; ii < YyY; ii++) {
 			for (i = 0; i <= XxX; i++) {
 				a_block[i][ii].doom = a_block[i][ii + 1].doom;

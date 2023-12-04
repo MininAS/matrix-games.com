@@ -13,7 +13,7 @@ var CursorZ = 1;
 var flag_SCORE = false;
 
 //Создаем массив игрового поля
-function f_greateGame() {
+function f_createGame() {
 	document.getElementById('game').style.width = XxX * 24 + "px";
 	for (i = 1; i <= YyY; i++) {
 		for (ii = 1; ii <= XxX; ii++) {
@@ -165,7 +165,7 @@ function bouncer(evnt) {
 		//Проверяем на конец хода
 
 		for (i = 1; i <= XxX; i++) {
-			if (SquareColorLayer2[i][YyY - 1] != "0") { f_endGame(); f_gameOver(); break; }
+			if (SquareColorLayer2[i][YyY - 1] != "0") { f_saveGame(); f_gameOver(); break; }
 		}
 	}
 }

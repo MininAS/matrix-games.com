@@ -3,7 +3,6 @@ const XxX = 20;
 const YyY = 15;
 const square_size = 32;
 var Nsquare = 0;
-var flag_ANI = 0;
 var i_canvasLayoutRevert = "";
 var i_scoreRevert = 0;
 
@@ -15,7 +14,7 @@ const arrColor = ["White", "Blue", "Red", "Magenta", "Lime", "Yellow"];
 f_showElementById('k_revert');
 f_showElementById('k_sound');
 
-function f_greateGame() {
+function f_createGame() {
 	document.oncontextmenu = new Function("return false;");
 	e_gameElementsContainer.style.width = XxX * square_size + "px";
 	e_gameElementsContainer.onmousedown = f_catchRightButton;
@@ -299,7 +298,7 @@ function f_finish() {
 			}
 		}
 	}
-	f_endGame();
+	f_saveGame();
 }
 
 function f_clearTmpCol() {

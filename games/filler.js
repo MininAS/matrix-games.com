@@ -8,7 +8,7 @@ var i_squares_of_comp = 0;
 
 const arrColor = ["White", "Blue", "Red", "Magenta", "Lime", "Orange", "Yellow"]
 
-function f_greateGame() {
+function f_createGame() {
 	e_gameElementsContainer.style.width = XxX * square_size + "px";
 	for (i = 0; i <= (YyY - 1); i++) {
 		let row = [];
@@ -92,7 +92,7 @@ function f_clickHandler__() {
 	f_clearTmpCol();
 	yourSquare.tmpCol = 1;
 	newColor = f_calculateMaxAmountColorAround();
-	if (newColor == 0 && i_score > 20) f_endGame();
+	if (newColor == 0 && i_score > 20) f_saveGame();
 	else flag_PLAY = true;
 }
 

@@ -86,7 +86,7 @@
 			</a>
 		</li>
 		<li id = 'k_endGame'>
-			<a href = '#' onClick = 'f_endGame ();'>
+			<a href = '#' onClick = 'f_saveGame();'>
 				<img src = 'img/k_save.png' alt='"._l('Tooltips/Save game')."'/>
 			</a>
 		</li>

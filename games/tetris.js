@@ -10,15 +10,12 @@ SquareOfFigure[2] = new Array();		//4-ре по Y
 
 var XxX = 12;				//Ширина игрового поля
 var YyY = 20;				//Высота игрового поля
-var i_motion = 0;				//Количество ходов
-var i_score = 0;			//Количество баллов
 var CursorY = 1;			//Смещение курсора в массиве №4
 var CursorX = 1;			//Смещение курсора в массиве №4
 var flag_DOWN = false;		//Флаг для падения фигуры
 var flag_STOP = false;		//Флаг для разрешения спуска
 var flag_LINE = false;		//Флаг для распознования целой линий
 var flag_ROTATE = true;		//Флаг для запрета поворота
-var flag_GAMEOVER = false;	//Флаг для запрета завершения игры
 var flag_NEWGAME = false;	//Флаг для новой игры
 var flag_OLDGAME = false;	//Флаг для старой игры
 var flag_NEWFIGURE = true;
@@ -29,7 +26,7 @@ var i_V = 0;				//Направление движения
 var i_canvasState = 0;
 
 //Создаем массив игрового поля
-function f_greateGame() {
+function f_createGame() {
 	document.getElementById('game').style.width = XxX * 24 + 'px';
 	for (i = 1; i <= YyY; i++) {
 		for (ii = 1; ii <= XxX; ii++) {
@@ -209,7 +206,7 @@ function f_Tetris() {
 			//Проверка на конец хода
 			for (i = 1; i <= 4; i++) { document.images[SquareColorLayer1[SquareOfFigure[1][i]][SquareOfFigure[2][i]]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif"; }
 			for (i = 1; i <= XxX; i++) {
-				if (SquareColorLayer2[i][1] != 0) { f_endGame(); break; }
+				if (SquareColorLayer2[i][1] != 0) { f_saveGame(); break; }
 			}
 			//Рисуем подсказку
 			if ((CursorX + 1) <= XxX) { iii = SquareColorLayer4[CursorX + 1][CursorY]; }

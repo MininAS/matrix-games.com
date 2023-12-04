@@ -4,7 +4,6 @@ var YyY = 12;
 var QqQ = 48;
 var i_Nballov = 0;
 var s_myElement = String('');
-var flag_ANI = 0;
 var flag_SELECTED = false;
 var o_elm1;					// Ёлемент выбранный первым
 var o_elm2;						// вторым
@@ -14,7 +13,7 @@ var i_Nball;					// кол-во на удаление
 document.getElementById('game').style.width = XxX * QqQ + "px";
 f_showElementById('k_sound');
 
-function f_greateGame() {
+function f_createGame() {
 	for (i = 1; i <= (XxX * YyY); i++) {
 		var myElement_ = document.createElement('div');
 		document.getElementById('game').appendChild(myElement_);
@@ -333,7 +332,7 @@ function f_delet() {
 	i_Scroll = 0;
 	f_scrollScore(o_lastBall, i_Nball + 'x' + i_Nverify + '=' + i_Nballov);
 	i_score += i_Nballov;
-	document.getElementById('myNballov').innerHTML = i_score;
+	e_scoreViewer.innerHTML = i_score;
 }
 
 function f_hideSphere(elm) {
@@ -357,7 +356,6 @@ function f_hideSphereFinish() {
 
 function f_shperesFail() {
 	let flag_OK = false;
-	flag_ANI = 0;
 	for (i = (YyY - 1); i >= 1; i--) {
 		for (ii = 1; ii <= (XxX); ii++) {
 			iii = XxX * (i - 1) + ii - 1;
@@ -449,7 +447,7 @@ function f_rollSphere() {
 	}
 	if (flag_OK == false)
 		if (f_verifyGameOver()) flag_PLAY = true;
-		else f_endGame();
+		else f_saveGame();
 }
 
 function f_verifyGameOver() {
@@ -471,11 +469,6 @@ function f_verifyGameOver() {
 }
 
 function f_newGame() {
-	if (flag_ANI != 0) {
-		setTimeout(f_newGame, 200);
-		return;
-	}
-
 	a_block.forEach((elm) => elm.setSphereColor(Math.ceil(Math.random() * 7)));
 
 	while (f_verifySequences()) {
@@ -492,15 +485,9 @@ function f_newGame() {
 }
 
 function f_oldGame() {
-	if (flag_ANI != 0) {
-		setTimeout(f_oldGame, 200);
-		return;
-	}
-
 	a_block.forEach((elm) => {
 		elm.setSphereColor(Number(i_canvasKeymap.substr(elm.index, 1)));
 		elm.setSphereDegree(0);
 	});
-
 	flag_NEWSTART = false;
 }

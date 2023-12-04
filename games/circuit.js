@@ -24,7 +24,7 @@ var mouseY = 0;
 var s_mess = "";
 var event_X, event_Y;
 
-function f_greateGame() {
+function f_createGame() {
 	e = document.getElementById('game')
 	e.style.width = (XxX - 1) * 40 + "px";
 	e.addEventListener('touchmove', function (event) {
@@ -117,7 +117,7 @@ function f_Game() {
 			document.getElementById('k_endGame').style.display = 'inline-block';
 			flag_BRIDGING = false;
 			flag_DOWN = false;
-			document.getElementById('myNballov').innerHTML = i_score;
+			e_scoreViewer.innerHTML = i_score;
 			document.getElementById('eX2Y' + YyY).nomer = 4;
 			document.getElementById('eX' + (XxX - 1) + 'Y' + YyY).nomer = 4;
 			document.getElementById('eX2Y' + YyY).angle = 1;
