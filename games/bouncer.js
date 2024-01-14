@@ -150,12 +150,14 @@ function bouncer(evnt) {
 			}
 		}
 
-		if (i_points != 0)
+		if (i_points != 0) {
+			i_score += i_points;
+			e_scoreViewer.innerHTML = i_score;
 			f_scrollScore(e_definingCoordinate, i_points);
-		i_score += i_points;
+			f_saveGame();
+	    }
 		if (CursorX == 30) { CursorX = 1; CursorY++; } else { CursorX++; }
 		if (CursorY == 21) CursorY = 1;
-		e_scoreViewer.innerHTML = i_score;
 		document.images[SquareColorLayer1[this.i_x][YyY]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif";
 		x = CursorX; y = CursorY;
 		if (x == 30) { x = 1; y++; } else { x++; }
@@ -165,7 +167,7 @@ function bouncer(evnt) {
 		//Проверяем на конец хода
 
 		for (i = 1; i <= XxX; i++) {
-			if (SquareColorLayer2[i][YyY - 1] != "0") { f_saveGame(); f_gameOver(); break; }
+			if (SquareColorLayer2[i][YyY - 1] != "0") { f_saveGame(true); f_gameOver(); break; }
 		}
 	}
 }

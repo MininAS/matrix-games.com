@@ -22,6 +22,7 @@
 		log_to_file ($string);
 	}
 
+// Сообщения -----------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Сохраняет сообщение в БД, при этом вставляя смайлы и тэги.
 	 * @param int $user идентификатор пользователя,
@@ -98,11 +99,10 @@
 				SET F_bette=1
 				WHERE id=".$user.";
 			");
-			$log = "Отправилено сообщение для ".$user; log_to_file ($log);
+			$log = "Отправлено сообщение для ".getUserLogin($user)."(".$user.")"; log_to_file ($log);
 		}
 	}
 
-// Сообщения -----------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Проверяет длину сообщения, должно быть между 5 <> 1000
 	 */
@@ -218,7 +218,7 @@
 	function f_errorHandler($errno, $text, $file = "---", $line=0) {
 		if (!(error_reporting() & $errno))
 			return false;
-		$string = $errno." - ".$text." в файле: ".$file.", строка №".$line."/n";
+		$string = "ERROR ".$errno." - ".$text." в файле: ".$file.", строка №".$line."/n";
 		log_file ($string);
 		f_mail (1, $string);
 		return true;
@@ -380,8 +380,195 @@
 		setGameOrderToCookies($arr);
 	}
 
+// Игры -------------------------------------------------------------------------------------------------
+
 	/**
-	 * Удаление игры, определение лучшего игрока, назначение наград и отправка почты.
+	 * Сохранение игры в промежуточное хранилище.
+	 * @param int $author автор
+	 * @param string $theme имя игры
+	 * @param int $canvasLayoutId идентификатор поля игры,
+	 * @param string $canvasLayoutData данные поля,
+	 * @param string $transitionalKey транзитный ключ,
+	 * @param int $score очки,
+	 * @param int $moves количество ходов.
+	 */
+	function f_saveGameToTransit($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves) {
+		$result = f_mysqlQuery("
+		SELECT author, layoutId, layoutData, transitionalKey, score, moves
+		FROM games_".$theme."_transit
+		WHERE author=".$author."
+		  AND layoutId=".$canvasLayoutId."
+		  AND layoutData='".$canvasLayoutData."'
+		  AND transitionalKey='".$transitionalKey."'
+		");
+		if (mysqli_num_rows($result) == 0)
+			f_mysqlQuery("
+				INSERT games_".$theme."_transit (author, layoutId, layoutData, transitionalKey, score, moves, datetime)
+				VALUES (
+					".$author.",
+					".$canvasLayoutId.",
+					'".$canvasLayoutData."',
+					'".$transitionalKey."',
+					".$score.",
+					".$moves.",
+					'".date ("y.m.d H:i:s")."'
+				);
+			");
+		else
+			f_mysqlQuery("
+				UPDATE games_".$theme."_transit
+				SET score=".$score.",
+					moves=".$moves.",
+					datetime='".date ("y.m.d H:i:s")."'
+				WHERE author=".$author."
+				  AND layoutId=".$canvasLayoutId."
+				  AND layoutData='".$canvasLayoutData."'
+				  AND transitionalKey='".$transitionalKey."'
+			");
+	}
+
+	/**
+	 * Удаление игры из промежуточного хранилища.
+	 * @param int $author автор
+	 * @param string $theme имя игры
+	 * @param int $canvasLayoutId идентификатор поля игры,
+	 * @param string $canvasLayoutData данные поля,
+	 * @param string $transitionalKey транзитный ключ.
+	 * @param bool $result результат выполнения.
+	 */
+	function f_deleteGameFromTransit($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey){
+		$result = f_mysqlQuery("
+			DELETE FROM games_".$theme."_transit
+			WHERE author=".$author."
+			  AND layoutId=".$canvasLayoutId."
+			  AND layoutData='".$canvasLayoutData."'
+			  AND transitionalKey='".$transitionalKey."'
+			");
+		return $result;
+	}
+
+	/**
+	 * Сохранение нового поля(слоя) игры.
+	 * @param int $author автор
+	 * @param string $theme имя игры
+	 * @param int $canvasLayoutId идентификатор поля игры,
+	 * @param string $canvasLayoutData данные поля,
+	 * @param string $transitionalKey транзитный ключ,
+	 * @param int $score очки,
+	 * @param int $moves количество ходов.
+	 * @param bool $result результат выполнения.
+	 */
+	function f_saveGameLikeNewLayout($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves){
+		global $DB_Connection;
+		$new_row_id = 0;
+		if (f_mysqlQuery ("
+				INSERT games_".$theme." (gameboard)
+				VALUES ('".$canvasLayoutData."');
+			")
+		){
+			$new_row_id = mysqli_insert_id ($DB_Connection);
+			if (f_mysqlQuery ("
+					INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
+					VALUES (".$new_row_id.", ".$author.", ".$score.", ".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
+				")
+			){
+				f_deleteGameFromTransit($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey);
+				log_to_file ("Сохранение новой игры в ".$theme.":
+			        - игрок: ".getUserLogin($author)."(".$author.")
+				    - id игры: ".$new_row_id."
+					- id поля: ".$canvasLayoutId."
+					- данные поля: ".$canvasLayoutData."
+					- транзитный ключ: ".$transitionalKey);
+				f_mysqlQuery ("
+					UPDATE users
+					SET N_game=N_game+1
+					WHERE id=".$author.";
+				");
+			}
+		}
+		return $new_row_id;
+	}
+
+	/**
+	 * Сохранение попытки игры.
+	 * @param int $author автор
+	 * @param string $theme имя игры
+	 * @param int $canvasLayoutId идентификатор поля игры,
+	 * @param string $canvasLayoutData данные поля,
+	 * @param string $transitionalKey транзитный ключ,
+	 * @param int $score очки,
+	 * @param int $moves количество ходов.
+	 * @param bool $result результат выполнения.
+	 * @return int $result код где:
+	 *  - 300 если не найден,
+	 *  - 200 попытка сохранена,
+	 *  - 210 попытка сохранена с лучшим результатом.
+	 */
+	function f_saveGameLikeAttempt($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves){
+		$result = f_mysqlQuery ("
+			SELECT id_game
+			FROM games_".$theme."
+			WHERE id_game=".$canvasLayoutId.";
+		");
+		if (!mysqli_num_rows($result)){
+			log_to_file("Не была найдена игра в таблице games_".$theme." с id_game=".$canvasLayoutId.")");
+			return 300;
+		}
+
+		$bestPlayer_old = getLayoutBestPlayer ($theme, $canvasLayoutId);
+
+		if (f_mysqlQuery ("
+				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
+				VALUES (".$canvasLayoutId.", ".$author.", ".$score.", ".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
+			")
+		){
+			log_to_file ("Сохранение попытки в ".$theme." №".$canvasLayoutId.":
+			    - игрок: ".getUserLogin($author)."(".$author.")
+			    - ключ: ".$transitionalKey."
+				- результат: ".$score
+			);
+			f_deleteGameFromTransit($author, $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey);
+			f_mysqlQuery ("
+			    UPDATE users
+				SET N_game=N_game+1
+				WHERE id=".$author.";
+			");
+
+			$bestPlayer_new = getLayoutBestPlayer ($theme, $canvasLayoutId);
+			$creator = getLayoutСreator ($theme, $canvasLayoutId);
+
+			if ($bestPlayer_new["id"] != $bestPlayer_old["id"]) { // TODO Подумать над условием анализа, что новый результат лучше !!!
+				$message = $bestPlayer_new["login"]." ".
+					_l("Mails/played against you successfully.", $bestPlayer_old["lang"])." ".
+				    _l("Mails/New score in game", $bestPlayer_old["lang"])." ".
+				    _l('Game names/'.$theme, $bestPlayer_old["lang"]).
+				    " № ".$canvasLayoutId." => ".$bestPlayer_new["score"].".";
+
+				if ($bestPlayer_old["id"] != $creator)
+				    $message .= "<br>
+				    <a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayoutId=".$canvasLayoutId.
+				    "'><br>&lt;&lt;&lt; "._l("Mails/Replay", $bestPlayer_old["lang"])." >>><a>";
+				log_to_file ("		- игрок выиграл у ".getUserLogin($bestPlayer_old["id"])."(".$bestPlayer_old["id"].")");
+				f_mail ($bestPlayer_old["id"], $message, $bestPlayer_old["lang"]);
+
+				if ($bestPlayer_old["id"] != $creator)
+				    $message = _l("Mails/I won your last score", $bestPlayer_old["lang"]);
+				else
+					$message = _l("Mails/I played your game successfully", $bestPlayer_old["lang"]);
+				$message .= " "._l('Game names/'.$theme, $bestPlayer_old["lang"]).
+				    " № ".$canvasLayoutId." => ".$bestPlayer_new["score"].".";
+
+				f_saveTecnicMessage($author, $bestPlayer_old["id"], $message, $theme, $canvasLayoutId);
+
+				return 210;
+			}
+			else
+				return 200;
+		}
+	}
+
+	/**
+	 * Удаление слоя(поля) игры, определение лучшего игрока, назначение наград и отправка почты.
 	 * @param string $game имя игры,
 	 * @param int $canvasLayoutId идентификатор слоя.
 	 */

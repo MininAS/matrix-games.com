@@ -80,7 +80,7 @@
 	 * @param string $game имя игры.
 	 * @return object $result объект запроса MySQL с идентификатором игры и местом.
 	 */
-	function getQueryMedalPlaces($game){
+	function getMedalPlacesByGame($game){
 		$result = f_mysqlQuery ("
 			SELECT t.id_game, medal
 			FROM games_".$game." as t,
@@ -100,7 +100,7 @@
 	}
 
 	/**
-	 * Вернуть количество раскладов в игре для игрока.
+	 * Вернуть количество полей в игре для игрока.
 	 * @param string $game имя игры,
 	 * @param int $user идентификатор пользователя.
 	 * @return int
@@ -136,6 +136,12 @@
 		return $count;
 	}
 
+	/**
+	 * Вернуть идентификатор автора поля.
+	 * @param string $game имя игры,
+	 * @param int $canvasLayoutId идентификатор слоя.
+	 * @return int
+	 */
 	function getLayoutСreator($game, $canvasLayoutId) {
 		$result = f_mysqlQuery ("
 			SELECT *
@@ -187,6 +193,52 @@
 			"live" =>  $data[4],
 		);
         return $array;
+	}
+
+	/**
+	 * Возвращает минимально допустимое количество очков для сохранения игры.
+	 * @param string $game имя игры
+	 */
+	function getScoreMinByGame($game){
+		$result = f_mysqlQuery("
+			SELECT scoreMin
+			FROM games
+			WHERE name='".$game."'
+		");
+		$data = mysqli_fetch_row($result);
+		return $data[0];
+	}
+
+	/**
+	 * Возвращает список идентификаторов записей в транзитной таблице.
+	 * @param string $game имя игры
+	 */
+	function getTransitGameIdList($game){
+		$result = f_mysqlQuery("
+			SELECT id
+			FROM games_".$game."_transit
+		");
+		$rows = [];
+		while($row = mysqli_fetch_row($result))
+		{
+			$rows[] = $row[0];
+		}
+		return $rows;
+	}
+
+	/**
+	 * Возвращает массив с данными по записи в транзитной таблице.
+	 * @param string $game имя игры
+	 * @param int $id идентификатор записи в таблице
+	 */
+	function getTransitGameEntry($game, $id){
+		$result = f_mysqlQuery("
+			SELECT *
+			FROM games_".$game."_transit
+			WHERE id = ".$id
+		);
+		$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		return $data;
 	}
 
 // forum -------------------------------------------------------------------

@@ -47,9 +47,8 @@ function f_createGame() {
 }
 
 function f_game(e) {
-	if (flag_PLAY == true) {
+	if (flag_PLAY) {
 		i_motion++;
-		i_score -= 5;
 		this.mass--;
 		this.turbo = false;
 		this.style.background = '';
@@ -61,7 +60,7 @@ function f_game(e) {
 function f_game_(e, t) {
 	if (e.volume == WwW) {
 		e.style.opacity = 0;
-		s_name = (e.turbo == true) ? 'barrel_mas' : 'barrel_mass';
+		s_name = e.turbo ? 'barrel_mas' : 'barrel_mass';
 		f_playSound(s_name);
 		e.volume = 9;
 		e.parentNode.style.backgroundColor = '#448';
@@ -79,7 +78,8 @@ function f_game_(e, t) {
 
 	}
 	else {
-		if (t == 1) e.mass++; // Увеличиваем вес после каждого автоперехода
+		if (t >= 1) e.mass++; // Увеличиваем вес после каждого автоперехода
+		if (t == 2) e.mass++; // Увеличиваем вес еще если осколок турбо.
 		e.volume++;
 		e.src = 'img/barrel_' + e.volume + '.png';
 	}
@@ -91,13 +91,13 @@ function f_greatObject(elm, go) {
 	var e = document.createElement('div');
 	document.getElementById('box_game').appendChild(e);
 	e.className = 'border_inset';
-	if (elm.turbo == true) e.style.border = '3px solid blue';
+	if (elm.turbo) e.style.border = '3px solid blue';
 	e.style.position = 'absolute';
 	e.style.top = xy.top + 20 + 'px';
 	e.style.left = xy.left + 20 + 'px';
 	e.style.transition = 'all .2s linear';
 	e.style.WebkitTransition = 'all .2s linear';
-	if (elm.turbo == true) e.style.transition = 'all .5s linear';
+	if (elm.turbo) e.style.transition = 'all .5s linear';
 	e.style.height = '5px';
 	e.style.width = '5px';
 	e.xx = elm.xx;   // координаты a_block над которым летит e
@@ -116,12 +116,12 @@ function f_greatObject(elm, go) {
 }
 
 function f_aniEnd() {
-	if (a_block[this.xx][this.yy].volume <= WwW && this.turbo != true) {
-		if (flag_PLAY == true) f_game_(a_block[this.xx][this.yy], 1);
+	if (a_block[this.xx][this.yy].volume <= WwW && !this.turbo) {
+		if (flag_PLAY) f_game_(a_block[this.xx][this.yy], 1);
 		f_end(this);
 	}
 	else {
-		if (a_block[this.xx][this.yy].volume <= WwW && this.turbo == true && flag_PLAY == true) f_game_(a_block[this.xx][this.yy], 1);
+		if (a_block[this.xx][this.yy].volume <= WwW && this.turbo && flag_PLAY) f_game_(a_block[this.xx][this.yy], 2);
 		if ((((this.go == 'left' || this.go == 'right') && this.xx > 1 && this.xx < XxX)
 			|| ((this.go == 'up' || this.go == 'down') && this.yy > 1 && this.yy < YyY)) && flag_PLAY == true) {
 			if (this.go == 'left') this.xx--;
@@ -138,10 +138,6 @@ function f_aniEnd() {
 
 function f_end(e) {
 	flag_ANI--;
-	if (e.turbo == true) {
-		i_score += 10;
-		e_scoreViewer.innerHTML = i_score;
-	}
 	if (flag_ANI == 0) {
 		var flag = true;
 		for (i = 1; i <= XxX; i++) {
@@ -149,15 +145,14 @@ function f_end(e) {
 				if (a_block[i][ii].volume != 9) flag = false;
 			}
 		}
-		if (flag == true)
-			f_saveGame();
+		e_scoreViewer.innerHTML = i_score;
+		f_saveGame(flag);
 	}
 	e.style.display = 'none';
 	e.remove();
 }
 
 function f_newGame() {
-	flag_PLAY = false;
 	for (ii = 1; ii <= YyY; ii++) {
 		for (i = 1; i <= XxX; i++) {
 			iii = Math.ceil(Math.random() * WwW);
@@ -182,7 +177,6 @@ function f_newGame() {
 }
 
 function f_oldGame(i_game) {
-	flag_PLAY = false;
 	str = i_canvasKeymap.substr(0, 1);
 	for (ii = 1; ii <= YyY; ii++) {
 		for (i = 1; i <= XxX; i++) {

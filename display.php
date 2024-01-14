@@ -11,14 +11,14 @@
 		соревнования на логику, логические матричные игры, логика,
 		миниигры, мини игры, MininAS, Logical Matrix Games, Logic,
 		Тетрис, Наполнитель, Вышибала, Квантование, Короткое замыкание, Числа, Бочка,
-		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris, Tetcolor">
+		Sapper, Tetris, Bouncer, Filler, Sphere, Number, Barrel, Bridging, Slicing, Tetris">
 	<meta name="viewport" content="width=device-width, user-scalable=yes">
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=23">
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.4'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=15.6'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.5'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v17.7 - 12.11.2023)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v18 - 14.01.2024)</p>
 			</div>
 		</div>
 	</div>

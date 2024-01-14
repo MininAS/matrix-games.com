@@ -118,5 +118,5 @@ function reg_save ()
 	if (document.getElementById('photo')) string += '&photo='+document.getElementById('photo').value;
 	if (document.getElementById('last_name')) string += '&last_name='+document.getElementById('last_name').value;
 	if (document.getElementById('first_name')) string += '&first_name='+document.getElementById('first_name').value;
-	f_fetchSaving ('reg_save.php', string, ()=>{setTimeout ("window.location.href='index.php';", 5000)});
+	f_requestAndHandleForPopup ('reg_save.php', string, ()=>{setTimeout ("window.location.href='index.php';", 5000)});
 }

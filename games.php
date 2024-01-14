@@ -1,8 +1,7 @@
 <?php
 	require "init.php";
 	$_SESSION["page"] = "game";
-	$log = "...";
-	log_file ($log);
+	log_file ("...");
 
 	$body = "";
 
@@ -23,10 +22,10 @@
 		exit;
 	}
 
-	// Увеличим количество посещений в игре. Используется для порядка расположения игр в списке начального экрана
+	// Увеличим количество посещений в игре. Используется для порядка расположения игр в списке начального экрана.
 	increaseGameOccurrenceAmount($theme);
 
-	// Удаление игры
+	// Ручное удаление игры.
 	if ($regEdit == "4" && $_SESSION["dopusk"] == "admin") {
 		if (removeGameCanvas($theme, $canvasLayoutId))
 			$GLOBALS['INSTANT_MESSAGE'] = _l("The game has removed.");
@@ -35,8 +34,8 @@
 		$canvasLayoutId = 0;
 	}
 
-// Просмотр сыгранных игр ====================================================================================================================
-	$log = $theme."/".$canvasLayoutId; log_file ($log);
+    // Контейнер игрового поля.
+	log_file ($theme."/".$canvasLayoutId);
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
 		<ul class = 'windowTitle'>
@@ -49,8 +48,8 @@
 	<input id = 'canvasLayoutId' type= 'hidden' name='canvasLayoutId' value='".$canvasLayoutId."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.3'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.4'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.5'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.6'></script>";
 
 	require ("display.php");
 ?>

@@ -70,7 +70,7 @@ function f_createGame() {
 								if (a_block[i][ii].doom == 11) a_block[i][ii].src = 'img/sapper_10.png';
 							}
 						}
-						f_saveGame();
+						f_saveGame(true);
 						return false;
 					}
 					if (this.view == 11) return true;
@@ -166,7 +166,7 @@ function f_onClick(event) // Левая кнопка мыши
 						if (a_block[i][ii].doom == 11) a_block[i][ii].src = 'img/sapper_10.png';
 					}
 				}
-				f_saveGame();
+				f_saveGame(true);
 			}
 			else f_verify();
 		}
@@ -206,12 +206,12 @@ function f_verify() {
 		}
 	}
 	if (i_motion != i_N_mine) {
-		// Роняем экран внис на клетку при верном обнаружении мин через интервал
+		// Роняем экран вниз на клетку при верном обнаружении мин через интервал
 		if (f_OK == true) setTimeout(" flag_DOWN = true; f_Shift (); f_verify ();", 100);
-		// Закончили скрол, теперь возобновляем игру (пауза для исключения неверного нажатия при сколе)
-		else setTimeout("flag_PLAY = true; if (flag_DOWN == true) {f_paintDoom(); flag_DOWN = false;}", 100);
+		// Закончили скролл, теперь возобновляем игру (пауза для исключения неверного нажатия при сколе)
+		else setTimeout("flag_PLAY = true; if (flag_DOWN == true) {f_paintDoom(); flag_DOWN = false; f_saveGame();}", 100);
 	}
-	else { flag_DOWN = false; f_saveGame(); }
+	else { flag_DOWN = false; f_saveGame(true); }
 }
 
 function f_time() {

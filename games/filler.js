@@ -82,6 +82,7 @@ function f_clickHandler_() {
 	i_score = f_getSquaresAmount();
 	f_clearTmpCol();
 	document.getElementById('myNballov').innerHTML = i_score;
+	f_saveGame();
 	compSquare.tmpCol = 1;
 	newColor = f_calculateMaxAmountColorAround();
 	compSquare.tmpCol = 1;
@@ -92,7 +93,7 @@ function f_clickHandler__() {
 	f_clearTmpCol();
 	yourSquare.tmpCol = 1;
 	newColor = f_calculateMaxAmountColorAround();
-	if (newColor == 0 && i_score > 20) f_saveGame();
+	if (newColor == 0 && i_score > 20) f_saveGame(true);
 	else flag_PLAY = true;
 }
 

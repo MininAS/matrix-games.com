@@ -55,7 +55,7 @@ if (e_forumNewThemeSendButton)
 		parameters =
 			'newForumItemText=' + newThemeName +
 			'&theme=' + currentTheme;
-		f_fetchSaving ('forum_add_theme.php', parameters, f_forumUpdateContent);
+		f_requestAndHandleForPopup ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
 
 if (e_forumNewMessageSendButton)
@@ -63,11 +63,11 @@ if (e_forumNewMessageSendButton)
 		if (e_forumNewMessageInputField.disabled == true) return;
 		var string = e_forumNewMessageInputField.value;
 		if (currentMess == 0)
-			f_fetchSaving ('forum_add_message.php?',
+			f_requestAndHandleForPopup ('forum_add_message.php?',
 				'newForumItemText=' + string +
 				'&theme=' + currentTheme, f_forumUpdateContent);
 		if (currentMess != 0){
-			f_fetchSaving ('forum_edit_message.php?',
+			f_requestAndHandleForPopup ('forum_edit_message.php?',
 				'newForumItemText=' + string +
 				'&mess=' + currentMess, f_forumUpdateContent);
 			e_forumSaveMessageTitle.innerHTML = _l("Forum/New message");
@@ -83,7 +83,7 @@ if (e_forumCloseEditModeButton)
 if (e_forumDeleteConfirmButton)
 	e_forumDeleteConfirmButton.onclick = function () {
 		e_forumDeleteConfirmPopup.style.display = 'none';
-		f_fetchSaving ('forum_delete_item.php?',
+		f_requestAndHandleForPopup ('forum_delete_item.php?',
 		'theme=' + this.deletingTheme, f_forumUpdateContent);
 	}
 

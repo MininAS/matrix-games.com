@@ -6,7 +6,7 @@ const e_newGameButton = document.getElementById('k_newGame')
 
 var s_theme = document.getElementById('theme').value;
 var i_canvasLayoutId = parseInt(document.getElementById('canvasLayoutId').value);
-var i_gameAttemptId = 0
+var i_transitionalKey = 0
 
 var i_score = 0;
 var i_motion = 0;
@@ -28,7 +28,7 @@ function f_gameStart() {
 	i_score = 0;
 	i_motion = 0;
 	i_canvasKeymap = "";
-	i_gameAttemptId = f_randomId()
+	i_transitionalKey = f_randomId()
 	if (e_scoreViewer) e_scoreViewer.innerHTML = 0;
 	if (i_canvasLayoutId == 0) {
 		e_layoutNumber.style.display = 'none';
@@ -88,18 +88,23 @@ function f_scrollAndSelectLayoutItem() {
 	}
 }
 
-function f_saveGame(flag_gameOver = false) {
-	flag_PLAY = false;
-	flag_GAMEOVER = true;
-	f_fetchSaving('game_save.php',
+function f_saveGame(flag_gameIsFinished = false) {
+	parameters =
 		'canvasLayoutData=' + i_canvasKeymap +
 		'&moves=' + i_motion +
 		'&score=' + i_score +
 		'&theme=' + s_theme +
 		'&canvasLayoutId=' + i_canvasLayoutId +
-		'&canvasLayoutAttemptId=' + i_gameAttemptId +
-		'&gameOver' + flag_gameOver,
-		f_updateUserTopList);
+		'&transitionalKey=' + i_transitionalKey +
+		'&gameIsFinished=' + flag_gameIsFinished;
+	if (flag_gameIsFinished) {
+		flag_PLAY = false;
+		flag_GAMEOVER = true;
+		f_requestAndHandleForPopup('game_save.php', parameters, f_updateUserTopList);
+	}
+	else {
+		f_requestAndHandle('game_save.php', parameters);
+	}
 }
 
 e_topWindow.onclick = function (event) {

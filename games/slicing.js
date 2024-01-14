@@ -174,6 +174,7 @@ function f_slice(e) {
 	e_scoreViewer.innerHTML = i_score;
 	f_scrollScore(e.target, score);
 	i_motion++;
+	f_saveGame();
 	matrix.forEach(e => {
 		e.forEach(e => {
 			if (e.tmpCol == 2) {
@@ -298,7 +299,7 @@ function f_finish() {
 			}
 		}
 	}
-	f_saveGame();
+	f_saveGame(true);
 }
 
 function f_clearTmpCol() {

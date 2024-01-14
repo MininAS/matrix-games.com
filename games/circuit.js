@@ -118,6 +118,7 @@ function f_Game() {
 			flag_BRIDGING = false;
 			flag_DOWN = false;
 			e_scoreViewer.innerHTML = i_score;
+			f_saveGame();
 			document.getElementById('eX2Y' + YyY).nomer = 4;
 			document.getElementById('eX' + (XxX - 1) + 'Y' + YyY).nomer = 4;
 			document.getElementById('eX2Y' + YyY).angle = 1;

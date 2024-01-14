@@ -333,6 +333,7 @@ function f_delet() {
 	f_scrollScore(o_lastBall, i_Nball + 'x' + i_Nverify + '=' + i_Nballov);
 	i_score += i_Nballov;
 	e_scoreViewer.innerHTML = i_score;
+	f_saveGame();
 }
 
 function f_hideSphere(elm) {
@@ -447,7 +448,7 @@ function f_rollSphere() {
 	}
 	if (flag_OK == false)
 		if (f_verifyGameOver()) flag_PLAY = true;
-		else f_saveGame();
+		else f_saveGame(true);
 }
 
 function f_verifyGameOver() {

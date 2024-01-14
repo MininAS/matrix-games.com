@@ -9,26 +9,58 @@
 			}
 		');
 
-	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin") {
-		exit ('
-			{
-				"res": "100",
-				"message": "'._l("Gamebook/The game is over. Please, login for the result saving and a competition participation.").'"
-			}
-		');
-	}
+	if ($_SESSION["dopusk"] != "yes" && $_SESSION["dopusk"] != "admin")
+		if ($gameIsFinished)
+			exit ('
+				{
+					"res": "220",
+					"message": "'._l("Gamebook/The game is over. Please, login for the result saving and a competition participation.").'"
+				}
+			');
+		else
+			exit();
 
-	if (!preg_match('~^[0-9/]+$~', $canvasLayoutData)) {
-		f_errorHandler('Неверные входящие данные с игрового поля: ', $canvasLayoutData, 'game_save.php', 0);
+	if (!preg_match('~^[0-9/]+$~', $canvasLayoutId)) {
+		log_file('ERROR Неверные входящие данные с игрового поля:
+			- id поля: '.$canvasLayoutId.'
+		    - данные: '.$canvasLayoutData);
 		exit('
 			{
 				"res": "110",
-				"message": "'._l("Error. Some data are invalid.").'"
+				"message": "'._l("Gamebook/Error. Some canvas layout data are invalid.").'"
 			}
 		');
 	}
 
-	if ($score <= 100) {
+	if (!preg_match('~^[0-9]{13}_[a-zA-Z]{13}$~', $transitionalKey)) {
+		log_file('ERROR Ломаный транзитный ключ:
+			- id поля: '.$canvasLayoutId.'
+		    - данные: '.$canvasLayoutData.'
+		    - транзитный ключ: '.$transitionalKey);
+		exit('
+			{
+				"res": "110",
+				"message": "'._l("Gamebook/Error. Some canvas layout data are invalid.").'"
+			}
+		');
+	}
+
+	// TODO Добавить элементарные проверки на превышения лимита очков за шаг и количество шагов. Выполнить пока в WARNING для анализа.
+
+	f_saveGameToTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves);
+
+	if (!$gameIsFinished)
+		exit();
+
+    $scoreMin = getScoreMinByGame($theme);
+	if ($score <= $scoreMin) {
+		if (f_deleteGameFromTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey))
+		    log_file('
+				INFO Попытка игры удалена без сохранения, мало баллов:
+				- id поля: '.$canvasLayoutId.'
+				- данные: '.$canvasLayoutData.'
+				- транзитный ключ: '.$transitionalKey
+			);
 		exit('
 			{
 				"res": "110",
@@ -37,105 +69,70 @@
 		');
 	}
 
-    $count = getUserLayoutAmount ($theme, $_SESSION["id"]);
 	if ($canvasLayoutId == "0") {
-		if ($count >= 5)
+		$count = getUserLayoutAmount ($theme, $_SESSION["id"]);
+		if ($count >= 5){ // TODO Количество разрешенных игр перевести в глобальную переменную.
+			if (f_deleteGameFromTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey))
+				log_file('
+					INFO Попытка игры удалена без сохранения, уже сохранено '.$count.' игр пользователем:
+					- id поля: '.$canvasLayoutId.'
+					- данные: '.$canvasLayoutData.'
+					- транзитный ключ: '.$transitionalKey
+				);
 			exit('
 				{
 					"res": "100",
 					"message": "'._l("Gamebook/The game is over. You have already saved five new games.").'"
 				}
 			');
+		}
 
-		f_mysqlQuery ("
-			INSERT games_".$theme." (gameboard)
-			VALUES ('".$canvasLayoutData."');
-		");
-		$new_row_id = mysqli_insert_id ($DB_Connection);
-		if (f_mysqlQuery ("
-			INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-			VALUES (".$new_row_id.", ".$_SESSION["id"].", ".$score.", ".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
-		")) {
-			echo('
+		$new_row_id = f_saveGameLikeNewLayout($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves);
+		if (!!$new_row_id)
+			exit('
 				{
 					"res": "200",
 					"message": "'._l("Gamebook/The game has saved.").'",
 					"id": '.$new_row_id.'
 				}
 			');
-			log_file ("Сохранение новой игры в ".$theme." №".$new_row_id.".");
-			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";");
-		}
+		else
+			exit('
+				{
+					"res": "400",
+					"message": "'._l("Gamebook/Error. Some canvas layout data are invalid.").'"
+				}
+			');
 	}
 	else
 	{
-		$result = f_mysqlQuery ("
-			SELECT id_game
-			FROM games_".$theme."
-			WHERE id_game=".$canvasLayoutId.";
-		");
-		$count = mysqli_num_rows($result);
-		if ($count != 1)
+		$result = f_saveGameLikeAttempt($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey, $score, $moves);
+
+		if ($result == 300)
 			exit('
 				{
-					"res": "100",
+					"res": "300",
 					"message": "'._l("Gamebook/Sorry, it seems the game has already been removed.").'"
 				}
 			');
 
-		$bestPlayer_old = getLayoutBestPlayer ($theme, $canvasLayoutId);
+		if ($result == 210)
+		    exit('
+				{
+					"res": "210",
+					"message": "'._l("Gamebook/Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.").'"
+				}
+			');
 
-		if (f_mysqlQuery ("
-				INSERT games_".$theme."_com (id_game, id_user, score, xod, time, data)
-				VALUES (".$canvasLayoutId.", ".$_SESSION["id"].", ".$score.",
-					".$moves.", '".date ("H:i")."', '".date ("y.m.d")."');
-			")) {
+		if ($result == 200)
+		    exit('
+				{
+					"res": "200",
+					"message": "'._l("Gamebook/The game has saved.").'"
+				}
+			');
 
-			log_file ("Сохранение игры в ".$theme." №".$canvasLayoutId.".");
-			f_mysqlQuery ("UPDATE users SET N_game=N_game+1 WHERE id=".$_SESSION["id"].";"); // Увеличиваем число игр
 
-			$bestPlayer_new = getLayoutBestPlayer ($theme, $canvasLayoutId);
-			$creator = getLayoutСreator ($theme, $canvasLayoutId);
-
-			if ($bestPlayer_new["id"] != $bestPlayer_old["id"]) {
-				$message = $bestPlayer_new["login"]." ".
-					_l("Mails/played against you successfully.", $bestPlayer_old["lang"])." ".
-				    _l("Mails/New score in game", $bestPlayer_old["lang"])." ".
-				    _l('Game names/'.$theme, $bestPlayer_old["lang"]).
-				    " № ".$canvasLayoutId." => ".$bestPlayer_new["score"].".";
-
-				if ($bestPlayer_old["id"] != $creator)
-				    $message .= "<br>
-				    <a href ='http://matrix-games.ru/games.php?theme=".$theme."&canvasLayoutId=".$canvasLayoutId.
-				    "'><br>&lt;&lt;&lt; "._l("Mails/Replay", $bestPlayer_old["lang"])." >>><a>";
-
-				f_mail ($bestPlayer_old["id"], $message, $bestPlayer_old["lang"]);
-
-				if ($bestPlayer_old["id"] != $creator)
-				    $message = _l("Mails/I won your last score", $bestPlayer_old["lang"]);
-				else
-					$message = _l("Mails/I played your game successfully", $bestPlayer_old["lang"]);
-				$message .= " "._l('Game names/'.$theme, $bestPlayer_old["lang"]).
-				    " № ".$canvasLayoutId." => ".$bestPlayer_new["score"].".";
-
-				f_saveTecnicMessage($_SESSION["id"], $bestPlayer_old["id"], $message, $theme, $canvasLayoutId);
-
-				echo('
-					{
-						"res": "200",
-						"message": "'._l("Gamebook/Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.").'"
-					}
-				');
-			}
-			else {
-				echo('
-					{
-						"res": "200",
-						"message": "'._l("Gamebook/The game has saved.").'"
-					}
-				');
-			}
-		}
 	}
 
 ?>

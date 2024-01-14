@@ -210,9 +210,9 @@ function f_fetchUpdateContent(s_targetBlock, s_loaderFile, callback) {
 		})
 }
 
-function f_fetchSaving(s_saverFile, s_attributes, callback) {
+function f_requestAndHandleForPopup(s_handlerFile, s_attributes, callback) {
 	f_windowInfoPopup();
-	fetch(s_saverFile, {
+	fetch(s_handlerFile, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		body: s_attributes
@@ -229,6 +229,22 @@ function f_fetchSaving(s_saverFile, s_attributes, callback) {
 					callback();
 				}
 		})
+}
+
+function f_requestAndHandle(s_handlerFile, s_attributes) {
+	fetch(s_handlerFile, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		body: s_attributes
+	})
+		.then(response => {
+			if (response.status != 200)
+			    f_windowInfoPopup('info', response.status + " " + response.statusText);
+		})
+		//.then(data => {
+		//	if (data.res.match(/^2/))
+				// TODO Какая нибудь нотификация о корректном ответе с сервера. Может быть выключать действия на игре пока не пришел ответ.
+		//})
 }
 
 // Отключение и включение звука
@@ -319,14 +335,13 @@ function f_counter() {
 }
 
 function f_randomId() {
-	var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	var idLength = 50;
-	var id = "";
-	for (var i = 0; i <= idLength; i++) {
-		var randomNumber = Math.floor(Math.random() * chars.length);
-		id += chars.substring(randomNumber, randomNumber + 1);
+	var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	var idLength = 13
+	var id = new Date().getTime() + "_"
+	for (var i = 1; i <= idLength; i++) {
+		var randomNumber = Math.floor(Math.random() * chars.length)
+		id += chars.substring(randomNumber, randomNumber + 1)
 	}
-	id += '_' + new Date().toISOString()
 	return id
 }
 

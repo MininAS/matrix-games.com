@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 
 window.translation_LIBRARY = [];
-fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1.4')
+fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1.5')
 	.then (response => {
 		if (response.status == 200)
 		    return response.json();

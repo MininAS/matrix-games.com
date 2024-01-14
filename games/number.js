@@ -203,6 +203,7 @@ function f_anim() {
 			flag_MOVE = false;
 			flag_PLAY = true;
 			e_scoreViewer.innerHTML = i_score;
+			f_saveGame();
 			f_verify();
 		}
 		f_paint();
@@ -287,7 +288,7 @@ function f_verify() {
 		if (flag_OK == true) arr.push(a_block[i].number);
 		else break;
 	}
-	if (flag_OK == true) f_saveGame();
+	if (flag_OK == true) f_saveGame(true);
 }
 
 function f_newGame() {

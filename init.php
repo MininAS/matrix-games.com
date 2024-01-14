@@ -52,9 +52,13 @@
 	$GLOBALS['LANG_ARRAY'] = f_getTranslatedText($_COOKIE["lang"]);
 
     /**
-	 * Наличие файла логирования на дату входа является флагом для инициализации действий на текущий день:
+	 * Наличие ежедневного файла логирования является флагом для инициализации действий на текущий день:
 	 *  - создание файла ежедневного логирования;
 	 *  - резервное сохранение БД;
+	 *  - сохранение игр(слоев, попыток) из транзитной таблицы в постоянную при условиях, что:
+	 *     - игра была создана во временном хранилище менее чем 3 часа назад,
+	 *     - количество очков больше минимального,
+	 *     - если новая, то полей должно быть не более 5-ти;
 	 *  - удаление игр с флагом (remove = 1) с определение призовых мест.
 	 */
 	if (!file_exists($GLOBALS['DAILY_LOGFILE'])){
@@ -64,8 +68,58 @@
 
 		db_saver ();
 
+		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {  // TODO  Переделать все строки логирования или вывода к формату без лишних кавычек(склеивания через точки).
+			$id_list = getTransitGameIdList($game);
+
+			$scoreMin = getScoreMinByGame($game);
+			foreach ($id_list as $id){
+				$entry = getTransitGameEntry($game, $id);
+				$author_name = getUserLogin($entry['author']);
+				$diff = date_timestamp_get(date_create()) - date_timestamp_get(date_create($entry['datetime']));
+				if ($diff < 10800) // 3 часа
+					continue;
+
+				if ($entry['score'] <= $scoreMin) {
+					if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
+						log_to_file("INFO Попытка игры удалена без сохранения, мало баллов {$entry['score']} <= $scoreMin:
+							- игра: $game
+							- игрок: $author_name({$entry['author']})
+							- id поля: {$entry['layoutId']}
+							- данные: {$entry['layoutData']}
+							- транзитный ключ: {$entry['transitionalKey']}
+						");
+					continue;
+				}
+
+				if (!$entry['layoutId']){
+					$count = getUserLayoutAmount ($game, $entry['author']);
+					if ($count >= 5){ // TODO Количество разрешенных игр перевести в глобальную переменную.
+						if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
+							log_to_file("INFO Попытка игры удалена без сохранения, уже сохранено $count игр пользователем:
+								- игра: $game
+								- игрок: $author_name({$entry['author']})
+								- id поля: {$entry['layoutId']}
+								- данные: {$entry['layoutData']}
+								- транзитный ключ: {$entry['transitionalKey']}
+							");
+						continue;
+					}
+					f_saveGameLikeNewLayout(
+						$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
+						$entry['transitionalKey'], $entry['score'],    $entry['moves']
+					);
+				}
+				else{
+					f_saveGameLikeAttempt(
+						$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
+						$entry['transitionalKey'], $entry['score'],    $entry['moves']
+					);
+				}
+			}
+		}
+
 		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {
-			$result = getQueryMedalPlaces($game);
+			$result = getMedalPlacesByGame($game);
 			while ($data = mysqli_fetch_row ($result)){
 				removeGameCanvas ($game, $data[0], $data[1]);
 			}
@@ -73,7 +127,7 @@
 	}
 
 	/**
-	 * Наличие файла логирования на дату входа является флагом для инициализации действий на текущий день:
+	 * Наличие еженедельного файла логирования является флагом для инициализации действий на текущий день:
 	 *  - создание файла еженедельного логирования;
 	 *  - раз в неделю вычитаем по одному баллу у каждого пользователя,
 	 *    эффект таяния заработанных очков в случае не частого посещения пользователем сайта.

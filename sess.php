@@ -76,7 +76,7 @@
 
 	// Проверяем тему(имя игры) на соответствие списку иначе инициируем как integer.
 	$theme = isset ($_GET['theme']) ? $_GET['theme'] : (isset($_POST['theme']) ? $_POST['theme'] : null);
-	$arr = $GLOBALS['DEFAULT_GAME_LIST_ORDER'];
+	$arr = array_keys($GLOBALS['DEFAULT_GAME_LIST_ORDER']);
 	if (!in_array ($theme, $arr)) $theme = (int)$theme;
 
 	// Переменные цифровые
@@ -88,7 +88,7 @@
 	}
 
 	// Переменные текстовые
-	$arr = array ('newThemeName', 'canvasLayoutData', 'canvasLayoutAttemptId', 'newForumItemText');
+	$arr = array ('newThemeName', 'canvasLayoutData', 'transitionalKey', 'newForumItemText');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);
@@ -97,9 +97,7 @@
 	}
 
 	// Переменные boolean
-	$flag_gameOver = isset($_GET['flag_gameOver']) ? $_GET['flag_gameOver'] : (isset($_POST['flag_gameOver']) ? $_POST['flag_gameOver'] : false);
-	$flag_gameOver = $flag_gameOver == true ? true : false;
-
+	$gameIsFinished = (isset($_POST['gameIsFinished']) && $_POST['gameIsFinished'] == 'true') ? TRUE : FALSE;
 
 // Ставим время последнего посещения
 	$_SESSION["last_time"] = date ("U");

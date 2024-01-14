@@ -13,13 +13,6 @@ switch($_GET["lang"]){
         And also it affects all barrels vertically and horizontally increasing their weight by one. <br>
         <table id = 'instruct'>
             <tr>
-                <td><img src = 'img/barrel_info_1.png'/></td>
-                <td>
-                    &nbsp&nbsp&nbsp&nbsp
-                    Points: -5 for each click on a barrel roll.
-                </td>
-            </tr>
-            <tr>
                 <td><img src = 'img/barrel_info_2.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
@@ -39,16 +32,14 @@ switch($_GET["lang"]){
                 <td><img src = 'img/barrel_info_4.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
-                    Fragments from the bursted barrel roll disappear in the first barrel, increasing its size.
+                    Fragments from the bursted barrel roll disappear in the first barrel, increasing its size at one.
                 </td>
             </tr>
             <tr>
                 <td><img src = 'img/barrel_info_5.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
-                    Fragments from the bursted super barrel fly over the entire game field,
-                    increasing size of all met barrels. For each fragment you get 10 points. <br>
-                    Points: (number of balls) x 10
+                    Fragments from the bursted super barrel fly over the entire game field, increasing size of all met barrels at two. <br>
             </tr>
         </table>
         <?php
@@ -67,13 +58,6 @@ switch($_GET["lang"]){
         А также она влияет на все бочки по вертикали и горизонтали увеличивая их вес на единицу.<br>
         <table id ='instruct'>
             <tr>
-                <td><img src ='img/barrel_info_1.png'/></td>
-                <td>
-                    &nbsp&nbsp&nbsp&nbsp
-                    За каждый клик по бочке штраф пять баллов. Очки: -5.
-                </td>
-            </tr>
-            <tr>
                 <td><img src ='img/barrel_info_2.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
@@ -86,7 +70,7 @@ switch($_GET["lang"]){
                 <td><img src ='img/barrel_info_3.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
-                    При нажатии на бочку, ее баллы уменьшаются по одному за нажатие. Очки: -1.
+                    При нажатии на бочку, ее баллы уменьшаются по одному за нажатие.
                 </td>
             </tr>
             <tr>
@@ -100,9 +84,7 @@ switch($_GET["lang"]){
                 <td><img src ='img/barrel_info_5.png'/></td>
                 <td>
                     &nbsp&nbsp&nbsp&nbsp
-                    Осколки от взорвавшейся супер бочки, пролетают все поле, увеличивая вес.
-                    Всех встреченных бочек. За каждый осколок вы получаете 10 очков.<br>
-                    Очки: (количество шаров) х 10
+                    Осколки от взорвавшейся супер бочки, пролетают все поле, увеличивая вес всех встреченных бочек на 2.<br>
                 </td>
             </tr>
         </table>

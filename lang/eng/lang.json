@@ -56,7 +56,8 @@
 		"The game is over. You have already saved five new games.": "The game is over. You have already saved five new games, more games cannot be saved until they are deleted due a better result. Compete with other players - select a game from the left list and try to get more points.",
 		"The game has saved.": "The game has saved.",
 		"Sorry, it seems the game has already been removed.": "Sorry, it seems the game has already been removed.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating."
+		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.",
+        "Error. Some canvas layout data are invalid.": "Error. Some canvas layout data are invalid. The info has sent to administrator."
     },
     "Profile": {
 		"Change image:": "Change image:",
@@ -151,7 +152,6 @@
     "Record": "Record",
     "Medals": "Medals",
     "User": "User",
-	"Error. Some data are invalid.": "Error. Some data are invalid. The info was send to administrator.",
 	"T h e  n e x t  s t o n e": "T h e  n e x t  s t o n e",
     "The next shape": "The next shape",
     "Login or password were invalid.": "Login or password were invalid.",

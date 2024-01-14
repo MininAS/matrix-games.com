@@ -56,7 +56,8 @@
 		"The game is over. You have already saved five new games.": "Игра завершена. Вами уже сохранено пять новых игр, более игр сохранить нельзя, пока они не будут удалены за наличием лучшего результата. Соревнуйтесь с другими игроками - выберите игру из списка с лева и попробуйте обыграть её.",
 		"The game has saved.": "Игра сохранена.",
 		"Sorry, it seems the game has already been removed.": "Простите, но похоже, что игра уже удалена.",
-		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите баллы к общему рейтингу."
+		"Your result is best. If nobody get more score, so when game will be removed, you will get points to total rating.": "Ваш результат лучший. Если никто не наберет больше очков, то когда игра будет удалена, вы получите баллы к общему рейтингу.",
+        "Error. Some canvas layout data are invalid.": "Произошла ошибка. Неверные данные в поле игры. Информация отправлена администрации сайта."
     },
     "Profile": {
 		"Change image:": "Поменять изображение:",
@@ -151,7 +152,6 @@
     "Record": "Рекорд",
     "Medals": "Медали",
     "User": "Пользователь",
-    "Error. Some data are invalid.": "Пороизошла ошибка. Неверные данные в запросе. Информация отправлена администрации сайта.",
     "T h e  n e x t  s t o n e": "С л е д у ю щ а я ф и г у р а",
     "The next shape": "Следующая фигура",
     "Login or password were invalid.": "Логин или пароль были введены не верно.",

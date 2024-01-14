@@ -45,7 +45,7 @@
 		<li id = 'key_Registration_Saving'  class = 'k_enter'></li>
 		".$additional_fields."
 	</div>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'reg.js?lastVersion=11.2'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'reg.js?lastVersion=11.3'></script>";
 	require ("display.php");
 
 ?>

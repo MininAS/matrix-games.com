@@ -133,51 +133,45 @@ function f_Tetris() {
 				SquareOfFigure[1][2] = (XxX / 2 - 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX / 2 - 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX / 2; SquareOfFigure[2][4] = 2;
-				i_score += 4;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 2) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX / 2 + 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX / 2; SquareOfFigure[2][4] = 2;
-				i_score += 4;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 3) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 - 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX / 2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX / 2 + 1); SquareOfFigure[2][4] = 2;
-				i_score += 5;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 4) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX / 2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX / 2 - 1); SquareOfFigure[2][4] = 2;
-				i_score += 5;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 5) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX / 2 - 1); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = XxX / 2; SquareOfFigure[2][4] = 2;
-				i_score += 3;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 6) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = XxX / 2; SquareOfFigure[2][3] = 2;
 				SquareOfFigure[1][4] = (XxX / 2 + 1); SquareOfFigure[2][4] = 2;
-				i_score += 2;
 			}
 			if (SquareColorLayer4[CursorX][CursorY] == 7) {
 				SquareOfFigure[1][1] = XxX / 2; SquareOfFigure[2][1] = 1;
 				SquareOfFigure[1][2] = (XxX / 2 + 1); SquareOfFigure[2][2] = 1;
 				SquareOfFigure[1][3] = (XxX / 2 + 2); SquareOfFigure[2][3] = 1;
 				SquareOfFigure[1][4] = (XxX / 2 - 1); SquareOfFigure[2][4] = 1;
-				i_score++;
 			}
 			//Проверяем на удаления линий и конец хода
+			i_localScore = 0;
 			i_motion++;
 			i_NLine = 0;
 			for (i = 1; i <= YyY; i++) {
@@ -187,7 +181,7 @@ function f_Tetris() {
 				}
 				if (flag_LINE == true) {
 					i_NLine++;
-					i_score += (YyY - i);
+					i_localScore += (YyY - i + 1);
 					for (iii = i; iii > 1; iii--) {
 						for (ii = 1; ii <= XxX; ii++) {
 							SquareColorLayer2[ii][iii] = SquareColorLayer2[ii][iii - 1];
@@ -196,18 +190,22 @@ function f_Tetris() {
 					}
 				}
 			}
-			if (i_NLine == 1) i_score += 10;
-			if (i_NLine == 2) i_score += 30;
-			if (i_NLine == 3) i_score += 45;
-			if (i_NLine == 4) i_score += 70;
+			if (i_NLine == 2) i_localScore *= 2;
+			if (i_NLine == 3) i_localScore *= 4;
+			if (i_NLine == 4) i_localScore *= 8;
 
+			i_score += i_localScore;
 			e_scoreViewer.innerHTML = i_score;
+			if (i_localScore != 0) f_saveGame();
 
 			//Проверка на конец хода
-			for (i = 1; i <= 4; i++) { document.images[SquareColorLayer1[SquareOfFigure[1][i]][SquareOfFigure[2][i]]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif"; }
-			for (i = 1; i <= XxX; i++) {
-				if (SquareColorLayer2[i][1] != 0) { f_saveGame(); break; }
-			}
+			for (i = 1; i <= 4; i++)
+				document.images[SquareColorLayer1[SquareOfFigure[1][i]][SquareOfFigure[2][i]]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif";
+			for (i = 1; i <= XxX; i++)
+				if (SquareColorLayer2[i][1] != 0) {
+					f_saveGame(true);
+					break;
+				}
 			//Рисуем подсказку
 			if ((CursorX + 1) <= XxX) { iii = SquareColorLayer4[CursorX + 1][CursorY]; }
 			else if ((CursorY + 1) <= YyY) { iii = SquareColorLayer4[1][CursorY + 1]; }
