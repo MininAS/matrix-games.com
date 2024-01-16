@@ -33,20 +33,20 @@
 	if ($regEdit == "1") {
 		if ($user == "0") {
 			$result = f_mysqlQuery ("SELECT id FROM users;");
-			while  ($data = mysqli_fetch_row ($result)) f_saveUserMessage ($data[0], $string);
+			while  ($data = mysqli_fetch_row ($result)) f_saveUserMessage ($data[0], $messageText);
 		}
 		else
-			f_saveUserMessage ($user, $string);
+			f_saveUserMessage ($user, $messageText);
 	}
 
 // Сохранение личного письма.
-	if ($regEdit == "2" && $string != null) {
+	if ($regEdit == "2" && $messageText != null) {
 		if ($user == "0") {
 		 	$result = f_mysqlQuery ("SELECT id FROM users;");
-			while ($data = mysqli_fetch_row ($result)) f_mail ($data[0], $string);
+			while ($data = mysqli_fetch_row ($result)) f_mail ($data[0], $messageText);
 		}
 		else
-			f_mail ($user, $string);
+			f_mail ($user, $messageText);
 	}
 
 // Изменение личных данных.
@@ -124,7 +124,7 @@
 		}
 		$body .= "
 		    </select>
-			<textarea name = 'string' COLS = '40'  ROWS = '4'></textarea>
+			<textarea name = 'messageText' COLS = '40'  ROWS = '4'></textarea>
 			<div class = 'k_smile'  onClick=\"f_windowInfoPopup('smile');\"></div>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 			<input TYPE = 'hidden' name = 'regEdit' value=\"1\">
@@ -151,7 +151,7 @@
 
 		$body .= "
 		    </select>
-			<textarea name = 'string' COLS='40'  ROWS='4'></textarea>
+			<textarea name = 'messageText' COLS='40'  ROWS='4'></textarea>
 			<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 			<input type = 'hidden' name = 'regEdit' value = '2'>
 		</div>

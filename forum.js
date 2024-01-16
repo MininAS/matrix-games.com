@@ -1,5 +1,5 @@
 const e_forumNewThemeInputField = document.querySelector('#formSendTheme [name="newThemeName"]');
-const e_forumNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
+const e_forumNewMessageInputField = document.querySelector('#formSendMessage [name="newForumItemText"]');
 const e_forumSaveMessageTitle = document.querySelector('#formSendMessage .windowTitle > li');
 const e_forumPrimaryTopic = document.querySelector('#forum_primary');
 const e_forumSecondaryTopic = document.querySelector('#forum_secondary');
@@ -53,7 +53,7 @@ if (e_forumNewThemeSendButton)
 		if (e_forumNewThemeInputField.disabled == true) return;
 	    var newThemeName = e_forumNewThemeInputField.value;
 		parameters =
-			'newForumItemText=' + newThemeName +
+			'messageText=' + newThemeName +
 			'&theme=' + currentTheme;
 		f_requestAndHandleForPopup ('forum_add_theme.php', parameters, f_forumUpdateContent);
 }
@@ -64,11 +64,11 @@ if (e_forumNewMessageSendButton)
 		var string = e_forumNewMessageInputField.value;
 		if (currentMess == 0)
 			f_requestAndHandleForPopup ('forum_add_message.php?',
-				'newForumItemText=' + string +
+				'messageText=' + string +
 				'&theme=' + currentTheme, f_forumUpdateContent);
 		if (currentMess != 0){
 			f_requestAndHandleForPopup ('forum_edit_message.php?',
-				'newForumItemText=' + string +
+				'messageText=' + string +
 				'&mess=' + currentMess, f_forumUpdateContent);
 			e_forumSaveMessageTitle.innerHTML = _l("Forum/New message");
 		}

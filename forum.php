@@ -28,7 +28,7 @@
 	</div>
 	<div id = 'formSendMessage' class = 'formSendMessage windowSite'>
 		<ul class = 'windowTitle'><li>"._l("Forum/New message")."</li></ul>
-		<textarea name = 'string' cols='50'  rows='3'></textarea>
+		<textarea name = 'newForumItemText' cols='50'  rows='3'></textarea>
 		<div class = 'k_close'></div>
 		<div class = 'k_smile' onClick=\"f_windowInfoPopup('smile');\"></div>
 		<div class = 'k_enter'></div>
@@ -40,6 +40,6 @@
 	}
 
 	$body .= "
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=10.3'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'forum.js?lastVersion=10.4'></script>";
 require ("display.php");
 ?>

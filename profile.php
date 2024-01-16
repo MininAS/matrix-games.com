@@ -77,7 +77,7 @@
 		<select id = 'dropDownUserList' name = 'user'>
 			<option value = '0'>Кому:</option>
 		</select>
-		<textarea id = 'string' name = 'string' cols = '64'  rows = '2'></textarea>
+		<textarea id = 'messageText' name = 'messageText' cols = '64'  rows = '2'></textarea>
 		<div class = 'k_smile' onClick=\"f_windowInfoPopup('smile');\"></div>
 		<div class = 'k_enter'><input class = 'submit' type = 'submit' name = 'reset'></div>
 	</div>";
@@ -159,6 +159,6 @@
 	</div>";
 
 	$body .= "
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=11.3'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'profile.js?lastVersion=11.4'></script>";
 require ("display.php");
 ?>

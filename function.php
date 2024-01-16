@@ -34,13 +34,14 @@
 		if (!$status) return $status;
         $text = f_convertSmilesAndTagFormat($text);
 		if (f_mysqlQuery ("
-				INSERT users_mess (id_tema, id_user, text, time, data)
+				INSERT users_mess (id_tema, id_user, text, time, data, game)
 				VALUE (
 					".$user.",
 					".$_SESSION["id"].",
 					'".$text."',
 					'".date("H:i")."',
-					'".date("y.m.d")."'
+					'".date("y.m.d")."',
+					''
 				);
 			")
 		) {
@@ -54,8 +55,7 @@
 				SET F_bette=1
 				WHERE id=".$user.";
 			");
-			$log = "Sent message for ".$user;
-			log_file ($log);
+			log_file ("Отправлено личное сообщение для ".getUserLogin($user)."($user)");
 			return '
 				{
 					"res": "200",

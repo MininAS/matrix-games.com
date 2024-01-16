@@ -1,5 +1,5 @@
 const e_profileMessageBlock = document.getElementById('messageWindow');
-const e_profileNewMessageInputField = document.querySelector('#formSendMessage [name="string"]');
+const e_profileNewMessageInputField = document.querySelector('#formSendMessage [name="messageText"]');
 const e_profileNewMessageSendButton = document.querySelector('#formSendMessage .k_enter');
 const e_profileNewMessageDestination = document.getElementById('dropDownUserList');
 const e_profileAccountDeletionLink = document.getElementById('profileAccountDeletionLink');
@@ -24,10 +24,10 @@ e_profileMessageBlock.onclick = function (event) {
 }
 
 e_profileNewMessageSendButton.onclick = function () {
-	var string = e_profileNewMessageInputField.value;
+	var messageText = e_profileNewMessageInputField.value;
 	var user = e_profileNewMessageDestination.value;
 	f_requestAndHandleForPopup ('profile_send_message.php?',
-		'string=' + string +
+		'messageText=' + messageText +
 		'&user=' + user, f_profileUpdateContent);
 }
 

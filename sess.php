@@ -88,7 +88,7 @@
 	}
 
 	// Переменные текстовые
-	$arr = array ('newThemeName', 'canvasLayoutData', 'transitionalKey', 'newForumItemText');
+	$arr = array ('messageText', 'canvasLayoutData', 'transitionalKey');
 	foreach ($arr as $key => $value){
 		$v = $value;
 		$$v	= isset ($_GET[$value]) ? $_GET[$value] : (isset($_POST[$value]) ? $_POST[$value] : null);

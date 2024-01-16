@@ -7,7 +7,7 @@
 		exit;
 	}
 
-	$text=trim($newForumItemText);
+	$text=trim($messageText);
 	$status = f_checkLengthMessage($text);
 	if ($status != "Alright")
 	 	exit($status);

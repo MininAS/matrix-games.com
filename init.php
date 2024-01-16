@@ -76,8 +76,8 @@
 				$entry = getTransitGameEntry($game, $id);
 				$author_name = getUserLogin($entry['author']);
 				$diff = date_timestamp_get(date_create()) - date_timestamp_get(date_create($entry['datetime']));
-				if ($diff < 10800) // 3 часа
-					continue;
+				// if ($diff < 10800) // 3 часа
+				// 	continue;
 
 				if ($entry['score'] <= $scoreMin) {
 					if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
@@ -110,10 +110,21 @@
 					);
 				}
 				else{
-					f_saveGameLikeAttempt(
-						$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
-						$entry['transitionalKey'], $entry['score'],    $entry['moves']
-					);
+					$bestPlayer = getLayoutBestPlayer ($game, $entry['layoutId']);
+					if ($bestPlayer['id'] != $entry['author'])
+						f_saveGameLikeAttempt(
+							$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
+							$entry['transitionalKey'], $entry['score'],    $entry['moves']
+						);
+					else{
+						if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
+							log_to_file("INFO Попытка игры удалена без сохранения, игрок уже ведет в этом поле:
+								- игра: $game
+								- игрок: $author_name({$entry['author']})
+								- id поля: {$entry['layoutId']}
+								- транзитный ключ: {$entry['transitionalKey']}
+							");
+					}
 				}
 			}
 		}

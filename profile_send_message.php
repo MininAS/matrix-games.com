@@ -14,6 +14,6 @@
 			}
 		');
 
-    $status = f_saveUserMessage ($user, $string);
+    $status = f_saveUserMessage ($user, $messageText);
 	echo ($status);
 ?>

@@ -21,7 +21,7 @@
 		$theme_info['text'] = 'В корне';
 	}
 
-	$new_str = trim ($newForumItemText);
+	$new_str = trim ($messageText);
 	$new_str = f_convertSmilesAndTagFormat($new_str);
 	if (empty($new_str)){
 		echo('
