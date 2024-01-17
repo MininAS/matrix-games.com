@@ -23,6 +23,12 @@
 	$GLOBALS['MONTHLY_LOGFILE'] = 'logs/'.date('Y.m').'.log';
 
 	/**
+	 * Максимальное количество игр(полей) для сохранения.
+	 * Сделано для агитации игрока выбрать из существующих полей игру и попытаться обыграть.
+	 */
+	$GLOBALS['LAYOUT_AMOUNT'] = 5;   # штук
+
+	/**
 	 * Время жизни расклада(слоя) в случае если есть пять и более сохраненных попыток.
 	 */
 	$GLOBALS['LAYOUT_EXPIRY'] = 18;   # дней
@@ -68,7 +74,7 @@
 
 		db_saver ();
 
-		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {  // TODO  Переделать все строки логирования или вывода к формату без лишних кавычек(склеивания через точки).
+		foreach ($GLOBALS['DEFAULT_GAME_LIST_ORDER'] as $game => $order) {
 			$id_list = getTransitGameIdList($game);
 
 			$scoreMin = getScoreMinByGame($game);
@@ -76,8 +82,8 @@
 				$entry = getTransitGameEntry($game, $id);
 				$author_name = getUserLogin($entry['author']);
 				$diff = date_timestamp_get(date_create()) - date_timestamp_get(date_create($entry['datetime']));
-				// if ($diff < 10800) // 3 часа
-				// 	continue;
+				if ($diff < 10800) // 3 часа
+					continue;
 
 				if ($entry['score'] <= $scoreMin) {
 					if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
@@ -93,7 +99,7 @@
 
 				if (!$entry['layoutId']){
 					$count = getUserLayoutAmount ($game, $entry['author']);
-					if ($count >= 5){ // TODO Количество разрешенных игр перевести в глобальную переменную.
+					if ($count >= $GLOBALS['LAYOUT_AMOUNT']){
 						if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
 							log_to_file("INFO Попытка игры удалена без сохранения, уже сохранено $count игр пользователем:
 								- игра: $game

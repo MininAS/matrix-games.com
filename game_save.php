@@ -21,9 +21,10 @@
 			exit();
 
 	if (!preg_match('~^[0-9/]+$~', $canvasLayoutId)) {
-		log_file('ERROR Неверные входящие данные с игрового поля:
-			- id поля: '.$canvasLayoutId.'
-		    - данные: '.$canvasLayoutData);
+		log_file("ERROR Неверные входящие данные с игрового поля:
+				- id поля: $canvasLayoutId
+				- данные: $canvasLayoutData
+		");
 		exit('
 			{
 				"res": "110",
@@ -33,10 +34,11 @@
 	}
 
 	if (!preg_match('~^[0-9]{13}_[a-zA-Z]{13}$~', $transitionalKey)) {
-		log_file('ERROR Ломаный транзитный ключ:
-			- id поля: '.$canvasLayoutId.'
-		    - данные: '.$canvasLayoutData.'
-		    - транзитный ключ: '.$transitionalKey);
+		log_file("ERROR Ломаный транзитный ключ:
+			- id поля: $canvasLayoutId
+		    - данные: $canvasLayoutData
+		    - транзитный ключ: $transitionalKey
+		");
 		exit('
 			{
 				"res": "110",
@@ -71,14 +73,13 @@
 
 	if ($canvasLayoutId == "0") {
 		$count = getUserLayoutAmount ($theme, $_SESSION["id"]);
-		if ($count >= 5){ // TODO Количество разрешенных игр перевести в глобальную переменную.
+		if ($count >= $GLOBALS['LAYOUT_AMOUNT']){
 			if (f_deleteGameFromTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey))
-				log_file('
-					INFO Попытка игры удалена без сохранения, уже сохранено '.$count.' игр пользователем:
-					- id поля: '.$canvasLayoutId.'
-					- данные: '.$canvasLayoutData.'
-					- транзитный ключ: '.$transitionalKey
-				);
+				log_file("INFO Попытка игры удалена без сохранения, уже сохранено $count игр пользователем:
+					- id поля: $canvasLayoutId
+					- данные: $canvasLayoutData
+					- транзитный ключ: $transitionalKey
+				");
 			exit('
 				{
 					"res": "100",
