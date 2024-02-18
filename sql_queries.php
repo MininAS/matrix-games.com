@@ -168,7 +168,8 @@
 	 * Возвращает лучшего игрока на поле с данными.
 	 * @param string $game наименование игры
 	 * @param int $canvasLayoutId идентификатор игры
-	 * @return array id идентификатор,
+	 * @return array при отсутствии записи - пустой массив, иначе:
+	 *               id идентификатор,
 	 *               login логин,
 	 *               lang язык установленный пользователем,
 	 *               score сумма очков в этом поле,
@@ -183,7 +184,7 @@
 			ORDER BY score DESC, xod, tb.data, tb.time LIMIT 1;");
 		$count = mysqli_num_rows($result);
 		if ($count != 1)
-            return "none";
+            return array();
 		$data = mysqli_fetch_row($result);
 		$array = array (
 			"id" =>    $data[0],
@@ -217,6 +218,7 @@
 		$result = f_mysqlQuery("
 			SELECT id
 			FROM games_".$game."_transit
+			ORDER BY id
 		");
 		$rows = [];
 		while($row = mysqli_fetch_row($result))

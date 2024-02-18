@@ -14,7 +14,7 @@ var CursorY = 1;			//Смещение курсора в массиве №4
 var CursorX = 1;			//Смещение курсора в массиве №4
 var flag_DOWN = false;		//Флаг для падения фигуры
 var flag_STOP = false;		//Флаг для разрешения спуска
-var flag_LINE = false;		//Флаг для распознования целой линий
+var flag_LINE = false;		//Флаг для распознавание целой линий
 var flag_ROTATE = true;		//Флаг для запрета поворота
 var flag_NEWGAME = false;	//Флаг для новой игры
 var flag_OLDGAME = false;	//Флаг для старой игры
@@ -76,13 +76,25 @@ document.onkeydown = f_KeyPress;
 document.onmousedown = function f_Click(event) {
 	if (flag_PLAY == true) {
 		e = (event) ? event : window.event;
-		if (e.button == 2 || e.button == 4) { clearTimeout(timeout_id); flag_DOWN = true; f_Tetris(); e.stopPropagation(); e.preventDefault(); return false; }
+		if (e.button == 2 || e.button == 4) {
+			clearTimeout(timeout_id);
+			flag_DOWN = true;
+			f_Tetris();
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		}
 	}
 }
 document.onmouseup = function f_Click(event) {
 	if (flag_PLAY == true) {
 		e = (event) ? event : window.event;
-		if (e.button == 2) { flag_DOWN = false; e.stopPropagation(); e.preventDefault(); return false; }
+		if (e.button == 2) {
+			flag_DOWN = false;
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		}
 	}
 }
 function f_KeyPress(event) {
@@ -90,7 +102,14 @@ function f_KeyPress(event) {
 		event = (event) ? event : window.event;
 		evt = (event.keyCode) ? event.keyCode : event.which;
 		if (evt == 87 || evt == 38) { f_RotateFigure(); return false; }
-		if (evt == 83 || evt == 40) { clearTimeout(timeout_id); flag_DOWN = true; f_Tetris(); event.stopPropagation(); event.preventDefault(); return false; }
+		if (evt == 83 || evt == 40) {
+			clearTimeout(timeout_id);
+			flag_DOWN = true;
+			f_Tetris();
+			event.stopPropagation();
+			event.preventDefault();
+			return false;
+		}
 		if (evt == 65 || evt == 37) { i_V = 1; f_MoveFigure(); return false; }
 		if (evt == 68 || evt == 39) { i_V = 2; f_MoveFigure(); return false; }
 		if (evt == 32) { f_windowInfoPopup('pause'); return false; }
@@ -100,7 +119,12 @@ document.onkeyup = function f_KeyUp(event) {
 	if (flag_PLAY == true) {
 		event = (event) ? event : window.event;
 		evt = (event.keyCode) ? event.keyCode : event.which;
-		if (evt == 1099 || evt == 40) { flag_DOWN = false; event.stopPropagation(); event.preventDefault(); return false; }
+		if (evt == 1099 || evt == 40) {
+			flag_DOWN = false;
+			event.stopPropagation();
+			event.preventDefault();
+			return false;
+		}
 	}
 }
 
@@ -122,6 +146,7 @@ function StartLayers() {
 	}
 	setTimeout("f_Tetris ()", 1000);
 }
+
 //Определяем координаты квадратов следующей фигуры
 function f_Tetris() {
 	if (flag_PAUSE == false && flag_OLDGAME == false && flag_NEWGAME == false && flag_GAMEOVER == false) {
@@ -263,11 +288,11 @@ function f_Tetris() {
 			}
 		}
 	}
-	if (flag_NEWGAME == true) f_newFigure();
+	if (flag_NEWGAME) f_newFigure();
 	else {
-		if (flag_OLDGAME == true) f_oldFigure(i_canvasState);
+		if (flag_OLDGAME) f_oldFigure(i_canvasState);
 		else {
-			if (flag_DOWN == true) i_SpeedTmp = 30;
+			if (flag_DOWN) i_SpeedTmp = 30;
 			timeout_id = setTimeout("f_Tetris ()", i_SpeedTmp);
 			i_SpeedTmp = i_Speed;
 		}

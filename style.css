@@ -17,7 +17,9 @@ i, a, ul, li, ol, p, form, img, table{
 table, td.grand {
 	width: 100%;
 }
+
 td {
+	border: 0px;
 	padding: 5px;
 }
 

@@ -54,6 +54,7 @@
 	if (!$gameIsFinished)
 		exit();
 
+	log_to_file("<<< --- --- --- <<< game_save.php");
     $scoreMin = getScoreMinByGame($theme);
 	if ($score <= $scoreMin) {
 		if (f_deleteGameFromTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey))
@@ -132,8 +133,5 @@
 					"message": "'._l("Gamebook/The game has saved.").'"
 				}
 			');
-
-
 	}
-
 ?>

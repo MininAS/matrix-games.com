@@ -148,7 +148,7 @@ function f_windowInfoPopup(s_name, s_text) {
 
 	switch (s_name) {
 		case 'pause':
-			e_windowInfoText.innerHTML = "<p class = 'very-big'>" + _l("Pause") + "</p>" + _l("To unpause game, click on this window.");
+			e_windowInfoText.innerHTML = "<center><p class = 'very-big'>" + _l("Pause") + "</p>" + _l("To unpause game, click on this window.") + "<center>";
 			break;
 		case 'user_top':
 			f_fetchUpdateContent('info_div', 'top_user_statistic.php?user=' + s_text, null);

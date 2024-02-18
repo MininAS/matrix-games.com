@@ -511,7 +511,7 @@
 			WHERE id_game=".$canvasLayoutId.";
 		");
 		if (!mysqli_num_rows($result)){
-			log_to_file("Не была найдена игра в таблице games_".$theme." с id_game=".$canvasLayoutId.")");
+			log_to_file("Не была найдена игра с id_game=$canvasLayoutId в таблице games_$theme ");
 			return 300;
 		}
 
@@ -573,7 +573,7 @@
 	 * @param int $canvasLayoutId идентификатор слоя.
 	 */
 	function removeGameCanvas($game, $canvasLayoutId, $medal = 10) {
-		log_to_file("-----------------------------------------------------
+		log_to_file("<<< --- --- --- <<< function.php / removeGameCanvas
 					 Удаление игры "._l("Game names/".$game, "rus")."(".$game."), поле - ".$canvasLayoutId.".
 		             Призовое место - ".$medal.".");
 		$attemptAmount = getAttemptAmount($game, $canvasLayoutId);
@@ -631,7 +631,7 @@
 		f_saveTecnicMessage (0, $bestPlayer["id"], $message);
 
 		log_to_file("Процедура удаления завершена.
-			---------------------------------------------------");
+			>>> --- --- --- >>>");
 		return true;
 	}
 ?>

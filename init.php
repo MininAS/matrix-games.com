@@ -117,19 +117,29 @@
 				}
 				else{
 					$bestPlayer = getLayoutBestPlayer ($game, $entry['layoutId']);
-					if ($bestPlayer['id'] != $entry['author'])
-						f_saveGameLikeAttempt(
-							$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
-							$entry['transitionalKey'], $entry['score'],    $entry['moves']
-						);
+					if(!!$bestPlayer){
+						if ($bestPlayer['id'] != $entry['author'])
+							f_saveGameLikeAttempt(
+								$entry['author'],  $game,  $entry['layoutId'], $entry['layoutData'],
+								$entry['transitionalKey'], $entry['score'],    $entry['moves']
+							);
+						else
+							if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
+								log_to_file("INFO Попытка игры удалена без сохранения, игрок уже ведет в этом поле:
+									- игра: $game
+									- игрок: $author_name({$entry['author']})
+									- id поля: {$entry['layoutId']}
+									- транзитный ключ: {$entry['transitionalKey']}
+								");
+					}
 					else{
 						if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
-							log_to_file("INFO Попытка игры удалена без сохранения, игрок уже ведет в этом поле:
-								- игра: $game
-								- игрок: $author_name({$entry['author']})
-								- id поля: {$entry['layoutId']}
-								- транзитный ключ: {$entry['transitionalKey']}
-							");
+								log_to_file("INFO Попытка игры удалена без сохранения, игра не была найдена в базе данны:
+									- игра: $game
+									- игрок: $author_name({$entry['author']})
+									- id поля: {$entry['layoutId']}
+									- транзитный ключ: {$entry['transitionalKey']}
+								");
 					}
 				}
 			}
