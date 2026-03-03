@@ -1,16 +1,16 @@
-#RewriteEngine On
-#RewriteCond %{ENV:HTTPS} !on
-#RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-        
 RewriteEngine On
-RewriteCond %{ENV:HTTPS} =on
-RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-  
 
+# Определяем, локальный ли это доступ
+RewriteCond %{HTTP_HOST} ^matrix-games\.local\.ru$ [NC]
+RewriteRule ^ - [E=IS_LOCAL:1]
+
+# HTTPS редирект только для продакшена
+RewriteCond %{ENV:IS_LOCAL} !1
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <Files ~ "^(db_saver|auth|sess|function|menu|display)\.php$">
-Deny from all
+    Deny from all
 </Files>
 
 AddDefaultCharset utf-8

@@ -41,7 +41,7 @@ function f_createGame() {
 	var myElement = document.createElement('p');
 	document.getElementById('nextFigure').appendChild(myElement);
 	myElement.className = 'big';
-	myElement.innerHTML = _l("T h e  n e x t  s t o n e");
+	myElement.innerHTML = _l("T h e  n e x t  s t o n e", myElement);
 
 	var myElement = document.createElement('img');
 	document.getElementById('nextFigure').appendChild(myElement);

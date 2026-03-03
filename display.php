@@ -17,8 +17,8 @@
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=24">
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.5'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.6'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16.1'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v18.1 - 01.02.2024)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v18.2 - 03.02.2026)</p>
 			</div>
 		</div>
 	</div>

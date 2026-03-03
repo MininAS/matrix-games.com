@@ -1,14 +1,25 @@
 <?php
-    $DB_localhost = @mysqli_connect("localhost", "mininas", "3214");
-	$DB_ru =        @mysqli_connect("matrix-gam.mysql", "matrix-gam_mysql", "C_jrLY4b");
-	$DB_Connection = $DB_ru ?: ($DB_localhost ?: false);
+	$DB_ru = @mysqli_connect("localhost", "u3169832_default", "8td2NYumUsuT7D2S");
+	$DB_localhost = @mysqli_connect("localhost", "mininas", "3214");
+
+	if ($DB_ru && $DB_ru->connect_errno === 0) {
+		$DB_Connection = $DB_ru;
+		$db_name = "u3169832_default";
+		if ($DB_localhost) mysqli_close($DB_localhost);
+	} elseif ($DB_localhost && $DB_localhost->connect_errno === 0) {
+		$DB_Connection = $DB_localhost;
+		$db_name = "matrix-gam_db";
+		if ($DB_ru) mysqli_close($DB_ru);
+	} else {
+		$DB_Connection = false;
+	}
 
 	if ($DB_Connection){
 	    mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
         $DB = mysqli_select_db ($DB_Connection, "matrix-gam_db");
 		if (!$DB){
 			log_to_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
-			$GLOBALS['INSTANT_MESSAGE'] = _l("Database was not connected by some reason.");
+			$GLOBALS['INSTANT_MESSAGE'] = "Database was not connected by some reason.";
 		}
 	} else {
 		log_to_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());

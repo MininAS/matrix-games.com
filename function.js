@@ -144,7 +144,7 @@ function getXmlHttp() {
 // Определение содержимого информационного окна -----------------------------------------------------
 function f_windowInfoPopup(s_name, s_text) {
 	// if (!e_windowInfoText) return;
-	e_windowInfoText.innerHTML = _l("Server response awaiting ...");
+	e_windowInfoText.innerHTML = _l("Server response awaiting ...", e_windowInfoText);
 
 	switch (s_name) {
 		case 'pause':
