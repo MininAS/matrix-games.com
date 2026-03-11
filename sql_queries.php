@@ -1,27 +1,24 @@
 <?php
-	$DB_ru = @mysqli_connect("localhost", "u3169832_default", "8td2NYumUsuT7D2S");
-	$DB_localhost = @mysqli_connect("localhost", "mininas", "3214");
+	$DB_Connection = @mysqli_connect("localhost", "u3169832_default", "8td2NYumUsuT7D2S");
 
-	if ($DB_ru && $DB_ru->connect_errno === 0) {
-		$DB_Connection = $DB_ru;
+	if ($DB_Connection && $DB_Connection->connect_errno === 0) {
 		$db_name = "u3169832_default";
-		if ($DB_localhost) mysqli_close($DB_localhost);
-	} elseif ($DB_localhost && $DB_localhost->connect_errno === 0) {
-		$DB_Connection = $DB_localhost;
+	}
+	else {
+		if ($DB_Connection) mysqli_close($DB_Connection);
+		$DB_Connection = @mysqli_connect("localhost", "mininas", "3214");
 		$db_name = "matrix-gam_db";
-		if ($DB_ru) mysqli_close($DB_ru);
-	} else {
-		$DB_Connection = false;
 	}
 
 	if ($DB_Connection){
 	    mysqli_query ($DB_Connection, "SET NAMES 'utf8'");
-        $DB = mysqli_select_db ($DB_Connection, "matrix-gam_db");
+        $DB = mysqli_select_db ($DB_Connection, $db_name);
 		if (!$DB){
 			log_to_file ("Не удается подключиться к базе данных - ".mysqli_error($DB_Connection)."/n");
 			$GLOBALS['INSTANT_MESSAGE'] = "Database was not connected by some reason.";
 		}
-	} else {
+	}
+	else {
 		log_to_file ("Не удается найти сервер базы данных. ".mysqli_connect_error ());
 		$GLOBALS['INSTANT_MESSAGE'] = "SQL server was not connected by some reason.";
 		$DB = false;
