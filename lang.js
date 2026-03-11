@@ -2,10 +2,13 @@ window.translation_LIBRARY = [];
 window.translationCallbacks = [];
 
 function _l(str, element){
-	path = str.split ('/');
-	arr = window.translation_LIBRARY;
-	path.forEach(item => {
-		if (arr[item]) {
+	var path = str.split ('/');
+	var arr = window.translation_LIBRARY;
+	var lastItem = path[path.length - 1];
+
+	for (var i = 0; i < path.length; i++) {
+		item = path[i];
+		if (arr && arr[item] !== undefined) {
 		    arr = arr[item];
 		}
 		else {
@@ -15,10 +18,14 @@ function _l(str, element){
 					element: element
 				});
 			}
-			return str;
+			return lastItem;
 		}
-	});
-    return arr;
+	}
+
+    if (typeof arr === 'string') {
+        return arr;
+    }
+    return lastItem;
 }
 
 function getCookie(name) {
@@ -30,10 +37,7 @@ function getCookie(name) {
 
 
 fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1.5')
-	.then (response => {
-		if (response.status == 200)
-		    return response.json();
-	})
+    .then(response => response.status == 200 ? response.json() : [])
 	    .then (data => {
 			window.translation_LIBRARY = data;
 			window.translationCallbacks.forEach(item => {
@@ -41,3 +45,7 @@ fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1.5')
 			});
 			window.translationCallbacks = [];
 		})
+		.catch(error => {
+			console.error('Error loading language file:', error);
+			window.translation_LIBRARY = [];
+		});
