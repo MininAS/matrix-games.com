@@ -11,47 +11,70 @@ var CursorY = 1;
 var CursorX = 1;
 var CursorZ = 1;
 var flag_SCORE = false;
+var i_countBackToGame = 0;   // счетчик для блесток к возврату в игру
+
+e = document.getElementById('game');
+
+e.addEventListener('touchstart', function (e) {
+	e.preventDefault();
+});
+
+e.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (element && element.id && element.id.startsWith('mySquareX')) {
+		clearHighlight();
+        setHighlight(element);
+    }
+}, { passive: false });
+
+e.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    const touch = e.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (element && element.id && element.id.startsWith('mySquareX')) {
+        bouncer.call(element, e);
+    }
+});
 
 //Создаем массив игрового поля
 function f_createGame() {
-	document.getElementById('game').style.width = XxX * 24 + "px";
+	e.style.width = XxX * 24 + "px";
 	for (i = 1; i <= YyY; i++) {
 		for (ii = 1; ii <= XxX; ii++) {
 			var myElement = document.createElement('img');
-			document.getElementById('game').appendChild(myElement);
+			e.appendChild(myElement);
 			myElement.id = 'mySquareX' + ii + 'Y' + i;
 			myElement.onclick = bouncer;
-			myElement.onmouseover = visiblSquare;
-			myElement.onmouseout = visiblSquare;
+			myElement.onpointerover = visiblSquare;
+			myElement.onpointerout = visiblSquare;
 			myElement.i_x = ii;
 			myElement.i_y = i;
 			myElement.src = "img/stone_0.gif";
 		}
-		document.getElementById('game').appendChild(document.createElement('br'));
+		e.appendChild(document.createElement('br'));
 	}
-	var myElement = document.createElement('div');
-	document.getElementById('game_block').appendChild(myElement);
-	myElement.id = 'nextFigure';
-	myElement.classList.add('windowSite');
-	myElement.style.position = 'absolute';
-	myElement.style.top = 20 + 'px';
-	myElement.style.left = '-15px';
-	myElement.style.width = '24px';
 
-	var myElement = document.createElement('p');
-	document.getElementById('nextFigure').appendChild(myElement);
-	myElement.className = 'big';
-	myElement.innerHTML = _l("T h e  n e x t  s t o n e", myElement);
+	var layoutSpecific = document.getElementById('canvas_layout_specific')
+	layoutSpecific.classList.add('windowTitleTip');
 
 	var myElement = document.createElement('img');
-	document.getElementById('nextFigure').appendChild(myElement);
+	layoutSpecific.appendChild(myElement);
 	myElement.src = "img/stone_0.gif";
 	myElement.id = 'nextStone';
+	myElement.style.width = '16px';
+	myElement.style.height = '16px';
+
+	var myElement = document.createElement('i');
+	layoutSpecific.appendChild(myElement);
+	myElement.innerHTML = _l(" - next stone", myElement);
 
 	for (i = 0; i <= 7; i++)  // Предзагрузка
 	{
 		var myElement = document.createElement('img');
-		document.getElementById('game').appendChild(myElement);
+		e.appendChild(myElement);
 		myElement.style.display = 'none';
 		myElement.src = "img/stone_" + i + "2.gif";
 	}
@@ -173,24 +196,30 @@ function bouncer(evnt) {
 }
 
 function visiblSquare(e) {
-	if (flag_PLAY == true) {
-		evnt = e || window.event;
-		if (evnt.type == 'mouseover') {
-			document.images[SquareColorLayer1[this.i_x][YyY]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif";
-			for (i = 1; i <= (YyY - 1); i++) {
-				document.images[SquareColorLayer1[this.i_x][i]].style.backgroundColor = '#ddd';
-			}
-		}
-		if (evnt.type == 'mouseout') {
-			document.images[SquareColorLayer1[this.i_x][YyY]].src = "img/stone_0.gif";
-			for (i = 1; i <= (YyY - 1); i++) {
-				document.images[SquareColorLayer1[this.i_x][i]].style.backgroundColor = null;
-			}
-		}
-	}
+	if (!flag_PLAY) return;
+	e = e || window.event;
+	if (e.type == 'pointerover') setHighlight(this);
+	if (e.type == 'pointerout') clearHighlight();
 }
 
-//Подсчитываем количество кубиков
+function setHighlight(elm) {
+    const x = elm.i_x;
+    document.images[SquareColorLayer1[x][YyY]].src = "img/stone_" + SquareColorLayer4[CursorX][CursorY] + ".gif";
+    for (let y = 1; y <= (YyY - 1); y++) {
+        document.images[SquareColorLayer1[x][y]].style.backgroundColor = '#ddd';
+    }
+}
+
+function clearHighlight() {
+	for (let x = 1; x <= XxX; x++) {
+        document.images[SquareColorLayer1[x][YyY]].src = "img/stone_0.gif";
+        for (let y = 1; y <= YyY - 1; y++) {
+            document.images[SquareColorLayer1[x][y]].style.backgroundColor = null;
+        }
+    }
+}
+
+// Подсчитываем количество кубиков
 function addSquare(x_X, y_Y, f_F) {
 	CopyLayers();
 	Nsquare = 0;
@@ -220,9 +249,11 @@ function addSquare(x_X, y_Y, f_F) {
 	}
 	return (Nsquare);
 }
-//Рандомное закрашивание камней
+
+// Рандомное закрашивание камней
 function f_gameOver() {
-	if (flag_PLAY == false) {
+	if (flag_GAMEOVER) {
+		i_countBackToGame = 50;
 		for (i = 1; i <= 5; i++) {
 			i_SquareX = Math.ceil(Math.random() * XxX);
 			i_SquareY = Math.ceil(Math.random() * YyY);
@@ -231,8 +262,33 @@ function f_gameOver() {
 		}
 		setTimeout("f_gameOver ()", 20);
 	}
+	else if (i_countBackToGame > 1) {
+		i_countBackToGame -= 1;
+		for (i = 1; i <= 100; i++) {
+			i_SquareX = Math.ceil(Math.random() * XxX);
+			i_SquareY = Math.ceil(Math.random() * YyY);
+			i_color = Math.ceil(Math.random() * 6);
+			document.images[SquareColorLayer1[i_SquareX][i_SquareY]].src = 'img/stone_0.gif';
+		}
+		setTimeout("f_gameOver ()", 10);
+	}
+	else {
+		flag_PLAY=true;
+		CursorY = 1;
+		CursorX = 1;
+		CursorZ = 1;
+		document.getElementById('nextStone').src = "img/stone_" + SquareColorLayer4[2][1] + ".gif";
+		for (x = 1; x <= XxX; x++) {
+			document.images[SquareColorLayer1[x][YyY]].src = 'img/stone_0.gif';
+		}
+		clearHighlight();
+		if (i_countBackToGame == 0) {
+			scroll(); scroll(); scroll();
+		}
+		else i_countBackToGame = 0
+	}
 }
-//Копируем слой 2 в слой 3
+// Копируем слой 2 в слой 3
 function CopyLayers() {
 	for (CopyLayersX = 1; CopyLayersX <= XxX; CopyLayersX++) {
 		for (CopyLayersY = 1; CopyLayersY <= YyY; CopyLayersY++) {
@@ -240,7 +296,8 @@ function CopyLayers() {
 		}
 	}
 }
-//Заполняем случайным образом цвета кубов
+
+// Заполняем случайным образом цвета кубов
 function f_newGame() {
 	for (i = 1; i <= XxX; i++) {
 		for (ii = 1; ii <= YyY; ii++) {
@@ -252,10 +309,8 @@ function f_newGame() {
 			SquareColorLayer2[i][ii] = 0;
 		}
 	}
-	CursorY = 1;
-	CursorX = 1;
-	CursorZ = 1;
-	scroll(); scroll(); scroll();
+    flag_PLAY = false;
+	f_gameOver()
 }
 
 function f_oldGame() {
@@ -271,8 +326,6 @@ function f_oldGame() {
 			SquareColorLayer2[i][ii] = Number(0);
 		}
 	}
-	CursorY = 1;
-	CursorX = 1;
-	CursorZ = 1;
-	scroll(); scroll(); scroll();
+	flag_PLAY = false;
+	f_gameOver()
 }

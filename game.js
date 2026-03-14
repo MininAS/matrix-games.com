@@ -1,5 +1,5 @@
 const e_gameElementsContainer = document.getElementById('game');
-const e_layoutNumber = document.getElementById('game_sport')
+const e_layoutNumber = document.getElementById('canvas_layout_number')
 const e_scoreViewer = document.getElementById('myNballov')
 const e_topWindow = document.getElementById('user_top_middle')
 const e_newGameButton = document.getElementById('k_newGame')

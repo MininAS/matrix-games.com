@@ -43,12 +43,20 @@ body > #body {
 	z-index: 200;
 }
 	.windowTitle li {
+		display: flex;
 		border: 2px solid #555;
 		background-color: #bbb;
+	    align-items: center;
 		margin-top: -10px;
 		padding: 2px 10px;
 		border-radius: 4px;
 	}
+		.windowTitle li i {
+			display: flex;
+			align-items: center;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
 	#forum_primary, #forum_secondary {
 		transition: all .5s;
 		width: 26px;
@@ -61,6 +69,14 @@ body > #body {
 			border: 0px;
 			font-size: 0pt;
 		}
+
+.windowTitleTip {
+    align-self: center;
+	font-size: 8pt;
+	background-color: #eee;
+	padding: 4px;
+	border-radius: 3px;
+}
 
 /*=============== Низ сайта ==================================================*/
 

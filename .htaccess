@@ -1,7 +1,8 @@
 RewriteEngine On
 
 # Определяем, локальный ли это доступ
-RewriteCond %{HTTP_HOST} ^matrix-games\.local\.ru$ [NC]
+RewriteCond %{HTTP_HOST} ^matrix-games\.local\.ru$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^192\.168\.0\.107$ [OR]
 RewriteRule ^ - [E=IS_LOCAL:1]
 
 # HTTPS редирект только для продакшена

@@ -39,8 +39,10 @@
 	$body .= "
 	<div id = 'game_block' class = 'windowSite'>
 		<ul class = 'windowTitle'>
-			<li>"._l('Game names/'.$theme)."
-			    <i id = 'game_sport'> №".$canvasLayoutId."</i>
+			<li>
+				<i>"._l('Game names/'.$theme)."</i>
+			    <i id = 'canvas_layout_number'> №".$canvasLayoutId."</i>
+			    <i id = 'canvas_layout_specific'></i>
 			</li>
 		</ul>
 		<div id = 'game'></div>
@@ -48,8 +50,8 @@
 	<input id = 'canvasLayoutId' type= 'hidden' name='canvasLayoutId' value='".$canvasLayoutId."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.6'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.6'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.8'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.7'></script>";
 
 	require ("display.php");
 ?>
