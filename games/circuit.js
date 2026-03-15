@@ -1,3 +1,15 @@
+var XxX = 17;
+var YyY = 12;
+var i_ballov_1 = 0;
+var i_ballov_2 = 0;
+var s_e = String('');
+var flag_BRIDGING = false;
+var flag_SHIFT = false;
+var mouseX = 0;
+var mouseY = 0;
+var s_mess = "";
+var event_X, event_Y;
+
 var a_Element = new Array();
 for (i = 0; i <= 5; i++) {
 	a_Element[i] = new Array();
@@ -11,18 +23,6 @@ a_Element[2][1] = Array(1, 1, 0, 0); a_Element[2][2] = Array(0, 1, 1, 0); a_Elem
 a_Element[3][1] = Array(1, 1, 1, 0); a_Element[3][2] = Array(0, 1, 1, 1); a_Element[3][3] = Array(1, 0, 1, 1); a_Element[3][4] = Array(1, 1, 0, 1);
 a_Element[4][1] = Array(1, 1, 1, 1);
 a_Element[5][1] = Array(0, 1, 0, 1);
-
-var XxX = 17;
-var YyY = 12;
-var i_ballov_1 = 0;
-var i_ballov_2 = 0;
-var s_e = String('');
-var flag_BRIDGING = false;
-var flag_SHIFT = false;
-var mouseX = 0;
-var mouseY = 0;
-var s_mess = "";
-var event_X, event_Y;
 
 function f_createGame() {
 	e = document.getElementById('game')
@@ -114,7 +114,7 @@ function f_Game() {
 			}
 		}
 		if (flag_OK == false) {
-			document.getElementById('k_endGame').style.display = 'inline-block';
+			e_saveGameBottomDisplay.style.display = 'inline-block';
 			flag_BRIDGING = false;
 			flag_DOWN = false;
 			e_scoreViewer.innerHTML = i_score;
@@ -211,9 +211,7 @@ function f_Verify() {
 	i_ballov_2 = 0;
 	flag_BRIDGING = false;
 
-
 	// Устанавливаем стартовые элементы
-
 	document.getElementById('eX2Y' + YyY).charge = 1;
 	document.getElementById('eX' + (XxX - 1) + 'Y' + YyY).charge = 3;
 
@@ -326,7 +324,7 @@ function f_Verify() {
 }
 // Обнуляем
 function f_newGame() {
-	document.getElementById('k_endGame').style.display = 'none';
+	e_saveGameBottomDisplay.style.display = 'none';
 	for (i = 1; i <= YyY; i++) {
 		e = document.getElementById('eX1Y' + i);
 		e.nomer = 5;

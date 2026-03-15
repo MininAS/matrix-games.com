@@ -3,6 +3,7 @@ const e_layoutNumber = document.getElementById('canvas_layout_number')
 const e_scoreViewer = document.getElementById('myNballov')
 const e_topWindow = document.getElementById('user_top_middle')
 const e_newGameButton = document.getElementById('k_newGame')
+const e_saveGameBottomDisplay = document.getElementById('k_endGame');
 
 var s_theme = document.getElementById('theme').value;
 var i_canvasLayoutId = parseInt(document.getElementById('canvasLayoutId').value);
@@ -100,6 +101,7 @@ function f_saveGame(flag_gameIsFinished = false) {
 	if (flag_gameIsFinished) {
 		flag_PLAY = false;
 		flag_GAMEOVER = true;
+		e_saveGameBottomDisplay.style.display = 'none';
 		f_requestAndHandleForPopup('game_save.php', parameters, f_updateUserTopList);
 	}
 	else {

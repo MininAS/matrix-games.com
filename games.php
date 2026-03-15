@@ -50,8 +50,8 @@
 	<input id = 'canvasLayoutId' type= 'hidden' name='canvasLayoutId' value='".$canvasLayoutId."'/>
 	<input id = 'theme' type= 'hidden' name='theme' value='".$theme."'/>
 
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.8'></script>
-	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.7'></script>";
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'games/".$theme.".js?lastVersion=18.9'></script>
+	<script defer type = 'text/javascript' language = 'JavaScript' src = 'game.js?lastVersion=15.8'></script>";
 
 	require ("display.php");
 ?>
