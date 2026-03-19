@@ -308,34 +308,45 @@
 			$row = mysqli_fetch_row($result);
 			$text .= "\n".$row[1].";";
 			fwrite($fp,$text);
-			$text = "";
-			$text .="
 
-	--
-	-- Дамп данных таблицы ".$item."
-	--
-			";
-			$text .= "\nINSERT INTO `".$item."` VALUES";
-			fwrite($fp,$text);
+
+
+			// Получаем данные таблицы
 			$sql2 = "SELECT * FROM `".$item."`";
 			$result2 = f_mysqlQuery($sql2);
-			$text = "";
-			for($i = 0; $i < mysqli_num_rows($result2); $i++){
-				$row = mysqli_fetch_row($result2);
-				if($i == 0) $text .= "\n(";
-				else  $text .= ",\n(";
-				foreach($row as $v){
-					$text .= "'".mysqli_real_escape_string($DB_Connection, $v)."',";
+			$num_rows = mysqli_num_rows($result2);
+
+			// Создаем INSERT только если есть данные
+			if($num_rows > 0) {
+				$text = "";
+
+				$text .="
+		--
+		-- Дамп данных таблицы ".$item."
+		--
+				";
+				$text .= "\nINSERT INTO `".$item."` VALUES";
+				fwrite($fp,$text);
+				$sql2 = "SELECT * FROM `".$item."`";
+				$result2 = f_mysqlQuery($sql2);
+				$text = "";
+				for($i = 0; $i < mysqli_num_rows($result2); $i++){
+					$row = mysqli_fetch_row($result2);
+					if($i == 0) $text .= "\n(";
+					else  $text .= ",\n(";
+					foreach($row as $v){
+						$text .= "'".mysqli_real_escape_string($DB_Connection, $v)."',";
+					}
+					$text = rtrim($text,",");
+					$text .= ")";
+					if($i > 10){
+						fwrite($fp,$text);
+						$text = "";
+					}
 				}
-				$text = rtrim($text,",");
-				$text .= ")";
-				if($i > 10){
-					fwrite($fp,$text);
-					$text = "";
-				}
+				$text .= ";\n";
+				fwrite($fp,$text);
 			}
-			$text .= ";\n";
-			fwrite($fp,$text);
 		}
 		fclose($fp);
 	}
