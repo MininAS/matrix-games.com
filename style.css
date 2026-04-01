@@ -2,7 +2,7 @@
 @import url("/style_text.css");
 @import url("/style_popup.css");
 @import url("/style_forum.css?lastVersion=1");
-@import url("/style_game.css");
+@import url("/style_game.css?lastVersion=2");
 @import url("/style_menu.css");
 
 /*=============== Default ====================================================*/
@@ -299,7 +299,7 @@ input, textarea, select, .border_inset  {
 	cursor: pointer;
 }
 
-#k_pauseGame, #k_endGame, #k_sound, #k_revert{
+#k_pauseGame, #k_sound, #k_revert{
 	display: none;
 }
 .submit {

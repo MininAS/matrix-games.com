@@ -16,7 +16,6 @@ switch($_GET["lang"]){
 			<tr><td><img src = 'img/k_pause.png' alt='Pause'/></td><td> - necessary in some games if you decide to leave game for a short time.</td></tr>
 			<tr><td><img src = 'img/k_new_game.png' alt='New game'/></td><td> - in play mode to start a new play combination.</td></tr>
 			<tr><td><img src = 'img/k_revert.png' alt='New game'/></td><td> - in play mode to revert one step back.</td></tr>
-			<tr><td><img src = 'img/k_save.png' alt='Save game'/></td><td> - in some games for manual saving (for example "Shot circuit").</td></tr>
 			<tr><td><img src = 'img/k_sound_on.png' alt='Sound'/></td><td> - turn on and off the sound.</td></tr>
 			<tr><td><img src = 'img/k_lang_rus.png' alt='Lang'/></td><td> - language change - Russian / English.</td></tr>
 	    </table>
@@ -52,7 +51,6 @@ switch($_GET["lang"]){
 			<tr><td><img src = 'img/k_pause.png' alt='Pause'/></td><td> - необходима в некоторых играх если вы вздумали отлучиться на не долго.</td></tr>
 			<tr><td><img src = 'img/k_new_game.png' alt='New game'/></td><td> - в режиме игры для начала новой комбинации игры.</td></tr>
 			<tr><td><img src = 'img/k_revert.png' alt='New game'/></td><td> - в режиме игры отменяет последний сделанный шаг.</td></tr>
-			<tr><td><img src = 'img/k_save.png' alt='Save game'/></td><td> - в некоторых играх для ручного сохранения (например "Замыкание").</td></tr>
 			<tr><td><img src = 'img/k_sound_on.png' alt='Sound'/></td><td> - включение и выключение звука.</td></tr>
 			<tr><td><img src = 'img/k_lang_rus.png' alt='Lang'/></td><td> - смена языка - русский/английский.</td></tr>
 	    </table>

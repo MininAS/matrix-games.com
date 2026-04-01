@@ -85,11 +85,6 @@
 				<img src = 'img/k_revert.png' alt='"._l('Tooltips/Revert')."'/>
 			</a>
 		</li>
-		<li id = 'k_endGame'>
-			<a href = '#' onClick = 'f_saveGame(true);'>
-				<img src = 'img/k_save.png' alt='"._l('Tooltips/Save game')."'/>
-			</a>
-		</li>
 		";
 	}
 	if ($_SESSION['dopusk'] == 'admin' && $_SESSION["page"] != "admin" && $_SESSION["page"] != "game")

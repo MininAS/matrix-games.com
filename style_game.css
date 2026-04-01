@@ -8,23 +8,23 @@
 	z-index: 999;
 }
 
-/*=============== Некоторые настройки окон в играх ===========================*/
+/* =============== Некоторые настройки окон в играх =========================== */
 #game_block {
-  height: 100%;
+    height: 100%;
 }
-  #game {
-    margin: 20px auto;
-    font-size: 0em;
-  }
-    #tag_Mine {
-      top: 50px;
-      left: 15%;
+    #game {
+        margin: 20px auto;
+        font-size: 0em;
     }
-      #tag_Mine img {
-        height: 100%;
-        width: 30px;
-      }
-      #tag_Mine p {
-        position: absolute;
-        display: block;
-      }
+        #tag_Mine {
+            top: 50px;
+            left: 15%;
+        }
+        #tag_Mine img {
+            height: 100%;
+            width: 30px;
+        }
+        #tag_Mine p {
+            position: absolute;
+            display: block;
+        }

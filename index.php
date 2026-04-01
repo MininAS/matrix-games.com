@@ -16,7 +16,7 @@
 		<a href = 'games.php?theme=".$game_name."'>
 		";
 		$body .= "
-				<img id = '".$game_name."' class = 'border_inset' src = 'img/".$game_name."_.gif?lastVersion=4' alt = 'Gamebox'>
+				<img id = '".$game_name."' class = 'border_inset' src = 'img/".$game_name."_.gif?lastVersion=5' alt = 'Gamebox'>
 				<i class = 'big'>"._l('Game names/'.$game_name)."</i><br/>
 				<i>"._l('Taglines/'.$game_name)."</i>
 		</a>
