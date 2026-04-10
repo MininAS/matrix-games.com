@@ -63,7 +63,7 @@
 	 *  - резервное сохранение БД;
 	 *  - сохранение игр(слоев, попыток) из транзитной таблицы в постоянную при условиях, что:
 	 *     - игра была создана во временном хранилище менее чем 3 часа назад,
-	 *     - количество очков больше минимального,
+	 *     - количество очков и ходов больше минимального,
 	 *     - если новая, то полей должно быть не более 5-ти;
 	 *  - удаление игр с флагом (remove = 1) с определение призовых мест.
 	 */
@@ -78,6 +78,7 @@
 			$id_list = getTransitGameIdList($game);
 
 			$scoreMin = getScoreMinByGame($game);
+			$minMoves = getMinMovesByGame($game);
 			foreach ($id_list as $id){
 				$entry = getTransitGameEntry($game, $id);
 				$author_name = getUserLogin($entry['author']);
@@ -85,9 +86,9 @@
 				if ($diff < 10800) // 3 часа
 					continue;
 
-				if ($entry['score'] <= $scoreMin) {
+				if ($entry['score'] <= $scoreMin || $entry['moves'] <= $minMoves) {
 					if (f_deleteGameFromTransit($entry['author'], $game, $entry['layoutId'], $entry['layoutData'], $entry['transitionalKey']))
-						log_to_file("INFO Попытка игры удалена без сохранения, мало баллов {$entry['score']} <= $scoreMin:
+						log_to_file("INFO Попытка игры удалена без сохранения, мало баллов или ходов {$entry['score']} <= $scoreMin, {$entry['moves']} <= $minMoves:
 							- игра: $game
 							- игрок: $author_name({$entry['author']})
 							- id поля: {$entry['layoutId']}

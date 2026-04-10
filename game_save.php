@@ -56,10 +56,11 @@
 
 	log_to_file("<<< --- --- --- <<< game_save.php");
     $scoreMin = getScoreMinByGame($theme);
-	if ($score <= $scoreMin) {
+	$minMoves = getMinMovesByGame($theme);
+	if ($score <= $scoreMin || $moves <= $minMoves) {
 		if (f_deleteGameFromTransit($_SESSION["id"], $theme, $canvasLayoutId, $canvasLayoutData, $transitionalKey))
 		    log_file('
-				INFO Попытка игры удалена без сохранения, мало баллов:
+				INFO Попытка игры удалена без сохранения, мало баллов или ходов:
 				- id поля: '.$canvasLayoutId.'
 				- данные: '.$canvasLayoutData.'
 				- транзитный ключ: '.$transitionalKey

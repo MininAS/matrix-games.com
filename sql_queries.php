@@ -219,6 +219,20 @@
 	}
 
 	/**
+	 * Возвращает минимально допустимое количество ходов для сохранения игры.
+	 * @param string $game имя игры
+	 */
+	function getMinMovesByGame($game){
+		$result = f_mysqlQuery("
+			SELECT minMoves
+			FROM games
+			WHERE name='".$game."'
+		");
+		$data = mysqli_fetch_row($result);
+		return $data[0];
+	}
+
+	/**
 	 * Возвращает список идентификаторов записей в транзитной таблице.
 	 * @param string $game имя игры
 	 */
