@@ -26,6 +26,7 @@ a_Element[4][1] = Array(1, 1, 1, 1);
 function f_createGame() {
 	e = document.getElementById('game')
 	e.style.width = XxX * 40 + "px";
+	e.oncontextmenu = new Function("return false;");
 
 	// Создаем элементы игрового поля
 	for (i = 1; i <= YyY; i++) {
@@ -42,6 +43,7 @@ function f_createGame() {
 				f_Verify.call(this);
 			});
 			e.onclick = f_Turn;
+			e.onmousedown = f_Turn_R;
 		}
 	}
 	window.cross_blue = document.getElementById('eX1Y1');
@@ -60,12 +62,38 @@ function f_Turn() {
 	}
 }
 
+function f_Turn_R(e) // Правая кнопка мыши
+{
+	if (flag_BRIDGING != true && flag_PLAY == true) {
+		if (e.button == 2) {
+			if (this.nomer == 4) return
+			flag_PLAY = false;
+			this.angle -= 1;
+			this.src = 'img/bridging_' + this.nomer + '.jpg';
+			this.style.transform = 'rotate(' + ((this.angle - 1) * 90) + 'deg)';
+			i_motion++;
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		}
+	}
+}
+
 function f_checkRotateAngle() {
 	if (this.angle == 5) {
 		this.angle = 1;
 		current = this.style.transition;
 		this.style.transition = 'none';
 		this.style.transform = 'rotate(0deg)';
+		setTimeout(() => {
+			this.style.transition = current;
+		}, 0);
+	}
+	if (this.angle == 0) {
+		this.angle = 4;
+		current = this.style.transition;
+		this.style.transition = 'none';
+		this.style.transform = 'rotate(270deg)';
 		setTimeout(() => {
 			this.style.transition = current;
 		}, 0);
