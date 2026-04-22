@@ -51,7 +51,8 @@
 				<td>";
 				$result = f_mysqlQuery ("
 					SELECT  `id_user`, MAX(  `score` ) AS  `ms`
-					FROM  `games_".$theme."_med`
+					FROM  `games_".$theme."_med`, `users`
+			        WHERE  `users`.`id` =  `games_".$theme."_med`.`id_user`
 					GROUP BY  `id_user`
 					ORDER BY  `ms` DESC
 					LIMIT 5;
