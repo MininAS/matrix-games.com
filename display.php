@@ -18,7 +18,7 @@
 
 	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=26.2">
 	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.63'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16.2'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16.3'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v19.2.1 - 22.04.2026)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v19.3 - 26.05.2026)</p>
 			</div>
 		</div>
 	</div>

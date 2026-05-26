@@ -17,10 +17,10 @@ e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
 animeWindows = document.getElementsByClassName('winPreshowGameItem');
 for (var i = 0; i < animeWindows.length; i++) {
 	animeWindows[i].onmouseenter = function () {
-		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '.gif?lastVersion=4';
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '.gif?lastVersion=6';
 	}
 	animeWindows[i].onmouseleave = function () {
-		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '_.gif?lastVersion=4';
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '_.gif?lastVersion=6';
 	}
 }
 

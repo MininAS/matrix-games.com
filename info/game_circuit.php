@@ -5,7 +5,7 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
         Two poles are placed of the right and left corners -
         do a short circuit between them by turning and connecting them in a serial chain.
-        You can get even more points by connecting the lamps.<br>
+        You can get even more points by connecting lamps for different sides. <br>
         <?php
         break;
 
@@ -14,7 +14,7 @@ switch($_GET["lang"]){
 		&nbsp&nbsp&nbsp&nbsp
         По углам находятся два полюса - устройте между ними короткое замыкание,
         поворачивая и соединяя их в последовательную цепочку.
-        Еще больше очков можно получить, подключая лампочки.<br>
+        Еще больше очков можно получить, подключая лампочки с разных сторон.<br>
 		<?php
 }
 ?>
