@@ -59,7 +59,7 @@ function f_Turn() {
 		if (this.number == 4) return
 		flag_PLAY = false;
 		this.angle += 1;
-		this.src = 'img/bridging_' + this.number + '.jpg?v=2';
+		this.src = 'img/bridging_' + this.number + '.jpg?v=' + version;
 		this.style.transform = 'rotate(' + ((this.angle - 1) * 90) + 'deg)';
 		i_motion++;
 	}
@@ -72,7 +72,7 @@ function f_Turn_R(e) // Правая кнопка мыши
 			if (this.number == 4) return
 			flag_PLAY = false;
 			this.angle -= 1;
-			this.src = 'img/bridging_' + this.number + '.jpg?v=2';
+			this.src = 'img/bridging_' + this.number + '.jpg?v=' + version;
 			this.style.transform = 'rotate(' + ((this.angle - 1) * 90) + 'deg)';
 			i_motion++;
 			e.stopPropagation();
@@ -201,10 +201,10 @@ function f_Verify() {
 			for (x = 1; x <= XxX; x++) {
 				e = layout[y][x];
 				if (e.number == 0) {
-					e.src = 'img/bridging_0_5.jpg?v=2';
+					e.src = 'img/bridging_0_5.jpg?v=' + version;
 					continue;
 				}
-				if (e.charge != 0 ) e.src = 'img/bridging_' + e.number + '_3.jpg?v=2';
+				if (e.charge != 0 ) e.src = 'img/bridging_' + e.number + '_3.jpg?v=' + version;
 			}
 		}
         f_saveGame(true);
@@ -215,12 +215,12 @@ function f_Verify() {
 			for (x = 1; x <= XxX; x++) {
 				e = layout[y][x];
 				if (e.number == 0) {
-					e.src = 'img/bridging_0_' + e.factor + '.jpg?v=2';
+					e.src = 'img/bridging_0_' + e.factor + '.jpg?v=' + version;
 					continue;
 				}
-				if (e.charge == 2) e.src = 'img/bridging_' + e.number + '_1.jpg?v=2';
-				if (e.charge == 4) e.src = 'img/bridging_' + e.number + '_2.jpg?v=2';
-				if (e.charge == 0) e.src = 'img/bridging_' + e.number + '.jpg?v=2';
+				if (e.charge == 2) e.src = 'img/bridging_' + e.number + '_1.jpg?v=' + version;
+				if (e.charge == 4) e.src = 'img/bridging_' + e.number + '_2.jpg?v=' + version;
+				if (e.charge == 0) e.src = 'img/bridging_' + e.number + '.jpg?v=' + version;
 			}
 		}
 		document.getElementById('myNballov').innerHTML = i_score;
@@ -237,7 +237,7 @@ function f_newGame() {
 			if (e.number == 1) e.angle = Math.ceil(Math.random() * 2);
 			else if (e.number == 4) e.angle = Number(1);
 			else e.angle = Math.ceil(Math.random() * 4);
-			e.src = 'img/bridging_' + e.number + '.jpg?v=2';
+			e.src = 'img/bridging_' + e.number + '.jpg?v=' + version;
 			e.charge = Number(0);
 			e.style.transform = 'rotate(' + ((e.angle - 1) * 90) + 'deg)';
 			i_canvasKeymap = i_canvasKeymap + e.number + e.angle;
@@ -268,7 +268,7 @@ function f_oldGame() {
 			e = layout[y][x];
 			e.number = Number(i_canvasKeymap.substr(qq, 1));
 			e.angle = Number(i_canvasKeymap.substr((qq + 1), 1));
-			e.src = 'img/bridging_' + e.number + '.jpg?v=2';
+			e.src = 'img/bridging_' + e.number + '.jpg?v=' + version;
 			e.style.transform = 'rotate(' + ((e.angle - 1) * 90) + 'deg)';
 			e.charge = Number(0);
 		}

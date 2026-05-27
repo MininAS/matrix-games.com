@@ -1,4 +1,9 @@
 <?php
+	/**
+	 * Версия сайта.
+	 */
+	$GLOBALS['VERSION'] = 19.3;
+
     // Инициализируем функции
 	require "function.php";
 

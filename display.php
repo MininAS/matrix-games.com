@@ -16,9 +16,9 @@
 	<meta name = "yandex-verification" content = "52be1ad7373487f5" />
 	<link rel = "SHORTCUT ICON" href = "img/icon.png">
 
-	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=26.2">
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=1.63'></script>
-	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=16.3'></script>
+	<link rel = "stylesheet" type = "text/css" href = "style.css?lastVersion=<?php echo ($GLOBALS['VERSION'])?>">
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'lang.js?lastVersion=<?php echo ($GLOBALS['VERSION'])?>'></script>
+	<script defer type = 'text/javascript' language = "JavaScript" src = 'function.js?lastVersion=<?php echo ($GLOBALS['VERSION'])?>'></script>
 	<script type = 'text/javascript' language = "JavaScript" src = '//vk.com/js/api/openapi.js?169'></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
 			<div id = 'sateVersion'>
 				<p class = 'small'><?php echo (_l('Now at site'))?>: <span id = 'onlineUser'></span></p>
 				<p class = 'small'><?php echo (_l('If you find some bug, please comment it'))?><br/>
-				<?php echo (_l('Regards Minin Aleksandr!'))?> (v19.3 - 26.05.2026)</p>
+				<?php echo (_l('Regards Minin Aleksandr!'))?> (v<?php echo ($GLOBALS['VERSION'])?> - 26.05.2026)</p>
 			</div>
 		</div>
 	</div>

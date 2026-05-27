@@ -1,3 +1,5 @@
+const version = 19.3
+
 var e_windowInfoPopup = document.getElementById('window_info_popup');
 var e_windowInfoShadow = document.getElementById('black_glass');
 var e_windowInfoText = document.getElementById('info_div');
@@ -17,10 +19,10 @@ e_windowInfoPopup.onclick = () => f_windowInfoPopup('hide_popup');
 animeWindows = document.getElementsByClassName('winPreshowGameItem');
 for (var i = 0; i < animeWindows.length; i++) {
 	animeWindows[i].onmouseenter = function () {
-		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '.gif?lastVersion=6';
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '.gif?v=' + version;
 	}
 	animeWindows[i].onmouseleave = function () {
-		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '_.gif?lastVersion=6';
+		this.getElementsByTagName('img')[0].src = 'img/' + this.getElementsByTagName('img')[0].id + '_.gif?v=' + version;
 	}
 }
 
@@ -249,7 +251,7 @@ function f_requestAndHandle(s_handlerFile, s_attributes) {
 
 // Отключение и включение звука
 function f_sound_off() {
-	var date = new Date(2030, 00, 01);
+	var date = new Date(2130, 0, 1);
 	if (getCookie('sound') == 'on') {
 		document.cookie = "sound=off; expires=" + date.toUTCString();
 		flag_SOUND = 'off';
@@ -263,7 +265,7 @@ function f_sound_off() {
 
 // Смена языка
 function f_changeLanguage() {
-	var date = new Date(2030, 00, 01);
+	var date = new Date(2130, 0, 1);
 	if (getCookie('lang') == 'rus') {
 		document.cookie = "lang=eng; expires=" + date.toUTCString();
 		flag_LANG = 'eng';
