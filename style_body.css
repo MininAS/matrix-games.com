@@ -57,18 +57,6 @@ body > #body {
 			padding-left: 5px;
 			padding-right: 5px;
 		}
-	#forum_primary, #forum_secondary {
-		transition: all .5s;
-		width: 26px;
-		margin-left: 10px;
-	}
-		#forum_primary.hidden, #forum_secondary.hidden {
-			width: 0px;
-			margin-left: 0px;
-			padding: 2px 0px;
-			border: 0px;
-			font-size: 0pt;
-		}
 
 .windowTitleTip {
     align-self: center;

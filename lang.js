@@ -35,7 +35,7 @@ function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-fetch('lang/' + getCookie('lang') + '/lang.json?lastVersion=1.51')
+fetch('lang/' + getCookie('lang') + '/lang.json?v=12')         //# --------------
     .then(response => response.status == 200 ? response.json() : [])
 	    .then (data => {
 			window.translation_LIBRARY = data;

@@ -2,7 +2,7 @@
 	/**
 	 * Версия сайта.
 	 */
-	$GLOBALS['VERSION'] = 19.3;
+	$GLOBALS['VERSION'] = 19.4;
 
     // Инициализируем функции
 	require "function.php";

@@ -1,9 +1,9 @@
-@import url("/style_body.css?lastVersion=1");
-@import url("/style_text.css");
-@import url("/style_popup.css");
-@import url("/style_forum.css?lastVersion=1");
-@import url("/style_game.css?lastVersion=2");
-@import url("/style_menu.css");
+@import url("/style_body.css?lastVersion=3");
+@import url("/style_text.css?lastVersion=3");
+@import url("/style_popup.css?lastVersion=3");
+@import url("/style_forum.css?lastVersion=3");
+@import url("/style_game.css?lastVersion=3");
+@import url("/style_menu.css?lastVersion=3");
 
 /*=============== Default ====================================================*/
 
@@ -126,7 +126,7 @@ input, textarea, select, .border_inset  {
 
 /*=============== Список игр =================================================*/
 
-  #box_game {
+    #box_game {
 		min-width: 750px;
 		display: flex;
 		flex-direction: column;
@@ -311,4 +311,16 @@ input, textarea, select, .border_inset  {
 
 ::-webkit-file-upload-button {
   display: none;
+}
+
+/*=============== Ссылки ==================================================*/
+
+.link{
+	text-shadow: 2px 2px 2px #444;
+	cursor: pointer;
+}
+
+.link:hover{
+	color: #239;
+	text-shadow: 4px 4px 6px #080000;
 }

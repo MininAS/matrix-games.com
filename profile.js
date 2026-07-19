@@ -53,5 +53,5 @@ function f_profileUpdateContent(){
 
 function f_profileUpdateState(){
 	f_showKeyTooltips();
-	f_isWindowsHeightAlignment ();
+	f_AlignWindowsHeight  ();
 }

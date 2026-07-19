@@ -2,16 +2,29 @@
 
 #messageWindow {
 	min-height: 200px;
-	padding-top: 20px;
+	padding-top: 10px;
 	overflow: auto;
 	max-height: 400px;
 }
 	ul.messageLists {
 		margin-top: 5px;
 	}
-	.forum_topic_header {
+	#forum_topic_header {
+		display: block;
+		text-align: left;
+		padding-top: 25px;
+		padding-bottom: 10px;
+		margin-left: 40pt;
         border-bottom: 2px solid #eee;
 	}
+		#menu_main_item {
+			transition: all .5s;
+		}
+		#menu_middle_item, #menu_last_item {
+			height: 0px;
+			overflow: hidden;
+			transition: all .5s;
+		}
 		ul.messageLists > li {
 			display: grid;
 			align-items: center;

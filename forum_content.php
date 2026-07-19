@@ -1,18 +1,23 @@
 <?php
 	require "init.php";
 
-	$text = "";
-	$text .= "
-	<ul class = 'messageLists'>";
-	if ($theme != 0) {
-		$parent = getForumMessageById ($theme);
-		$text .= "
-		<li class = 'forum_topic_header'>
-			<div class = 'text'>
-				<p>".$parent["text"]."</p>
-			</div>
-		</li>";
+	$middle_text = "";
+	$last_text = "";
+	$current_entity = getForumMessageById ($theme);
+	$parent_entity = getForumMessageById ($current_entity["theme"]);
+
+	if ($current_entity["theme"] == 0){
+		$middle_text = $current_entity["text"];
 	}
+	if ($current_entity["theme"] > 0){
+		$middle_text = $parent_entity["text"];
+		$last_text = $current_entity["text"];
+	}
+
+	$text = "
+	<ul class = 'messageLists'>
+		<p id = 'menu_middle_item_hidden' hidden> └── ".$middle_text."</p>
+		<p id = 'menu_last_item_hidden' hidden>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp └── ".$last_text."</p>";
 
 	$result = f_mysqlQuery ("
 		SELECT id, author, text, time, date

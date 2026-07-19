@@ -71,7 +71,7 @@ if (!window.location.href.match('profile.php') && !window.location.href.match('g
 	f_fetchUpdateContent('user_top_middle', 'top_users.php', null);
 // Запуск счетчика
 f_counter();
-f_isWindowsHeightAlignment();
+f_AlignWindowsHeight ();
 // Проверяем наличие мгновенного сообщения
 setTimeout(() => {
 	text = e_windowInfoText.innerHTML;
@@ -80,7 +80,7 @@ setTimeout(() => {
 }, 2000);
 
 // Выравниваем высоту окна user_top по высоте основного блока с играми
-function f_isWindowsHeightAlignment() {
+function f_AlignWindowsHeight () {
 	var windowHeightFirst = 0;
 	windowUserTop = document.getElementById('user_top');
 	windowUserTopMiddle = document.getElementById('user_top_middle');

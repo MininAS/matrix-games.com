@@ -10,9 +10,13 @@
 	$body = "
 	<div class = 'windowSite'>
 		<ul class = 'windowTitle'>
-			<li><p>"._l("Forum/Forum")."</p></li>
-			<li id = 'forum_primary' class = 'key'><p>/</p></li>
-			<li id = 'forum_secondary' class = 'key'><p>//</p></li>
+			<li>
+				<p id = 'menu_main_item'>"._l("Forum/Forum")."</p>
+			</li>
+		</ul>
+		<ul id = 'forum_topic_header'>
+			<p id = 'menu_middle_item'></p>
+			<p id = 'menu_last_item'></p>
 		</ul>
 		<div id = 'messageWindow'>
 		</div>
